@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute deadline miss probability on example1</name>
+		<program>sdf3analyze-sadf --graph example1.xml --compute deadline_miss(periodic,process(A),deadline(15))</program>
+		<type>outputcompare</type>
+		<reference>---- Periodic deadline miss probability of one process for SADF graph 'example1' ----
+Kernel 'A': 0.571429  (#States: 22, Analysis Time: 46ms)</reference>
+		<ignore>Analysis Time: .*ms</ignore>
+	</settings>
+</sdf3>

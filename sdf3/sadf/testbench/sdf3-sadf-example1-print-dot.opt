@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: print dot on example1</name>
+		<program>sdf3print-sadf --graph ./example1.xml --format dot</program>
+		<type>outputcompare</type>
+		<reference>digraph example1 {
+
+    K0 [ label="A" ];
+    K1 [ label="B" ];
+    K2 [ label="C" ];
+    K3 [ label="D" ];
+
+    D0 [ label="E", style=dotted ];
+
+    K0 -> K1 [ label="A2B", taillabel="2" ];
+    K1 -> K0 [ label="B2A(2)", headlabel="2" ];
+    K1 -> K2 [ label="B2C", headlabel="1" ];
+    K2 -> K3 [ label="C2D" ];
+    K3 -> K1 [ label="D2B(3)", taillabel="1", headlabel="2" ];
+    K0 -> D0 [ label="A2E", taillabel="1", headlabel="1" ];
+
+    D0 -> K1 [ label="E2B", headlabel="1", style=dotted ];
+    D0 -> K2 [ label="E2C", headlabel="1", style=dotted ];
+    D0 -> K3 [ label="E2D", headlabel="1", style=dotted ];
+}</reference>
+	</settings>
+
+</sdf3>

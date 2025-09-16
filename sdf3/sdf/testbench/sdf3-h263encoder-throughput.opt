@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: throughput on H263 encoder</name>
+		<program>sdf3analyze-sdf --algo throughput --graph h263encoder.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>thr(h263encoder) = 4.72981e-06</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

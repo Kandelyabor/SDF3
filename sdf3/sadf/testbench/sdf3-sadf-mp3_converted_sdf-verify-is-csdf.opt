@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: verify is-csdf on mp3_converted_sdf</name>
+		<program>sdf3verify-sadf --graph ./mp3_converted_sdf.xml --check is_csdf</program>
+		<type>outputcompare</type>
+		<reference>SADF graph 'mp3_converted_sdf' represents a CSDF graph.</reference>
+	</settings>
+
+</sdf3>

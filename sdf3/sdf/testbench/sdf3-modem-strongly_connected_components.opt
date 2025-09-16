@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: strongly_connected_components on modem</name>
+		<program>sdf3analyze-sdf --algo strongly_connected_components --graph modem.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Strongly connected components:
+Component: fork1, deci, mul1, fork2, ac, add, biq, bi, eq, mul2, conj
+Component: in
+Component: filt
+Component: hil
+Component: deco
+Component: out</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

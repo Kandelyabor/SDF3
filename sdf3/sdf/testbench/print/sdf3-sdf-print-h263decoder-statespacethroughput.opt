@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF print: state space throughput on H263 decoder</name>
+		<program>sdf3print-sdf --format stateSpaceThroughput --graph h263decoder.xml --output h263decoder.stateSpaceThroughput.cc</program>
+		<type>outputcompare</type>
+		<programOutput>h263decoder.stateSpaceThroughput.cc</programOutput>
+	</settings>
+</sdf3>

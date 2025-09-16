@@ -1,0 +1,33 @@
+// srcRate the rate on the source port
+// dstRate the rate on the destination port
+// tokenSize the size of the token in words
+// initialToken the number of initial tokens
+
+name=two_sw_two_sel
+dftype = fsmsadf
+digraph scenario1 {
+    a->b [srcRate=2 dstRate=2 channelName=outOne]
+    a->b [srcRate=3 dstRate=3 channelName=outTwo]
+    b->c [srcRate=2 dstRate=2]
+    c->a [srcRate=2 dstRate=2 channelName=inOne initialTokens=t1,t2]
+    c->a [srcRate=2 dstRate=2 channelName=inTwo initialTokens=t3,t4]
+}
+
+digraph scenario2 {
+    a->d [srcRate=2 dstRate=2 channelName=outOne]
+    a->d [srcRate=3 dstRate=3 channelName=outTwo]
+    d->a [srcRate=2 dstRate=2 channelName=inOne initialTokens=t1,t2]
+    d->a [srcRate=2 dstRate=2 channelName=inTwo initialTokens=t3,t4]
+}
+
+fsm [initial=scenario1 detector=a] {
+  scenario1 -> scenario1
+  scenario1 -> scenario2
+  scenario2 -> scenario1
+  scenario2 -> scenario2
+}
+
+timeUnit = 20 ns
+dataUnit = 1 B
+throughput=2e-10
+

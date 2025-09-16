@@ -1,0 +1,2 @@
+add_subdirectory(earliest_deadline_first)
+add_subdirectory(static_order)

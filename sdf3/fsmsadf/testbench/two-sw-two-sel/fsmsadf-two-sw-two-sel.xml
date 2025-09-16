@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="two_sw_two_sel" type="fsmsadf">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="outOne_0" rate="2" type="out"/>
+          <port name="outTwo_1" rate="3" type="out"/>
+          <port name="inOne_0" rate="2" type="in"/>
+          <port name="inTwo_1" rate="2" type="in"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="inOne_0" rate="2" type="out"/>
+          <port name="inTwo_1" rate="2" type="out"/>
+          <port name="fbc11_0" rate="2" type="in"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="fbc11_0" rate="2" type="out"/>
+          <port name="outOne_0" rate="2" type="in"/>
+          <port name="outTwo_1" rate="3" type="in"/>
+        </actor>
+        <channel dstActor="b" dstPort="outOne_0" name="outOne" srcActor="a" srcPort="outOne_0"/>
+        <channel dstActor="b" dstPort="outTwo_1" name="outTwo" srcActor="a" srcPort="outTwo_1"/>
+        <channel dstActor="c" dstPort="fbc11_0" name="fbc11" srcActor="b" srcPort="fbc11_0"/>
+        <channel dstActor="a" dstPort="inOne_0" initialTokens="2" name="inOne" persistentTokenNames="t1,t2" srcActor="c" srcPort="inOne_0"/>
+        <channel dstActor="a" dstPort="inTwo_1" initialTokens="2" name="inTwo" persistentTokenNames="t3,t4" srcActor="c" srcPort="inTwo_1"/>
+      </scenariograph>
+      <scenariograph name="scenario2" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="outOne_0" rate="2" type="out"/>
+          <port name="outTwo_1" rate="3" type="out"/>
+          <port name="inOne_0" rate="2" type="in"/>
+          <port name="inTwo_1" rate="2" type="in"/>
+        </actor>
+        <actor name="d" type="d">
+          <port name="inOne_0" rate="2" type="out"/>
+          <port name="inTwo_1" rate="2" type="out"/>
+          <port name="outOne_0" rate="2" type="in"/>
+          <port name="outTwo_1" rate="3" type="in"/>
+        </actor>
+        <channel dstActor="d" dstPort="outOne_0" name="outOne" srcActor="a" srcPort="outOne_0"/>
+        <channel dstActor="d" dstPort="outTwo_1" name="outTwo" srcActor="a" srcPort="outTwo_1"/>
+        <channel dstActor="a" dstPort="inOne_0" initialTokens="2" name="inOne" persistentTokenNames="t1,t2" srcActor="d" srcPort="inOne_0"/>
+        <channel dstActor="a" dstPort="inTwo_1" initialTokens="2" name="inTwo" persistentTokenNames="t3,t4" srcActor="d" srcPort="inTwo_1"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>2e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+      <scenarios>
+        <scenario graph="scenario1" name="scenario1" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="a_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="c_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="b_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="outOne">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outTwo">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc11">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inOne">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inTwo">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+        <scenario graph="scenario2" name="scenario2" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="a_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="d_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="outOne">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outTwo">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inOne">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inTwo">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+    </fsmsadfProperties>
+    <fsm detector="a" initialstate="q1">
+      <state name="q2" scenario="scenario2">
+        <transition destination="q1"/>
+        <transition destination="q2"/>
+      </state>
+      <state name="q1" scenario="scenario1">
+        <transition destination="q1"/>
+        <transition destination="q2"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

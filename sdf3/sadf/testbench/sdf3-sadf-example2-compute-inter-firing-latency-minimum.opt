@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute inter-firing latency minimum on example2</name>
+		<program>sdf3analyze-sadf --graph example2.xml --compute inter_firing_latency(minimum)</program>
+		<type>outputcompare</type>
+		<reference>---- Minimum inter-firing latencies of all processes for SADF graph 'example2' ----
+Kernel 'A': 0  (#States: 38, Analysis Time: 843ms)
+Kernel 'B': 8  (#States: 11, Analysis Time: 15ms)
+Detector 'D': 8  (#States: 31, Analysis Time: 93ms)</reference>
+		<ignore>Analysis Time: .*ms</ignore>
+	</settings>
+
+</sdf3>

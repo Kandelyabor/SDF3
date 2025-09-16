@@ -1,0 +1,1089 @@
+<!DOCTYPE architecture SYSTEM "../../dtd/architecturegrm.dtd">
+<architecture id="xilinx2tile3dma">
+
+  <!-- Global architecture parameters. -->
+  <parameter id="fpga_board" type="string" value="ml605" />
+  <parameter id="clk" type="string" value="NoC_clock" />
+  <parameter id="slotsize" type="int" value="3" />
+  <parameter id="wordsize" type="int" value="4" />
+  <parameter id="pckhdr" type="int" value="1" />
+  <parameter id="cmdsize" type="int" value="2" />
+  <parameter id="maxfc" type="int" value="31" />
+  <parameter id="maxpcklen" type="int" value="8" />
+  <parameter id="riqueue" type="int" value="8" />
+  <parameter id="niiqueue" type="int" value="8" />
+  <parameter id="nioqueue" type="int" value="8" />
+  <parameter id="link_pipeline_stages" type="int" value="0" />
+  <parameter id="CFG_USR_MASK" type="hex" value="0xfff00000" />
+  <parameter id="CFG_EQUAL" type="hex" value="0x80000000" />
+  <parameter id="USR_MASK" type="hex" value="0x7ff00000" />
+  <parameter id="gtonly" type="bool" value="1" />
+  <parameter id="slots" type="int" value="9" />
+
+  <!-- Clocks (1) -->
+  <clk id="NoC_clock" period="20" />
+
+  <!-- IP modules (39) of the architecture. -->
+  <ip id="monitor" type="Host">
+    <parameter id="mem_size" type="int" value="0x40000" />
+    <parameter id="fsl_clock_gate" type="bool" value="1" />
+    <parameter id="mem_BASEADDR" type="int" value="0x00000000" />
+    <parameter id="mem_HIGHADDR" type="int" value="0x0003FFFF" />
+    <parameter id="USR_EQUAL" type="int" value="0x7ff00000" />
+    <parameter id="CFG_EQUAL" type="int" value="0x80000000" />
+    <parameter id="CFG_USR_MASK" type="int" value="0xfff00000" />
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+  </ip>
+  <ip id="mb0" type="MBtile">
+    <parameter id="imem_size" type="int" value="0x40000" />
+    <parameter id="dmem_size" type="int" value="0x40000" />
+    <parameter id="dma" type="int" value="3" />
+    <parameter id="cmemin" type="int" value="3" />
+    <parameter id="imem_BASEADDR" type="int" value="0x00000000" />
+    <parameter id="imem_HIGHADDR" type="int" value="0x0003FFFF" />
+    <parameter id="dmem_BASEADDR" type="int" value="0x00040000" />
+    <parameter id="dmem_HIGHADDR" type="int" value="0x0007FFFF" />
+    <parameter id="cmemin0_size" type="int" value="0x1000" />
+    <parameter id="cmemin0_BASEADDR" type="int" value="0x00080000" />
+    <parameter id="cmemin0_HIGHADDR" type="int" value="0x00080FFF" />
+    <parameter id="cmemin1_size" type="int" value="0x1000" />
+    <parameter id="cmemin1_BASEADDR" type="int" value="0x00081000" />
+    <parameter id="cmemin1_HIGHADDR" type="int" value="0x00081FFF" />
+    <parameter id="cmemin2_size" type="int" value="0x1000" />
+    <parameter id="cmemin2_BASEADDR" type="int" value="0x00082000" />
+    <parameter id="cmemin2_HIGHADDR" type="int" value="0x00082FFF" />
+    <parameter id="cmemout0_size" type="int" value="0x1000" />
+    <parameter id="cmemout0_DTL_ADDRWIDTH" type="int" value="12" />
+    <parameter id="cmemout0_BASEADDR" type="int" value="0x00083000" />
+    <parameter id="cmemout0_HIGHADDR" type="int" value="0x00083FFF" />
+    <parameter id="dma0_BASEADDR" type="int" value="0x000F0000" />
+    <parameter id="dma0_HIGHADDR" type="int" value="0x000F0FFF" />
+    <parameter id="cmemout1_size" type="int" value="0x1000" />
+    <parameter id="cmemout1_DTL_ADDRWIDTH" type="int" value="12" />
+    <parameter id="cmemout1_BASEADDR" type="int" value="0x00084000" />
+    <parameter id="cmemout1_HIGHADDR" type="int" value="0x00084FFF" />
+    <parameter id="dma1_BASEADDR" type="int" value="0x000F1000" />
+    <parameter id="dma1_HIGHADDR" type="int" value="0x000F1FFF" />
+    <parameter id="cmemout2_size" type="int" value="0x1000" />
+    <parameter id="cmemout2_DTL_ADDRWIDTH" type="int" value="12" />
+    <parameter id="cmemout2_BASEADDR" type="int" value="0x00085000" />
+    <parameter id="cmemout2_HIGHADDR" type="int" value="0x00085FFF" />
+    <parameter id="dma2_BASEADDR" type="int" value="0x000F2000" />
+    <parameter id="dma2_HIGHADDR" type="int" value="0x000F2FFF" />
+    <port id="dma0_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="dma1_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="dma2_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="cmemin0_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x01000000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+    <port id="cmemin1_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x01100000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+    <port id="cmemin2_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x01200000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+  </ip>
+  <ip id="mb1" type="MBtile">
+    <parameter id="imem_size" type="int" value="0x40000" />
+    <parameter id="dmem_size" type="int" value="0x40000" />
+    <parameter id="dma" type="int" value="3" />
+    <parameter id="cmemout0_size" type="int" value="0x2000" />
+    <parameter id="cmemout1_size" type="int" value="0x2000" />
+    <parameter id="cmemout2_size" type="int" value="0x2000" />
+    <parameter id="cmemin" type="int" value="3" />
+    <parameter id="cmemin0_size" type="int" value="0x2000" />
+    <parameter id="cmemin1_size" type="int" value="0x2000" />
+    <parameter id="cmemin2_size" type="int" value="0x2000" />
+    <parameter id="imem_BASEADDR" type="int" value="0x00000000" />
+    <parameter id="imem_HIGHADDR" type="int" value="0x0003FFFF" />
+    <parameter id="dmem_BASEADDR" type="int" value="0x00040000" />
+    <parameter id="dmem_HIGHADDR" type="int" value="0x0007FFFF" />
+    <parameter id="cmemin0_BASEADDR" type="int" value="0x00080000" />
+    <parameter id="cmemin0_HIGHADDR" type="int" value="0x00081FFF" />
+    <parameter id="cmemin1_BASEADDR" type="int" value="0x00082000" />
+    <parameter id="cmemin1_HIGHADDR" type="int" value="0x00083FFF" />
+    <parameter id="cmemin2_BASEADDR" type="int" value="0x00084000" />
+    <parameter id="cmemin2_HIGHADDR" type="int" value="0x00085FFF" />
+    <parameter id="cmemout0_DTL_ADDRWIDTH" type="int" value="13" />
+    <parameter id="cmemout0_BASEADDR" type="int" value="0x00086000" />
+    <parameter id="cmemout0_HIGHADDR" type="int" value="0x00087FFF" />
+    <parameter id="dma0_BASEADDR" type="int" value="0x000F0000" />
+    <parameter id="dma0_HIGHADDR" type="int" value="0x000F0FFF" />
+    <parameter id="cmemout1_DTL_ADDRWIDTH" type="int" value="13" />
+    <parameter id="cmemout1_BASEADDR" type="int" value="0x00088000" />
+    <parameter id="cmemout1_HIGHADDR" type="int" value="0x00089FFF" />
+    <parameter id="dma1_BASEADDR" type="int" value="0x000F1000" />
+    <parameter id="dma1_HIGHADDR" type="int" value="0x000F1FFF" />
+    <parameter id="cmemout2_DTL_ADDRWIDTH" type="int" value="13" />
+    <parameter id="cmemout2_BASEADDR" type="int" value="0x0008A000" />
+    <parameter id="cmemout2_HIGHADDR" type="int" value="0x0008BFFF" />
+    <parameter id="dma2_BASEADDR" type="int" value="0x000F2000" />
+    <parameter id="dma2_HIGHADDR" type="int" value="0x000F2FFF" />
+    <port id="dma0_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="dma1_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="dma2_pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="cmemin0_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x02000000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+    <port id="cmemin1_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x02100000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+    <port id="cmemin2_pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x02200000" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+  </ip>
+  <ip id="shared" type="Memory">
+    <parameter id="size" type="int" value="0x40000" />
+    <parameter id="BASEADDR" type="int" value="0x78000000" />
+    <parameter id="HIGHADDR" type="int" value="0x7803FFFF" />
+    <parameter id="host_BASEADDR" type="int" value="0x00040000" />
+    <parameter id="host_HIGHADDR" type="int" value="0x0007FFFF" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="address" type="int" value="0x78000000" />
+      <parameter id="arbiter" type="string" value="round-robin" />
+      <parameter id="workConserving" type="bool" value="1" />
+      <parameter id="hasPatternFile" type="bool" value="1" />
+    </port>
+  </ip>
+  <ip id="monitor_pi_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_dma0_pi_bus" type="TrgtBus">
+    <parameter id="match_pos" type="int" value="20" />
+    <parameter id="match_width" type="int" value="11" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pi0" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pi1" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="1" />
+    </port>
+  </ip>
+  <ip id="mb0_dma0_pi_bus_pi0_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_dma0_pi_bus_pi1_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_dma1_pi_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_dma2_pi_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_cmemin0_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_cmemin1_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb0_cmemin2_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_dma0_pi_bus" type="TrgtBus">
+    <parameter id="match_pos" type="int" value="20" />
+    <parameter id="match_width" type="int" value="11" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pi0" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pi1" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="1" />
+    </port>
+  </ip>
+  <ip id="mb1_dma0_pi_bus_pi0_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_dma0_pi_bus_pi1_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_dma1_pi_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_dma2_pi_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_cmemin0_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_cmemin1_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="mb1_cmemin2_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="shared_pt_bus" type="InitBus">
+    <parameter id="arbiter" type="string" value="round-robin" />
+    <parameter id="workConserving" type="bool" value="1" />
+    <parameter id="scheduleInterval" type="int" value="1" />
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pt0" type="Target" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pt1" type="Target" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="pt2" type="Target" protocol="MMIO_DTL">
+      <parameter id="portid" type="int" value="2" />
+    </port>
+  </ip>
+  <ip id="shared_pt_bus_pt0_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="shared_pt_bus_pt1_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="shared_pt_bus_pt2_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="Rx0y0" type="Router">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p1_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="p1_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="p2_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="p2_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="2" />
+    </port>
+  </ip>
+  <ip id="Rx1y0" type="Router">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p1_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="p1_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="p2_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="p2_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="2" />
+    </port>
+  </ip>
+  <ip id="NIx0y0n0" type="NI">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="NIx0y0n0_cfgbus_rmt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="3" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="NIx0y0n0_cfgbus_rmt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="3" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="monitor_pi_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="monitor_pi_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="4" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+  </ip>
+  <ip id="NIx0y0n1" type="NI">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="NIx0y0n1_cfgbus_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="3" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="NIx0y0n1_cfgbus_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="shared_pt_bus_pt0_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="2" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="shared_pt_bus_pt0_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="17" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="shared_pt_bus_pt1_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="shared_pt_bus_pt1_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="16" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="shared_pt_bus_pt2_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+    <port id="shared_pt_bus_pt2_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="16" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+  </ip>
+  <ip id="NIx1y0n0" type="NI">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="NIx1y0n0_cfgbus_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="3" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="NIx1y0n0_cfgbus_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="mb0_dma0_pi_bus_pi0_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="mb0_dma0_pi_bus_pi0_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="mb0_dma0_pi_bus_pi1_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="mb0_dma0_pi_bus_pi1_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="mb0_cmemin0_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+    <port id="mb0_cmemin0_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+    <port id="mb0_cmemin2_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="4" />
+    </port>
+    <port id="mb0_cmemin2_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="4" />
+    </port>
+    <port id="mb0_dma1_pi_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="5" />
+    </port>
+    <port id="mb0_dma1_pi_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="5" />
+    </port>
+    <port id="mb0_dma2_pi_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="6" />
+    </port>
+    <port id="mb0_dma2_pi_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="6" />
+    </port>
+    <port id="mb0_cmemin1_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="7" />
+    </port>
+    <port id="mb0_cmemin1_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="7" />
+    </port>
+  </ip>
+  <ip id="NIx1y0n1" type="NI">
+    <port id="p0_in" type="Target" protocol="FLIT_AE">
+      <parameter id="iqsz" type="int" value="8" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="p0_out" type="Initiator" protocol="FLIT_AE">
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pgm" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="NIx1y0n1_cfgbus_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="3" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="NIx1y0n1_cfgbus_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="mb1_cmemin0_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="mb1_cmemin0_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="mb1_dma0_pi_bus_pi0_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="mb1_dma0_pi_bus_pi0_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+    <port id="mb1_dma2_pi_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+    <port id="mb1_dma2_pi_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="3" />
+    </port>
+    <port id="mb1_cmemin1_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="4" />
+    </port>
+    <port id="mb1_cmemin1_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="4" />
+    </port>
+    <port id="mb1_cmemin2_pt_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="9" />
+      <parameter id="portid" type="int" value="5" />
+    </port>
+    <port id="mb1_cmemin2_pt_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="15" />
+      <parameter id="portid" type="int" value="5" />
+    </port>
+    <port id="mb1_dma1_pi_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="6" />
+    </port>
+    <port id="mb1_dma1_pi_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="6" />
+    </port>
+    <port id="mb1_dma0_pi_bus_pi1_shell_ps_in" type="Target" protocol="FIFO_AE">
+      <parameter id="iqsz" type="int" value="13" />
+      <parameter id="portid" type="int" value="7" />
+    </port>
+    <port id="mb1_dma0_pi_bus_pi1_shell_ps_out" type="Initiator" protocol="FIFO_AE">
+      <parameter id="oqsz" type="int" value="11" />
+      <parameter id="portid" type="int" value="7" />
+    </port>
+  </ip>
+  <ip id="NIx0y0n0_cfgbus" type="TrgtBus">
+    <parameter id="default_port" type="int" value="1" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="lcl" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x80000000" />
+      <parameter id="addr_mask" type="int" value="0xfff07c00" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x7ff00000" />
+      <parameter id="addr_mask" type="int" value="0xfff00000" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+    <port id="rmt" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x80004000" />
+      <parameter id="addr_mask" type="int" value="0xfff04000" />
+      <parameter id="portid" type="int" value="2" />
+    </port>
+  </ip>
+  <ip id="NIx0y0n0_cfgbus_rmt_shell" type="TrgtShell">
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="NIx0y0n1_cfgbus" type="TrgtBus">
+    <parameter id="default_port" type="int" value="0" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="lcl" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x00000000" />
+      <parameter id="addr_mask" type="int" value="0x00003c00" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+  </ip>
+  <ip id="NIx0y0n1_cfgbus_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="NIx1y0n0_cfgbus" type="TrgtBus">
+    <parameter id="default_port" type="int" value="0" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="lcl" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x00000000" />
+      <parameter id="addr_mask" type="int" value="0x00003c00" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="mb0_dma0_pi_bus" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x00000400" />
+      <parameter id="addr_mask" type="int" value="0x00003c00" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+  </ip>
+  <ip id="NIx1y0n0_cfgbus_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+  <ip id="NIx1y0n1_cfgbus" type="TrgtBus">
+    <parameter id="default_port" type="int" value="0" />
+    <port id="pt" type="Target" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+    </port>
+    <port id="lcl" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x00000000" />
+      <parameter id="addr_mask" type="int" value="0x00003c00" />
+      <parameter id="portid" type="int" value="0" />
+    </port>
+    <port id="mb1_dma0_pi_bus" type="Initiator" protocol="MMIO_DTL">
+      <parameter id="width" type="int" value="32" />
+      <parameter id="addr_equal" type="int" value="0x00000400" />
+      <parameter id="addr_mask" type="int" value="0x00003c00" />
+      <parameter id="portid" type="int" value="1" />
+    </port>
+  </ip>
+  <ip id="NIx1y0n1_cfgbus_pt_shell" type="InitShell">
+    <port id="pi" type="Initiator" protocol="MMIO_DTL">
+    </port>
+    <port id="pst" type="Target" protocol="FIFO_AE">
+    </port>
+    <port id="psi" type="Initiator" protocol="FIFO_AE">
+    </port>
+  </ip>
+
+  <!-- Connects (86) between IP module ports. -->
+  <connect>
+     <endpoint ip="mb0" port="dma0_pi" />
+     <endpoint ip="mb0_dma0_pi_bus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma0_pi_bus" port="pi0" />
+     <endpoint ip="mb0_dma0_pi_bus_pi0_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma0_pi_bus" port="pi1" />
+     <endpoint ip="mb0_dma0_pi_bus_pi1_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0" port="dma1_pi" />
+     <endpoint ip="mb0_dma1_pi_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0" port="dma2_pi" />
+     <endpoint ip="mb0_dma2_pi_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin0_pt_shell" port="pi" />
+     <endpoint ip="mb0" port="cmemin0_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin1_pt_shell" port="pi" />
+     <endpoint ip="mb0" port="cmemin1_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin2_pt_shell" port="pi" />
+     <endpoint ip="mb0" port="cmemin2_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1" port="dma0_pi" />
+     <endpoint ip="mb1_dma0_pi_bus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma0_pi_bus" port="pi0" />
+     <endpoint ip="mb1_dma0_pi_bus_pi0_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma0_pi_bus" port="pi1" />
+     <endpoint ip="mb1_dma0_pi_bus_pi1_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1" port="dma1_pi" />
+     <endpoint ip="mb1_dma1_pi_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1" port="dma2_pi" />
+     <endpoint ip="mb1_dma2_pi_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin0_pt_shell" port="pi" />
+     <endpoint ip="mb1" port="cmemin0_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin1_pt_shell" port="pi" />
+     <endpoint ip="mb1" port="cmemin1_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin2_pt_shell" port="pi" />
+     <endpoint ip="mb1" port="cmemin2_pt" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus" port="pi" />
+     <endpoint ip="shared" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt0_shell" port="pi" />
+     <endpoint ip="shared_pt_bus" port="pt0" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt1_shell" port="pi" />
+     <endpoint ip="shared_pt_bus" port="pt1" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt2_shell" port="pi" />
+     <endpoint ip="shared_pt_bus" port="pt2" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx0y0" port="p0_out" />
+     <endpoint ip="Rx1y0" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx1y0" port="p0_out" />
+     <endpoint ip="Rx0y0" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0" port="p0_out" />
+     <endpoint ip="Rx0y0" port="p1_in" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx0y0" port="p1_out" />
+     <endpoint ip="NIx0y0n0" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1" port="p0_out" />
+     <endpoint ip="Rx0y0" port="p2_in" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx0y0" port="p2_out" />
+     <endpoint ip="NIx0y0n1" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="p0_out" />
+     <endpoint ip="Rx1y0" port="p1_in" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx1y0" port="p1_out" />
+     <endpoint ip="NIx1y0n0" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="p0_out" />
+     <endpoint ip="Rx1y0" port="p2_in" />
+  </connect>
+  <connect>
+     <endpoint ip="Rx1y0" port="p2_out" />
+     <endpoint ip="NIx1y0n1" port="p0_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0_cfgbus" port="lcl" />
+     <endpoint ip="NIx0y0n0" port="pgm" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0_cfgbus" port="pi" />
+     <endpoint ip="monitor_pi_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="monitor" port="pi" />
+     <endpoint ip="NIx0y0n0_cfgbus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0_cfgbus" port="rmt" />
+     <endpoint ip="NIx0y0n0_cfgbus_rmt_shell" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0_cfgbus_rmt_shell" port="psi" />
+     <endpoint ip="NIx0y0n0" port="NIx0y0n0_cfgbus_rmt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0" port="NIx0y0n0_cfgbus_rmt_shell_ps_out" />
+     <endpoint ip="NIx0y0n0_cfgbus_rmt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1_cfgbus" port="lcl" />
+     <endpoint ip="NIx0y0n1" port="pgm" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1_cfgbus_pt_shell" port="pi" />
+     <endpoint ip="NIx0y0n1_cfgbus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1_cfgbus_pt_shell" port="psi" />
+     <endpoint ip="NIx0y0n1" port="NIx0y0n1_cfgbus_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1" port="NIx0y0n1_cfgbus_pt_shell_ps_out" />
+     <endpoint ip="NIx0y0n1_cfgbus_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0_cfgbus" port="lcl" />
+     <endpoint ip="NIx1y0n0" port="pgm" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0_cfgbus_pt_shell" port="pi" />
+     <endpoint ip="NIx1y0n0_cfgbus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0_cfgbus_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="NIx1y0n0_cfgbus_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="NIx1y0n0_cfgbus_pt_shell_ps_out" />
+     <endpoint ip="NIx1y0n0_cfgbus_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1_cfgbus" port="lcl" />
+     <endpoint ip="NIx1y0n1" port="pgm" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1_cfgbus_pt_shell" port="pi" />
+     <endpoint ip="NIx1y0n1_cfgbus" port="pt" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1_cfgbus_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="NIx1y0n1_cfgbus_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="NIx1y0n1_cfgbus_pt_shell_ps_out" />
+     <endpoint ip="NIx1y0n1_cfgbus_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="monitor_pi_shell" port="psi" />
+     <endpoint ip="NIx0y0n0" port="monitor_pi_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n0" port="monitor_pi_shell_ps_out" />
+     <endpoint ip="monitor_pi_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt0_shell" port="psi" />
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt0_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt0_shell_ps_out" />
+     <endpoint ip="shared_pt_bus_pt0_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma0_pi_bus_pi0_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_dma0_pi_bus_pi0_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_dma0_pi_bus_pi0_shell_ps_out" />
+     <endpoint ip="mb0_dma0_pi_bus_pi0_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt1_shell" port="psi" />
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt1_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt1_shell_ps_out" />
+     <endpoint ip="shared_pt_bus_pt1_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma0_pi_bus_pi1_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_dma0_pi_bus_pi1_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_dma0_pi_bus_pi1_shell_ps_out" />
+     <endpoint ip="mb0_dma0_pi_bus_pi1_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin0_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin0_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin0_pt_shell_ps_out" />
+     <endpoint ip="mb1_cmemin0_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma0_pi_bus_pi0_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_dma0_pi_bus_pi0_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_dma0_pi_bus_pi0_shell_ps_out" />
+     <endpoint ip="mb1_dma0_pi_bus_pi0_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin0_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin0_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin0_pt_shell_ps_out" />
+     <endpoint ip="mb0_cmemin0_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma2_pi_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_dma2_pi_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_dma2_pi_shell_ps_out" />
+     <endpoint ip="mb1_dma2_pi_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin2_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin2_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin2_pt_shell_ps_out" />
+     <endpoint ip="mb0_cmemin2_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma1_pi_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_dma1_pi_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_dma1_pi_shell_ps_out" />
+     <endpoint ip="mb0_dma1_pi_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin1_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin1_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin1_pt_shell_ps_out" />
+     <endpoint ip="mb1_cmemin1_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_dma2_pi_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_dma2_pi_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_dma2_pi_shell_ps_out" />
+     <endpoint ip="mb0_dma2_pi_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_cmemin2_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin2_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_cmemin2_pt_shell_ps_out" />
+     <endpoint ip="mb1_cmemin2_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma1_pi_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_dma1_pi_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_dma1_pi_shell_ps_out" />
+     <endpoint ip="mb1_dma1_pi_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb0_cmemin1_pt_shell" port="psi" />
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin1_pt_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0" port="mb0_cmemin1_pt_shell_ps_out" />
+     <endpoint ip="mb0_cmemin1_pt_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="mb1_dma0_pi_bus_pi1_shell" port="psi" />
+     <endpoint ip="NIx1y0n1" port="mb1_dma0_pi_bus_pi1_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1" port="mb1_dma0_pi_bus_pi1_shell_ps_out" />
+     <endpoint ip="mb1_dma0_pi_bus_pi1_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="shared_pt_bus_pt2_shell" port="psi" />
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt2_shell_ps_in" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx0y0n1" port="shared_pt_bus_pt2_shell_ps_out" />
+     <endpoint ip="shared_pt_bus_pt2_shell" port="pst" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n0_cfgbus" port="mb0_dma0_pi_bus" />
+     <endpoint ip="mb0_dma0_pi_bus" port="pgm" />
+  </connect>
+  <connect>
+     <endpoint ip="NIx1y0n1_cfgbus" port="mb1_dma0_pi_bus" />
+     <endpoint ip="mb1_dma0_pi_bus" port="pgm" />
+  </connect>
+
+  <!-- Constraints (4) on mapping of IP ports. -->
+   <constraint id="monitor" port="monitor.*" ni="NIx0y0n0" />
+   <constraint id="shared" port="shared.*" ni="NIx0y0n1" />
+   <constraint id="mb0" port="mb0.*" ni="NIx1y0n0" />
+   <constraint id="mb1" port="mb1.*" ni="NIx1y0n1" />
+</architecture>

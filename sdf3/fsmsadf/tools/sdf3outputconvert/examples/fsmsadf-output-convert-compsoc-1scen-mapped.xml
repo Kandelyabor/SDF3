@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="smap">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="out1_0" type="out" rate="3"/>
+          <port name="aa1_1" type="out" rate="1"/>
+          <port name="aa1_0" type="in" rate="1"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="fce11_0" type="out" rate="2"/>
+          <port name="fbc12_0" type="in" rate="2"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="fbd10_0" type="out" rate="4"/>
+          <port name="fbc12_1" type="out" rate="4"/>
+          <port name="fbb13_2" type="out" rate="1"/>
+          <port name="fbb13_0" type="in" rate="1"/>
+          <port name="out1_1" type="in" rate="3"/>
+        </actor>
+        <actor name="e" type="e">
+          <port name="ee_0" type="out" rate="1"/>
+          <port name="fde8_0" type="in" rate="2"/>
+          <port name="ee_1" type="in" rate="1"/>
+          <port name="fce11_2" type="in" rate="4"/>
+        </actor>
+        <actor name="d" type="d">
+          <port name="fde8_0" type="out" rate="2"/>
+          <port name="fbd10_0" type="in" rate="4"/>
+        </actor>
+        <channel name="fde8" srcActor="d" srcPort="fde8_0" dstActor="e" dstPort="fde8_0" initialTokens="0" finalTokens="0"/>
+        <channel name="ee" srcActor="e" srcPort="ee_0" dstActor="e" dstPort="ee_1" initialTokens="1" finalTokens="1" persistentTokenNames="t3" persistentFinalTokenNames="t3"/>
+        <channel name="fbd10" srcActor="b" srcPort="fbd10_0" dstActor="d" dstPort="fbd10_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fce11" srcActor="c" srcPort="fce11_0" dstActor="e" dstPort="fce11_2" initialTokens="0" finalTokens="0"/>
+        <channel name="fbc12" srcActor="b" srcPort="fbc12_1" dstActor="c" dstPort="fbc12_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fbb13" srcActor="b" srcPort="fbb13_2" dstActor="b" dstPort="fbb13_0" initialTokens="1" finalTokens="1" persistentTokenNames="t4" persistentFinalTokenNames="t4"/>
+        <channel name="out1" srcActor="a" srcPort="out1_0" dstActor="b" dstPort="out1_1" initialTokens="0" finalTokens="0"/>
+        <channel name="aa1" srcActor="a" srcPort="aa1_1" dstActor="a" dstPort="aa1_0" initialTokens="1" finalTokens="1" persistentTokenNames="t1" persistentFinalTokenNames="t1"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="a"/>
+        <actorProperties actor="c"/>
+        <actorProperties actor="b"/>
+        <actorProperties actor="e"/>
+        <actorProperties actor="d"/>
+        <channelProperties channel="fde8"/>
+        <channelProperties channel="ee"/>
+        <channelProperties channel="fbd10"/>
+        <channelProperties channel="fce11"/>
+        <channelProperties channel="fbc12"/>
+        <channelProperties channel="fbb13"/>
+        <channelProperties channel="out1"/>
+        <channelProperties channel="aa1"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="scenario1" graph="scenario1" reward="1">
+          <actorProperties actor="a" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="a_func">
+                  <argumentMapping>
+                    <argument number="0" port="out1_0"/>
+                    <argument number="1" port="aa1_1"/>
+                    <argument number="0" port="aa1_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="c_func">
+                  <argumentMapping>
+                    <argument number="0" port="fce11_0"/>
+                    <argument number="0" port="fbc12_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="b_func">
+                  <argumentMapping>
+                    <argument number="0" port="fbd10_0"/>
+                    <argument number="1" port="fbc12_1"/>
+                    <argument number="2" port="fbb13_2"/>
+                    <argument number="0" port="fbb13_0"/>
+                    <argument number="1" port="out1_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="e" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="e_func">
+                  <argumentMapping>
+                    <argument number="0" port="ee_0"/>
+                    <argument number="0" port="fde8_0"/>
+                    <argument number="1" port="ee_1"/>
+                    <argument number="2" port="fce11_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="d_func">
+                  <argumentMapping>
+                    <argument number="0" port="fde8_0"/>
+                    <argument number="0" port="fbd10_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="fde8">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="ee">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbd10">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fce11">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc12">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbb13">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="out1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="aa1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="aa1" sz="0"/>
+              <channel name="ee" sz="0"/>
+              <channel name="fbb13" sz="0"/>
+              <channel name="fbc12" sz="0"/>
+              <channel name="fbd10" sz="0"/>
+              <channel name="fce11" sz="0"/>
+              <channel name="fde8" sz="0"/>
+              <channel name="out1" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="23" thr="3.33333e-05">
+              <channel name="aa1" sz="2"/>
+              <channel name="ee" sz="2"/>
+              <channel name="fbb13" sz="2"/>
+              <channel name="fbc12" sz="4"/>
+              <channel name="fbd10" sz="4"/>
+              <channel name="fce11" sz="4"/>
+              <channel name="fde8" sz="2"/>
+              <channel name="out1" sz="3"/>
+            </storageDistribution>
+            <storageDistribution sz="27" thr="4e-05">
+              <channel name="aa1" sz="2"/>
+              <channel name="ee" sz="2"/>
+              <channel name="fbb13" sz="2"/>
+              <channel name="fbc12" sz="6"/>
+              <channel name="fbd10" sz="4"/>
+              <channel name="fce11" sz="6"/>
+              <channel name="fde8" sz="2"/>
+              <channel name="out1" sz="3"/>
+            </storageDistribution>
+            <storageDistribution sz="29" thr="5e-05">
+              <channel name="aa1" sz="2"/>
+              <channel name="ee" sz="2"/>
+              <channel name="fbb13" sz="2"/>
+              <channel name="fbc12" sz="6"/>
+              <channel name="fbd10" sz="4"/>
+              <channel name="fce11" sz="6"/>
+              <channel name="fde8" sz="4"/>
+              <channel name="out1" sz="3"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1.0000000000e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+    </fsmsadfProperties>
+    <fsm initialstate="q1" detector="a">
+      <state name="q1" scenario="scenario1">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="xilinx2tile3dma">
+    <tile name="mb0">
+      <processor name="mb0" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="false"/>
+        <switchingCost loadScheduleTime="2020" loadScheduleInstrMem="103" loadScheduleDataMem="105" switcherTimeConst="3030" switcherTimePerUnit="111" switcherInstrMem="107" switcherDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="4096" type="commout"/>
+      <memory name="cmemout1" size="4096" type="commout"/>
+      <memory name="cmemout2" size="4096" type="commout"/>
+      <memory name="cmemin0" size="4096" type="commin"/>
+      <memory name="cmemin1" size="4096" type="commin"/>
+      <memory name="cmemin2" size="4096" type="commin"/>
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb1">
+      <processor name="mb1" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="false"/>
+        <switchingCost loadScheduleTime="2020" loadScheduleInstrMem="103" loadScheduleDataMem="105" switcherTimeConst="3030" switcherTimePerUnit="111" switcherInstrMem="107" switcherDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemout1" size="8192" type="commout"/>
+      <memory name="cmemout2" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <memory name="cmemin1" size="8192" type="commin"/>
+      <memory name="cmemin2" size="8192" type="commin"/>
+      <networkInterface name="NIx1y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="shared">
+      <memory name="memory" size="134217728" type="shared"/>
+      <networkInterface name="NIx0y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_4" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_5" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_7" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_8" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_9" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+  </architectureGraph>
+  <mapping name="21" appGraph="smap" archGraph="xilinx2tile3dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="a"/>
+            <schedule name="scenario1">
+              <state actor="a"/>
+              <state actor="b"/>
+            </schedule>
+          <actor name="b"/>
+          <arbitration timeslice="18001"/>
+        </processor>
+        <memory name="imem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="b" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="b" processorType="microblaze"/>
+          <channel name="aa1" bufferType="mem"/>
+          <channel name="fbb13" bufferType="mem"/>
+          <channel name="out1" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fbc12" bufferType="src"/>
+          <channel name="fbd10" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemout2"/>
+        <memory name="cmemin0"/>
+        <memory name="cmemin1"/>
+        <memory name="cmemin2"/>
+        <networkInterface name="NIx1y0n0">
+          <channel name="fbc12" out="true"/>
+          <channel name="fbd10" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="c"/>
+            <schedule name="scenario1">
+              <state actor="d"/>
+              <state actor="c"/>
+              <state actor="c"/>
+              <state actor="e"/>
+            </schedule>
+          <actor name="d"/>
+          <actor name="e"/>
+          <arbitration timeslice="18001"/>
+        </processor>
+        <memory name="imem">
+          <actor name="c" processorType="microblaze"/>
+          <actor name="d" processorType="microblaze"/>
+          <actor name="e" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="c" processorType="microblaze"/>
+          <actor name="d" processorType="microblaze"/>
+          <actor name="e" processorType="microblaze"/>
+          <channel name="ee" bufferType="mem"/>
+          <channel name="fce11" bufferType="mem"/>
+          <channel name="fde8" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemout1"/>
+        <memory name="cmemout2"/>
+        <memory name="cmemin0">
+          <channel name="fbc12" bufferType="dst"/>
+          <channel name="fbd10" bufferType="dst"/>
+        </memory>
+        <memory name="cmemin1"/>
+        <memory name="cmemin2"/>
+        <networkInterface name="NIx1y0n1">
+          <channel name="fbc12" in="true"/>
+          <channel name="fbd10" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx0y0n1"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="fbc12"/>
+        <channel name="fbd10"/>
+      </connection>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <constraints>
+        <channelConstraints name="aa1">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bandwidth min="4e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="ee">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bandwidth min="4e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbb13">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bandwidth min="4e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc12">
+          <bufferSize mem="4" src="4" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbd10">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fce11">
+          <bufferSize mem="4" src="2" dst="4"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fde8">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="out1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="1.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="18001"/>
+        </processor>
+        <memory name="imem" size="4000"/>
+        <memory name="dmem" size="4007"/>
+        <memory name="cmemout0" size="8"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemout2" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <memory name="cmemin1" size="0"/>
+        <memory name="cmemin2" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="2" outBandwidth="3.2e-09"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="18001"/>
+        </processor>
+        <memory name="imem" size="4000"/>
+        <memory name="dmem" size="4008"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemout2" size="0"/>
+        <memory name="cmemin0" size="6"/>
+        <memory name="cmemin1" size="0"/>
+        <memory name="cmemin2" size="0"/>
+        <networkInterface name="NIx1y0n1" nrInConnections="2" inBandwidth="3.2e-09" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx0y0n1" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+    </resourceUsage>
+  </mapping>
+</sdf3>

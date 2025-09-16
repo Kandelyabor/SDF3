@@ -1,0 +1,69 @@
+TraceVersion	V0.1
+ConfigurationID	fsmsadf-analyze-test-trace.txt
+ConfigurationSource	fsmsadf-analyze-test-trace.txt
+
+R	0	100	%	0	0	Default Processor0
+R	1	100	%	0	0	Default Processor1
+R	2	100	%	0	0	Default Processor2
+R	3	100	%	0	0	Default Processor3
+R	4	100	%	0	0	Default Processor4
+R	5	100	%	0	0	Default Processor5
+R	6	100	%	0	0	Default Processor6
+R	7	100	%	0	0	Default Processor7
+R	8	100	%	0	0	Default Processor8
+R	9	100	%	0	0	Default Processor9
+R	10	100	%	0	0	Default Processor10
+R	11	100	%	0	0	Default Processor11
+R	12	100	%	0	0	Default Processor12
+R	13	100	%	0	0	Default Processor13
+R	14	100	%	0	0	Default Processor14
+R	15	100	%	0	0	Default Processor15
+R	16	100	%	0	0	Default Processor16
+R	17	100	%	0	0	Default Processor17
+R	18	100	%	0	0	Default Processor18
+R	19	100	%	0	0	Default Processor19
+R	20	100	%	0	0	Default Processor20
+R	21	100	%	0	0	Default Processor21
+R	22	100	%	0	0	Default Processor22
+R	23	100	%	0	0	Default Processor23
+R	24	100	%	0	0	Default Processor24
+R	25	100	%	0	0	Default Processor25
+R	26	100	%	0	0	Default Processor26
+R	27	100	%	0	0	Default Processor27
+R	28	100	%	0	0	Default Processor28
+R	29	100	%	0	0	Default Processor29
+R	30	100	%	0	0	Default Processor30
+R	31	100	%	0	0	Default Processor31
+
+C	0	0	0	10000	0	1	a	scenario1	0
+C	1	1	10000	20000	0	1	b	scenario1	0
+C	2	2	20000	30000	0	1	d	scenario1	0
+C	3	3	20000	30000	0	1	c	scenario1	0
+C	4	4	20000	30000	0	1	c	scenario1	0
+C	5	5	30000	40000	0	1	e	scenario1	0
+C	6	6	20000	30000	0	1	a	scenario2	1
+C	7	7	30000	40000	0	1	f	scenario2	1
+C	8	8	40000	50000	0	1	c	scenario2	1
+C	9	9	40000	50000	0	1	c	scenario2	1
+C	10	10	40000	50000	0	1	g	scenario2	1
+C	11	11	40000	50000	0	1	g	scenario2	1
+C	12	12	50000	60000	0	1	e	scenario2	1
+C	13	13	40000	50000	0	1	a	scenario2	2
+C	14	14	50000	60000	0	1	f	scenario2	2
+C	15	15	60000	70000	0	1	c	scenario2	2
+C	16	16	60000	70000	0	1	c	scenario2	2
+C	17	17	60000	70000	0	1	g	scenario2	2
+C	18	18	60000	70000	0	1	g	scenario2	2
+C	19	19	70000	80000	0	1	e	scenario2	2
+C	20	20	60000	70000	0	1	a	scenario1	3
+C	21	21	70000	80000	0	1	b	scenario1	3
+C	22	22	80000	90000	0	1	d	scenario1	3
+C	23	23	80000	90000	0	1	c	scenario1	3
+C	24	24	80000	90000	0	1	c	scenario1	3
+C	25	25	90000	100000	0	1	e	scenario1	3
+C	26	26	80000	90000	0	1	a	scenario1	4
+C	27	27	90000	100000	0	1	b	scenario1	4
+C	28	28	100000	110000	0	1	d	scenario1	4
+C	29	29	100000	110000	0	1	c	scenario1	4
+C	30	30	100000	110000	0	1	c	scenario1	4
+C	31	31	110000	120000	0	1	e	scenario1	4

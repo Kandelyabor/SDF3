@@ -1,0 +1,2000 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="">
+    <fsmsadf>
+      <scenariograph name="wc" type="">
+        <actor name="AntiAliasLeft" type="wc">
+          <port name="_p0" type="out" rate="192"/>
+          <port name="_p1" type="out" rate="4"/>
+          <port name="_p2" type="in" rate="1"/>
+          <port name="_p3" type="in" rate="1"/>
+          <port name="_p4" type="in" rate="2"/>
+          <port name="_p5" type="in" rate="2"/>
+          <port name="_p6" type="in" rate="2"/>
+          <port name="_p7" type="in" rate="1"/>
+        </actor>
+        <actor name="AntiAliasRight" type="wc">
+          <port name="_p0" type="out" rate="4"/>
+          <port name="_p1" type="out" rate="192"/>
+          <port name="_p2" type="in" rate="1"/>
+          <port name="_p3" type="in" rate="1"/>
+          <port name="_p4" type="in" rate="2"/>
+          <port name="_p5" type="in" rate="2"/>
+          <port name="_p6" type="in" rate="2"/>
+        </actor>
+        <actor name="Feed" type="wc">
+          <port name="_p0" type="out" rate="1"/>
+          <port name="_p1" type="out" rate="1"/>
+          <port name="_p2" type="in" rate="1"/>
+        </actor>
+        <actor name="FrequencyInversionLeft" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="192"/>
+          <port name="_p2" type="out" rate="1"/>
+          <port name="_p3" type="out" rate="1"/>
+        </actor>
+        <actor name="FrequencyInversionLongLeft" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="4"/>
+          <port name="_p2" type="out" rate="1"/>
+          <port name="_p3" type="out" rate="2"/>
+        </actor>
+        <actor name="FrequencyInversionLongRight" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="4"/>
+          <port name="_p2" type="out" rate="1"/>
+          <port name="_p3" type="out" rate="2"/>
+        </actor>
+        <actor name="FrequencyInversionRight" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="192"/>
+          <port name="_p2" type="out" rate="1"/>
+          <port name="_p3" type="out" rate="1"/>
+        </actor>
+        <actor name="FrequencyInversionShortLeft" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="180"/>
+          <port name="_p2" type="out" rate="1"/>
+        </actor>
+        <actor name="FrequencyInversionShortRight" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="180"/>
+          <port name="_p2" type="out" rate="1"/>
+        </actor>
+        <actor name="Huffman" type="wc">
+          <port name="_p0" type="in" rate="1"/>
+          <port name="_p1" type="out" rate="2"/>
+          <port name="_p2" type="out" rate="2"/>
+          <port name="_p3" type="in" rate="1"/>
+        </actor>
+        <actor name="IMDCTLeft" type="wc">
+          <port name="_p0" type="in" rate="64"/>
+          <port name="_p1" type="out" rate="192"/>
+          <port name="_p2" type="in" rate="1"/>
+          <port name="_p3" type="in" rate="2"/>
+          <port name="_p4" type="in" rate="2"/>
+        </actor>
+        <actor name="IMDCTLongLeft" type="wc">
+          <port name="_p0" type="in" rate="64"/>
+          <port name="_p1" type="out" rate="4"/>
+        </actor>
+        <actor name="IMDCTLongRight" type="wc">
+          <port name="_p0" type="in" rate="64"/>
+          <port name="_p1" type="out" rate="4"/>
+        </actor>
+        <actor name="IMDCTRight" type="wc">
+          <port name="_p0" type="in" rate="64"/>
+          <port name="_p1" type="out" rate="192"/>
+          <port name="_p2" type="in" rate="1"/>
+          <port name="_p3" type="in" rate="2"/>
+          <port name="_p4" type="in" rate="2"/>
+        </actor>
+        <actor name="IMDCTShortLeft" type="wc">
+          <port name="_p0" type="out" rate="180"/>
+          <port name="_p1" type="in" rate="1"/>
+          <port name="_p2" type="in" rate="2"/>
+          <port name="_p3" type="in" rate="2"/>
+        </actor>
+        <actor name="IMDCTShortRight" type="wc">
+          <port name="_p0" type="out" rate="180"/>
+          <port name="_p1" type="in" rate="1"/>
+          <port name="_p2" type="in" rate="2"/>
+          <port name="_p3" type="in" rate="2"/>
+        </actor>
+        <actor name="Play" type="wc">
+          <port name="_p0" type="out" rate="1"/>
+          <port name="_p1" type="in" rate="1"/>
+          <port name="_p2" type="in" rate="2"/>
+        </actor>
+        <actor name="PolySynthLeft" type="wc">
+          <port name="_p0" type="in" rate="192"/>
+          <port name="_p1" type="in" rate="4"/>
+          <port name="_p2" type="in" rate="180"/>
+          <port name="_p3" type="out" rate="2"/>
+          <port name="_p4" type="out" rate="1"/>
+          <port name="_p5" type="out" rate="1"/>
+        </actor>
+        <actor name="PolySynthRight" type="wc">
+          <port name="_p0" type="in" rate="4"/>
+          <port name="_p1" type="in" rate="192"/>
+          <port name="_p2" type="in" rate="180"/>
+          <port name="_p3" type="out" rate="2"/>
+          <port name="_p4" type="out" rate="1"/>
+        </actor>
+        <actor name="ReOrderLeft" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="2"/>
+          <port name="_p2" type="out" rate="2"/>
+          <port name="_p3" type="in" rate="2"/>
+        </actor>
+        <actor name="ReOrderRight" type="wc">
+          <port name="_p0" type="out" rate="2"/>
+          <port name="_p1" type="in" rate="2"/>
+          <port name="_p2" type="in" rate="2"/>
+        </actor>
+        <actor name="ReQuantizationLeft" type="wc">
+          <port name="_p0" type="in" rate="1"/>
+          <port name="_p1" type="out" rate="2"/>
+          <port name="_p2" type="out" rate="2"/>
+          <port name="_p3" type="out" rate="2"/>
+          <port name="_p4" type="in" rate="1"/>
+        </actor>
+        <actor name="ReQuantizationRight" type="wc">
+          <port name="_p0" type="in" rate="1"/>
+          <port name="_p1" type="out" rate="2"/>
+          <port name="_p2" type="out" rate="2"/>
+          <port name="_p3" type="in" rate="2"/>
+          <port name="_p4" type="out" rate="2"/>
+        </actor>
+        <actor name="Stereo" type="wc">
+          <port name="_p0" type="in" rate="2"/>
+          <port name="_p1" type="in" rate="2"/>
+          <port name="_p2" type="in" rate="2"/>
+          <port name="_p3" type="in" rate="2"/>
+          <port name="_p4" type="out" rate="1"/>
+          <port name="_p5" type="out" rate="1"/>
+          <port name="_p6" type="out" rate="64"/>
+          <port name="_p7" type="out" rate="64"/>
+          <port name="_p8" type="out" rate="192"/>
+          <port name="_p9" type="out" rate="192"/>
+          <port name="_p10" type="out" rate="180"/>
+          <port name="_p11" type="out" rate="180"/>
+        </actor>
+        <actor name="Sync1" type="wc">
+          <port name="_p0" type="in" rate="2"/>
+          <port name="_p1" type="out" rate="1"/>
+        </actor>
+        <actor name="Sync2" type="wc">
+          <port name="_p0" type="in" rate="4"/>
+          <port name="_p1" type="in" rate="1"/>
+          <port name="_p2" type="out" rate="64"/>
+          <port name="_p3" type="out" rate="192"/>
+          <port name="_p4" type="out" rate="180"/>
+          <port name="_p5" type="in" rate="1"/>
+        </actor>
+        <actor name="Sync3" type="wc">
+          <port name="_p0" type="in" rate="4"/>
+          <port name="_p1" type="in" rate="1"/>
+          <port name="_p2" type="out" rate="64"/>
+          <port name="_p3" type="out" rate="192"/>
+          <port name="_p4" type="out" rate="180"/>
+          <port name="_p5" type="in" rate="1"/>
+        </actor>
+        <actor name="Sync4" type="wc">
+          <port name="_p0" type="in" rate="1"/>
+          <port name="_p1" type="out" rate="64"/>
+        </actor>
+        <actor name="Sync5" type="wc">
+          <port name="_p0" type="out" rate="64"/>
+          <port name="_p1" type="in" rate="1"/>
+        </actor>
+        <actor name="WriteBack" type="wc">
+          <port name="_p0" type="in" rate="2"/>
+          <port name="_p1" type="in" rate="2"/>
+          <port name="_p2" type="out" rate="1"/>
+          <port name="_p3" type="out" rate="1"/>
+          <port name="_p4" type="out" rate="1"/>
+          <port name="_p5" type="out" rate="2"/>
+        </actor>
+        <actor name="_a30" type="wc">
+          <port name="_p0" type="out" rate="64"/>
+        </actor>
+        <channel name="AAL2IDL" srcActor="AntiAliasLeft" srcPort="_p0" dstActor="IMDCTLeft" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="AAL2IDLL" srcActor="AntiAliasLeft" srcPort="_p1" dstActor="IMDCTLongLeft" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="AAR2IDLR" srcActor="AntiAliasRight" srcPort="_p0" dstActor="IMDCTLongRight" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="AAR2IDR" srcActor="AntiAliasRight" srcPort="_p1" dstActor="IMDCTRight" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="FD2H" srcActor="Feed" srcPort="_p0" dstActor="Huffman" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="FIL2PSL" srcActor="FrequencyInversionLeft" srcPort="_p0" dstActor="PolySynthLeft" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="FILL2PSL" srcActor="FrequencyInversionLongLeft" srcPort="_p0" dstActor="PolySynthLeft" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="FILR2PSR" srcActor="FrequencyInversionLongRight" srcPort="_p0" dstActor="PolySynthRight" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="FIR2PSR" srcActor="FrequencyInversionRight" srcPort="_p0" dstActor="PolySynthRight" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="FISL2PSL" srcActor="FrequencyInversionShortLeft" srcPort="_p0" dstActor="PolySynthLeft" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="FISR2PSR" srcActor="FrequencyInversionShortRight" srcPort="_p0" dstActor="PolySynthRight" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="H2RQL" srcActor="Huffman" srcPort="_p1" dstActor="ReQuantizationLeft" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="H2RQR" srcActor="Huffman" srcPort="_p2" dstActor="ReQuantizationRight" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="IDL2FIL" srcActor="IMDCTLeft" srcPort="_p1" dstActor="FrequencyInversionLeft" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="IDLL2FILL" srcActor="IMDCTLongLeft" srcPort="_p1" dstActor="FrequencyInversionLongLeft" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="IDLR2FILR" srcActor="IMDCTLongRight" srcPort="_p1" dstActor="FrequencyInversionLongRight" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="IDR2FIR" srcActor="IMDCTRight" srcPort="_p1" dstActor="FrequencyInversionRight" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="IDSL2FISL" srcActor="IMDCTShortLeft" srcPort="_p0" dstActor="FrequencyInversionShortLeft" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="IDSR2FISR" srcActor="IMDCTShortRight" srcPort="_p0" dstActor="FrequencyInversionShortRight" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="_p3" dstActor="WriteBack" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="_p3" dstActor="WriteBack" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="ROL2S" srcActor="ReOrderLeft" srcPort="_p0" dstActor="Stereo" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="ROR2S" srcActor="ReOrderRight" srcPort="_p0" dstActor="Stereo" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="RQL2ROL" srcActor="ReQuantizationLeft" srcPort="_p1" dstActor="ReOrderLeft" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="RQL2S" srcActor="ReQuantizationLeft" srcPort="_p2" dstActor="Stereo" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="RQR2ROR" srcActor="ReQuantizationRight" srcPort="_p1" dstActor="ReOrderRight" dstPort="_p1" initialTokens="0" finalTokens="0"/>
+        <channel name="RQR2S" srcActor="ReQuantizationRight" srcPort="_p2" dstActor="Stereo" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Res1_ROL2ROR" srcActor="ReOrderLeft" srcPort="_p2" dstActor="ReOrderRight" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="_p3" dstActor="ReQuantizationRight" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Res1_RQR2ROL" srcActor="ReQuantizationRight" srcPort="_p4" dstActor="ReOrderLeft" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="_p4" dstActor="ReQuantizationLeft" dstPort="_p4" initialTokens="1" finalTokens="1"/>
+        <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="_p5" dstActor="Sync1" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="Res1_SY12H" srcActor="Sync1" srcPort="_p1" dstActor="Huffman" dstPort="_p3" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_FIL2AAL" srcActor="FrequencyInversionLeft" srcPort="_p2" dstActor="AntiAliasLeft" dstPort="_p2" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_FIL2IDL" srcActor="FrequencyInversionLeft" srcPort="_p3" dstActor="IMDCTLeft" dstPort="_p2" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_FILL2AAL" srcActor="FrequencyInversionLongLeft" srcPort="_p2" dstActor="AntiAliasLeft" dstPort="_p3" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_FILL2SY2" srcActor="FrequencyInversionLongLeft" srcPort="_p3" dstActor="Sync2" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="Res2_FISL2IDSL" srcActor="FrequencyInversionShortLeft" srcPort="_p2" dstActor="IMDCTShortLeft" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_PSL2SY2" srcActor="PolySynthLeft" srcPort="_p4" dstActor="Sync2" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_PSL2SY4" srcActor="PolySynthLeft" srcPort="_p5" dstActor="Sync4" dstPort="_p0" initialTokens="1" finalTokens="1"/>
+        <channel name="Res2_SY22AAL" srcActor="Sync2" srcPort="_p2" dstActor="AntiAliasLeft" dstPort="_p4" initialTokens="0" finalTokens="0"/>
+        <channel name="Res2_SY22IDL" srcActor="Sync2" srcPort="_p3" dstActor="IMDCTLeft" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Res2_SY22IDSL" srcActor="Sync2" srcPort="_p4" dstActor="IMDCTShortLeft" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="Res2_SY42AAL" srcActor="Sync4" srcPort="_p1" dstActor="AntiAliasLeft" dstPort="_p5" initialTokens="0" finalTokens="0"/>
+        <channel name="Res2_WB2SY2" srcActor="WriteBack" srcPort="_p2" dstActor="Sync2" dstPort="_p5" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_FILR2AAR" srcActor="FrequencyInversionLongRight" srcPort="_p2" dstActor="AntiAliasRight" dstPort="_p2" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_FILR2SY3" srcActor="FrequencyInversionLongRight" srcPort="_p3" dstActor="Sync3" dstPort="_p0" initialTokens="0" finalTokens="0"/>
+        <channel name="Res3_FIR2AAR" srcActor="FrequencyInversionRight" srcPort="_p2" dstActor="AntiAliasRight" dstPort="_p3" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_FIR2IDR" srcActor="FrequencyInversionRight" srcPort="_p3" dstActor="IMDCTRight" dstPort="_p2" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_FISR2IDSR" srcActor="FrequencyInversionShortRight" srcPort="_p2" dstActor="IMDCTShortRight" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_PSR2SY3" srcActor="PolySynthRight" srcPort="_p4" dstActor="Sync3" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_SY32AAR" srcActor="Sync3" srcPort="_p2" dstActor="AntiAliasRight" dstPort="_p4" initialTokens="0" finalTokens="0"/>
+        <channel name="Res3_SY32IDR" srcActor="Sync3" srcPort="_p3" dstActor="IMDCTRight" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Res3_SY32IDSR" srcActor="Sync3" srcPort="_p4" dstActor="IMDCTShortRight" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="Res3_SY52AAR" srcActor="Sync5" srcPort="_p0" dstActor="AntiAliasRight" dstPort="_p5" initialTokens="0" finalTokens="0"/>
+        <channel name="Res3_WB2SY3" srcActor="WriteBack" srcPort="_p3" dstActor="Sync3" dstPort="_p5" initialTokens="1" finalTokens="1"/>
+        <channel name="Res3_WB2SY5" srcActor="WriteBack" srcPort="_p4" dstActor="Sync5" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="S2AAL" srcActor="Stereo" srcPort="_p6" dstActor="AntiAliasLeft" dstPort="_p6" initialTokens="0" finalTokens="0"/>
+        <channel name="S2AAR" srcActor="Stereo" srcPort="_p7" dstActor="AntiAliasRight" dstPort="_p6" initialTokens="0" finalTokens="0"/>
+        <channel name="S2IDL" srcActor="Stereo" srcPort="_p8" dstActor="IMDCTLeft" dstPort="_p4" initialTokens="0" finalTokens="0"/>
+        <channel name="S2IDR" srcActor="Stereo" srcPort="_p9" dstActor="IMDCTRight" dstPort="_p4" initialTokens="0" finalTokens="0"/>
+        <channel name="S2IDSL" srcActor="Stereo" srcPort="_p10" dstActor="IMDCTShortLeft" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="S2IDSR" srcActor="Stereo" srcPort="_p11" dstActor="IMDCTShortRight" dstPort="_p3" initialTokens="0" finalTokens="0"/>
+        <channel name="Self_Feed" srcActor="Feed" srcPort="_p1" dstActor="Feed" dstPort="_p2" initialTokens="1" finalTokens="1"/>
+        <channel name="Self_Play" srcActor="Play" srcPort="_p0" dstActor="Play" dstPort="_p1" initialTokens="1" finalTokens="1"/>
+        <channel name="WB2PL" srcActor="WriteBack" srcPort="_p5" dstActor="Play" dstPort="_p2" initialTokens="0" finalTokens="0"/>
+        <channel name="_ch66" srcActor="_a30" srcPort="_p0" dstActor="AntiAliasLeft" dstPort="_p7" initialTokens="0" finalTokens="0"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="AntiAliasLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="409"/>
+            <implementation>
+              <function symbol="AntiAliasLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                  <argument number="3" port="_p5"/>
+                  <argument number="4" port="_p6"/>
+                  <argument number="5" port="_p7"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="AntiAliasRight">
+          <processor type="arm7" default="true">
+            <executionTime time="409"/>
+            <implementation>
+              <function symbol="AntiAliasRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                  <argument number="3" port="_p5"/>
+                  <argument number="4" port="_p6"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Feed">
+          <processor type="arm7" default="true">
+            <executionTime time="5830000"/>
+            <implementation>
+              <function symbol="Feed_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionLongLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionLongLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionLongRight">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionLongRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionRight">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionShortLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionShortLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="FrequencyInversionShortRight">
+          <processor type="arm7" default="true">
+            <executionTime time="4912"/>
+            <implementation>
+              <function symbol="FrequencyInversionShortRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Huffman">
+          <processor type="arm7" default="true">
+            <executionTime time="236070"/>
+            <implementation>
+              <function symbol="Huffman_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTLeft">
+          <processor type="IMDCTLeft" default="true">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="3" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="3" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTLongLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTLongLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTLongRight">
+          <processor type="arm7" default="true">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTLongRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTRight">
+          <processor type="IMDCTRight" default="true">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="3" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="7414"/>
+            <implementation>
+              <function symbol="IMDCTRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="3" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTShortLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="5561"/>
+            <implementation>
+              <function symbol="IMDCTShortLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="IMDCTShortRight">
+          <processor type="arm7" default="true">
+            <executionTime time="5561"/>
+            <implementation>
+              <function symbol="IMDCTShortRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Play">
+          <processor type="Play" default="true">
+            <executionTime time="2915000"/>
+            <implementation>
+              <function symbol="Play_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="2915000"/>
+            <implementation>
+              <function symbol="Play_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="PolySynthLeft">
+          <processor type="arm7" default="true">
+            <executionTime time="1866138"/>
+            <implementation>
+              <function symbol="PolySynthLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="2" port="_p2"/>
+                  <argument number="0" port="_p3"/>
+                  <argument number="1" port="_p4"/>
+                  <argument number="2" port="_p5"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="PolySynthRight">
+          <processor type="arm7" default="true">
+            <executionTime time="1866138"/>
+            <implementation>
+              <function symbol="PolySynthRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="2" port="_p2"/>
+                  <argument number="0" port="_p3"/>
+                  <argument number="1" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="ReOrderLeft">
+          <processor type="ReOrderRight" default="true">
+            <executionTime time="69385"/>
+            <implementation>
+              <function symbol="ReOrderLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="69385"/>
+            <implementation>
+              <function symbol="ReOrderLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="ReOrderRight">
+          <processor type="ReOrderRight" default="true">
+            <executionTime time="69385"/>
+            <implementation>
+              <function symbol="ReOrderRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="69385"/>
+            <implementation>
+              <function symbol="ReOrderRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="ReQuantizationLeft">
+          <processor type="ReQuantizationLeft" default="true">
+            <executionTime time="139325"/>
+            <implementation>
+              <function symbol="ReQuantizationLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="1" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="139325"/>
+            <implementation>
+              <function symbol="ReQuantizationLeft_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="2" port="_p3"/>
+                  <argument number="1" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="ReQuantizationRight">
+          <processor type="ReQuantizationRight" default="true">
+            <executionTime time="139325"/>
+            <implementation>
+              <function symbol="ReQuantizationRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="139325"/>
+            <implementation>
+              <function symbol="ReQuantizationRight_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                  <argument number="1" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Stereo">
+          <processor type="Stereo" default="true">
+            <executionTime time="19"/>
+            <implementation>
+              <function symbol="Stereo_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="2" port="_p2"/>
+                  <argument number="3" port="_p3"/>
+                  <argument number="0" port="_p4"/>
+                  <argument number="1" port="_p5"/>
+                  <argument number="2" port="_p6"/>
+                  <argument number="3" port="_p7"/>
+                  <argument number="4" port="_p8"/>
+                  <argument number="5" port="_p9"/>
+                  <argument number="6" port="_p10"/>
+                  <argument number="7" port="_p11"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+          <processor type="arm7">
+            <executionTime time="73618"/>
+            <implementation>
+              <function symbol="Stereo_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="2" port="_p2"/>
+                  <argument number="3" port="_p3"/>
+                  <argument number="0" port="_p4"/>
+                  <argument number="1" port="_p5"/>
+                  <argument number="2" port="_p6"/>
+                  <argument number="3" port="_p7"/>
+                  <argument number="4" port="_p8"/>
+                  <argument number="5" port="_p9"/>
+                  <argument number="6" port="_p10"/>
+                  <argument number="7" port="_p11"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Sync1">
+          <processor type="arm7" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="Sync1_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Sync2">
+          <processor type="arm7" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="Sync2_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                  <argument number="2" port="_p5"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Sync3">
+          <processor type="arm7" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="Sync3_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                  <argument number="2" port="_p5"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Sync4">
+          <processor type="arm7" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="Sync4_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="Sync5">
+          <processor type="arm7" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="Sync5_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="0" port="_p1"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="WriteBack">
+          <processor type="arm7" default="true">
+            <executionTime time="21448"/>
+            <implementation>
+              <function symbol="WriteBack_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                  <argument number="1" port="_p1"/>
+                  <argument number="0" port="_p2"/>
+                  <argument number="1" port="_p3"/>
+                  <argument number="2" port="_p4"/>
+                  <argument number="3" port="_p5"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="_a30">
+          <processor type="wc" default="true">
+            <executionTime time="0"/>
+            <implementation>
+              <function symbol="_a30_func">
+                <argumentMapping>
+                  <argument number="0" port="_p0"/>
+                </argumentMapping>
+              </function>
+            </implementation>
+          </processor>
+        </actorProperties>
+        <channelProperties channel="AAL2IDL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="AAL2IDLL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="AAR2IDLR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="AAR2IDR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FD2H">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FIL2PSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FILL2PSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FILR2PSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FIR2PSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FISL2PSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="FISR2PSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="H2RQL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="H2RQR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDL2FIL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDLL2FILL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDLR2FILR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDR2FIR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDSL2FISL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="IDSR2FISR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="PSL2WB">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="PSR2WB">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="ROL2S">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="ROR2S">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="RQL2ROL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="RQL2S">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="RQR2ROR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="RQR2S">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_ROL2ROR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_RQL2RQR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_RQR2ROL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_S2RQL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_S2SY1">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res1_SY12H">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_FIL2AAL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_FIL2IDL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_FILL2AAL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_FILL2SY2">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_FISL2IDSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_PSL2SY2">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_PSL2SY4">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_SY22AAL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_SY22IDL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_SY22IDSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_SY42AAL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res2_WB2SY2">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_FILR2AAR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_FILR2SY3">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_FIR2AAR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_FIR2IDR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_FISR2IDSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_PSR2SY3">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_SY32AAR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_SY32IDR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_SY32IDSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_SY52AAR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_WB2SY3">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Res3_WB2SY5">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2AAL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2AAR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2IDL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2IDR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2IDSL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="S2IDSR">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Self_Feed">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="Self_Play">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="WB2PL">
+          <tokenSize sz="1"/>
+        </channelProperties>
+        <channelProperties channel="_ch66"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="wc" graph="wc" reward="1">
+          <actorProperties actor="AntiAliasLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="409"/>
+              <implementation>
+                <function symbol="AntiAliasLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                    <argument number="3" port="_p5"/>
+                    <argument number="4" port="_p6"/>
+                    <argument number="5" port="_p7"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="192"/>
+            <port name="_p1" rate="4"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="1"/>
+            <port name="_p4" rate="2"/>
+            <port name="_p5" rate="2"/>
+            <port name="_p6" rate="2"/>
+            <port name="_p7" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="AntiAliasRight">
+            <processor type="arm7" default="true">
+              <executionTime time="409"/>
+              <implementation>
+                <function symbol="AntiAliasRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                    <argument number="3" port="_p5"/>
+                    <argument number="4" port="_p6"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="4"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="1"/>
+            <port name="_p4" rate="2"/>
+            <port name="_p5" rate="2"/>
+            <port name="_p6" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="Feed">
+            <processor type="arm7" default="true">
+              <executionTime time="5830000"/>
+              <implementation>
+                <function symbol="Feed_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionLongLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionLongLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="4"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionLongRight">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionLongRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="4"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionRight">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionShortLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionShortLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="180"/>
+            <port name="_p2" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="FrequencyInversionShortRight">
+            <processor type="arm7" default="true">
+              <executionTime time="4912"/>
+              <implementation>
+                <function symbol="FrequencyInversionShortRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="180"/>
+            <port name="_p2" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Huffman">
+            <processor type="arm7" default="true">
+              <executionTime time="236070"/>
+              <implementation>
+                <function symbol="Huffman_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTLeft">
+            <processor type="IMDCTLeft" default="true">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="3" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="3" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTLongLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTLongLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+            <port name="_p1" rate="4"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTLongRight">
+            <processor type="arm7" default="true">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTLongRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+            <port name="_p1" rate="4"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTRight">
+            <processor type="IMDCTRight" default="true">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="3" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="7414"/>
+              <implementation>
+                <function symbol="IMDCTRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="3" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTShortLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="5561"/>
+              <implementation>
+                <function symbol="IMDCTShortLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="180"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="IMDCTShortRight">
+            <processor type="arm7" default="true">
+              <executionTime time="5561"/>
+              <implementation>
+                <function symbol="IMDCTShortRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="180"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="Play">
+            <processor type="Play" default="true">
+              <executionTime time="2915000"/>
+              <implementation>
+                <function symbol="Play_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="2915000"/>
+              <implementation>
+                <function symbol="Play_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="PolySynthLeft">
+            <processor type="arm7" default="true">
+              <executionTime time="1866138"/>
+              <implementation>
+                <function symbol="PolySynthLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="2" port="_p2"/>
+                    <argument number="0" port="_p3"/>
+                    <argument number="1" port="_p4"/>
+                    <argument number="2" port="_p5"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="192"/>
+            <port name="_p1" rate="4"/>
+            <port name="_p2" rate="180"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="1"/>
+            <port name="_p5" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="PolySynthRight">
+            <processor type="arm7" default="true">
+              <executionTime time="1866138"/>
+              <implementation>
+                <function symbol="PolySynthRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="2" port="_p2"/>
+                    <argument number="0" port="_p3"/>
+                    <argument number="1" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="4"/>
+            <port name="_p1" rate="192"/>
+            <port name="_p2" rate="180"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="ReOrderLeft">
+            <processor type="ReOrderRight" default="true">
+              <executionTime time="69385"/>
+              <implementation>
+                <function symbol="ReOrderLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="69385"/>
+              <implementation>
+                <function symbol="ReOrderLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="ReOrderRight">
+            <processor type="ReOrderRight" default="true">
+              <executionTime time="69385"/>
+              <implementation>
+                <function symbol="ReOrderRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="69385"/>
+              <implementation>
+                <function symbol="ReOrderRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="ReQuantizationLeft">
+            <processor type="ReQuantizationLeft" default="true">
+              <executionTime time="139325"/>
+              <implementation>
+                <function symbol="ReQuantizationLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="1" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="139325"/>
+              <implementation>
+                <function symbol="ReQuantizationLeft_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="2" port="_p3"/>
+                    <argument number="1" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="ReQuantizationRight">
+            <processor type="ReQuantizationRight" default="true">
+              <executionTime time="139325"/>
+              <implementation>
+                <function symbol="ReQuantizationRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="139325"/>
+              <implementation>
+                <function symbol="ReQuantizationRight_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                    <argument number="1" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="Stereo">
+            <processor type="Stereo" default="true">
+              <executionTime time="19"/>
+              <implementation>
+                <function symbol="Stereo_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="2" port="_p2"/>
+                    <argument number="3" port="_p3"/>
+                    <argument number="0" port="_p4"/>
+                    <argument number="1" port="_p5"/>
+                    <argument number="2" port="_p6"/>
+                    <argument number="3" port="_p7"/>
+                    <argument number="4" port="_p8"/>
+                    <argument number="5" port="_p9"/>
+                    <argument number="6" port="_p10"/>
+                    <argument number="7" port="_p11"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <processor type="arm7">
+              <executionTime time="73618"/>
+              <implementation>
+                <function symbol="Stereo_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="2" port="_p2"/>
+                    <argument number="3" port="_p3"/>
+                    <argument number="0" port="_p4"/>
+                    <argument number="1" port="_p5"/>
+                    <argument number="2" port="_p6"/>
+                    <argument number="3" port="_p7"/>
+                    <argument number="4" port="_p8"/>
+                    <argument number="5" port="_p9"/>
+                    <argument number="6" port="_p10"/>
+                    <argument number="7" port="_p11"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="2"/>
+            <port name="_p3" rate="2"/>
+            <port name="_p4" rate="1"/>
+            <port name="_p5" rate="1"/>
+            <port name="_p6" rate="64"/>
+            <port name="_p7" rate="64"/>
+            <port name="_p8" rate="192"/>
+            <port name="_p9" rate="192"/>
+            <port name="_p10" rate="180"/>
+            <port name="_p11" rate="180"/>
+          </actorProperties>
+          <actorProperties actor="Sync1">
+            <processor type="arm7" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="Sync1_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Sync2">
+            <processor type="arm7" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="Sync2_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                    <argument number="2" port="_p5"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="4"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="64"/>
+            <port name="_p3" rate="192"/>
+            <port name="_p4" rate="180"/>
+            <port name="_p5" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Sync3">
+            <processor type="arm7" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="Sync3_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                    <argument number="2" port="_p5"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="4"/>
+            <port name="_p1" rate="1"/>
+            <port name="_p2" rate="64"/>
+            <port name="_p3" rate="192"/>
+            <port name="_p4" rate="180"/>
+            <port name="_p5" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Sync4">
+            <processor type="arm7" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="Sync4_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="1"/>
+            <port name="_p1" rate="64"/>
+          </actorProperties>
+          <actorProperties actor="Sync5">
+            <processor type="arm7" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="Sync5_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="0" port="_p1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+            <port name="_p1" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="WriteBack">
+            <processor type="arm7" default="true">
+              <executionTime time="21448"/>
+              <implementation>
+                <function symbol="WriteBack_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                    <argument number="1" port="_p1"/>
+                    <argument number="0" port="_p2"/>
+                    <argument number="1" port="_p3"/>
+                    <argument number="2" port="_p4"/>
+                    <argument number="3" port="_p5"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="2"/>
+            <port name="_p1" rate="2"/>
+            <port name="_p2" rate="1"/>
+            <port name="_p3" rate="1"/>
+            <port name="_p4" rate="1"/>
+            <port name="_p5" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="_a30">
+            <processor type="wc" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="_a30_func">
+                  <argumentMapping>
+                    <argument number="0" port="_p0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+            </processor>
+            <port name="_p0" rate="64"/>
+          </actorProperties>
+          <channelProperties channel="AAL2IDL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="AAL2IDLL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="AAR2IDLR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="AAR2IDR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FD2H">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FIL2PSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FILL2PSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FILR2PSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FIR2PSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FISL2PSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="FISR2PSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="H2RQL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="H2RQR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDL2FIL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDLL2FILL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDLR2FILR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDR2FIR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDSL2FISL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="IDSR2FISR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="PSL2WB">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="PSR2WB">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ROL2S">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ROR2S">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="RQL2ROL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="RQL2S">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="RQR2ROR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="RQR2S">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_ROL2ROR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_RQL2RQR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_RQR2ROL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_S2RQL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_S2SY1">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res1_SY12H">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_FIL2AAL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_FIL2IDL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_FILL2AAL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_FILL2SY2">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_FISL2IDSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_PSL2SY2">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_PSL2SY4">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_SY22AAL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_SY22IDL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_SY22IDSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_SY42AAL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res2_WB2SY2">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_FILR2AAR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_FILR2SY3">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_FIR2AAR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_FIR2IDR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_FISR2IDSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_PSR2SY3">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_SY32AAR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_SY32IDR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_SY32IDSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_SY52AAR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_WB2SY3">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Res3_WB2SY5">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2AAL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2AAR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2IDL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2IDR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2IDSL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="S2IDSR">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Self_Feed">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="Self_Play">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="WB2PL">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="_ch66"/>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>4.0000000000e-09</throughput>
+        </timeConstraints>
+      </graphProperties>
+    </fsmsadfProperties>
+    <fsm initialstate="s" detector="">
+      <state name="s" scenario="wc">
+        <transition destination="s"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

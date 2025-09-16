@@ -1,0 +1,1978 @@
+<?xml version="1.0"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" version="1.0" type="fsmsadf" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="example-app">
+    <fsmsadf>
+      <scenariograph name="example-s1-s1" type="EXAMPLE-S1">
+        <actor name="a" type="A">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out" dstActor="b" dstPort="in" initialTokens="0"/>
+        <channel name="b2c" srcActor="b" srcPort="out" dstActor="c" dstPort="in" initialTokens="0"/>
+        <channel name="c2a" srcActor="c" srcPort="out" dstActor="a" dstPort="in" initialTokens="2"/>
+      </scenariograph>
+      <scenariograph name="example-s2-s2" type="EXAMPLE-S2">
+        <actor name="a" type="A">
+          <port name="in1" type="in" rate="1"/>
+          <port name="in2" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in" type="in" rate="1"/>
+          <port name="out1" type="out" rate="1"/>
+          <port name="out2" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <actor name="d" type="D">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out" dstActor="b" dstPort="in" initialTokens="0"/>
+        <channel name="b2c" srcActor="b" srcPort="out1" dstActor="c" dstPort="in" initialTokens="0"/>
+        <channel name="b2d" srcActor="b" srcPort="out2" dstActor="d" dstPort="in" initialTokens="0"/>
+        <channel name="c2a" srcActor="c" srcPort="out" dstActor="a" dstPort="in1" initialTokens="2"/>
+        <channel name="d2a" srcActor="d" srcPort="out" dstActor="a" dstPort="in2" initialTokens="1"/>
+      </scenariograph>
+      <scenariograph name="example-s2-s3" type="EXAMPLE-S2">
+        <actor name="a" type="A">
+          <port name="in1" type="in" rate="1"/>
+          <port name="in2" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in" type="in" rate="1"/>
+          <port name="out1" type="out" rate="1"/>
+          <port name="out2" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in" type="in" rate="2"/>
+          <port name="out" type="out" rate="2"/>
+        </actor>
+        <actor name="d" type="D">
+          <port name="in" type="in" rate="1"/>
+          <port name="out" type="out" rate="1"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out" dstActor="b" dstPort="in" initialTokens="0"/>
+        <channel name="b2c" srcActor="b" srcPort="out1" dstActor="c" dstPort="in" initialTokens="0"/>
+        <channel name="b2d" srcActor="b" srcPort="out2" dstActor="d" dstPort="in" initialTokens="0"/>
+        <channel name="c2a" srcActor="c" srcPort="out" dstActor="a" dstPort="in1" initialTokens="2"/>
+        <channel name="d2a" srcActor="d" srcPort="out" dstActor="a" dstPort="in2" initialTokens="1"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="a">
+          <port name="in" rate="1"/>
+          <port name="out" rate="1"/>
+        </actorProperties>
+        <actorProperties actor="b">
+          <port name="in" rate="1"/>
+          <port name="out" rate="1"/>
+        </actorProperties>
+        <actorProperties actor="c">
+          <port name="in" rate="1"/>
+          <port name="out" rate="1"/>
+        </actorProperties>
+        <actorProperties actor="d">
+          <port name="in" rate="1"/>
+          <port name="out" rate="1"/>
+        </actorProperties>
+        <channelProperties channel="a2b"/>
+        <channelProperties channel="b2c"/>
+        <channelProperties channel="c2a"/>
+        <channelProperties channel="b2d"/>
+        <channelProperties channel="d2a"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="s1" graph="example-s1-s1">
+          <actorProperties actor="a">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="am" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="bm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="cm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="10"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="a2b" sz="0"/>
+              <channel name="b2c" sz="0"/>
+              <channel name="c2a" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="4" thr="0.0005">
+              <channel name="a2b" sz="1"/>
+              <channel name="b2c" sz="1"/>
+              <channel name="c2a" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="6" thr="0.000666667">
+              <channel name="a2b" sz="2"/>
+              <channel name="b2c" sz="2"/>
+              <channel name="c2a" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+        <scenario name="s2" graph="example-s2-s2">
+          <actorProperties actor="a">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="am" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="bm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="cm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="dm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="10"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="b2d">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="d2a">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="a2b" sz="0"/>
+              <channel name="b2c" sz="0"/>
+              <channel name="b2d" sz="0"/>
+              <channel name="c2a" sz="0"/>
+              <channel name="d2a" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="6" thr="0.000333333">
+              <channel name="a2b" sz="1"/>
+              <channel name="b2c" sz="1"/>
+              <channel name="b2d" sz="1"/>
+              <channel name="c2a" sz="2"/>
+              <channel name="d2a" sz="1"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+        <scenario name="s3" graph="example-s2-s3">
+          <actorProperties actor="a">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="am" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="bm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="cm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d">
+            <processor type="arm7" default="true">
+              <executionTime time="1000"/>
+              <memory name="dm" size="100" type="shared"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="10"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="b2d">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="d2a">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="a2b" sz="0"/>
+              <channel name="b2c" sz="0"/>
+              <channel name="b2d" sz="0"/>
+              <channel name="c2a" sz="0"/>
+              <channel name="d2a" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="7" thr="0.000166667">
+              <channel name="a2b" sz="1"/>
+              <channel name="b2c" sz="2"/>
+              <channel name="b2d" sz="1"/>
+              <channel name="c2a" sz="2"/>
+              <channel name="d2a" sz="1"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1.0000000000e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+    </fsmsadfProperties>
+    <fsm initialstate="q1">
+      <state name="q1" scenario="s1">
+        <transition destination="q2"/>
+        <transition destination="q3"/>
+      </state>
+      <state name="q2" scenario="s2">
+        <transition destination="q1"/>
+      </state>
+      <state name="q3" scenario="s3">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="example-arch">
+    <tile name="t1">
+      <processor name="proc" type="arm7">
+        <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/>
+      </processor>
+      <memory name="memt1" size="100" type="shared"/>
+      <memory name="memt2" size="400" type="shared"/>
+      <networkInterface name="ni" nrInConnections="10" nrOutConnections="10" inBandwidth="12" outBandwidth="12"/>
+    </tile>
+    <tile name="t2">
+      <processor name="proc" type="powerpc">
+        <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/>
+      </processor>
+      <memory name="memt2" size="5600" type="shared"/>
+      <networkInterface name="ni" nrInConnections="10" nrOutConnections="10" inBandwidth="12" outBandwidth="12"/>
+    </tile>
+    <tile name="t3">
+      <processor name="proc" type="arm7">
+        <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/>
+      </processor>
+      <memory name="memt3" size="4000" type="shared"/>
+      <networkInterface name="ni" nrInConnections="10" nrOutConnections="10" inBandwidth="12" outBandwidth="12"/>
+    </tile>
+    <connection name="con_1" srcTile="t1" srcNetworkInterface="ni" dstTile="t2" dstNetworkInterface="ni" latency="3"/>
+    <connection name="con_2" srcTile="t1" srcNetworkInterface="ni" dstTile="t3" dstNetworkInterface="ni" latency="4"/>
+    <connection name="con_3" srcTile="t2" srcNetworkInterface="ni" dstTile="t1" dstNetworkInterface="ni" latency="3"/>
+    <connection name="con_4" srcTile="t2" srcNetworkInterface="ni" dstTile="t3" dstNetworkInterface="ni" latency="3"/>
+    <connection name="con_5" srcTile="t3" srcNetworkInterface="ni" dstTile="t1" dstNetworkInterface="ni" latency="4"/>
+    <connection name="con_6" srcTile="t3" srcNetworkInterface="ni" dstTile="t2" dstNetworkInterface="ni" latency="3"/>
+  </architectureGraph>
+  <mapping name="initial" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt1"/>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints/>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt1"/>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints/>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt1"/>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints/>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt1" size="0"/>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt3" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="5" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="a" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="b" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="mem"/>
+          <channel name="c2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="c"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="a" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="b" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="mem"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="d"/>
+              <state actor="a"/>
+              <state actor="b"/>
+              <state actor="c"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="a" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="b" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="mem"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt3"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt1" size="100"/>
+        <memory name="memt2" size="107"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt3" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="11" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="c2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="d" processorType="arm7"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+          <channel name="b2d" bufferType="dst"/>
+          <channel name="d2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="b2d" in="true"/>
+          <channel name="c2a" out="true"/>
+          <channel name="d2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+          <channel name="b2d" bufferType="src"/>
+          <channel name="d2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="d2a" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="b2d" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+        <channel name="d2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+        <channel name="b2d"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="d" startOfPeriodicRegime="true"/>
+              <state actor="c"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="d" processorType="arm7"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+          <channel name="b2d" bufferType="dst"/>
+          <channel name="d2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="b2d" in="true"/>
+          <channel name="c2a" out="true"/>
+          <channel name="d2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="a"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+          <channel name="b2d" bufferType="src"/>
+          <channel name="d2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="d2a" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="b2d" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+        <channel name="d2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+        <channel name="b2d"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt1" size="100"/>
+        <memory name="memt2" size="106"/>
+        <networkInterface name="ni" nrInConnections="2" inBandwidth="2" nrOutConnections="2" outBandwidth="2"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt3" size="105"/>
+        <networkInterface name="ni" nrInConnections="2" inBandwidth="2" nrOutConnections="2" outBandwidth="2"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="17" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="c2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="c2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="c" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="c2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="b"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+              <state actor="d"/>
+              <state actor="a"/>
+              <state actor="b"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="b" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="mem"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="c2a" bufferType="dst"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="c2a" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="c2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt1" size="100"/>
+        <memory name="memt2" size="4"/>
+        <networkInterface name="ni" nrInConnections="1" inBandwidth="1" nrOutConnections="1" outBandwidth="1"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt3" size="105"/>
+        <networkInterface name="ni" nrInConnections="1" inBandwidth="1" nrOutConnections="1" outBandwidth="1"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="23" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="d2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="d2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="d2a" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+        <channel name="d2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+              <state actor="d"/>
+              <state actor="b"/>
+              <state actor="d"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="b2d" bufferType="mem"/>
+          <channel name="d2a" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="d2a" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="a"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="d2a" bufferType="dst"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="d2a" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+        <channel name="d2a"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt1" size="100"/>
+        <memory name="memt2" size="104"/>
+        <networkInterface name="ni" nrInConnections="1" inBandwidth="1" nrOutConnections="2" outBandwidth="2"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt3" size="106"/>
+        <networkInterface name="ni" nrInConnections="2" inBandwidth="2" nrOutConnections="1" outBandwidth="1"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="29" appGraph="example-app" archGraph="example-arch">
+    <scenario name="s1">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s2">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="b2d" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="b2d" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="d"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="b2d" bufferType="dst"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="b2d" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+        <channel name="b2d"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="s3">
+      <tile name="t1">
+        <processor name="proc">
+          <actor name="b"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt1">
+          <actor name="b" processorType="arm7"/>
+        </memory>
+        <memory name="memt2">
+          <channel name="a2b" bufferType="dst"/>
+          <channel name="b2c" bufferType="src"/>
+          <channel name="b2d" bufferType="src"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="a2b" in="true"/>
+          <channel name="b2c" out="true"/>
+          <channel name="b2d" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="memt2"/>
+        <networkInterface name="ni"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <actor name="a"/>
+          <actor name="c"/>
+          <actor name="d"/>
+          <arbitration timeslice="17">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="d"/>
+              <state actor="a"/>
+              <state actor="d"/>
+              <state actor="c"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="memt3">
+          <actor name="a" processorType="arm7"/>
+          <actor name="c" processorType="arm7"/>
+          <actor name="d" processorType="arm7"/>
+          <channel name="a2b" bufferType="src"/>
+          <channel name="b2c" bufferType="dst"/>
+          <channel name="c2a" bufferType="mem"/>
+          <channel name="b2d" bufferType="dst"/>
+          <channel name="d2a" bufferType="mem"/>
+        </memory>
+        <networkInterface name="ni">
+          <channel name="b2c" in="true"/>
+          <channel name="b2d" in="true"/>
+          <channel name="a2b" out="true"/>
+        </networkInterface>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2">
+        <channel name="b2c"/>
+        <channel name="b2d"/>
+      </connection>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5">
+        <channel name="a2b"/>
+      </connection>
+      <connection name="con_6"/>
+      <constraints>
+        <channelConstraints name="a2b">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2c">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="b2d">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="c2a">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="d2a">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="1"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage>
+      <tile name="t1">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt1" size="100"/>
+        <memory name="memt2" size="3"/>
+        <networkInterface name="ni" nrInConnections="1" inBandwidth="1" nrOutConnections="2" outBandwidth="2"/>
+      </tile>
+      <tile name="t2">
+        <processor name="proc">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="memt2" size="0"/>
+        <networkInterface name="ni" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="t3">
+        <processor name="proc">
+          <arbitration timeslice="17"/>
+        </processor>
+        <memory name="memt3" size="107"/>
+        <networkInterface name="ni" nrInConnections="2" inBandwidth="2" nrOutConnections="1" outBandwidth="1"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+    </resourceUsage>
+  </mapping>
+</sdf3>

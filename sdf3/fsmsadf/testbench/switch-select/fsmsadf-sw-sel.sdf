@@ -1,0 +1,21 @@
+// srcRate the rate on the source port
+// dstRate the rate on the destination port
+// tokenSize the size of the token in words
+// initialToken the number of initial tokens
+
+name=switch_select
+dftype = fsmsadf
+digraph scenario1 {
+    a->b [srcRate=2 dstRate=2]
+    b->c [srcRate=2 dstRate=2]
+    c->a [srcRate=2 dstRate=2 initialTokens=t1,t2]
+}
+
+fsm [initial=scenario1 detector=a] {
+  scenario1 -> scenario1
+}
+
+timeUnit = 20 ns
+dataUnit = 1 B
+throughput=2e-10
+

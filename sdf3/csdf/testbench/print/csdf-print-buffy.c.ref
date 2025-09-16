@@ -1,0 +1,1471 @@
+#include <float.h>
+#include <math.h>
+#include <assert.h>
+#include <iostream>
+#include <list>
+#include <time.h>
+#include <sys/resource.h>
+
+using namespace std;
+
+typedef unsigned int   TCnt;
+typedef unsigned int   TTime;
+typedef unsigned int   TBufSize;
+typedef unsigned short CId;
+typedef double TDtime;
+
+// Quantization factor of the step size
+#ifndef Q
+#define Q 1
+#endif
+
+#define TDTIME_MAX              DBL_MAX
+#define TBUFSIZE_MAX            ULONG_MAX
+
+#define max(a,b)                ((a)>(b) ? (a) : (b))
+#define min(a,b)                ((a)<(b) ? (a) : (b))
+
+#define SRC                     0
+#define DST                     1
+
+#define NR_ACTORS               3
+#define NR_CHANNELS             5
+#define PERIOD                  2
+
+#define NR_ACTORS_HSDFG         12
+
+uint channel[5][2] = {{0, 1}, {1, 2}, {0, 0}, {1, 1}, {2, 2}};
+uint channelInitialTokens[5] = {0, 0, 1, 1, 1};
+uint channelRate[5][2][2] = {{{3, 1}, {4, 2}}, {{2, 4}, {6, 6}}, {{1, 1}, {1, 1}}, {{1, 1}, {1, 1}}, {{1, 1}, {1, 1}}};
+uint actorExecTime[3][2] = {{1, 3},{2, 2},{2, 3}};
+
+TBufSize minSz[NR_CHANNELS] = {2, 6, 2, 2, 2};
+TBufSize minSzStep[NR_CHANNELS] = {Q * 1, Q * 2, Q * 1, Q * 1, Q * 1};
+TBufSize lbDistributionSz = 14;
+TDtime maxThroughput = 0.0833333333333333287074040640618;
+CId outputActor = 2;
+TCnt outputActorRepCnt = 2;
+
+// Performance counters
+unsigned long long maxNrStatesVisited = 0, maxNrStatesStored = 0;
+unsigned long long nrDistributionsChecked = 0;
+unsigned long long nrStatesVisited, nrStatesStored;
+
+// Timer
+typedef struct _CTimer
+{
+    struct rusage rStart;
+    struct rusage rEnd;
+    struct timeval time;
+} CTimer;
+
+/**
+ * exit ()
+ * Exit the program with an error message.
+ */
+static
+void exit(const char *msg, const int errorno)
+{
+    cerr << msg << std::endl;
+    exit(errorno);
+}
+
+/**
+ * startTimer ()
+ * The function start measuring the elapsed user and system time 
+ * from this point onwards.
+ */
+static inline
+void startTimer(CTimer *t)
+{
+    getrusage(RUSAGE_SELF, &(t->rStart));
+}
+
+/**
+ * stopTimer ()
+ * The function stops measuring the elapsed user and system time and
+ * it computes the total elapsed time. This time is accesible via 
+ * t->time (struct timeval).
+ */
+static inline
+void stopTimer(CTimer *t)
+{
+    getrusage(RUSAGE_SELF, &(t->rEnd));
+
+    // Calculate elapsed time (user + system)
+    t->time.tv_sec = t->rEnd.ru_utime.tv_sec - t->rStart.ru_utime.tv_sec
+                        + t->rEnd.ru_stime.tv_sec - t->rEnd.ru_stime.tv_sec;
+    t->time.tv_usec = t->rEnd.ru_utime.tv_usec - t->rStart.ru_utime.tv_usec 
+                        + t->rEnd.ru_stime.tv_usec - t->rStart.ru_stime.tv_usec;
+
+    if (t->time.tv_sec >= 1e6)
+    {
+        t->time.tv_sec = t->time.tv_sec + t->time.tv_usec/long(1e6);
+        t->time.tv_usec = t->time.tv_usec%long(1e6);
+    }
+}
+
+/**
+ * printTimer ()
+ * The function prints the value of the timer in milliseconds to the supplied
+ * output stream.
+ */
+static inline
+void printTimer(std::ostream &out, CTimer *t)
+{
+    double s = (t->time.tv_sec * (double)(1000)) 
+                    + (t->time.tv_usec / (double)(1000));
+    
+    out << s << "ms";
+}
+
+/******************************************************************************
+ * State
+ *****************************************************************************/
+
+typedef struct _StateActorFiring
+{
+    TTime execTime;
+    TCnt  seqPos;
+} StateActorFiring;
+
+bool operator==(const StateActorFiring &s1, const StateActorFiring &s2)
+{
+    if (s1.execTime != s2.execTime || s1.seqPos != s2.seqPos)
+        return false;
+        
+    return true;
+}
+
+typedef struct _State
+{
+    std::list<StateActorFiring> actClk[NR_ACTORS];
+    TCnt actSeqPos[NR_ACTORS];
+    TBufSize ch[NR_CHANNELS];
+    TBufSize sp[NR_CHANNELS];
+    unsigned long glbClk;  
+} State;
+
+/**
+ * printState ()
+ * Print the state to the supplied stream.
+ */
+void printState(const State &s, std::ostream &out)
+{
+    out << "### State ###" << std::endl;
+
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        out << "actClk[" << i << "] =";
+        
+        for (std::list<StateActorFiring>::const_iterator iter = s.actClk[i].begin();
+                iter != s.actClk[i].end(); iter++)
+        {
+            out << " (" << (*iter).execTime << ", ";
+            out << (*iter).seqPos << "),";
+        }
+        
+        out << std::endl;
+    }
+
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        out << "actSeqPos[" << i << "] = " << s.actSeqPos[i] << std::endl;
+    }
+    
+    for (uint i = 0; i < NR_CHANNELS; i++)
+    {
+        out << "ch[" << i << "] = " << s.ch[i] << std::endl;
+    }
+
+    for (uint i = 0; i < NR_CHANNELS; i++)
+    {
+        out << "sp[" << i << "] = " << s.sp[i] << std::endl;
+    }
+
+    out << "glbClk = " << s.glbClk << std::endl;
+}
+
+/**
+ * clearState ()
+ * The function sets the state to zero.
+ */
+void clearState(State &s)
+{
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        s.actClk[i].clear();
+        s.actSeqPos[i] = 0;
+    }
+
+    for (uint i = 0; i < NR_CHANNELS; i++)
+    {
+        s.ch[i] = 0;
+        s.sp[i] = 0;
+    }
+    
+    s.glbClk = 0;
+}
+
+/**
+ * equalStates ()
+ * The function compares to states and returns true if they are equal.
+ */
+inline
+bool equalStates(const State &s1, const State &s2)
+{
+    if (s1.glbClk != s2.glbClk)
+        return false;
+    
+    for (uint i = 0; i < NR_CHANNELS; i++)
+    {
+        if (s1.ch[i] != s2.ch[i] || s1.sp[i] != s2.sp[i])
+            return false;
+    }
+    
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        if (s1.actClk[i] != s2.actClk[i])
+            return false;
+        
+        if (s1.actSeqPos[i] != s2.actSeqPos[i])
+            return false;
+    }
+    
+    return true;
+}
+
+/**
+ * copyState ()
+ * The function copies the state.
+ */
+inline
+void copyState(State &to, const State &from)
+{
+    to.glbClk = from.glbClk;
+    
+    for (uint i = 0; i < NR_CHANNELS; i++)
+    {
+        to.ch[i] = from.ch[i];
+        to.sp[i] = from.sp[i];
+    }
+    
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        to.actClk[i] = from.actClk[i];
+        to.actSeqPos[i] = from.actSeqPos[i];
+    }
+}
+
+/******************************************************************************
+ * States
+ *****************************************************************************/
+
+typedef std::list<State>         States;
+typedef States::iterator    StatesIter;
+
+/**
+ * storedStates
+ * List of visited states that are stored.
+ */
+static States storedStates;
+
+/**
+ * storeState ()
+ * The function stores the state s on whenever s is not already in the
+ * list of storedStates. When s is stored, the function returns true. When the
+ * state s is already in the list, the state s is not stored. The function
+ * returns false. The function always sets the pos variable to the position
+ * where the state s is in the list.
+ */
+static
+bool storeState(State &s, StatesIter &pos)
+{
+    // Find state in the list of stored states
+    for (StatesIter iter = storedStates.begin();
+            iter != storedStates.end(); iter++)
+    {
+        State &x = *iter;
+        
+        // State s at position iter in the list?
+        if (equalStates(x, s))
+        {
+            pos = iter;
+            return false;
+        }
+    }
+    
+    // State not found, store it at the end of the list
+    storedStates.push_back(s);
+    
+    // Added state to the end of the list
+    pos = storedStates.end();
+    
+    return true;
+}
+
+/**
+ * clearStoredStates ()
+ * The function clears the list of stored states.
+ */
+static
+void clearStoredStates()
+{
+    storedStates.clear();
+}
+
+/******************************************************************************
+ * Dependencies
+ *****************************************************************************/
+
+/**
+ * dfsVisitDependencies ()
+ * The function performs a DFS on the abstract dependency graph from a node a to
+ * find all cycles of which a is part. Channels on a cycle are when needed
+ * marked to have a storage dependency.
+ */
+static
+void dfsVisitDependencies(uint a, int *color, int *pi,
+        bool **abstractDepGraph, bool *dep)
+{
+    uint c, d;
+
+    // Mark node a as visited
+    color[a] = 1;
+    
+    // Visit all nodes reachable from a
+    for (uint b = 0; b < NR_ACTORS; b++)
+    {
+        // Node b reachable from a?
+        if (abstractDepGraph[a][b])
+        {
+            // Visited node b before?
+            if (color[b] == 1)
+            {
+                // Found a cycle in the graph containing node b
+                c = a;
+                d = b;           
+                do
+                {
+                    // All channels from d to c in the SDFG have 
+                    // storage dependency
+                    for (uint ch = 0; ch < NR_CHANNELS; ch++)
+                    {
+                        CId srcId = channel[ch][SRC];
+                        CId dstId = channel[ch][DST];
+                        
+                        if (dstId == d && srcId == c)
+                            dep[ch] = true;
+                    }
+
+                    // Next
+                    d = c;
+                    c = pi[d];
+                } while (d != b);
+            }
+            else
+            {
+                // Visit node b
+                pi[b] = a;
+                dfsVisitDependencies(b, color, pi, abstractDepGraph, dep);
+            }
+        }
+    }
+
+    // Discovered all cycles which actor a is part of. Remove its edges to avoid
+    // re-discovering same cycles again.
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        abstractDepGraph[i][a] = false;
+        abstractDepGraph[a][i] = false;
+    }
+
+    // Mark node a as not visited
+    color[a] = 0;
+}
+
+/**
+ * findStorageDependencies ()
+ * The function find all cycles in the abstract dependency graph. Any channel
+ * modeling storage space which is part of a cycle is marked to have a storage
+ * dependency.
+ */
+static
+void findStorageDependencies(bool **abstractDepGraph, bool *dep)
+{
+    int *color, *pi;
+    
+    // Initialize DFS data structures
+    color = new int [NR_ACTORS];
+    pi = new int [NR_ACTORS];
+    for (uint i = 0; i < NR_ACTORS; i++)
+        color[i] = 0;
+        
+    // Initialize storage dependencies
+    for (uint c = 0; c < NR_CHANNELS; c++)
+        dep[c] = false;
+    
+    // DFS from every node in the graph to find all cycles
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        pi[i] = i;
+        dfsVisitDependencies(i, color, pi, abstractDepGraph, dep);
+    }
+    
+    // Cleanup
+    delete [] color;
+    delete [] pi;
+}
+
+/******************************************************************************
+ * SDF
+ *****************************************************************************/
+
+#define CH(c)               currentState.ch[c]
+#define SP(c)               currentState.sp[c]  
+#define CH_TOKENS(c,n)      (CH(c) >= n)  
+#define CH_SPACE(c,n)       (SP(c) >= n)
+#define CONSUME(c,n)        CH(c) = CH(c) - n;
+#define PRODUCE(c,n)        CH(c) = CH(c) + n;
+#define CONSUME_SP(c,n)     SP(c) = SP(c) - n;
+#define PRODUCE_SP(c,n)     SP(c) = SP(c) + n;
+
+#define ACT_SEQ_POS(a)      currentState.actSeqPos[a]
+#define ADV_ACT_SEQ_POS(a)  ACT_SEQ_POS(a) = (ACT_SEQ_POS(a) + 1) % PERIOD;
+
+#define CH_TOKENS_PREV(c,n) (previousState.ch[c] >= n)  
+#define CH_SPACE_PREV(c,n)  (previousState.sp[c] >= n)
+
+static State currentState;  
+static State previousState;  
+
+/**  
+ * computeThroughput ()  
+ * The function calculates the throughput of the states on the cycle. Its  
+ * value is equal to the average number of firings of an actor per time unit.
+ */  
+static inline  
+TDtime computeThroughput(const StatesIter cycleIter)  
+{  
+    int nr_fire = 0;
+    TDtime time = 0;  
+
+    // Check all state from stack till cycle complete  
+    for (StatesIter iter = cycleIter; iter != storedStates.end(); iter++)
+    {
+        State &s = *iter;
+        
+        // Number of states in cycle is equal to number of iterations 
+        // in the period
+        nr_fire++;
+        
+        // Time between previous state  
+        time += s.glbClk;
+    }
+
+    return (TDtime)(nr_fire)/(time);  
+}
+
+/**
+ * actorReadyToFire ()
+ * The function returns true when the actor is ready to fire in state
+ * s. Else it returns false.
+ */
+inline
+bool actorReadyToFire(const uint a)
+{
+    // Check all input ports for tokens and output ports
+    // for space
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Actor is destination of the channel?
+        if (channel[c][DST] == a)
+        {
+            if (!CH_TOKENS(c, channelRate[c][DST][ACT_SEQ_POS(a)]))
+            {
+                return false;
+            }    
+        }
+
+        // Actor is source of the channel
+        if (channel[c][SRC] == a)
+        {
+            if (!CH_SPACE(c, channelRate[c][SRC][ACT_SEQ_POS(a)]))
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * startActorFiring ()
+ * Start the actor firing. Remove tokens from all input channels and
+ * reserve space on all output channels. Finally, add the actor firing
+ * to the list of active actor firings and advance sequence position.
+ */
+inline
+void startActorFiring(const uint a)
+{
+    StateActorFiring actFiring;
+    bool addedFiring = false;
+
+    // Set properties of this actor firing
+    actFiring.execTime = actorExecTime[a][ACT_SEQ_POS(a)];
+    actFiring.seqPos = ACT_SEQ_POS(a);
+    
+    // Consume tokens from inputs and space for output tokens
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Actor is destination of the channel?
+        if (channel[c][DST] == a)
+        {
+            CONSUME(c, channelRate[c][DST][ACT_SEQ_POS(a)]);
+        }
+
+        // Actor is source of the channel
+        if (channel[c][SRC] == a)
+        {
+            CONSUME_SP(c, channelRate[c][SRC][ACT_SEQ_POS(a)]);
+        }
+    }
+
+    // Add actor firing to the list of active firings of this actor
+    for (std::list<StateActorFiring>::iterator iter = currentState.actClk[a].begin();
+                iter != currentState.actClk[a].end(); iter++)
+    {
+        if ((*iter).execTime >= actFiring.execTime)
+        {
+            currentState.actClk[a].insert(iter, actFiring);
+            addedFiring = true;
+            break;
+        }
+    }
+    if (!addedFiring)
+    {
+        // Not yet inserted, put it at the end
+        currentState.actClk[a].push_back(actFiring);
+    }
+
+    // Advance the sequence position of the actor
+    ADV_ACT_SEQ_POS(a);
+}
+
+/**
+ * actorReadyToEnd ()
+ * The function returns true when the actor is ready to end its firing. Else
+ * the function returns false.
+ */
+inline
+bool actorReadyToEnd(const uint a)
+{
+    // Actor currently not firing?
+    if (currentState.actClk[a].empty())
+        return false;
+    
+    // First actor firing in sorted list has execution time left?
+    if (currentState.actClk[a].front().execTime != 0)
+        return false;
+    
+    return true;
+}
+
+/**
+ * endActorFiring ()
+ * Produce tokens on all output channels and release space on all input
+ * channels. Finally, remove the actor firing from the list of active
+ * firings.
+ */
+inline
+void endActorFiring(const uint a)
+{
+    StateActorFiring &actFiring = currentState.actClk[a].front();
+   
+    // Produce tokens on outputs and space on inputs
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Actor is source of the channel?
+        if (channel[c][SRC] == a)
+        {
+            PRODUCE(c, channelRate[c][SRC][actFiring.seqPos]);
+        }
+
+        // Actor is destination of the channel?
+        if (channel[c][DST] == a)
+        {
+            PRODUCE_SP(c, channelRate[c][DST][actFiring.seqPos]);
+        }
+    }
+
+    // Remove the firing from the list of active actor firings
+    currentState.actClk[a].pop_front();
+}
+
+/**
+ * clockStep ()
+ * The function progresses time till the first end of firing transition
+ * becomes enabled. The time step is returned. In case of deadlock, the
+ * time step is equal to UINT_MAX.
+ */
+inline
+TTime clockStep()
+{
+    TTime step = UINT_MAX;
+    
+    // Find maximal time progress
+    for (uint a = 0; a < NR_ACTORS; a++)
+    {
+        if (!currentState.actClk[a].empty())
+        {
+            TTime actClk = currentState.actClk[a].front().execTime;
+
+            if (step > actClk)
+                step = actClk;
+        }
+    }
+
+    // Still actors ready to end their firing?
+    if (step == 0)
+        return 0;
+
+    // Check for progress (i.e. no deadlock) 
+    if (step == UINT_MAX)
+        return UINT_MAX;
+
+    // Lower remaining execution time actors
+    for (uint a = 0; a < NR_ACTORS; a++)
+    {
+        for (std::list<StateActorFiring>::iterator
+                iter = currentState.actClk[a].begin();
+                    iter != currentState.actClk[a].end(); iter++)
+        {
+            StateActorFiring &actFiring = *iter;
+            
+            // Lower remaining execution time of the actor firing
+            actFiring.execTime -= step;
+        }
+    }
+
+    // Advance the global clock  
+    currentState.glbClk += step;
+    
+    return step;
+}
+
+/**
+ * findCausalDependencies ()
+ * The function tracks all causal dependencies in the actor firing of actor a.
+ * Any causal dependency that is found is added to the abstract dependency
+ * graph.
+ */
+static
+void findCausalDependencies(const uint a, bool **abstractDepGraph)
+{
+    // Check all input ports for tokens and output ports for space
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Actor is destination of the channel?
+        if (channel[c][DST] == a)
+        {
+            // Not enough tokens in the previous state?
+            if (!CH_TOKENS_PREV(c, channelRate[c][DST][ACT_SEQ_POS(a)]))
+            {
+                abstractDepGraph[channel[c][DST]][channel[c][SRC]] = true;
+            }    
+        }
+
+        // Actor is source of the channel
+        if (channel[c][SRC] == a)
+        {
+            // Not enough space in the previous state?
+            if (!CH_SPACE_PREV(c, channelRate[c][SRC][ACT_SEQ_POS(a)]))
+            {
+                abstractDepGraph[channel[c][SRC]][channel[c][DST]] = true;
+            }
+        }
+    }
+}
+
+/**
+ * analyzePeriodicPhase ()
+ * Analyze the periodic phase of the schedule to find all blocked channels. This
+ * is done using the abstract dependency graph.
+ */
+static
+void analyzePeriodicPhase(const TBufSize *sp, bool *dep)
+{
+    bool outputActorFound = false;
+    bool **abstractDepGraph;
+    State periodicState;
+    TTime clkStep;
+    int repCnt;  
+
+    // Current state is a periodic state
+    copyState(periodicState, currentState);
+
+    // Abstract dependency graph
+    abstractDepGraph = new bool* [NR_ACTORS];
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        abstractDepGraph[i] = new bool [NR_ACTORS];
+        for (uint j = 0; j < NR_ACTORS; j++)
+            abstractDepGraph[i][j] = false;
+    }
+
+    // Start new iteration of the periodic phase
+    currentState.glbClk = 0;
+    
+    // Still need to complete the last firing of the output actor
+    // before period really ends
+    repCnt = -1;
+
+    // Complete the remaining actor firings
+    for (uint a = outputActor; a < NR_ACTORS; a++)
+    {
+        while (actorReadyToEnd(a))  
+        {
+            if (a == outputActor)
+            {
+                repCnt++;
+                if (repCnt == outputActorRepCnt)
+                {
+                    currentState.glbClk = 0;
+                    repCnt = 0;
+                }
+            }
+
+            endActorFiring(a);
+        }
+    }
+
+    // Fire the actors
+    while (true)
+    {
+        // Start actor firings
+        for (uint a = 0; a < NR_ACTORS; a++)
+        {
+            // Ready to fire actor a?
+            while (actorReadyToFire(a))
+            {
+                // Track causal dependencies on firing of actor a
+                findCausalDependencies(a, abstractDepGraph);
+                
+                // Fire actor a
+                startActorFiring(a);
+            }
+        }
+
+        // Performance counter
+        nrStatesVisited++; 
+
+        // Clock step
+        clkStep = clockStep();
+
+        // Store partial state to check for progress
+        for (uint i = 0; i < NR_CHANNELS; i++)
+        {
+            previousState.ch[i] = currentState.ch[i];
+            previousState.sp[i] = currentState.sp[i];
+        }
+
+        // Finish actor firings  
+        for (uint a = 0; a < NR_ACTORS; a++)
+        {
+            while (actorReadyToEnd(a))  
+            {
+                if (outputActor == a)
+                {
+                    repCnt++;
+                    if (repCnt == outputActorRepCnt)  
+                    { 
+                        // Found periodic state
+                        if (equalStates(currentState, periodicState))
+                        {
+                            // Cycles in the dependency graph indicate storage
+                            // dependencies
+                            findStorageDependencies(abstractDepGraph, dep);
+
+                            // Cleanup
+                            for (uint i = 0; i < NR_ACTORS; i++)
+                                delete [] abstractDepGraph[i];
+                            delete [] abstractDepGraph;
+
+                            // Done
+                            return;
+                        }
+                        currentState.glbClk = 0;
+                        repCnt = 0;  
+                    }  
+                }
+
+                // End the actor firing
+                endActorFiring(a);
+            }  
+        }
+    }
+}
+
+/**
+ * analyzeDeadlock ()
+ * Analyze the deadlock in the schedule.
+ */
+static 
+void analyzeDeadlock(const TBufSize *sp, bool *dep)
+{
+    bool **abstractDepGraph;
+    
+    // Abstract dependency graph
+    abstractDepGraph = new bool* [NR_ACTORS];
+    for (uint i = 0; i < NR_ACTORS; i++)
+    {
+        abstractDepGraph[i] = new bool [NR_ACTORS];
+        for (uint j = 0; j < NR_ACTORS; j++)
+            abstractDepGraph[i][j] = false;
+    }
+
+    // Check number of tokens on every channel in the graph
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        CId srcActor = channel[c][SRC];
+        CId dstActor = channel[c][DST];
+        
+        // Insufficient tokens to fire destination actor
+        if (!CH_TOKENS(c, channelRate[c][DST][ACT_SEQ_POS(dstActor)]))
+        {
+            abstractDepGraph[dstActor][srcActor] = true;
+        }
+
+        // Insufficient space to fire source actor
+        if (!CH_SPACE(c, channelRate[c][SRC][ACT_SEQ_POS(srcActor)]))
+        {
+            abstractDepGraph[srcActor][dstActor] = true;
+        }
+    }
+
+    // Cycles in the dependency graph indicate storage dependencies
+    findStorageDependencies(abstractDepGraph, dep);
+    
+    // Cleanup
+    for (uint i = 0; i < NR_ACTORS; i++)
+        delete [] abstractDepGraph[i];
+    delete [] abstractDepGraph;
+}
+
+/**  
+ * execCSDFgraph()  
+ * Execute the CSDF graph till a deadlock is found or a recurrent state.  
+ * The throughput is returned.  
+ */  
+static
+TDtime execCSDFgraph(const TBufSize *sp, bool *dep)  
+{
+    StatesIter recurrentState;
+    TTime clkStep;
+    int repCnt = 0;  
+
+    // Create initial state
+    clearState(currentState);  
+    clearState(previousState);  
+
+    // Initial tokens and space
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Not enough space for initial tokens?
+        if (sp[c] < channelInitialTokens[c])
+        {
+            dep[c] = true;
+            return 0;
+        }
+
+        CH(c) = channelInitialTokens[c];
+        SP(c) = sp[c] - channelInitialTokens[c];
+    }
+
+    // Fire the actors  
+    while (true)  
+    {
+        // Performance counter
+        nrStatesVisited++; 
+
+        // Store partial state to check for progress
+        for (uint i = 0; i < NR_CHANNELS; i++)
+        {
+            previousState.ch[i] = currentState.ch[i];
+            previousState.sp[i] = currentState.sp[i];
+        }
+
+        // Finish actor firings  
+        for (uint a = 0; a < NR_ACTORS; a++)
+        {
+            while (actorReadyToEnd(a))  
+            {
+                if (outputActor == a)
+                {
+                    repCnt++;
+                    if (repCnt == outputActorRepCnt)  
+                    { 
+                        // Add state to hash of visited states  
+                        if (!storeState(currentState, recurrentState))
+                        {
+                            // Find storage dependencies in periodic phase
+                            analyzePeriodicPhase(sp, dep);
+
+                            return computeThroughput(recurrentState);
+                        }
+                        currentState.glbClk = 0;
+                        repCnt = 0;
+                        
+                        // Performance counter
+                        nrStatesStored++;
+                    }  
+                }
+
+                // End the actor firing
+                endActorFiring(a);
+            }  
+        }
+
+        // Start actor firings  
+        for (uint a = 0; a < NR_ACTORS; a++)
+        {
+            // Ready to fire actor a?
+            while (actorReadyToFire(a))
+            {
+                // Fire actor a
+                startActorFiring(a);
+            }
+        }
+
+        // Clock step
+        clkStep = clockStep();
+
+        // Deadlocked?
+        if (clkStep == UINT_MAX)
+        {
+            // Find cause of deadlock
+            analyzeDeadlock(sp, dep);
+            return 0;
+        }
+    }
+    
+    return 0;
+}  
+
+/*******************************************************************************
+ * Distributions
+ ******************************************************************************/
+
+/**
+ * Distribution
+ * A storage distribution.
+ */
+typedef struct _Distribution
+{
+    TBufSize sz;
+    TBufSize sp[NR_CHANNELS];
+    TDtime thr;
+    bool dep[NR_CHANNELS];
+    struct _Distribution *prev;
+    struct _Distribution *next;
+} Distribution;
+
+/**
+ * DistributionSet
+ * A container for a linked-list of storage distributions with the same
+ * size. The container can also be used to build a linked-list of
+ * distributions of different size.
+ */
+typedef struct _DistributionSet
+{
+    TDtime thr;
+    TBufSize sz;
+    Distribution *distributions;
+    struct _DistributionSet *prev;
+    struct _DistributionSet *next;
+} DistributionSet;
+
+/**
+ * minStorageDistributions
+ * List of all minimal storage distributions.
+ */
+static DistributionSet *minStorageDistributions = NULL;
+
+/**
+ * newDistribution ()
+ * Allocate memory for a new storage distribution.
+ */
+static
+Distribution *newDistribution()
+{
+    return new Distribution;
+}
+
+/**
+ * deleteDistribution ()
+ * Deallocate memory for a storage distribution.
+ */
+static
+void deleteDistribution(Distribution *d)
+{
+    delete d;
+}
+
+/**
+ * execDistribution ()
+ * Compute throughput and storage dependencies of the given storage
+ * distribution.
+ */
+static
+void execDistribution(Distribution *d)
+{
+    // Clear list of stored states
+    clearStoredStates();
+
+    // Initialize performance counters
+    nrStatesVisited = 0;
+    nrStatesStored = 0;
+    nrDistributionsChecked++;
+    
+    // Initialize blocking channels
+    for (uint c = 0; c < NR_CHANNELS; c++)
+        d->dep[c] = false;
+
+    // Execute the CSDF graph to find its output interval
+    d->thr = execCSDFgraph(d->sp, d->dep);
+
+    // Update performance counters
+    if (maxNrStatesVisited < nrStatesVisited)
+        maxNrStatesVisited = nrStatesVisited;
+    if (maxNrStatesStored < nrStatesStored)
+        maxNrStatesStored = nrStatesStored;
+
+    //cerr << d->sz << " " << d->thr << std::endl;
+    //for (uint c = 0; c < NR_CHANNELS; c++)
+    //    cerr << d->sp[c] << " " << d->dep[c] << std::endl;
+    //cerr << std::endl;
+}
+
+/**
+ * minimizeMinStorageDistributions ()
+ * The function removes all storage distributions within the supplied
+ * set of storage distributions which are non-minimal. All storage distributions
+ * within the set should have the same size.
+ */
+static
+void minimizeStorageDistributionsSet(DistributionSet *ds)
+{
+    Distribution *d, *t;
+    
+    // Maximal throughput with current distribution size equal to previous
+    // throughput with previous (smaller) distribution size
+    if (ds->prev != NULL && ds->prev->thr == ds->thr)
+    {
+        // No minimal storage distributions exist in this list
+        // Iterate over the list of storage distributions    
+        d = ds->distributions;
+        while (d != NULL)
+        {
+            // Temporary reference to next element in list
+            t = d->next;
+
+            // Cleanup d
+            deleteDistribution(d);
+
+            // Next
+            d = t;
+        }
+        
+        // No distributions left
+        ds->distributions = NULL;
+    }
+    else
+    {
+        // Iterate over the list of storage distributions    
+        d = ds->distributions;
+        while (d != NULL)
+        {
+            // Throughput of distribution smaller than maximum throughput with
+            // same distribution size?
+            if (d->thr < ds->thr)
+            {
+                // Remove d from linked list
+                if (d->prev != NULL)
+                    d->prev->next = d->next;
+                else
+                    ds->distributions = d->next;
+                if (d->next != NULL)
+                    d->next->prev = d->prev;
+
+                // Temporary reference to next element in list
+                t = d->next;
+
+                // Cleanup d
+                deleteDistribution(d);
+
+                // Next
+                d = t;
+            }
+            else
+            {
+                // Next
+                d = d->next;
+            }
+        }
+    }
+}
+
+/**
+ * addDistributionToChecklist ()
+ * The function add the storage distribution 'd' to the list of
+ * storage distributions which must still be checked. This list is
+ * ordered wrt to the size of the storage distribution. A storage
+ * distribution is only added if it is not already contained in the
+ * list. When the distribution is added to the list, the function returns
+ * 'true', else the function returns 'false'.
+ */
+static
+bool addDistributionToChecklist(Distribution *d)
+{
+    DistributionSet *ds, *dsNew;
+    Distribution *di;
+    bool equalDistr;
+    
+    // First distribution ever added?
+    if (minStorageDistributions == NULL)
+    {
+        // Create new set of storage distributions
+        dsNew = new DistributionSet;
+        dsNew->sz = d->sz;
+        dsNew->thr = 0;
+        dsNew->distributions = d;
+        dsNew->next = NULL;
+        dsNew->prev = NULL;
+        
+        // Set is first in list to be checked
+        minStorageDistributions = dsNew;
+        
+        // Done
+        return true;
+    }
+    
+    // Find set of distributions with the same size
+    ds = minStorageDistributions;
+    while (ds->next != NULL && ds->next->sz <= d->sz)
+    {
+        ds = ds->next;
+    }
+    
+    // Set of storage distribution with same size as d exists?
+    if (ds->sz == d->sz)
+    {
+
+        // Check that distribution d does not exist in the set
+        di = ds->distributions;
+        while (di != NULL)
+        {
+            equalDistr = true;
+
+            // All channels have same storage space allocation?
+            for (uint c = 0; equalDistr && c < NR_CHANNELS; c++)
+            {
+                if (di->sp[c] != d->sp[c])
+                    equalDistr = false;
+            }
+
+            // Found equal distribution
+            if (equalDistr)
+                return false;
+
+            // Next
+            di = di->next;
+        }
+
+        // Distribution 'd' not yet in the set, so let's add it
+        ds->distributions->prev = d;
+        d->next = ds->distributions;
+        ds->distributions = d;
+    }
+    else if (ds->next == NULL)
+    {
+        // No set of distribution in the list with same or larger size? 
+        
+        // Create new set of storage distributions
+        dsNew = new DistributionSet;
+        dsNew->sz = d->sz;
+        dsNew->thr = 0;
+        dsNew->distributions = d;
+        dsNew->next = NULL;
+        dsNew->prev = ds;
+        
+        // Add set to the list of sets
+        ds->next = dsNew;
+    }    
+    else
+    {
+        // In this case 'ds->next' has a size larger than 'd' and 'ds' has
+        // a size smaller than 'd'. Insert a new set of storage
+        // distributions between 'ds' and 'ds->next' containing storage
+        // distribution 'd'.
+
+        // Create new set of storage distributions
+        dsNew = new DistributionSet;
+        dsNew->sz = d->sz;
+        dsNew->thr = 0;
+        dsNew->distributions = d;
+        dsNew->next = ds->next;
+        dsNew->prev = ds;
+
+        // Add set to the list of sets
+        ds->next->prev = dsNew;
+        ds->next = dsNew;
+    }
+    
+    // Done
+    return true;
+}
+
+/**
+ * exploreDistribution ()
+ * The function computes the throughput of the storage distribution
+ * 'd' and adds new storage distributions to the list of distributions
+ * which must be checked based on the storage dependencies found in d.
+ * The function also updates the maximal throughput of the set of
+ * storage distributions when needed.
+ */
+static
+void exploreDistribution(DistributionSet *ds, Distribution *d)
+{
+    Distribution *dNew;
+    
+    // Compute throughput and storage dependencies
+    execDistribution(d);
+    
+    // Throughput of d larger than current maximum of the set
+    if (d->thr > ds->thr)
+        ds->thr = d->thr;
+    
+    // Create new storage distributions for every channel which
+    // has a storage dependency in d
+    for (uint c = 0; c < NR_CHANNELS; c++)
+    {
+        // Channel c has storage dependency?
+        if (d->dep[c])
+        {
+            // Do not enlarge the channel if its a self-edge
+            if (channel[c][SRC] == channel[c][DST])
+                continue;
+                
+            // Create new storage distribution with channel c enlarged
+            dNew = newDistribution();
+            dNew->sz = d->sz + minSzStep[c];
+            dNew->thr = 0;
+            for (uint i = 0; i < NR_CHANNELS; i++)
+            {
+                dNew->sp[i] = d->sp[i];
+                if (i == c)
+                    dNew->sp[i] += minSzStep[c];
+            }
+            dNew->next = NULL;
+            dNew->prev = NULL;
+            
+            // Add storage distribution to set of distributions to be checked
+            if (!addDistributionToChecklist(dNew))
+            {
+                // Distribution already in check list
+                deleteDistribution(dNew);
+            }
+        }
+    }
+}
+
+/**
+ * exploreDistributionSet ()
+ * Explore all distributions within the set and remove all non-minimal
+ * distributions from it.
+ */
+static
+void exploreDistributionSet(DistributionSet *ds)
+{
+    Distribution *d;
+
+    // Explore all storage distributions contained in the set    
+    d = ds->distributions;
+    while (d != NULL)
+    {
+        // Explore distribution d
+        exploreDistribution(ds, d);
+        
+        // Next
+        d = d->next;
+    }
+    
+    // Remove all non-minimal storage distributions from the set
+    minimizeStorageDistributionsSet(ds);
+}
+
+/**
+ * findMinimalStorageDistributions ()
+ * Explore the throughput/storage-size trade-off space till either
+ * all minimal storage distributions are found or the throughput bound is
+ * reached.
+ */
+static
+void findMinimalStorageDistributions(const double thrBound)
+{
+    Distribution *d, *t;
+    DistributionSet *ds, *dt;
+    
+    // Construct storage distribution with lower bound storage space
+    d = newDistribution();
+    d->thr = 0;
+    d->sz = lbDistributionSz;
+    for (uint c = 0; c < NR_CHANNELS; c++)
+        d->sp[c] = minSz[c];
+    d->next = NULL;
+    d->prev = NULL;
+    
+    // Add distribution to set of distributions which must be checked
+    addDistributionToChecklist(d);
+    
+    // Check sets of storage distributions till no distributions left to check,
+    // or throughput bound exceeded, or maximal throughput reached
+    ds = minStorageDistributions;
+    while (ds != NULL)
+    {
+        // Explore all distributions with size 'ds->sz'
+        exploreDistributionSet(ds);
+
+        // Reached maximum throughput or exceed thrBound
+        if (ds->thr >= thrBound || ds->thr >= maxThroughput)
+            break;
+
+        // Temporary pointer to set
+        dt = ds;
+
+        // Next
+        ds = ds->next;
+
+        // No distributions left with the given distribution size?
+        if (dt->distributions == NULL)
+        {
+            // Remove distr from linked list
+            if (dt->prev != NULL)
+                dt->prev->next = dt->next;
+            else
+                minStorageDistributions = dt->next;
+            if (dt->next != NULL)
+                dt->next->prev = dt->prev;
+
+            // Cleanup dt
+            delete dt;
+        }
+    }
+   
+    // Unexplored distributions left?
+    if (ds != NULL && ds->next != NULL)
+    {
+        // Pointer to first set which must be removed
+        ds = ds->next;
+        
+        // Mark previous set as last set in list of minimal storage distr
+        ds->prev->next = NULL;
+        
+        // Remove all unexplored distributions (and sets)
+        while (ds != NULL)
+        {
+            // Remove all distributions within the set ds
+            d = ds->distributions;
+            while (d != NULL)
+            {
+                t = d->next;
+                deleteDistribution(d);
+                d = t;
+            }
+
+            // Temporary pointer to set
+            dt = ds;
+            
+            // Next
+            ds = ds->next;
+
+            // Cleanup dt
+            delete dt;
+        }
+    }
+    
+    // Lower bound on storage space (which is used in the beginning) is not a
+    // minimal storage distribution if it deadlocks. The distribution <0,...,0>
+    // is the actual minimal storage distribution for this throughput
+    if (minStorageDistributions->thr == 0)
+    {
+        minStorageDistributions->sz = 0;
+        minStorageDistributions->distributions->sz = 0;
+        for (uint c = 0; c < NR_CHANNELS; c++)
+            minStorageDistributions->distributions->sp[c] = 0;
+    }
+}
+
+/**
+ * printMinimalDistributions ()
+ * Output all minimal distributions to the supplied stream.
+ */
+void printMinimalDistributions(std::ostream &out)
+{
+    out << "<?xml version='1.0' encoding='UTF-8'?>" << std::endl;
+    out << "<sdf3 type='sdf' version='1.0'" << std::endl;
+    out << "xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'" << std::endl;
+    out << "xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-csdf.xsd'>" << std::endl;
+    out << "    <storageThroughputTradeOffs>" << std::endl;
+
+    for (DistributionSet *p = minStorageDistributions; p != NULL;
+            p = p->next)
+    {
+        out << "        <distributionsSet thr='" << p->thr;
+        out << "' sz='" << p->sz << "'>" << std::endl;
+        for (Distribution *d = p->distributions; d != NULL; d = d->next)
+        {
+            out << "            <distribution>" << std::endl;
+            for (uint c = 0; c < NR_CHANNELS; c++)
+            {
+                out << "            <ch name='" << c << "' sz='" << d->sp[c];
+                out << "'/>" << std::endl;
+            }
+            out << "            </distribution>" << std::endl;
+        }
+        out << "        </distributionsSet>" << std::endl;
+    }
+    out << "    </storageThroughputTradeOffs>" << std::endl;
+    out << "</sdf3>" << std::endl;
+}
+
+int main(int argc, char **argv)
+{
+    CTimer timer;
+    
+    // Start timer
+    startTimer(&timer);
+    
+    // Search the space
+    findMinimalStorageDistributions(TDTIME_MAX);
+
+    // Stop timer
+    stopTimer(&timer);
+    
+    // Output the minimal storage distributions
+    printMinimalDistributions(std::cout);
+ 
+    // Output performance data
+    cerr << "Analysis time:      ";
+    printTimer(cerr, &timer);
+    cerr << std::endl;
+    cerr << "#Distr. checked:    " << nrDistributionsChecked << std::endl;
+    cerr << "Max stored states:  " << maxNrStatesStored << std::endl;
+    cerr << "Max visited states: " << maxNrStatesVisited << std::endl;
+    cerr << "#actors:            " << NR_ACTORS << std::endl;
+    cerr << "#channels:          " << NR_CHANNELS << std::endl;
+    cerr << "#actors (HSDFG):    " << NR_ACTORS_HSDFG << std::endl;
+    
+    return 0;
+}

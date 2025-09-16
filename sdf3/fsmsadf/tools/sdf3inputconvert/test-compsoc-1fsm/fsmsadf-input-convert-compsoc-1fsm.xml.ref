@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="mp3playback-app">
+    <fsmsadf>
+      <scenariograph name="scenario-s1" type="SCENARIO-S1">
+        <actor name="mp3" type="MP3">
+          <port name="p1" type="out" rate="10"/>
+          <port name="p2" type="in" rate="1"/>
+          <port name="p3" type="out" rate="1"/>
+        </actor>
+        <actor name="src" type="SRC">
+          <port name="p0" type="in" rate="4"/>
+          <port name="p3" type="out" rate="4"/>
+          <port name="p4" type="in" rate="1"/>
+          <port name="p5" type="out" rate="1"/>
+        </actor>
+        <actor name="app" type="APP">
+          <port name="p0" type="in" rate="1"/>
+          <port name="p2" type="in" rate="1"/>
+          <port name="p3" type="out" rate="1"/>
+          <port name="p4" type="in" rate="1"/>
+          <port name="p5" type="out" rate="1"/>
+        </actor>
+        <actor name="dac" type="DAC">
+          <port name="p0" type="in" rate="1"/>
+          <port name="p1" type="out" rate="1"/>
+          <port name="p2" type="in" rate="1"/>
+          <port name="p3" type="out" rate="1"/>
+        </actor>
+        <channel name="mp3s" srcActor="mp3" srcPort="p3" dstActor="mp3" dstPort="p2" initialTokens="1"/>
+        <channel name="srcs" srcActor="src" srcPort="p5" dstActor="src" dstPort="p4" initialTokens="1"/>
+        <channel name="apps" srcActor="app" srcPort="p5" dstActor="app" dstPort="p4" initialTokens="1"/>
+        <channel name="dacs" srcActor="dac" srcPort="p3" dstActor="dac" dstPort="p2" initialTokens="1"/>
+        <channel name="ch0" srcActor="mp3" srcPort="p1" dstActor="src" dstPort="p0"/>
+        <channel name="ch1" srcActor="src" srcPort="p3" dstActor="app" dstPort="p0"/>
+        <channel name="ch2" srcActor="app" srcPort="p3" dstActor="dac" dstPort="p0"/>
+        <channel name="ch3" srcActor="dac" srcPort="p1" dstActor="app" dstPort="p2" initialTokens="2"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <scenarios>
+        <scenario name="s1" graph="scenario-s1">
+          <actorProperties actor="mp3">
+            <processor type="microblaze" default="true">
+              <executionTime time="75100"/>
+              <memory name=".code" size="100" type="instr"/>
+              <memory name=".data" size="100" type="data"/>
+              <memory name="sharedVar" size="100" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="src">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <memory name=".code" size="100" type="instr"/>
+              <memory name=".data" size="100" type="data"/>
+              <memory name="sharedVar" size="100" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="app">
+            <processor type="microblaze" default="true">
+              <executionTime time="220"/>
+              <memory name=".code" size="100" type="instr"/>
+              <memory name=".data" size="100" type="data"/>
+              <memory name="sharedVar" size="100" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="dac">
+            <processor type="microblaze" default="true">
+              <executionTime time="220"/>
+              <memory name=".code" size="100" type="instr"/>
+              <memory name=".data" size="100" type="data"/>
+              <memory name="sharedVar" size="100" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="mp3s">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="srcs">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="apps">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="dacs">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ch0">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ch1">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ch2">
+            <tokenSize sz="1"/>
+          </channelProperties>
+          <channelProperties channel="ch3">
+            <tokenSize sz="1"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1e-11</throughput>
+        </timeConstraints>
+      </graphProperties>
+    </fsmsadfProperties>
+    <fsm initialstate="q1">
+      <state name="q1" scenario="s1">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="xilinx2tile3dma">
+    <tile name="mb0">
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="proc" type="microblaze">
+        <arbitration type="TDMA" wheelsize="2.15e+06" contextSwitchOverhead="15000" slotLength="200000" preemptive="true"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="4096" type="commout"/>
+      <memory name="cmemout1" size="4096" type="commout"/>
+      <memory name="cmemout2" size="4096" type="commout"/>
+      <memory name="cmemin0" size="4096" type="commin"/>
+      <memory name="cmemin1" size="4096" type="commin"/>
+      <memory name="cmemin2" size="4096" type="commin"/>
+    </tile>
+    <tile name="mb1">
+      <networkInterface name="NIx1y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="proc" type="microblaze">
+        <arbitration type="TDMA" wheelsize="2.15e+06" contextSwitchOverhead="15000" slotLength="200000" preemptive="true"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemout1" size="8192" type="commout"/>
+      <memory name="cmemout2" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <memory name="cmemin1" size="8192" type="commin"/>
+      <memory name="cmemin2" size="8192" type="commin"/>
+    </tile>
+    <tile name="shared">
+      <networkInterface name="NIx0y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <memory name="memory" size="262144" type="shared"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_4" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_5" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_7" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_8" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_9" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+  </architectureGraph>
+</sdf3>

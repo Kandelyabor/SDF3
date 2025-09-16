@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: convert CSDF to SADF on simple_example</name>
+		<program>sdf3convert-sadf-csdf2sadf --graph ./simple_example.xml --output ./simple_example2-sadf.xml</program>
+		<type>xmlcompare</type>
+		<programOutput>simple_example2-sadf.xml</programOutput>
+	</settings>
+
+</sdf3>

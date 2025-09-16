@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <architectureGraph name="xilinx2tile3dma">
+    <tile name="mb0">
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="proc" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4.64e+6" contextSwitchOverhead="8e+3" slotLength="5e+4" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="4096" type="commout"/>
+      <memory name="cmemout1" size="4096" type="commout"/>
+      <memory name="cmemout2" size="4096" type="commout"/>
+      <memory name="cmemin0" size="4096" type="commin"/>
+      <memory name="cmemin1" size="4096" type="commin"/>
+      <memory name="cmemin2" size="4096" type="commin"/>
+    </tile>
+
+    <tile name="shared">
+      <networkInterface name="NIx0y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <memory name="memory" size="134217728" type="shared"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_4" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+  </architectureGraph>
+</sdf3>

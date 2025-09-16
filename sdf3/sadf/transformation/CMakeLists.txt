@@ -1,0 +1,5 @@
+add_subdirectory(csdf)
+add_subdirectory(fsmsadf)
+add_subdirectory(scenario)
+add_subdirectory(sdf)
+add_subdirectory(timing)

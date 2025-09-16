@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF print: print the matrices of an open graph</name>
+		<program>sdf3print-sdf --graph OpenGraph.xml --format maxplusmatrixLatex</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>\begin{ bmatrix }
+A2A\\
+B2B\\
+C2C\\
+D2D\\
+D2B_1\\
+D2B_2\\
+Output1_1\\
+Output1_2\\
+\end{bmatrix} = 
+
+\begin{bmatrix}
+2 &amp;-\infty{} &amp;-\infty{} &amp;-\infty{} &amp;-\infty{} &amp;-\infty{} &amp;2 &amp;2 \\
+4 &amp;2 &amp;-\infty{} &amp;-\infty{} &amp;2 &amp;1 &amp;4 &amp;4 \\
+7 &amp;5 &amp;4 &amp;-\infty{} &amp;5 &amp;3 &amp;7 &amp;7 \\
+9 &amp;7 &amp;6 &amp;4 &amp;7 &amp;5 &amp;9 &amp;9 \\
+7 &amp;5 &amp;4 &amp;2 &amp;5 &amp;-\infty{} &amp;7 &amp;7 \\
+9 &amp;7 &amp;6 &amp;4 &amp;7 &amp;5 &amp;9 &amp;9 \\
+7 &amp;5 &amp;4 &amp;2 &amp;5 &amp;-\infty{} &amp;7 &amp;7 \\
+9 &amp;7 &amp;6 &amp;4 &amp;7 &amp;5 &amp;9 &amp;9 \\
+\end{bmatrix}
+
+\otimes \begin{ bmatrix }
+A2A\\
+B2B\\
+C2C\\
+D2D\\
+D2B_1\\
+D2B_2\\
+Input1_1\\
+Input1_2\\
+\end{bmatrix}</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+</sdf3>

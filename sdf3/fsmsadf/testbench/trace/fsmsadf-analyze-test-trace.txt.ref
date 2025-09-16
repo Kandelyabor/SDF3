@@ -1,0 +1,11 @@
+ConfigurationVersion	V0.1
+ConfigurationName	Config
+ConfigurationID	fsmsadf-analyze-test-trace.txt
+TimeScaleShift	0
+TimeScaleUnit	s
+TimeDisplayFormat	%5g
+Attribute	0	Name	String	Describing	Grouping	Coloring
+Attribute	1	Scenario	String	Describing	Grouping	Coloring
+Attribute	2	Iteration	String	Describing	Grouping	Coloring
+Context	0	Processor	0
+Context	1	Firings	0	1	2

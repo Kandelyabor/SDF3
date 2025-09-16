@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<sdf3 xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" version="1.0" type="sdf">
+	<applicationGraph name="Model">
+		<sdf name="Model" type="Model">
+			<actor name="A" type="A">
+				<port type="in" name="chan1_to_A" rate="1"/>
+				<port type="out" name="A_to_chan0" rate="1"/>
+			</actor>
+			<actor name="B" type="B">
+				<port type="in" name="chan0_to_B" rate="1"/>
+				<port type="out" name="B_to_chan1" rate="1"/>
+			</actor>
+			<channel name="chan0" srcPort="A_to_chan0" srcActor="A" dstPort="chan0_to_B" dstActor="B" />
+			<channel name="chan1" srcPort="B_to_chan1" srcActor="B" dstPort="chan1_to_A" dstActor="A" initialTokens="1"/>
+		</sdf>
+		<sdfProperties>
+			<actorProperties actor="A">
+				<processor type="p1" default="true">
+				<executionTime time="0.5643"/>
+				</processor>
+			</actorProperties>
+			<actorProperties actor="B">
+				<processor type="p1" default="true">
+				<executionTime time="1.887"/>
+				</processor>
+			</actorProperties>
+			<channelProperties channel="chan0"/>
+			<channelProperties channel="chan1"/>
+		</sdfProperties>
+	</applicationGraph>
+</sdf3>

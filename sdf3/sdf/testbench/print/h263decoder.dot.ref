@@ -1,0 +1,14 @@
+digraph h263decoder {
+    size="7,10";
+    vld [ label="vld" ];
+    iq [ label="iq" ];
+    idct [ label="idct" ];
+    mc [ label="mc" ];
+
+    vld -> iq [ label="vld2iq", taillabel="594", headlabel="1" ];
+    iq -> idct [ label="iq2idct", taillabel="1", headlabel="1" ];
+    idct -> mc [ label="idct2mc", taillabel="1", headlabel="594" ];
+    vld -> vld [ label="vld2vld(1)", taillabel="1", headlabel="1" ];
+    iq -> iq [ label="iq2iq(1)", taillabel="1", headlabel="1" ];
+    mc -> mc [ label="mc2mc(1)", taillabel="1", headlabel="1" ];
+}

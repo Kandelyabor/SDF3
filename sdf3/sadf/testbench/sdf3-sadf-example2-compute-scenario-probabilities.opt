@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute scenario probabilities on example2</name>
+		<program>sdf3analyze-sadf --graph example2.xml --compute scenario_probabilities</program>
+		<type>outputcompare</type>
+		<reference>---- (Sub)Scenario probabilities of all processes for SADF graph 'example2' ----
+Kernel 'A' ()
+	P('S') = 0.75
+	P('T') = 0.25
+Kernel 'B' ()
+	P('S') = 0.75
+	P('T') = 0.25
+Detector 'D' ()
+	P('S') = 0.75
+	P('T') = 0.25</reference>
+		<ignore>Analysis Time: .*ms</ignore>
+	</settings>
+
+</sdf3>

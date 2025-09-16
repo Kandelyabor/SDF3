@@ -1,0 +1,5 @@
+add_subdirectory(base)
+add_subdirectory(binding_aware_graph)
+add_subdirectory(conversion)
+add_subdirectory(memory)
+add_subdirectory(tile)

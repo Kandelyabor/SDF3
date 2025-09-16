@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="WLAN">
+    <fsmsadf>
+      <scenariograph name="Sync" type="TSync">
+        <actor name="src" type="Src" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="to_src" type="out" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+        <actor name="shift" type="Shift" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="from_sync" type="in" rate="1"></port>
+          <port name="to_sync" type="out" rate="1"></port>
+        </actor>
+        <actor name="sync" type="Sync" repetitions="1">
+          <port name="from_shift" type="in" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+
+        <!-- dummy actors for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <actor name="dummyPars" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+        <actor name="dummyPayload" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+
+        <channel name="src2src" srcActor="src" srcPort="to_src" dstActor="src" dstPort="from_src" initialTokens="1" persistentTokenNames="src"/>
+        <channel name="src2shift" srcActor="src" srcPort="to_shift" dstActor="shift" dstPort="from_src" initialTokens="0"/>
+        <channel name="shift2sync" srcActor="shift" srcPort="to_sync" dstActor="sync" dstPort="from_shift" initialTokens="0"/>
+        <channel name="sync2shift" srcActor="sync" srcPort="to_shift" dstActor="shift" dstPort="from_sync" initialTokens="1" persistentTokenNames="shift"/>
+
+        <!-- dummy channels for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <channel name="dummy_pars" srcActor="dummyPars" srcPort="out" dstActor="dummyPars" dstPort="in" initialTokens="1" persistentTokenNames="pars"/>
+        <channel name="dummy_payload" srcActor="dummyPayload" srcPort="out" dstActor="dummyPayload" dstPort="in" initialTokens="1" persistentTokenNames="payload"/>
+      </scenariograph>
+      <scenariograph name="Header" type="THeader">
+        <actor name="src" type="Src" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="to_src" type="out" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+        <actor name="shift" type="Shift" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="from_hdec" type="in" rate="1"></port>
+          <port name="to_hdem" type="out" rate="1"></port>
+        </actor>
+        <actor name="hdem" type="Hdem" repetitions="1">
+          <port name="to_hdec" type="out" rate="1"></port>
+          <port name="from_shift" type="in" rate="1"></port>
+        </actor>
+        <actor name="hdec" type="Hdec" repetitions="1">
+          <port name="from_hdem" type="in" rate="1"></port>
+          <port name="to_pars" type="out" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+        <actor name="pars" type="Pars" repetitions="1">
+          <port name="from_hdec" type="in" rate="1"></port>
+          <port name="from_pars" type="in" rate="1"></port>
+          <port name="to_pars" type="out" rate="1"></port>
+        </actor>
+
+        <!-- dummy actors for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <actor name="dummyPayload" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+
+        <channel name="src2src" srcActor="src" srcPort="to_src" dstActor="src" dstPort="from_src" initialTokens="1" persistentTokenNames="src"></channel>
+        <channel name="src2shift" srcActor="src" srcPort="to_shift" dstActor="shift" dstPort="from_src" initialTokens="0"></channel>
+        <channel name="shift2hdem" srcActor="shift" srcPort="to_hdem" dstActor="hdem" dstPort="from_shift" initialTokens="0"></channel>
+        <channel name="hdem2hdec" srcActor="hdem" srcPort="to_hdec" dstActor="hdec" dstPort="from_hdem" initialTokens="0"></channel>
+        <channel name="hdec2shift" srcActor="hdec" srcPort="to_shift" dstActor="shift" dstPort="from_hdec" initialTokens="1" persistentTokenNames="shift"></channel>
+        <channel name="hdec2pars" srcActor="hdec" srcPort="to_pars" dstActor="pars" dstPort="from_hdec" initialTokens="0"></channel>
+        <channel name="pars2pars" srcActor="pars" srcPort="to_pars" dstActor="pars" dstPort="from_pars" initialTokens="1" persistentTokenNames="pars"></channel>
+
+        <!-- dummy channels for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <channel name="dummy_payload" srcActor="dummyPayload" srcPort="out" dstActor="dummyPayload" dstPort="in" initialTokens="1" persistentTokenNames="payload"/>
+
+      </scenariograph>
+      <scenariograph name="Payload" type="TPayload">
+        <actor name="src" type="Src" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="to_src" type="out" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+        <actor name="shift" type="Shift" repetitions="1">
+          <port name="from_src" type="in" rate="1"></port>
+          <port name="from_shift" type="in" rate="1"></port>
+          <port name="to_pdem" type="out" rate="1"></port>
+          <port name="to_shift" type="out" rate="1"></port>
+        </actor>
+        <actor name="pars" type="Pars" repetitions="1">
+          <port name="to_pars" type="out" rate="1"></port>
+          <port name="to_pdem" type="out" rate="1"></port>
+          <port name="from_pars" type="in" rate="1"></port>
+        </actor>
+        <actor name="pdem" type="Pdem" repetitions="1">
+          <port name="to_pdec" type="out" rate="1"></port>
+          <port name="from_pars" type="in" rate="1"></port>
+          <port name="from_shift" type="in" rate="1"></port>
+        </actor>
+        <actor name="pdec" type="Pdec" repetitions="1">
+          <port name="from_pdem" type="in" rate="1"></port>
+          <port name="to_dataout" type="out" rate="1"></port>
+          <port name="to_payload" type="out" rate="1"></port>
+        </actor>
+        <actor name="dataout" type="DataOut" repetitions="1">
+          <port name="from_pdec" type="in" rate="1"></port>
+        </actor>
+        <actor name="payload" type="Payload" repetitions="1">
+          <port name="to_payload" type="out" rate="1"></port>
+          <port name="from_payload" type="in" rate="1"></port>
+          <port name="from_pdec" type="in" rate="1"></port>
+        </actor>
+        <channel name="src2src" srcActor="src" srcPort="to_src" dstActor="src" dstPort="from_src" initialTokens="1" persistentTokenNames="src"></channel>
+        <channel name="src2shift" srcActor="src" srcPort="to_shift" dstActor="shift" dstPort="from_src" initialTokens="0"></channel>
+        <channel name="shift2shift" srcActor="shift" srcPort="to_shift" dstActor="shift" dstPort="from_shift" initialTokens="1" persistentTokenNames="shift"></channel>
+        <channel name="shift2pdem" srcActor="shift" srcPort="to_pdem" dstActor="pdem" dstPort="from_shift" initialTokens="0"></channel>
+        <channel name="pars2pars" srcActor="pars" srcPort="to_pars" dstActor="pars" dstPort="from_pars" initialTokens="1" persistentTokenNames="pars"></channel>
+        <channel name="pars2pdem" srcActor="pars" srcPort="to_pdem" dstActor="pdem" dstPort="from_pars" initialTokens="0"></channel>
+        <channel name="pdem2pdec" srcActor="pdem" srcPort="to_pdec" dstActor="pdec" dstPort="from_pdem" initialTokens="0"></channel>
+        <channel name="pdec2dataout" srcActor="pdec" srcPort="to_dataout" dstActor="dataout" dstPort="from_pdec" initialTokens="0"></channel>
+        <channel name="pdec2payload" srcActor="pdec" srcPort="to_payload" dstActor="payload" dstPort="from_pdec" initialTokens="0"></channel>
+        <channel name="payload2payload" srcActor="payload" srcPort="to_payload" dstActor="payload" dstPort="from_payload" initialTokens="1" persistentTokenNames="payload"></channel>
+      </scenariograph>
+      <scenariograph name="CRC" type="TCRC">
+        <actor name="payload" type="Payload" repetitions="1">
+          <port name="to_payload" type="out" rate="1"></port>
+          <port name="to_crc" type="out" rate="1"></port>
+          <port name="from_payload" type="in" rate="1"></port>
+        </actor>
+        <actor name="crc" type="Crc" repetitions="1">
+          <port name="to_cdack" type="out" rate="1"></port>
+          <port name="to_buildhdr" type="out" rate="1"></port>
+          <port name="from_payload" type="in" rate="1"></port>
+        </actor>
+        <actor name="cdack" type="CdAck" repetitions="1">
+          <port name="to_mdack" type="out" rate="1"></port>
+          <port name="from_crc" type="in" rate="1"></port>
+        </actor>
+        <actor name="mdack" type="MdAck" repetitions="1">
+          <port name="to_sendpl" type="out" rate="1"></port>
+          <port name="from_cdack" type="in" rate="1"></port>
+        </actor>
+        <actor name="buildhdr" type="BuildHdr" repetitions="1">
+          <port name="to_codehdr" type="out" rate="1"></port>
+          <port name="from_crc" type="in" rate="1"></port>
+        </actor>
+        <actor name="codehdr" type="CodeHdr" repetitions="1">
+          <port name="to_modehdr" type="out" rate="1"></port>
+          <port name="from_buildhdr" type="in" rate="1"></port>
+        </actor>
+        <actor name="modehdr" type="ModeHdr" repetitions="1">
+          <port name="to_sendhdr" type="out" rate="1"></port>
+          <port name="from_codehdr" type="in" rate="1"></port>
+        </actor>
+        <actor name="sendhdr" type="SendHdr" repetitions="1">
+          <port name="to_sendpl" type="out" rate="1"></port>
+          <port name="from_modehdr" type="in" rate="1"></port>
+        </actor>
+        <actor name="sendpl" type="SendPl" repetitions="1">
+          <port name="from_mdack" type="in" rate="1"></port>
+          <port name="from_sendhdr" type="in" rate="1"></port>
+        </actor>
+
+        <!-- dummy actors for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <actor name="dummySrc" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+        <actor name="dummyShift" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+        <actor name="dummyPars" type="Dummy" repetitions="0">
+          <port name="in" type="in" rate="1"></port>
+          <port name="out" type="out" rate="1"></port>
+        </actor>
+
+
+        <channel name="payload2payload" srcActor="payload" srcPort="to_payload" dstActor="payload" dstPort="from_payload" initialTokens="1" persistentTokenNames="payload"></channel>
+        <channel name="payload2crc" srcActor="payload" srcPort="to_crc" dstActor="crc" dstPort="from_payload" initialTokens="0"></channel>
+        <channel name="crc2cdack" srcActor="crc" srcPort="to_cdack" dstActor="cdack" dstPort="from_crc" initialTokens="0"></channel>
+        <channel name="crc2buildhdr" srcActor="crc" srcPort="to_buildhdr" dstActor="buildhdr" dstPort="from_crc" initialTokens="0"></channel>
+        <channel name="buildhdr2codehdr" srcActor="buildhdr" srcPort="to_codehdr" dstActor="codehdr" dstPort="from_buildhdr" initialTokens="0"></channel>
+        <channel name="codehdr2modehdr" srcActor="codehdr" srcPort="to_modehdr" dstActor="modehdr" dstPort="from_codehdr" initialTokens="0"></channel>
+        <channel name="modehdr2sendhdr" srcActor="modehdr" srcPort="to_sendhdr" dstActor="sendhdr" dstPort="from_modehdr" initialTokens="0"></channel>
+        <channel name="cdack2mdack" srcActor="cdack" srcPort="to_mdack" dstActor="mdack" dstPort="from_cdack" initialTokens="0"></channel>
+        <channel name="sendhdr2sendpl" srcActor="sendhdr" srcPort="to_sendpl" dstActor="sendpl" dstPort="from_sendhdr" initialTokens="0"></channel>
+        <channel name="mdack2sendpl" srcActor="mdack" srcPort="to_sendpl" dstActor="sendpl" dstPort="from_mdack" initialTokens="0"></channel>
+
+        <!-- dummy channels for unused persistent tokens. To be removed when SDF3 can handle that. -->
+        <channel name="dummy_src" srcActor="dummySrc" srcPort="out" dstActor="dummySrc" dstPort="in" initialTokens="1" persistentTokenNames="src"/>
+        <channel name="dummy_shift" srcActor="dummyShift" srcPort="out" dstActor="dummyShift" dstPort="in" initialTokens="1" persistentTokenNames="shift"/>
+        <channel name="dummy_pars" srcActor="dummyPars" srcPort="out" dstActor="dummyPars" dstPort="in" initialTokens="1" persistentTokenNames="pars"/>
+
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="src">
+          <processor type="RF1" default="true">
+            <executionTime time="4000"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="shift">
+          <processor type="EVP1" default="true">
+            <executionTime time="100"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="sync">
+          <processor type="EVP1" default="true">
+            <executionTime time="1200"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="hdem">
+          <processor type="EVP1" default="true">
+            <executionTime time="920"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="hdec">
+          <processor type="SWC1" default="true">
+            <executionTime time="920"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="crc">
+          <processor type="ARM1" default="true">
+            <executionTime time="500"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="pdem">
+          <processor type="EVP1" default="true">
+            <executionTime time="920"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="pdec">
+          <processor type="SWC1" default="true">
+            <executionTime time="920"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="dataout">
+          <processor type="ARM1" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="buildhdr">
+          <processor type="ARM1" default="true">
+            <executionTime time="500"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="codehdr">
+          <processor type="SWC1" default="true">
+            <executionTime time="500"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="modehdr">
+          <processor type="EVP1" default="true">
+            <executionTime time="920"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="sendhdr">
+          <processor type="SWC2" default="true">
+            <executionTime time="1"></executionTime>
+            <memory>
+              <stateSize max="1"></stateSize>
+            </memory>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="cdack">
+          <processor type="SWC1" default="true">
+            <executionTime time="600"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="mdack">
+          <processor type="EVP1" default="true">
+            <executionTime time="600"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="crc">
+          <processor type="ARM1" default="true">
+            <executionTime time="1000"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="sendpl">
+          <processor type="SWC3" default="true">
+            <executionTime time="1"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="dummyPayload">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="dummySrc">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="dummyShift">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="dummyPars">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="pars">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+        <actorProperties actor="payload">
+          <processor type="DummyProc" default="true">
+            <executionTime time="0"></executionTime>
+          </processor>
+        </actorProperties>
+
+        <channelProperties channel="hdem2hdec">
+          <tokenSize sz="13"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="shift2hdem">
+          <tokenSize sz="40"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="pdem2pdec">
+          <tokenSize sz="13"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="shift2pdem">
+          <tokenSize sz="40"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="crc2codeack">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="codeack2modeack">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="modeack2sendpl">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="sendhdr2sendpl">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="crc2buildhdr">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="buildhdr2codehdr">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="codehdr2modehdr">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+        <channelProperties channel="modehdr2sendhdr">
+          <tokenSize sz="1"></tokenSize>
+        </channelProperties>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="Sync" graph="Sync" reward="1">
+        </scenario>
+        <scenario name="Header" graph="Header" reward="1">
+        </scenario>
+        <scenario name="Payload" graph="Payload" reward="1">
+        </scenario>
+        <scenario name="CRC" graph="CRC" reward="0">
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1.4084507000e-02</throughput>
+        </timeConstraints>
+      </graphProperties>
+    </fsmsadfProperties>
+    <fsm initialstate="Sync">
+      <state name="Sync" scenario="Sync">
+        <transition destination="Sync"></transition>
+        <transition destination="Header"></transition>
+      </state>
+      <state name="Header" scenario="Header">
+        <transition destination="Sync"></transition>
+        <transition destination="Payload"></transition>
+      </state>
+      <state name="Payload" scenario="Payload">
+        <transition destination="Payload"></transition>
+        <transition destination="CRC"></transition>
+        <transition destination="Sync"></transition>
+      </state>
+      <state name="CRC" scenario="CRC">
+        <transition destination="Sync"></transition>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

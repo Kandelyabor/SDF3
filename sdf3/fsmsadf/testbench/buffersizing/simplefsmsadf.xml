@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="smap" type="fsmsadf">
+    <fsmsadf>
+      <scenariograph name="s1" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="out_a" rate="1" type="out"/>
+          <port name="in_a" rate="1" type="in"/>
+          <port name="out_b" rate="1" type="out"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="in_a" rate="1" type="in"/>
+        </actor>
+        <channel dstActor="a" dstPort="in_a" name="a_a" srcActor="a" srcPort="out_a" initialTokens="1" persistentTokenNames="AA"/>
+        <channel dstActor="b" dstPort="in_a" initialTokens="0" name="a_b" srcActor="a" srcPort="out_b"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <scenarios>
+        <scenario graph="s1" name="s1" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <executionTime time="3"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor default="true" type="microblaze">
+              <executionTime time="2"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a_b" type="buffer">
+            <tokenSize sz="1"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+    </fsmsadfProperties>
+    <fsm initialstate="q1">
+      <state name="q1" scenario="s1">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

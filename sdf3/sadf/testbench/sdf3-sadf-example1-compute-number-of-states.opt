@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute number of states on example1</name>
+		<program>sdf3analyze-sadf --graph example1.xml --compute number_of_states</program>
+		<type>outputcompare</type>
+		<reference>SADF graph 'example1' implies a Markov Decision Process with 919 unique states.</reference>
+	</settings>
+
+</sdf3>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="one_switch" type="fsmsadf">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="fab9_0" rate="2" type="out"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="fbc10_0" rate="2" type="in"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="fbc10_0" rate="2" type="out"/>
+          <port name="fab9_0" rate="2" type="in"/>
+        </actor>
+        <channel dstActor="b" dstPort="fab9_0" name="fab9" srcActor="a" srcPort="fab9_0"/>
+        <channel dstActor="c" dstPort="fbc10_0" name="fbc10" srcActor="b" srcPort="fbc10_0"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>2e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+      <scenarios>
+        <scenario graph="scenario1" name="scenario1" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="a_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="c_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="b_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="fab9">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc10">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+    </fsmsadfProperties>
+    <fsm detector="a" initialstate="q1">
+      <state name="q1" scenario="scenario1">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

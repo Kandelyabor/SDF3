@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>sdf3outputconvert-fsmsadf compsoc 1scen</name>
+		<program>sdf3outputconvert-fsmsadf --settings sdf3-output-convert-compsoc-1scen.opt</program>
+		<type>xmlcompare</type>
+		<programOutput>fsmsadf-output-convert-compsoc-1scen-communication.xml</programOutput>
+		<programOutput>fsmsadf-output-convert-compsoc-1scen-mapping.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+
+  <settings type="generate" random="no">
+	<input file="fsmsadf-output-convert-compsoc-1scen.sdf"/>
+  </settings>
+
+  <settings type="flow">
+    <platformType type="Virtual"/>
+    <flowType type="NSoC"/> <!--supported types: NSoC -->
+    <maxNrBindingsTileBindingAlgo n="5"/>
+    <!-- maximum number of platform bindings outputted by tile binding  and
+         scheduling algorithm. -->
+    <applicationGraph file="fsmsadf-output-convert-compsoc-1scen.xml"/> 
+    <!-- application graphs are mapped in the order in which they appear in 
+         this file. -->
+    <architectureGraph file="duo-arch.xml"/>
+    <!-- SDF3 creates an SDF3 document from an applicationGraph and the
+         architectureGraph. It uses the applicationGraph and mapping nodes 
+         from the applicationGraph file and it uses the architectureGraph node
+         from the architecture graph. -->
+	<output file="fsmsadf-output-convert-compsoc-1scen-mapped.xml"/>
+	<chanToConnModelFile>compsoc-chantoconn.xml</chanToConnModelFile>
+  </settings>
+
+  <settings type="output-convert">
+  	<platformType type="CompSoC"/>
+	<input file="fsmsadf-output-convert-compsoc-1scen-mapped.xml"/>
+	<applicationGraph file="fsmsadf-output-convert-compsoc-1scen-mapped.xml"/>
+	<architectureGraph file="architecture.xml"/>
+	<mappingGraph file="fsmsadf-output-convert-compsoc-1scen-mapping.xml"/>
+	<communicationGraph file="fsmsadf-output-convert-compsoc-1scen-communication.xml"/>
+	<mapping number="21"/>
+</settings>
+
+</sdf3>

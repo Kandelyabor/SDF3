@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: verify is-hsdf graph on example2</name>
+		<program>sdf3verify-sadf --graph example2.xml --check is_hsdf</program>
+		<type>outputcompare</type>
+		<reference>SADF graph 'example2' does not represent an HSDF graph.</reference>
+	</settings>
+
+</sdf3>

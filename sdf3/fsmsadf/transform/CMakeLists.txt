@@ -1,0 +1,7 @@
+add_subdirectory(auto-concurrency)
+add_subdirectory(create-detector)
+add_subdirectory(dsm_encode)
+add_subdirectory(merge-scenarios)
+add_subdirectory(model-static-order)
+add_subdirectory(to_binding_aware)
+add_subdirectory(worst-case)

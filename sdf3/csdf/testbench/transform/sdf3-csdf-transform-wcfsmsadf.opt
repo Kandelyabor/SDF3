@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>CSDF transform: to worst-case fsmsadf</name>
+		<program>sdf3transform-csdf --graph simple_example.xml --transform to_wc-fsmsadf --output csdf-transform-wcfsmsadf.xml</program>
+		<type>outputcompare</type>
+		<programOutput>csdf-transform-wcfsmsadf.xml</programOutput>
+	</settings>
+
+</sdf3>

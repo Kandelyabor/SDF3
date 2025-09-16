@@ -1,0 +1,10 @@
+<sdf3 type="">
+	<settings type="test">
+		<name>Text Diff test empty files</name>
+		<type>outputcompare</type>
+		<program>textdiff-test empty.txt empty.txt</program>
+    <reference>============
+============
+</reference>
+	</settings>
+</sdf3>

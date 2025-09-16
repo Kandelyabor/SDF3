@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="sdf" version="1.0">
+  <applicationGraph name='c2'>
+    <sdf name="c2" type="c2">
+		<port name="In1" type="out" />
+		<port name="out1" type="in" />
+      <actor name="A" type="A0">
+        <port name="p0" type="out" rate="2"/>
+        <port name="p1" type="in" rate="1"/>
+        <port name="p2" type="out" rate="1"/>
+		<port name="p3" type="in" rate="2"/>
+	  </actor>
+	  <actor name="B" type="A1">
+	    <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="in" rate="1"/>
+		<port name="p2" type="out" rate="1"/>
+		<port name="p3" type="out" rate="1"/>
+		<port name="p4" type="in" rate="1"/>
+      </actor>
+	  <actor name="C" type="A2">
+	    <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="in" rate="1"/>
+		<port name="p2" type="out" rate="1"/>
+		<port name="p3" type="out" rate="1"/>
+      </actor>
+	  <actor name="D" type="A3">
+	    <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="in" rate="1"/>
+		<port name="p2" type="out" rate="1"/>
+		<port name="p3" type="out" rate="1"/>
+		<port name="p4" type="out" rate="1"/>
+      </actor>
+    <input name="Input1">
+      <port type="out" name="p0" rate="1"/>
+    </input>
+    <output name="Output1">
+      <port type="in" name="p0" rate="1"/>
+    </output>
+	  <channel name="A2B" srcActor="A" srcPort="p0" dstActor="B" dstPort="p0"/>
+	  <channel name="B2C" srcActor="B" srcPort="p3" dstActor="C" dstPort="p0"/>
+	  <channel name="C2D" srcActor="C" srcPort="p3" dstActor="D" dstPort="p0"/>
+      <channel name="A2A" srcActor="A" srcPort="p2" dstActor="A" dstPort="p1" initialTokens='1'/>
+	  <channel name="B2B" srcActor="B" srcPort="p2" dstActor="B" dstPort="p1" initialTokens='1'/>
+	  <channel name="C2C" srcActor="C" srcPort="p2" dstActor="C" dstPort="p1" initialTokens='1'/>
+	  <channel name="D2D" srcActor="D" srcPort="p2" dstActor="D" dstPort="p1" initialTokens='1'/>
+	  <channel name="D2B" srcActor="D" srcPort="p3" dstActor="B" dstPort="p4" initialTokens='2'/>
+
+	  <channel name="Input1" srcInput="Input1" srcPort="p0" dstActor="A" dstPort="p3" /> <!-- Input1 -->
+	  <channel name="Output1" srcActor="D" srcPort="p4" dstOutput="Output1" dstPort="p0" /> <!-- Output1 -->
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="A">
+        <processor type="arm" default="true">
+          <executionTime time="2"/> <!-- Time in Microsecond -->
+          <memory>
+            <stateSize max="400"/>
+          </memory>
+		</processor>
+		</actorProperties>
+      <actorProperties actor="B">
+        <processor type="arm" default="true">
+          <executionTime time="1"/> <!-- with 120MHz clock -->
+          <memory>
+            <stateSize max="400"/>
+          </memory>
+        </processor>
+      </actorProperties>
+	  <actorProperties actor="C">
+        <processor type="arm" default="true">
+          <executionTime time="2"/> <!-- Time in Microsecond -->
+          <memory>
+            <stateSize max="400"/>
+          </memory>
+		</processor>
+		</actorProperties>
+      <actorProperties actor="D">
+        <processor type="arm" default="true">
+          <executionTime time="2"/>
+          <memory>
+            <stateSize max="400"/>
+          </memory>
+        </processor>
+      </actorProperties>
+      <channelProperties channel="A2B">
+        <tokenSize sz="512"/>
+      </channelProperties>
+	  <channelProperties channel="B2C">
+        <tokenSize sz="512"/>
+      </channelProperties>
+      <channelProperties channel="C2D">
+        <tokenSize sz="512"/>
+      </channelProperties>
+	  <channelProperties channel="D2B">
+        <tokenSize sz="512"/>
+		</channelProperties>
+		<channelProperties channel="A2A">
+        <tokenSize sz="512"/>
+      </channelProperties>
+	  <channelProperties channel="B2B">
+        <tokenSize sz="512"/>
+      </channelProperties>
+      <channelProperties channel="C2C">
+        <tokenSize sz="512"/>
+      </channelProperties>
+	  <channelProperties channel="D2D">
+        <tokenSize sz="512"/>
+		</channelProperties>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>

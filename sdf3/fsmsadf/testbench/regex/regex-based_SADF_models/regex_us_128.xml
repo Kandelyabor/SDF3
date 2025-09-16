@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+<applicationGraph name="convolutionFilter">
+<fsmsadf>
+<scenariograph name="s0" type="s0">
+<actor name="src" type="">
+<port name="src-ii" type="out" rate="1"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<actor name="ii" type="">
+<port name="src-ii" type="in" rate="1"/>
+<port name="ii-l" type="out" rate="1"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<actor name="l" type="">
+<port name="ii-l" type="in" rate="1"/>
+<port name="l-snk" type="out" rate="1"/>
+</actor>
+<actor name="snk" type="output">
+<port name="l-snk" type="in" rate="1"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<channel name="src2ii" srcActor="src" srcPort="src-ii" dstActor="ii" dstPort="src-ii" initialTokens="0" finalTokens="0"/>
+<channel name="ii2l" srcActor="ii" srcPort="ii-l" dstActor="l" dstPort="ii-l" initialTokens="0" finalTokens="0"/>
+<channel name="l2snk" srcActor="l" srcPort="l-snk" dstActor="snk" dstPort="l-snk" initialTokens="0" finalTokens="0"/>
+<channel name="src2src" srcActor="src" srcPort="selfo" dstActor="src" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="src2src0" persistentFinalTokenNames="src2src0"/>
+<channel name="ii2ii" srcActor="ii" srcPort="selfo" dstActor="ii" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="ii2ii0" persistentFinalTokenNames="ii2ii0"/>
+<channel name="snk2snk" srcActor="snk" srcPort="selfo" dstActor="snk" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="snk2snk0" persistentFinalTokenNames="snk2snk0"/>
+</scenariograph>
+</fsmsadf>
+<fsmsadfProperties>
+<defaultProperties>
+<actorProperties actor="src"/>
+<actorProperties actor="ii"/>
+<actorProperties actor="l"/>
+<actorProperties actor="snk"/>
+<channelProperties channel="src2ii"/>
+<channelProperties channel="ii2l"/>
+<channelProperties channel="l2snk"/>
+<channelProperties channel="src2src"/>
+<channelProperties channel="ii2ii"/>
+<channelProperties channel="snk2snk"/>
+</defaultProperties>
+<scenarios>
+<scenario name="ri" graph="s0" reward="0">
+<actorProperties actor="src" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="2"/>
+</processor>
+<port name="src-ii" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="ii" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="2"/>
+</processor>
+<port name="src-ii" rate="1"/>
+<port name="ii-l" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="l" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="1"/>
+</processor>
+<port name="ii-l" rate="1"/>
+<port name="l-snk" rate="0"/>
+</actorProperties>
+<actorProperties actor="snk" repetitions="0">
+<processor type="t" default="true">
+<executionTime time="0"/>
+</processor>
+<port name="l-snk" rate="0"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="src2ii"/>
+<channelProperties channel="ii2l"/>
+<channelProperties channel="l2snk"/>
+<channelProperties channel="src2src"/>
+<channelProperties channel="ii2ii"/>
+<channelProperties channel="snk2snk"/>
+</scenario>
+<scenario name="cm" graph="s0" reward="1">
+<actorProperties actor="src" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="2"/>
+</processor>
+<port name="src-ii" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="ii" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="4"/>
+</processor>
+<port name="src-ii" rate="1"/>
+<port name="ii-l" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="l" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="5"/>
+</processor>
+<port name="ii-l" rate="1"/>
+<port name="l-snk" rate="1"/>
+</actorProperties>
+<actorProperties actor="snk" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="2"/>
+</processor>
+<port name="l-snk" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="src2ii"/>
+<channelProperties channel="ii2l"/>
+<channelProperties channel="l2snk"/>
+<channelProperties channel="src2src"/>
+<channelProperties channel="ii2ii"/>
+<channelProperties channel="snk2snk"/>
+</scenario>
+<scenario name="ro" graph="s0" reward="1">
+<actorProperties actor="src" repetitions="0">
+<processor type="t" default="true">
+<executionTime time="0"/>
+</processor>
+<port name="src-ii" rate="0"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="ii" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="3"/>
+</processor>
+<port name="src-ii" rate="0"/>
+<port name="ii-l" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="l" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="4"/>
+</processor>
+<port name="ii-l" rate="1"/>
+<port name="l-snk" rate="1"/>
+</actorProperties>
+<actorProperties actor="snk" repetitions="1">
+<processor type="t" default="true">
+<executionTime time="2"/>
+</processor>
+<port name="l-snk" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="src2ii"/>
+<channelProperties channel="ii2l"/>
+<channelProperties channel="l2snk"/>
+<channelProperties channel="src2src"/>
+<channelProperties channel="ii2ii"/>
+<channelProperties channel="snk2snk"/>
+</scenario>
+</scenarios>
+<graphProperties>
+<timeConstraints>
+<throughput>0.0001</throughput>
+</timeConstraints>
+</graphProperties>
+</fsmsadfProperties>
+<regex string=".(ri^128,(ri,(cm,ro)^127,ro^258)^127,ro^512)@" />
+
+</applicationGraph>
+</sdf3>

@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+
+<head>
+  <title>Scenario-Aware Dataflow</title>
+  <meta http-equiv='Content-type' content='text/html;charset=iso-8859-1'/>
+  <link rel='stylesheet' type='text/css' media='screen' href='https://www.es.ele.tue.nl/sadf/style/master.css'/>
+</head>
+
+<body>
+<a name='example1'></a><h1>SADF Graph: example1</h1>
+
+<map id="example1" name="example1">
+<area shape="poly" id="node1" href="?id=A" title="A" alt="" coords="185,29,184,22,178,15,170,10,160,7,149,5,138,7,128,10,120,15,115,22,113,29,115,37,120,43,128,49,138,52,149,53,160,52,170,49,178,43,184,37"/>
+<area shape="poly" id="node2" href="?id=B" title="B" alt="" coords="185,261,184,254,178,247,170,242,160,239,149,237,138,239,128,242,120,247,115,254,113,261,115,269,120,275,128,281,138,284,149,285,160,284,170,281,178,275,184,269"/>
+<area shape="poly" id="edge1" href="?id=A2B" title="A2B" alt="" coords="152,53,152,224,147,224,147,53"/>
+<area shape="rect" id="edge1-label" href="?id=A2B" title="A2B" alt="" coords="149,135,189,155"/>
+<area shape="rect" id="edge1-taillabel" href="?id=A2B" title="2" alt="" coords="136,53,149,73"/>
+<area shape="poly" id="node5" href="?id=E" title="E" alt="" coords="91,145,89,138,84,131,76,126,66,123,55,121,44,123,33,126,26,131,20,138,19,145,20,153,26,159,33,165,44,168,55,169,66,168,76,165,84,159,89,153"/>
+<area shape="poly" id="edge6" href="?id=A2E" title="A2E" alt="" coords="126,49,93,79,72,111,68,108,89,76,123,45"/>
+<area shape="rect" id="edge6-label" href="?id=A2E" title="A2E" alt="" coords="91,77,131,97"/>
+<area shape="rect" id="edge6-headlabel" href="?id=A2E" title="1" alt="" coords="51,102,64,122"/>
+<area shape="rect" id="edge6-taillabel" href="?id=A2E" title="1" alt="" coords="111,47,125,67"/>
+<area shape="poly" id="edge2" href="?id=B2A" title="B2A(2)" alt="" coords="161,238,178,206,192,169,196,145,192,122,182,92,168,65,173,62,187,90,197,121,201,145,197,170,183,208,166,240"/>
+<area shape="rect" id="edge2-label" href="?id=B2A" title="B2A(2)" alt="" coords="197,135,263,155"/>
+<area shape="rect" id="edge2-headlabel" href="?id=B2A" title="2" alt="" coords="150,52,163,72"/>
+<area shape="poly" id="node3" href="?id=C" title="C" alt="" coords="96,377,94,370,89,363,81,358,71,355,60,353,49,355,39,358,31,363,26,370,24,377,26,385,31,391,39,397,49,400,60,401,71,400,81,397,89,391,94,385"/>
+<area shape="poly" id="edge3" href="?id=B2C" title="B2C" alt="" coords="125,280,91,311,74,342,69,340,87,308,122,276"/>
+<area shape="rect" id="edge3-label" href="?id=B2C" title="B2C" alt="" coords="89,309,131,329"/>
+<area shape="rect" id="edge3-headlabel" href="?id=B2C" title="1" alt="" coords="53,333,67,353"/>
+<area shape="poly" id="node4" href="?id=D" title="D" alt="" coords="96,493,94,486,89,479,81,474,71,471,60,469,49,471,39,474,31,479,26,486,24,493,26,501,31,507,39,513,49,516,60,517,71,516,81,513,89,507,94,501"/>
+<area shape="poly" id="edge4" href="?id=C2D" title="C2D" alt="" coords="63,402,63,456,57,456,57,402"/>
+<area shape="rect" id="edge4-label" href="?id=C2D" title="C2D" alt="" coords="60,425,101,445"/>
+<area shape="poly" id="edge5" href="?id=D2B" title="D2B(3)" alt="" coords="81,472,104,444,121,407,132,369,144,299,149,299,137,370,126,409,109,447,85,476"/>
+<area shape="rect" id="edge5-label" href="?id=D2B" title="D2B(3)" alt="" coords="139,367,207,387"/>
+<area shape="rect" id="edge5-headlabel" href="?id=D2B" title="2" alt="" coords="135,285,148,305"/>
+<area shape="rect" id="edge5-taillabel" href="?id=D2B" title="1" alt="" coords="83,454,96,474"/>
+<area shape="poly" id="edge7" href="?id=E2B" title="E2B" alt="" coords="66,168,77,190,91,212,115,234,111,238,87,215,72,193,61,170"/>
+<area shape="rect" id="edge7-label" href="?id=E2B" title="E2B" alt="" coords="89,193,131,213"/>
+<area shape="rect" id="edge7-headlabel" href="?id=E2B" title="1" alt="" coords="111,224,124,244"/>
+<area shape="poly" id="edge8" href="?id=E2C" title="E2C" alt="" coords="58,169,62,340,56,340,53,170"/>
+<area shape="rect" id="edge8-label" href="?id=E2C" title="E2C" alt="" coords="59,251,100,271"/>
+<area shape="rect" id="edge8-headlabel" href="?id=E2C" title="1" alt="" coords="46,333,59,353"/>
+<area shape="poly" id="edge9" href="?id=E2D" title="E2D" alt="" coords="47,170,32,213,16,270,8,336,9,369,15,401,26,431,40,459,36,461,21,433,9,402,4,369,3,335,11,269,27,211,42,168"/>
+<area shape="rect" id="edge9-label" href="?id=E2D" title="E2D" alt="" coords="8,309,49,329"/>
+<area shape="rect" id="edge9-headlabel" href="?id=E2D" title="1" alt="" coords="32,451,45,471"/>
+</map>
+<img border='0' src='example1.jpg' usemap='#example1'/>
+
+<p>Click on an object in the image to see its properties</p>
+
+<?php
+
+$id = $_GET['id'];
+
+if ($id == A) { ?>
+<hr /><h2><a name='A'</a>Kernel: A</h2>
+<h3>Scenarios</h3>
+
+<p>default</p>
+
+<h3>Execution Time Distributions</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Scenario</th>
+  <th>Execution Time</th>
+  <th>Probability</th>
+</tr>
+<tr>
+  <td rowspan='2'>default</td>
+  <td>2</td>
+  <td>0.5</td>
+</tr>
+<tr>
+  <td>2.1</td>
+  <td>0.5</td>
+</tr>
+</table>
+
+<?php }
+
+if ($id == B) { ?>
+<hr /><h2><a name='B'</a>Kernel: B</h2>
+<h3>Scenarios</h3>
+
+<p>S1, S2</p>
+
+<h3>Parameterised Rates</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Channel</th>
+  <th>Scenario</th>
+  <th>Rate</th>
+</tr>
+<tr>
+  <td rowspan='2'>A2B</td>
+  <td>S1</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td rowspan='2'>B2A</td>
+  <td>S1</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td rowspan='2'>B2C</td>
+  <td>S1</td>
+  <td>3</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>2</td>
+</tr>
+</table>
+
+<h3>Execution Time Distributions</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Scenario</th>
+  <th>Execution Time</th>
+  <th>Probability</th>
+</tr>
+<tr>
+  <td rowspan='2'>S1</td>
+  <td>3</td>
+  <td>0.2</td>
+</tr>
+<tr>
+  <td>2.8</td>
+  <td>0.8</td>
+</tr>
+<tr>
+  <td rowspan='1'>S2</td>
+  <td>4</td>
+  <td>1</td>
+</tr>
+</table>
+
+<?php }
+
+if ($id == C) { ?>
+<hr /><h2><a name='C'</a>Kernel: C</h2>
+<h3>Scenarios</h3>
+
+<p>S1, S2</p>
+
+<h3>Parameterised Rates</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Channel</th>
+  <th>Scenario</th>
+  <th>Rate</th>
+</tr>
+<tr>
+  <td rowspan='2'>C2D</td>
+  <td>S1</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>1</td>
+</tr>
+</table>
+
+<h3>Execution Time Distributions</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Scenario</th>
+  <th>Execution Time</th>
+  <th>Probability</th>
+</tr>
+<tr>
+  <td rowspan='2'>S1</td>
+  <td>1</td>
+  <td>0.5</td>
+</tr>
+<tr>
+  <td>1.2</td>
+  <td>0.5</td>
+</tr>
+<tr>
+  <td rowspan='1'>S2</td>
+  <td>3</td>
+  <td>1</td>
+</tr>
+</table>
+
+<?php }
+
+if ($id == D) { ?>
+<hr /><h2><a name='D'</a>Kernel: D</h2>
+<h3>Scenarios</h3>
+
+<p>S1, S2</p>
+
+<h3>Parameterised Rates</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Channel</th>
+  <th>Scenario</th>
+  <th>Rate</th>
+</tr>
+<tr>
+  <td rowspan='2'>C2D</td>
+  <td>S1</td>
+  <td>3</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>1</td>
+</tr>
+</table>
+
+<h3>Execution Time Distributions</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Scenario</th>
+  <th>Execution Time</th>
+  <th>Probability</th>
+</tr>
+<tr>
+  <td rowspan='1'>S1</td>
+  <td>4</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td rowspan='1'>S2</td>
+  <td>2.5</td>
+  <td>1</td>
+</tr>
+</table>
+
+<?php }
+
+if ($id == E) { ?>
+<hr /><h2><a name='E'</a>Detector: E</h2>
+<h3>Scenarios</h3>
+<p><a href='#E_default'>default</a></p>
+
+<h3>SubScenarios</h3>
+<p>S1, S2</p>
+
+<h3>Parameterised Rates</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr>
+  <th>Channel</th>
+  <th>SubScenario</th>
+  <th>Rate</th>
+</tr>
+<tr>
+  <td rowspan='2'>E2B</td>
+  <td>S1</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td rowspan='2'>E2C</td>
+  <td>S1</td>
+  <td>3</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>4</td>
+</tr>
+<tr>
+  <td rowspan='2'>E2D</td>
+  <td>S1</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>4</td>
+</tr>
+</table>
+
+<h3>Produced Control Tokens</h3>
+
+<table align='center' border='1' frame='hsides' cellpadding='5'>
+<tr><th>Channel</th><th>SubScenario</th><th>Value</th></tr>
+<tr>
+  <td rowspan='2'>E2B</td>
+  <td>S1</td>
+  <td>S1</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>S2</td>
+</tr>
+<tr>
+  <td rowspan='2'>E2C</td>
+  <td>S1</td>
+  <td>S1</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>S2</td>
+</tr>
+<tr>
+  <td rowspan='2'>E2D</td>
+  <td>S1</td>
+  <td>S1</td>
+</tr>
+<tr>
+  <td>S2</td>
+  <td>S2</td>
+</tr>
+</table>
+
+<h3>Execution Time</h3>
+<p>ExecutionTime: 0</p>
+
+<h3>Markov Chains</h3>
+<table align='center' border='1' cellpadding='5'>
+<tr><th colspan='3'><a name='E_default'></a>Scenario: default</th></tr><tr><td rowspan='4'><img border='0' src='example1_E_default.jpg'/></td><th>State</th><th>SubScenario</th></tr>
+  <tr><td>S1</td><td>S1</td></tr>
+  <tr><td>S2</td><td>S2</td></tr>
+  <tr><td>S3</td><td>S2</td></tr>
+</table>
+
+<?php }
+
+if ($id == A2B) { ?>
+<hr /><h2><a name='A2B'></a>A2B</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>0</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == B2A) { ?>
+<hr /><h2><a name='B2A'></a>B2A</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>2</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == B2C) { ?>
+<hr /><h2><a name='B2C'></a>B2C</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>0</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == C2D) { ?>
+<hr /><h2><a name='C2D'></a>C2D</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>0</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == D2B) { ?>
+<hr /><h2><a name='D2B'></a>D2B</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>3</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == A2E) { ?>
+<hr /><h2><a name='A2E'></a>A2E</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Number of Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>0</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == E2B) { ?>
+<hr /><h2><a name='E2B'></a>E2B</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>-</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == E2C) { ?>
+<hr /><h2><a name='E2C'></a>E2C</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>-</td><td>1</td></tr>
+</table>
+<?php }
+
+if ($id == E2D) { ?>
+<hr /><h2><a name='E2D'></a>E2D</h2>
+<table align='center' border='1' cellpadding='5'>
+<tr><th>Buffer Size</th><th>Initial Tokens</th><th>Token Size</th></tr><tr><td>Unbounded</td><td>-</td><td>1</td></tr>
+</table>
+<?php }
+
+?>
+</body>
+</html>

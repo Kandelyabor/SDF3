@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="sdf" version="1.0" xsi:noNamespaceSchemaLocation="http://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <applicationGraph name="io-test">
+    <sdf name="io-test" type="IO-Test">
+      <actor name="A" type="A">
+        <port name="to_ch2" type="out" rate="1"/>
+        <port name="from_ch1" type="in" rate="1"/>
+        <port name="from_ch3" type="in" rate="1"/>
+      </actor>
+      <actor name="B" type="B">
+        <port name="to_ch3" type="out" rate="1"/>
+        <port name="to_ch4" type="out" rate="1"/>
+        <port name="from_ch2" type="in" rate="1"/>
+      </actor>
+      <input name="i"/>
+      <output name="o"/>
+      <channel name="ch1" srcInput="i" dstActor="A" dstPort="from_ch1"/>
+      <channel name="ch2" srcActor="A" srcPort="to_ch2" dstActor="B" dstPort="from_ch2"/>
+      <channel name="ch3" srcActor="B" srcPort="to_ch3" dstActor="A" dstPort="from_ch3" initialTokens="1"/>
+      <channel name="ch4" srcActor="B" srcPort="to_ch4" dstOutput="o"/>
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="A">
+        <processor type="p1" default="true">
+          <executionTime time="1"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="B">
+        <processor type="p1" default="true">
+          <executionTime time="1"/>
+        </processor>
+      </actorProperties>
+      <channelProperties channel="ch1"/>
+      <channelProperties channel="ch2"/>
+      <channelProperties channel="ch3"/>
+      <channelProperties channel="ch4"/>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>

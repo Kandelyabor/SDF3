@@ -1,0 +1,5 @@
+add_subdirectory(sdf3analyze)
+add_subdirectory(sdf3convert)
+add_subdirectory(sdf3print)
+add_subdirectory(sdf3transform)
+add_subdirectory(sdf3verify)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>FSM-SADF analyze: vectortrace on mp3 decoder</name>
+		<program>sdf3analyze-fsmsadf --algo vectortrace --graph mp3decoder.xml --traceFormat XML --traceFiles sdf3-fsmsadf-mp3decoder-vectortrace-result.xml --seq ss,sl,ll</program>
+		<type>xmlcompare</type>
+		<programOutput>sdf3-fsmsadf-mp3decoder-vectortrace-result.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

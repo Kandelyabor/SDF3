@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<!DOCTYPE system SYSTEM "etc/dtd/composegrm.dtd">
+<system id="template">
+  <processor_tile id="mb0">
+    <app_scheduler type="TDM">
+      <parameter id="OS_slot_len" type="int" value="400"/>
+      <parameter id="task_slot_len" type="int" value="2500"/>
+      <parameter id="num_slots" type="int" value="80"/>
+    </app_scheduler>
+  </processor_tile>
+  <processor_tile id="mb1">
+    <app_scheduler type="TDM">
+      <parameter id="OS_slot_len" type="int" value="400"/>
+      <parameter id="task_slot_len" type="int" value="2500"/>
+      <parameter id="num_slots" type="int" value="80"/>
+    </app_scheduler>
+  </processor_tile>
+  <application id="smap">
+    <processor id="mb0">
+      <app_TDM_slots>
+        <parameter id="num_slots" type="int" value="1"/>
+        <parameter id="min_slots_dist" type="int" value="0"/>
+        <parameter id="max_slots_dist" type="int" value="80"/>
+      </app_TDM_slots>
+      <task_scheduler type="SO">
+        <space type="OS_space"/>
+        <parameter id="task_order" type="list" value="a,b"/>
+        <parameter id="scenario_order" type="list" value="scenario1"/>
+      </task_scheduler>
+      <slack_manager type="Std">
+        <space type="OS_Space"/>
+      </slack_manager>
+      <task id="a">
+        <parameter id="swapable" type="string" value="no"/>
+        <parameter id="stack_size" type="int" value="512"/>
+        <parameter id="data_size" type="int" value="4000"/>
+        <parameter id="instr_size" type="int" value="4000"/>
+        <parameter id="num_prod_FIFOs" type="int" value="2"/>
+        <parameter id="num_out_args" type="int" value="2"/>
+        <parameter id="num_cons_FIFOs" type="int" value="1"/>
+        <parameter id="num_in_args" type="int" value="1"/>
+        <parameter id="csdf_pattern_length" type="int" value="1"/>
+      </task>
+      <task id="b">
+        <parameter id="swapable" type="string" value="no"/>
+        <parameter id="stack_size" type="int" value="512"/>
+        <parameter id="data_size" type="int" value="4000"/>
+        <parameter id="instr_size" type="int" value="4000"/>
+        <parameter id="num_prod_FIFOs" type="int" value="3"/>
+        <parameter id="num_out_args" type="int" value="3"/>
+        <parameter id="num_cons_FIFOs" type="int" value="2"/>
+        <parameter id="num_in_args" type="int" value="2"/>
+        <parameter id="csdf_pattern_length" type="int" value="1"/>
+      </task>
+    </processor>
+    <processor id="mb1">
+      <app_TDM_slots>
+        <parameter id="num_slots" type="int" value="1"/>
+        <parameter id="min_slots_dist" type="int" value="0"/>
+        <parameter id="max_slots_dist" type="int" value="80"/>
+      </app_TDM_slots>
+      <task_scheduler type="SO">
+        <space type="OS_space"/>
+        <parameter id="task_order" type="list" value="d,c,c,e"/>
+        <parameter id="scenario_order" type="list" value="scenario1"/>
+      </task_scheduler>
+      <slack_manager type="Std">
+        <space type="OS_Space"/>
+      </slack_manager>
+      <task id="c">
+        <parameter id="swapable" type="string" value="no"/>
+        <parameter id="stack_size" type="int" value="512"/>
+        <parameter id="data_size" type="int" value="4000"/>
+        <parameter id="instr_size" type="int" value="4000"/>
+        <parameter id="num_prod_FIFOs" type="int" value="1"/>
+        <parameter id="num_out_args" type="int" value="1"/>
+        <parameter id="num_cons_FIFOs" type="int" value="1"/>
+        <parameter id="num_in_args" type="int" value="1"/>
+        <parameter id="csdf_pattern_length" type="int" value="1"/>
+      </task>
+      <task id="d">
+        <parameter id="swapable" type="string" value="no"/>
+        <parameter id="stack_size" type="int" value="512"/>
+        <parameter id="data_size" type="int" value="4000"/>
+        <parameter id="instr_size" type="int" value="4000"/>
+        <parameter id="num_prod_FIFOs" type="int" value="1"/>
+        <parameter id="num_out_args" type="int" value="1"/>
+        <parameter id="num_cons_FIFOs" type="int" value="1"/>
+        <parameter id="num_in_args" type="int" value="1"/>
+        <parameter id="csdf_pattern_length" type="int" value="1"/>
+      </task>
+      <task id="e">
+        <parameter id="swapable" type="string" value="no"/>
+        <parameter id="stack_size" type="int" value="512"/>
+        <parameter id="data_size" type="int" value="4000"/>
+        <parameter id="instr_size" type="int" value="4000"/>
+        <parameter id="num_prod_FIFOs" type="int" value="1"/>
+        <parameter id="num_out_args" type="int" value="1"/>
+        <parameter id="num_cons_FIFOs" type="int" value="3"/>
+        <parameter id="num_in_args" type="int" value="3"/>
+        <parameter id="csdf_pattern_length" type="int" value="1"/>
+      </task>
+    </processor>
+    <FIFO id="aa1">
+      <parameter id="PTask" type="string" value="a"/>
+      <parameter id="CTask" type="string" value="a"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="3"/>
+      <parameter id="Max_prod_rate" type="int" value="1"/>
+      <parameter id="Max_cons_rate" type="int" value="1"/>
+      <parameter id="PTask_outport" type="int" value="1"/>
+      <parameter id="CTask_inport" type="int" value="0"/>
+      <parameter id="PTask_firing-rule" type="string" value="1"/>
+      <parameter id="CTask_firing-rule" type="string" value="1"/>
+      <communication type="local"/>
+    </FIFO>
+    <FIFO id="ee">
+      <parameter id="PTask" type="string" value="e"/>
+      <parameter id="CTask" type="string" value="e"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="3"/>
+      <parameter id="Max_prod_rate" type="int" value="1"/>
+      <parameter id="Max_cons_rate" type="int" value="1"/>
+      <parameter id="PTask_outport" type="int" value="0"/>
+      <parameter id="CTask_inport" type="int" value="1"/>
+      <parameter id="PTask_firing-rule" type="string" value="1"/>
+      <parameter id="CTask_firing-rule" type="string" value="1"/>
+      <communication type="local"/>
+    </FIFO>
+    <FIFO id="fbb13">
+      <parameter id="PTask" type="string" value="b"/>
+      <parameter id="CTask" type="string" value="b"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="3"/>
+      <parameter id="Max_prod_rate" type="int" value="1"/>
+      <parameter id="Max_cons_rate" type="int" value="1"/>
+      <parameter id="PTask_outport" type="int" value="2"/>
+      <parameter id="CTask_inport" type="int" value="0"/>
+      <parameter id="PTask_firing-rule" type="string" value="1"/>
+      <parameter id="CTask_firing-rule" type="string" value="1"/>
+      <communication type="local"/>
+    </FIFO>
+    <FIFO id="fbc12">
+      <parameter id="PTask" type="string" value="b"/>
+      <parameter id="CTask" type="string" value="c"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="6"/>
+      <parameter id="Max_prod_rate" type="int" value="4"/>
+      <parameter id="Max_cons_rate" type="int" value="2"/>
+      <parameter id="PTask_outport" type="int" value="1"/>
+      <parameter id="CTask_inport" type="int" value="0"/>
+      <parameter id="PTask_firing-rule" type="string" value="4"/>
+      <parameter id="CTask_firing-rule" type="string" value="2"/>
+      <communication type="remote" DMA="Yes">
+        <parameter id="DMA_id" type="string" value="dma0"/>
+        <parameter id="pRC" type="string" value="mb0"/>
+        <parameter id="pWC" type="string" value="mb0"/>
+        <parameter id="pbuf" type="string" value="mb0"/>
+        <parameter id="cRC" type="string" value="mb1"/>
+        <parameter id="cWC" type="string" value="mb1"/>
+        <parameter id="cbuf" type="string" value="mb1"/>
+        <parameter id="data" type="string" value="mb1"/>
+      </communication>
+    </FIFO>
+    <FIFO id="fbd10">
+      <parameter id="PTask" type="string" value="b"/>
+      <parameter id="CTask" type="string" value="d"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="8"/>
+      <parameter id="Max_prod_rate" type="int" value="4"/>
+      <parameter id="Max_cons_rate" type="int" value="4"/>
+      <parameter id="PTask_outport" type="int" value="0"/>
+      <parameter id="CTask_inport" type="int" value="0"/>
+      <parameter id="PTask_firing-rule" type="string" value="4"/>
+      <parameter id="CTask_firing-rule" type="string" value="4"/>
+      <communication type="remote" DMA="Yes">
+        <parameter id="DMA_id" type="string" value="dma0"/>
+        <parameter id="pRC" type="string" value="mb0"/>
+        <parameter id="pWC" type="string" value="mb0"/>
+        <parameter id="pbuf" type="string" value="mb0"/>
+        <parameter id="cRC" type="string" value="mb1"/>
+        <parameter id="cWC" type="string" value="mb1"/>
+        <parameter id="cbuf" type="string" value="mb1"/>
+        <parameter id="data" type="string" value="mb1"/>
+      </communication>
+    </FIFO>
+    <FIFO id="fce11">
+      <parameter id="PTask" type="string" value="c"/>
+      <parameter id="CTask" type="string" value="e"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="8"/>
+      <parameter id="Max_prod_rate" type="int" value="2"/>
+      <parameter id="Max_cons_rate" type="int" value="4"/>
+      <parameter id="PTask_outport" type="int" value="0"/>
+      <parameter id="CTask_inport" type="int" value="2"/>
+      <parameter id="PTask_firing-rule" type="string" value="2"/>
+      <parameter id="CTask_firing-rule" type="string" value="4"/>
+      <communication type="local"/>
+    </FIFO>
+    <FIFO id="fde8">
+      <parameter id="PTask" type="string" value="d"/>
+      <parameter id="CTask" type="string" value="e"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="4"/>
+      <parameter id="Max_prod_rate" type="int" value="2"/>
+      <parameter id="Max_cons_rate" type="int" value="2"/>
+      <parameter id="PTask_outport" type="int" value="0"/>
+      <parameter id="CTask_inport" type="int" value="0"/>
+      <parameter id="PTask_firing-rule" type="string" value="2"/>
+      <parameter id="CTask_firing-rule" type="string" value="2"/>
+      <communication type="local"/>
+    </FIFO>
+    <FIFO id="out1">
+      <parameter id="PTask" type="string" value="a"/>
+      <parameter id="CTask" type="string" value="b"/>
+      <parameter id="token_size" type="int" value="4"/>
+      <parameter id="fifo_size" type="int" value="6"/>
+      <parameter id="Max_prod_rate" type="int" value="3"/>
+      <parameter id="Max_cons_rate" type="int" value="3"/>
+      <parameter id="PTask_outport" type="int" value="0"/>
+      <parameter id="CTask_inport" type="int" value="1"/>
+      <parameter id="PTask_firing-rule" type="string" value="3"/>
+      <parameter id="CTask_firing-rule" type="string" value="3"/>
+      <communication type="local"/>
+    </FIFO>
+  </application>
+</system>

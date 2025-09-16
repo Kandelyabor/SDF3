@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF print: print the linear system matrices of an SDF with inputs, outputs and token-free cycle</name>
+		<program>sdf3print-sdf --graph RFIDmachine.xml --format maxpluslinearsystem --output maxpluslinearsystem.txt</program>
+		<type>outputcompare</type>
+		<programOutput>maxpluslinearsystem.txt</programOutput>
+	</settings>
+</sdf3>

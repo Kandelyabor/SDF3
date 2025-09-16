@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute buffer occupancy on example2</name>
+		<program>sdf3analyze-sadf --graph example2.xml --compute buffer_occupancy(average)</program>
+		<type>outputcompare</type>
+		<reference>---- Average buffer occupancy of all channels for SADF graph 'example2' ----
+Data channel 'A2B': 2  (#States: 36, Analysis Time: 15ms)
+Data channel 'B2A': 0.75782  (#States: 79, Analysis Time: 31ms)
+Data channel 'B2D': 0.850246  (#States: 67, Analysis Time: 31ms)
+Control channel 'D2A': 1.40434  (#States: 72, Analysis Time: 15ms)
+Control channel 'D2B': 1  (#States: 45, Analysis Time: 31ms)</reference>
+		<ignore>Analysis Time: .*ms</ignore>
+	</settings>
+
+</sdf3>

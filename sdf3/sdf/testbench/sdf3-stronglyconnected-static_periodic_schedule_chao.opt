@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: static_periodic_schedule_chao on strongly connected</name>
+		<program>sdf3analyze-sdf --algo static_periodic_schedule_chao --graph stronglyconnected.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>period: 23
+(fork1_0,0): 0
+(biq_0,0): 1
+(bi_0,0): 1
+(add_0,0): 2
+(ac_0,0): 3
+(fork2_0,0): 4
+(fork2_1,0): 5
+(conj_0,0): 6
+(mul1_0,0): 19
+(in_0,0): 0
+(in_1,0): 1
+(in_2,0): 2
+(in_3,0): 3
+(in_4,0): 4
+(in_5,0): 5
+(in_6,0): 6
+(in_7,0): 7
+(in_8,0): 8
+(in_9,0): 9
+(in_10,0): 10
+(in_11,0): 11
+(in_12,0): 12
+(in_13,0): 13
+(in_14,0): 14
+(in_15,0): 15
+(filt_0,0): 1
+(filt_1,0): 2
+(filt_2,0): 3
+(filt_3,0): 4
+(filt_4,0): 5
+(filt_5,0): 6
+(filt_6,0): 7
+(filt_7,0): 8
+(filt_8,0): 9
+(filt_9,0): 10
+(filt_10,0): 11
+(filt_11,0): 12
+(filt_12,0): 13
+(filt_13,0): 14
+(filt_14,0): 15
+(filt_15,0): 16
+(hil_0,0): 9
+(hil_1,0): 17
+(eq_0,0): 18
+(mul2_0,0): 21
+(deci_0,0): 20
+(deco_0,0): 21
+(out_0,0): 22
+thr: 1/23</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

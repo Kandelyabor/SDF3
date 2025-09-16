@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="sdf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: throughput on simple model with floating point execution times (should fail)</name>
+		<program>sdf3analyze-sdf --algo throughput --graph float-execution-time.sdfx</program>
+		<type>outputcompare</type>
+		<expected>FAILED</expected>
+		<programOutput></programOutput>
+		<reference></reference>
+	</settings>
+
+</sdf3>

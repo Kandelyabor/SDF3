@@ -1,0 +1,5 @@
+add_subdirectory(hsdf)
+add_subdirectory(misc)
+add_subdirectory(model)
+add_subdirectory(retiming)
+add_subdirectory(to_apg)

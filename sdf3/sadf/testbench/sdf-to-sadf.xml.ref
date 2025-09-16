@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sadf' version='1.0' xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance' xmlns='uri:sadf' xsi:schemaLocation='uri:sadf https://www.es.ele.tue.nl/sadf/sdf3-sadf.xsd'>
+
+<sadf name='h263decoder'>
+
+<structure>
+  <kernel name='vld'/>
+  <kernel name='iq'/>
+  <kernel name='idct'/>
+  <kernel name='mc'/>
+  <channel name='vld2iq' type='data' source='vld' destination='iq'/>
+  <channel name='iq2idct' type='data' source='iq' destination='idct'/>
+  <channel name='idct2mc' type='data' source='idct' destination='mc'/>
+  <channel name='vld2vld' type='data' source='vld' destination='vld'/>
+  <channel name='iq2iq' type='data' source='iq' destination='iq'/>
+  <channel name='mc2mc' type='data' source='mc' destination='mc'/>
+</structure>
+
+<properties>
+  <kernel_properties kernel='vld'>
+    <scenario name='default'>
+      <consume channel='vld2vld' tokens='1'/>
+      <produce channel='vld2iq' tokens='594'/>
+      <produce channel='vld2vld' tokens='1'/>
+      <profile execution_time='13009'/>
+    </scenario>
+  </kernel_properties>
+
+  <kernel_properties kernel='iq'>
+    <scenario name='default'>
+      <consume channel='vld2iq' tokens='1'/>
+      <consume channel='iq2iq' tokens='1'/>
+      <produce channel='iq2idct' tokens='1'/>
+      <produce channel='iq2iq' tokens='1'/>
+      <profile execution_time='559'/>
+    </scenario>
+  </kernel_properties>
+
+  <kernel_properties kernel='idct'>
+    <scenario name='default'>
+      <consume channel='iq2idct' tokens='1'/>
+      <produce channel='idct2mc' tokens='1'/>
+      <profile execution_time='486'/>
+    </scenario>
+  </kernel_properties>
+
+  <kernel_properties kernel='mc'>
+    <scenario name='default'>
+      <consume channel='idct2mc' tokens='594'/>
+      <consume channel='mc2mc' tokens='1'/>
+      <produce channel='mc2mc' tokens='1'/>
+      <profile execution_time='5479'/>
+    </scenario>
+  </kernel_properties>
+
+  <channel_properties channel='vld2iq' token_size='512'
+/>
+  <channel_properties channel='iq2idct' token_size='512'
+/>
+  <channel_properties channel='idct2mc' token_size='512'
+/>
+  <channel_properties channel='vld2vld' number_of_initial_tokens='1' token_size='8192'
+/>
+  <channel_properties channel='iq2iq' number_of_initial_tokens='1' token_size='512'
+/>
+  <channel_properties channel='mc2mc' number_of_initial_tokens='1' token_size='304128'
+/>
+</properties>
+
+</sadf>
+</sdf3>

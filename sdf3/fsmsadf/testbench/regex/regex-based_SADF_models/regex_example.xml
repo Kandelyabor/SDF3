@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="regextest" type="fsmsadf">
+    <fsmsadf>
+      <scenariograph name="graphstructure" type="scenariograph">
+        <actor name="P" type="actor">
+          <port name="selfout" rate="1" type="out"/>
+          <port name="selfin" rate="1" type="in"/>
+          <port name="PQ" rate="1" type="out"/>
+        </actor>
+        <actor name="Q" type="actor">
+          <port name="PQ" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="in"/>
+          <port name="QR" rate="1" type="out"/>
+        </actor>
+        <actor name="R" type="output">
+          <port name="QR" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="out"/>
+		  <port name="selfout" rate="1" type="out"/>
+          <port name="selfin" rate="1" type="in"/>
+        </actor>
+        <channel dstActor="P" dstPort="selfin" name="selfP" srcActor="P" srcPort="selfout" initialTokens="1" persistentTokenNames="w"/>
+        <channel dstActor="Q" dstPort="PQ" name="P2Q" srcActor="P" srcPort="PQ" initialTokens="0"/>
+        <channel dstActor="R" dstPort="QR" name="Q2R" srcActor="Q" srcPort="QR" initialTokens="1" persistentTokenNames="x"/>
+        <channel dstActor="Q" dstPort="RQ" name="R2Q" srcActor="R" srcPort="RQ" initialTokens="1" persistentTokenNames="y"/>
+		<channel dstActor="R" dstPort="selfin" name="selfR" srcActor="R" srcPort="selfout" initialTokens="1" persistentTokenNames="z"/>
+      </scenariograph>
+      <scenariograph name="graphstructure1" type="scenariograph">
+        <actor name="P" type="actor">
+          <port name="selfout" rate="1" type="out"/>
+          <port name="selfin" rate="1" type="in"/>
+          <port name="PQ" rate="1" type="out"/>
+        </actor>
+        <actor name="Q" type="actor">
+          <port name="PQ" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="in"/>
+          <port name="QR" rate="1" type="out"/>
+        </actor>
+        <actor name="R" type="output">
+          <port name="QR" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="out"/>
+        </actor>
+        <channel dstActor="P" dstPort="selfin" name="selfP" srcActor="P" srcPort="selfout" initialTokens="1" persistentTokenNames="x"/>
+        <channel dstActor="Q" dstPort="PQ" name="P2Q" srcActor="P" srcPort="PQ" initialTokens="0" finalTokens="1" persistentFinalTokenNames = "t"/>
+        <channel dstActor="R" dstPort="QR" name="Q2R" srcActor="Q" srcPort="QR" initialTokens="1" persistentTokenNames="y"/>
+        <channel dstActor="Q" dstPort="RQ" name="R2Q" srcActor="R" srcPort="RQ" initialTokens="1" persistentTokenNames="z"/>
+      </scenariograph>
+            <scenariograph name="graphstructure2" type="scenariograph">
+        <actor name="P" type="actor">
+          <port name="selfout" rate="1" type="out"/>
+          <port name="selfin" rate="1" type="in"/>
+          <port name="PQ" rate="1" type="out"/>
+        </actor>
+        <actor name="Q" type="actor">
+          <port name="PQ" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="in"/>
+          <port name="QR" rate="1" type="out"/>
+        </actor>
+        <actor name="R" type="output">
+          <port name="QR" rate="1" type="in"/>
+          <port name="RQ" rate="1" type="out"/>
+        </actor>
+        <channel dstActor="P" dstPort="selfin" name="selfP" srcActor="P" srcPort="selfout" initialTokens="1" persistentTokenNames="x"/>
+        <channel dstActor="Q" dstPort="PQ" name="P2Q" srcActor="P" srcPort="PQ" initialTokens="1" finalTokens="0" persistentTokenNames="t"/>
+        <channel dstActor="R" dstPort="QR" name="Q2R" srcActor="Q" srcPort="QR" initialTokens="1" persistentTokenNames="y"/>
+        <channel dstActor="Q" dstPort="RQ" name="R2Q" srcActor="R" srcPort="RQ" initialTokens="1" persistentTokenNames="z"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1.35e-7</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>10 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+      <scenarios>
+        <scenario graph="graphstructure" name="phi" reward="2">
+          <actorProperties actor="P" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="4"/>
+            </processor>
+            <port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+            <port name="PQ" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Q" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="2"/>
+            </processor>
+            <port name="PQ" rate="1"/>
+            <port name="RQ" rate="2"/>
+            <port name="QR" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="R" repetitions="2">
+            <processor default="true" type="arm">
+              <executionTime time="2"/>
+            </processor>
+            <port name="QR" rate="1"/>
+            <port name="RQ" rate="1"/>
+			<port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+          </actorProperties>
+        </scenario>
+        <scenario graph="graphstructure" name="chi" reward="1">
+          <actorProperties actor="P" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+            <port name="PQ" rate="0"/>
+          </actorProperties>
+          <actorProperties actor="Q" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="1"/>
+            </processor>
+            <port name="PQ" rate="0"/>
+            <port name="RQ" rate="1"/>
+            <port name="QR" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="R" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="4"/>
+            </processor>
+            <port name="QR" rate="1"/>
+            <port name="RQ" rate="1"/>
+			<port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+          </actorProperties>
+        </scenario>
+        <scenario graph="graphstructure" name="psi" reward="0">
+          <actorProperties actor="P" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="2"/>
+            </processor>
+            <port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+            <port name="PQ" rate="0"/>
+          </actorProperties>
+          <actorProperties actor="Q" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="PQ" rate="0"/>
+            <port name="RQ" rate="0"/>
+            <port name="QR" rate="0"/>
+          </actorProperties>
+          <actorProperties actor="R" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="QR" rate="1"/>
+            <port name="RQ" rate="1"/>
+			<port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+          </actorProperties>
+        </scenario>
+        <scenario graph="graphstructure1" name="phi_a" reward="0">
+          <actorProperties actor="P" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="2"/>
+            </processor>
+            <port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+            <port name="PQ" rate="1"/>
+          </actorProperties>
+          <actorProperties actor="Q" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="PQ" rate="0"/>
+            <port name="RQ" rate="0"/>
+            <port name="QR" rate="0"/>
+          </actorProperties>
+          <actorProperties actor="R" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="QR" rate="1"/>
+            <port name="RQ" rate="1"/>
+          </actorProperties>
+        </scenario>
+        <scenario graph="graphstructure2" name="phi_b" reward="2">
+          <actorProperties actor="P" repetitions="0">
+            <processor default="true" type="arm">
+              <executionTime time="0"/>
+            </processor>
+            <port name="selfout" rate="1"/>
+            <port name="selfin" rate="1"/>
+            <port name="PQ" rate="0"/>
+          </actorProperties>
+          <actorProperties actor="Q" repetitions="1">
+            <processor default="true" type="arm">
+              <executionTime time="3"/>
+            </processor>
+            <port name="PQ" rate="1"/>
+            <port name="RQ" rate="2"/>
+            <port name="QR" rate="2"/>
+          </actorProperties>
+          <actorProperties actor="R" repetitions="2">
+            <processor default="true" type="arm">
+              <executionTime time="2"/>
+            </processor>
+            <port name="QR" rate="1"/>
+            <port name="RQ" rate="1"/>
+          </actorProperties>
+        </scenario>
+      </scenarios>
+    </fsmsadfProperties>
+    <regex string=".((phi+psi,chi^2),chi*)@" />
+	<!--<regex string=".(phi)@" />-->
+  </applicationGraph>
+</sdf3>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>FSMSADF analyze: throughput-regex on regexExample</name>
+		<program>sdf3analyze-fsmsadf --algo throughput-regex --graph regexExample.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Throughput (max-plus automaton):          0.25</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+      
+</sdf3>

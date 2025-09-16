@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="http://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: throughput on Test Graph with input and output</name>
+		<program>sdf3analyze-sdf --algo throughput --graph io-test.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>thr(io-test) = 0.5</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

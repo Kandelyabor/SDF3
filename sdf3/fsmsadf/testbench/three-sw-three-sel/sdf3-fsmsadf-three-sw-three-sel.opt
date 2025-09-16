@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>fsmsadf three switches three selects</name>
+		<program>./run_three-sw-three-sel.sh --settings sdf3-fsmsadf-three-sw-three-sel.opt</program>
+		<type>xmlcompare</type>
+        <programTimeout>30</programTimeout>
+		<programOutput>fsmsadf-three-sw-three-sel-mapped.xml</programOutput>
+		<programOutput>fsmsadf-three-sw-three-sel-merged.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+  <settings type="generate" random="no">
+	<input file="fsmsadf-three-sw-three-sel.sdf"/>
+  </settings>
+
+  <settings type="flow">
+    <platformType type="CompSoC"/>
+    <flowType type="NSoC"/> <!--supported types: NSoC -->
+    <maxNrBindingsTileBindingAlgo n="5"/>
+    <!-- maximum number of platform bindings outputted by tile binding  and
+         scheduling algorithm. -->
+    <applicationGraph file="fsmsadf-three-sw-three-sel.xml"/> 
+    <!-- application graphs are mapped in the order in which they appear in 
+         this file. -->
+    <architectureGraph file="x4t1d-arch.xml"/>
+    <!-- SDF3 creates an SDF3 document from an applicationGraph and the
+         architectureGraph. It uses the applicationGraph and mapping nodes 
+         from the applicationGraph file and it uses the architectureGraph node
+         from the architecture graph. -->
+	<output file="fsmsadf-three-sw-three-sel-mapped.xml"/>
+	<chanToConnModelFile>compsoc-chantoconn.xml</chanToConnModelFile>
+  </settings>
+
+  <settings type="transform">
+	<graph file="fsmsadf-three-sw-three-sel-mapped.xml"/>
+    <transform>
+        <type name="merge_scenarios"/>
+    </transform>
+    <output file="fsmsadf-three-sw-three-sel-merged.xml"/>
+  </settings>
+
+</sdf3>

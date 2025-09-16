@@ -1,0 +1,647 @@
+#define SDF_NUM_ACTORS          4
+#define SDF_NUM_CHANNELS        6
+#define SDF_MAX_TIME            13009
+
+#define SDF_OUT_ACTOR_REP_CNT   1
+
+#define STACK_SIZE              1000
+#define HASH_TABLE_SIZE         10000
+
+typedef long TBufSize;
+typedef short TCnt;
+typedef double TTime;
+
+#define TTIME_MAX INT_MAX
+
+#include <math.h>
+#include <iostream>
+#include <assert.h>
+#include <time.h>
+#include <sys/resource.h>
+
+using std::ostream;
+using std::cout;
+using std::cerr;
+using std::endl;
+
+typedef struct _CTimer
+{
+    struct rusage rStart;
+    struct rusage rEnd;
+    struct timeval time;
+} CTimer;
+
+/**
+ * exit ()
+ * Exit the program with an error message.
+ */
+void exit(const char *msg, const int errorno)
+{
+    std::cerr << msg << std::endl;
+    exit(errorno);
+}
+
+/**
+ * startTimer ()
+ * The function start measuring the elapsed user and system time 
+ * from this point onwards.
+ */
+static inline
+void startTimer(CTimer *t)
+{
+    getrusage(RUSAGE_SELF, &(t->rStart));
+}
+
+/**
+ * stopTimer ()
+ * The function stops measuring the elapsed user and system time and
+ * it computes the total elapsed time. This time is accessible via 
+ * t->time (struct timeval).
+ */
+static inline
+void stopTimer(CTimer *t)
+{
+    getrusage(RUSAGE_SELF, &(t->rEnd));
+
+    // Calculate elapsed time (user + system)
+    t->time.tv_sec = t->rEnd.ru_utime.tv_sec - t->rStart.ru_utime.tv_sec
+                        + t->rEnd.ru_stime.tv_sec - t->rEnd.ru_stime.tv_sec;
+    t->time.tv_usec = t->rEnd.ru_utime.tv_usec - t->rStart.ru_utime.tv_usec 
+                        + t->rEnd.ru_stime.tv_usec - t->rStart.ru_stime.tv_usec;
+
+    if (t->time.tv_sec >= 1e6)
+    {
+        t->time.tv_sec = t->time.tv_sec + t->time.tv_usec/long(1e6);
+        t->time.tv_usec = t->time.tv_usec%long(1e6);
+    }
+}
+
+/**
+ * printTimer ()
+ * The function prints the value of the timer in milliseconds to the supplied
+ * output stream.
+ */
+static inline
+void printTimer(std::ostream &out, CTimer *t)
+{
+    double s = (t->time.tv_sec * (double)(1000)) 
+                    + (t->time.tv_usec / (double)(1000));
+    
+    out << s << "ms";
+}
+
+/******************************************************************************
+ * State
+ *****************************************************************************/
+
+typedef struct _State
+{
+    TCnt act_clk[SDF_NUM_ACTORS][SDF_MAX_TIME+1];
+    TTime glb_clk;
+    TBufSize ch[SDF_NUM_CHANNELS];
+    TBufSize ckt[SDF_NUM_CHANNELS];
+} State;
+
+/**
+ * printState ()
+ * The function writes the state to the supplied stream.
+ */
+void printState(std::ostream &out, const State &s)
+{
+    out << "State:" << std::endl;
+    
+    for (int i = 0; i < SDF_NUM_ACTORS; i++)
+    {
+        out << "act_clk[" << i << "] = {";
+        
+        for (int j = 0; j < SDF_MAX_TIME+1; j++)
+        {
+            if (s.act_clk[i][j] != 0)
+                out << "(" << s.act_clk[i][j] << "," << j << "), ";
+        }
+        
+        out << "}" << std::endl;
+    }
+    
+    out << "glb_clk = " << s.glb_clk << std::endl;
+    
+    for (int i = 0; i < SDF_NUM_CHANNELS; i++)
+        out << "ch[" << i << "] = " << s.ch[i] << std::endl;
+    
+    for (int i = 0; i < SDF_NUM_CHANNELS; i++)
+        out << "ckt[" << i << "] = " << s.ckt[i] << std::endl;
+}
+
+/**
+ * clearState ()
+ * The function sets the state to zero.
+ */
+void clearState(State &s)
+{
+    char *s_ptr = (char*)&s;
+    
+    for (int i = 0; i < sizeof(State); i++)
+        s_ptr[i] = 0;
+}
+
+/**
+ * equalStates ()
+ * The function compares to states and returns true if they are equal.
+ */
+inline
+bool equalStates(const State &s1, const State &s2)
+{
+    int *s1_ptr = (int*)&s1;
+    int *s2_ptr = (int*)&s2;
+    
+    for (int i = 0; i < sizeof(State) >> 2; i++)
+        if (s1_ptr[i] != s2_ptr[i])
+            return false;
+    
+    return true;
+}
+
+/**
+ * copyState ()
+ * The function copies the state.
+ */
+inline
+void copyState(State &to, const State &from)
+{
+    memcpy(&to, &from, sizeof(State));
+}
+
+/******************************************************************************
+ * Stack
+ *****************************************************************************/
+
+/**
+ * StackPos
+ * Index into stack.
+ */
+typedef long long StackPos;
+
+/**
+ * stack
+ * The stack...
+ */
+State *stack;
+
+/**
+ * stackPtr
+ * Index into stack of the first free space.
+ */
+StackPos stackPtr;
+StackPos maxStackPtr;
+
+/**
+ * createStack ()
+ * The function creates a stack.
+ */
+void createStack()
+{
+    stack = (State*)malloc(sizeof(State)*STACK_SIZE);
+    
+    if (stack == nullptr)
+        exit("Failed creating stack.", 1);
+
+    maxStackPtr = 0;
+}
+
+/**
+ * destroyStack()
+ * The function destroys a stack.
+ */
+void destroyStack()
+{
+    free(stack);
+}
+
+/**
+ * clearStack ()
+ * Reset the stack to an empty state.
+ */
+void clearStack()
+{
+    stackPtr = 0;   
+}
+
+/**
+ * popStack ()
+ * Remove last element from the stack.
+ */
+inline
+void popStack()
+{
+    if (stackPtr > 0)
+        stackPtr--;
+}
+
+/**
+ * pushStack ()
+ * Put an element on the stack.
+ */
+inline
+void pushStack(const State &s)
+{
+    if (stackPtr >= STACK_SIZE)
+        exit("Stack overflow.", 1);
+    
+    copyState(stack[stackPtr], s);
+    stackPtr++;
+
+    if (stackPtr > maxStackPtr) maxStackPtr = stackPtr;
+}
+
+/**
+ * topStack ()
+ * The function returns the last element of the stack.
+ */
+inline
+State &topStack()
+{
+    return stack[stackPtr-1];
+}
+
+/******************************************************************************
+ * Hash
+ *****************************************************************************/
+
+#define INVALID_HASH_KEY    nullptr
+#define NO_SLOT_IN_HASH     -1
+
+/**
+ * HashKey
+ *
+ */
+typedef unsigned long long HashKey;
+
+/**
+ * HashSlot
+ *
+ */
+typedef struct _HashSlot
+{
+    StackPos value;
+    struct _HashSlot *next;
+} HashSlot;
+
+/**
+ * hashTable
+ * The hash table...
+ */
+HashSlot **hashTable;
+
+/**
+ * createHashTable ()
+ * The function constructs a hash table.
+ */
+void createHashTable()
+{
+    hashTable = (HashSlot**)malloc(sizeof(HashSlot*)*HASH_TABLE_SIZE);
+    
+    if (hashTable == nullptr)
+        exit("Failed creating hash table.", 1);
+    
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+        hashTable[i] = INVALID_HASH_KEY;
+}
+
+/**
+ * destroyHashTable ()
+ * The function destroys a hash table.
+ */
+void destroyHashTable()
+{
+    HashSlot *s_cur, *s_next;
+    
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+    {
+        for (s_cur = hashTable[i]; s_cur != INVALID_HASH_KEY; s_cur = s_next)
+        {
+            s_next = s_cur->next;
+            free(s_cur);
+        }
+    }
+
+    free(hashTable);
+}
+
+/**
+ * clearHashTable ()
+ * Resets the hash table to contain no keys.
+ */
+void clearHashTable()
+{
+    HashSlot *s_cur, *s_next;
+    
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+    {
+        for (s_cur = hashTable[i]; s_cur != INVALID_HASH_KEY; s_cur = s_next)
+        {
+            s_next = s_cur->next;
+            free(s_cur);
+        }
+        
+        hashTable[i] = INVALID_HASH_KEY;
+    }
+}
+
+/**
+ * hash ()
+ * The hash function. It is a standard multiplication hash.
+ */
+inline
+HashKey hash(const State &s)
+{
+    double key = 0;
+    char *s_ptr = (char*)&s;
+    long long key_part;
+    
+    for (int i = 0; i < sizeof(State); i+=4)
+    {
+        key_part = 0;
+        for (int j = 0; j < 4 && i+j < sizeof(State); j++)
+        {
+            key_part = key_part << 8; // radix: 128
+            key_part = key_part + (long long)(abs(s_ptr[i]));
+        }
+        
+        key = key * 39164205.20662217 + double(key_part) * 0.6180339887;
+    }
+
+    key = fmod(key, 1);
+    return (HashKey) floor(HASH_TABLE_SIZE * key);
+}
+
+/**
+ * insertKeyHashTable ()
+ * The function inserts a (key, value) pair into the hash table.
+ */
+inline
+void insertKeyHashTable(const HashKey key, const StackPos value)
+{
+    HashSlot *slot = (HashSlot*)malloc(sizeof(HashSlot));
+    slot->value = value;
+    slot->next = hashTable[key];
+    
+    // Insert the stack position in the hash table
+    hashTable[key] = slot;
+}
+
+/**
+ * findValueInHashTable ()
+ * The function returns the StackPos at which the given (key,state) pair is
+ * located or NO_SLOT_IN_HASH if unkown.
+ */
+inline
+StackPos findValueInHashTable(const HashKey key, const State &s)
+{
+    HashSlot *slot;
+    
+    for (slot = hashTable[key]; slot != INVALID_HASH_KEY; slot = slot->next)
+    {
+        StackPos pos = slot->value;
+        
+        if (equalStates(stack[pos], s))
+            return pos;
+    }
+    
+    return NO_SLOT_IN_HASH;
+}
+
+/**
+ * printHashKey ()
+ * The function outputs the all hash slots with the given key.
+ */
+void printHashKey(std::ostream &out, const HashKey key)
+{
+    out << "Key: " << key <<std::endl;
+    out << std::endl;
+    
+    for (HashSlot *slot = hashTable[key]; slot != nullptr; slot = slot->next)
+    {
+        printState(out, stack[slot->value]);
+        out << std::endl;
+    }
+}
+
+/******************************************************************************
+ * SDF
+ *****************************************************************************/
+
+/**
+ * outputIntervalCycle ()
+ * The function calculates the output interval of the states on the cycle. Its
+ * value is equal to the average time between two firings in the cycle.
+ */
+inline
+TTime outputIntervalCycle(const StackPos cyclePos)
+{
+    int nr_fire = 0;
+    TTime time = 0;
+
+    // Check all state from stack till cycle complete
+    for (StackPos ptr = stackPtr -1; ptr >= cyclePos; ptr--)
+    {
+        // Output actor fired?
+        if (stack[ptr].act_clk[0][0] > 0)
+            nr_fire++;
+
+        // Time between previous state
+        time += stack[ptr].glb_clk;
+    }
+    
+    return time/(TTime)(nr_fire);
+}
+
+/**
+ * storeState ()
+ * The function stores the given state at the stack and insert an entry
+ * into the hash table. Cycle detection is performed, as well as a
+ * check to verify wether a cycle is valid or not.
+ *
+ * Return values:
+ *      -1      - added state to stack
+ *      >= 0    - output interval of detected cycle
+ */
+inline
+TTime storeState(State &sdfState)
+{
+    // Calculate the key in the hash table
+    HashKey key = hash(sdfState);
+
+    // Check occurrence in hash table
+    StackPos stackPos = findValueInHashTable(key, sdfState);
+    if (stackPos == NO_SLOT_IN_HASH)
+    {
+        // State not in hash table (i.e. state not seen before)
+        // Insert state in hash table
+        insertKeyHashTable(key, stackPtr);
+        
+        // Insert state in stack
+        pushStack(sdfState);
+    }
+    else
+    {
+        // State has been visited before (i.e. found cycle)
+        return outputIntervalCycle(stackPos);
+    }
+
+    return -1;
+}
+
+#define GLB_CLK             sdfState.glb_clk
+#define ACT_CLK(a,t)        sdfState.act_clk[a][t]
+#define CH(c)               sdfState.ch[c]
+#define CKT(c)              sdfState.ckt[c]
+
+#define FIRE_ACT(a,t)       ACT_CLK(a,t)++;
+#define FIRE_ACT_END(a)     ACT_CLK(a,0)--;
+#define CH_TOKENS(c,n)      (CH(c)-CKT(c) >= n)
+#define CK_TOKENS(c,n)      CKT(c) = CKT(c) + n;
+#define CONSUME(c,n)        CH(c) = CH(c) - n; CKT(c) = CKT(c) - n;
+#define PRODUCE(c,n)        CH(c) = CH(c) + n;
+#define ACT_END_FIRE(a)     (ACT_CLK(a,0) != 0)
+#define ADVANCE_CLK         GLB_CLK = GLB_CLK + 1;
+#define NEXT_ITER           GLB_CLK = 0;
+#define LOWER_CLK(a)        memmove(&ACT_CLK(a,0),&ACT_CLK(a,1), \
+                                sizeof(TCnt)*SDF_MAX_TIME); \
+                            ACT_CLK(a,SDF_MAX_TIME) = 0;
+
+State sdfState;
+State prevState;
+
+/**
+ * execSDFGraph()
+ * Execute the SDF graph till a deadlock is found or a recurrent state.
+ * The output interval (i.e. inverse of throughput) is returned.
+ */
+TTime execSDFGraph()
+{
+    TTime output_interval;
+    int repCnt = 0;
+    
+    // Create initial state and add it to stack
+    clearState(sdfState);
+    copyState(prevState, sdfState);
+    prevState.glb_clk = TTIME_MAX;
+    
+    // Initial tokens
+    PRODUCE(3,1);
+    PRODUCE(4,1);
+    PRODUCE(5,1);
+
+    // Fire the actors
+    while (true)
+    {
+        // Finish actor firings
+        while (ACT_END_FIRE(0))
+        {
+            repCnt++;
+            if (repCnt == SDF_OUT_ACTOR_REP_CNT)
+            {
+                // Add state to hash of visited states
+                output_interval = storeState(sdfState);
+                if (output_interval != -1)
+                    return output_interval;
+                NEXT_ITER;
+                repCnt = 0;
+            }
+            
+            PRODUCE(0,594);
+            CONSUME(3,1);
+            PRODUCE(3,1);
+            FIRE_ACT_END(0);
+        }
+        while (ACT_END_FIRE(1))
+        {
+            CONSUME(0,1);
+            PRODUCE(1,1);
+            CONSUME(4,1);
+            PRODUCE(4,1);
+            FIRE_ACT_END(1);
+        }
+        while (ACT_END_FIRE(2))
+        {
+            CONSUME(1,1);
+            PRODUCE(2,1);
+            FIRE_ACT_END(2);
+        }
+        while (ACT_END_FIRE(3))
+        {
+            CONSUME(2,594);
+            CONSUME(5,1);
+            PRODUCE(5,1);
+            FIRE_ACT_END(3);
+        }
+        
+        // Start actor firings
+        while (true && CH_TOKENS(3,1))
+        {
+            // Claim tokens on each input
+            CK_TOKENS(3,1);
+            
+            // Fire the actor
+            FIRE_ACT(0,13009);
+        }
+        while (true && CH_TOKENS(0,1) && CH_TOKENS(4,1))
+        {
+            // Claim tokens on each input
+            CK_TOKENS(0,1);
+            CK_TOKENS(4,1);
+            
+            // Fire the actor
+            FIRE_ACT(1,559);
+        }
+        while (true && CH_TOKENS(1,1))
+        {
+            // Claim tokens on each input
+            CK_TOKENS(1,1);
+            
+            // Fire the actor
+            FIRE_ACT(2,486);
+        }
+        while (true && CH_TOKENS(2,594) && CH_TOKENS(5,1))
+        {
+            // Claim tokens on each input
+            CK_TOKENS(2,594);
+            CK_TOKENS(5,1);
+            
+            // Fire the actor
+            FIRE_ACT(3,5479);
+        }
+        
+        // Lower clocks
+        LOWER_CLK(0);
+        LOWER_CLK(1);
+        LOWER_CLK(2);
+        LOWER_CLK(3);
+
+        // Check for progress (i.e. no deadlock)
+        if (equalStates(prevState, sdfState))
+            return TTIME_MAX;
+        
+        // Advance the global clock
+        ADVANCE_CLK;
+        
+        // Store state to check for progress
+        copyState(prevState, sdfState);
+    }
+}
+
+int main(int argc, char **argv)
+{
+    // Create hash and stack
+    createStack();
+    createHashTable();
+    
+    // Find the maximal throughput
+    std::cout << "thr = " << execSDFGraph() << std::endl;
+    
+    // Cleanup
+    destroyStack();
+    destroyHashTable();
+    
+    return 0;
+}

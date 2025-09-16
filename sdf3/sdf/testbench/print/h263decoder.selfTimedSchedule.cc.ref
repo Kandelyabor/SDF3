@@ -1,0 +1,154 @@
+#define SDF_NUM_ACTORS          4
+#define SDF_NUM_CHANNELS        6
+
+#define ACTOR_MAX_EXEC_TIME     13009
+
+typedef unsigned int uint;
+typedef unsigned long long TTime;
+typedef unsigned long long TSize;
+
+#include <math.h>
+#include <iostream>
+#include <assert.h>
+
+using std::ostream;
+using std::cout;
+using std::cerr;
+using std::endl;
+
+/**
+ * exit ()
+ * Exit the program with an error message.
+ */
+void exit(const char *msg, const int errorno)
+{
+    std::cerr << msg << std::endl;
+    exit(errorno);
+}
+
+/******************************************************************************
+ * SDF
+ *****************************************************************************/
+
+TSize ch[SDF_NUM_CHANNELS];
+TTime actClk[SDF_NUM_ACTORS][ACTOR_MAX_EXEC_TIME+1];
+bool actReady[SDF_NUM_ACTORS];
+
+#define CH(c)               (ch[c])
+#define CH_TOKENS(c,n)      (CH(c) >= n)
+#define CONSUME(c,n)        CH(c) = CH(c) - n;
+#define PRODUCE(c,n)        CH(c) = CH(c) + n;
+#define FIRE_ACT(a,t)       actClk[a][t]++; firing = true; actReady[a] = false;
+#define ACT_READY(a)        (concurrent || actReady[a])
+#define ACT_FIRED(a)        if (actClk[a][0] != 0) actReady[a] = true;
+
+void execSDFgraph(const TTime maxGlbClk, const bool concurrent)
+{
+    bool firing;
+    TTime glbClk = 1;
+
+    // No actors firing
+    for (uint a = 0; a < SDF_NUM_ACTORS; a++)
+        for (uint t = 0; t <= ACTOR_MAX_EXEC_TIME; t++)
+            actClk[a][t] = 0;
+
+    // All actors ready to fire
+    for (uint a = 0; a < SDF_NUM_ACTORS; a++)
+        actReady[a] = true;
+
+    // Initial tokens
+    ch[0] = 0;
+    ch[1] = 0;
+    ch[2] = 0;
+    ch[3] = 1;
+    ch[4] = 1;
+    ch[5] = 1;
+
+    while (glbClk < maxGlbClk)
+    {
+        std::cout << std::endl;
+        std::cout << glbClk << ": ";
+
+        // Fire all actors till no actor fires anymore
+        do
+        {
+            // No actor has fired
+            firing = false;
+
+            // Check each actor once
+            if (ACT_READY(0) && CH_TOKENS(3,1))
+            {
+                CONSUME(3,1);
+                FIRE_ACT(0,13009);
+                std::cout << "vld";
+            }
+            if (ACT_READY(1) && CH_TOKENS(0,1) && CH_TOKENS(4,1))
+            {
+                CONSUME(0,1);
+                CONSUME(4,1);
+                FIRE_ACT(1,559);
+                std::cout << "iq";
+            }
+            if (ACT_READY(2) && CH_TOKENS(1,1))
+            {
+                CONSUME(1,1);
+                FIRE_ACT(2,486);
+                std::cout << "idct";
+            }
+            if (ACT_READY(3) && CH_TOKENS(2,594) && CH_TOKENS(5,1))
+            {
+                CONSUME(2,594);
+                CONSUME(5,1);
+                FIRE_ACT(3,5479);
+                std::cout << "mc";
+            }
+
+        }
+        while (firing == true);  
+
+        // Move to next time step
+        glbClk++;
+        for (uint a = 0; a < SDF_NUM_ACTORS; a++)
+        {
+            for (uint t = 0; t < ACTOR_MAX_EXEC_TIME; t++)
+                actClk[a][t] = actClk[a][t+1];
+            actClk[a][ACTOR_MAX_EXEC_TIME] = 0;
+        }
+
+        // Produce tokens for all completed actor firings
+        PRODUCE(0, actClk[0][0]*594);
+        PRODUCE(3, actClk[0][0]*1);
+        PRODUCE(1, actClk[1][0]*1);
+        PRODUCE(4, actClk[1][0]*1);
+        PRODUCE(2, actClk[2][0]*1);
+        PRODUCE(5, actClk[3][0]*1);
+
+        // Actors which firing has finished are ready to fire again
+        for (uint a = 0; a < SDF_NUM_ACTORS; a++)
+            ACT_FIRED(a);
+
+    }
+
+    std::cerr << std::endl;
+}
+
+int main(int argc, char **argv)
+{
+    TTime maxGlbClk;
+    bool conc = false;
+
+    // Get maximum global clock
+    if (argc < 2)
+        exit("No maximum global clock specified.", 1);
+
+    maxGlbClk = strtoull(argv[1], NULL, 10);
+
+    // Concurrent execution?
+    if (argc == 3 && strcmp("--conc", argv[2]) == 0)
+        conc = true;
+
+    // Execute the SDF graph
+    execSDFgraph(maxGlbClk, conc);
+
+    return 0;
+}

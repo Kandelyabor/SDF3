@@ -1,0 +1,1703 @@
+system specification SADF
+behaviour specification
+(Kernel0:Kernel0(true, 1, false, "A")[DI0/DO0, DI5/DO5, DO1/DI1, Monitor/Monitor] ||
+Kernel1:Kernel1(true, 2, false, "B")[DI1/DO1, DI2/DO2, DO0/DI0, DO4/DI4, CO0/CI0, Monitor/Monitor] ||
+Kernel2:Kernel2(true, 3, false, "C")[DI3/DO3, DO2/DI2, CO1/CI1, Monitor/Monitor] ||
+Kernel3:Kernel3(true, 4, false, "D")[DI4/DO4, DO3/DI3, CO2/CI2, Monitor/Monitor]||
+Detector0:Detector0(true, 5, false, "E")[CI0/CO0, CI1/CO1, CI2/CO2, DO5/DI5, Monitor/Monitor] ||
+DataBuffer0:DataBuffer(-1, 0, 1, false, nil, false, "A2B")[DI0/In, DO0/Out, Monitor/Monitor] ||
+DataBuffer1:DataBuffer(-1, 2, 1, false, nil, false, "B2A")[DI1/In, DO1/Out, Monitor/Monitor] ||
+DataBuffer2:DataBuffer(-1, 0, 1, false, nil, false, "B2C")[DI2/In, DO2/Out, Monitor/Monitor] ||
+DataBuffer3:DataBuffer(-1, 0, 1, false, nil, false, "C2D")[DI3/In, DO3/Out, Monitor/Monitor] ||
+DataBuffer4:DataBuffer(-1, 3, 1, false, nil, false, "D2B")[DI4/In, DO4/Out, Monitor/Monitor] ||
+DataBuffer5:DataBuffer(-1, 0, 1, false, nil, false, "A2E")[DI5/In, DO5/Out, Monitor/Monitor] ||
+ControlBuffer0:ControlBuffer(-1, new(Queue) init, new(Queue) init, 1, false, nil, false, "E2B")[CI0/In, CO0/Out, Monitor/Monitor] ||
+ControlBuffer1:ControlBuffer(-1, new(Queue) init, new(Queue) init, 1, false, nil, false, "E2C")[CI1/In, CO1/Out, Monitor/Monitor] ||
+ControlBuffer2:ControlBuffer(-1, new(Queue) init, new(Queue) init, 1, false, nil, false, "E2D")[CI2/In, CO2/Out, Monitor/Monitor] ||
+SimulationController:SimulationController(5, "results.log")[Monitor/Monitor]
+)\{DI0, DO0, DI1, DO1, DI2, DO2, DI3, DO3, DI4, DO4, DI5, DO5, CI0, CO0, CI1, CO1, CI2, CO2, Monitor}
+
+process class Kernel0(Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+ExecutionTimes: Array, Status: ProcessMonitor
+
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |Distribution: GeneralDiscrete|
+
+ExecutionTimes := new(Array) size(1);
+Distribution := new(GeneralDiscrete)
+   withParameters(2, 0.5)
+   withParameters(2.1, 0.5);
+ExecutionTimes put(1, Distribution);
+Status := new(ProcessMonitor) init(Monitor, MonitorID, Trace, Name);
+abort
+   par Fire()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+Fire()() |Scenario: Integer|
+
+Scenario := 0;
+DI1!Inspect(2);
+DO0!Room(2);
+DO5!Room(1);
+DO0!Reserve;
+DO5!Reserve;
+Status start(currentTime);
+delay(ExecutionTimes get(Scenario + 1) sample);
+Status end(currentTime);
+DI1!Read;
+DO0!Write;
+DO5!Write;
+Fire()().
+
+process class Kernel1(Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+ExecutionTimes: Array, Status: ProcessMonitor
+
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |Distribution: GeneralDiscrete|
+
+ExecutionTimes := new(Array) size(2);
+Distribution := new(GeneralDiscrete)
+   withParameters(3, 0.2)
+   withParameters(2.8, 0.8);
+ExecutionTimes put(1, Distribution);
+Distribution := new(GeneralDiscrete)
+   withParameters(4, 1);
+ExecutionTimes put(2, Distribution);
+Status := new(ProcessMonitor) init(Monitor, MonitorID, Trace, Name);
+abort
+   par Fire()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+Fire()() |Scenario: Integer|
+
+CI0!Inspect;
+CI0?Scenario(Scenario);
+if Scenario = 0 then
+   DI0!Inspect(2);
+   DI4!Inspect(2);
+   DO1!Room(2);
+   DO2!Room(3);
+   DO1!Reserve;
+   DO2!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI0!Read;
+   DI4!Read;
+   DO1!Write;
+   DO2!Write
+fi;
+if Scenario = 1 then
+   DI0!Inspect(1);
+   DI4!Inspect(2);
+   DO1!Room(1);
+   DO2!Room(2);
+   DO1!Reserve;
+   DO2!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI0!Read;
+   DI4!Read;
+   DO1!Write;
+   DO2!Write
+fi;
+CI0!Read;
+Fire()().
+
+process class Kernel2(Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+ExecutionTimes: Array, Status: ProcessMonitor
+
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |Distribution: GeneralDiscrete|
+
+ExecutionTimes := new(Array) size(2);
+Distribution := new(GeneralDiscrete)
+   withParameters(1, 0.5)
+   withParameters(1.2, 0.5);
+ExecutionTimes put(1, Distribution);
+Distribution := new(GeneralDiscrete)
+   withParameters(3, 1);
+ExecutionTimes put(2, Distribution);
+Status := new(ProcessMonitor) init(Monitor, MonitorID, Trace, Name);
+abort
+   par Fire()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+Fire()() |Scenario: Integer|
+
+CI1!Inspect;
+CI1?Scenario(Scenario);
+if Scenario = 0 then
+   DI2!Inspect(1);
+   DO3!Room(2);
+   DO3!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI2!Read;
+   DO3!Write
+fi;
+if Scenario = 1 then
+   DI2!Inspect(1);
+   DO3!Room(1);
+   DO3!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI2!Read;
+   DO3!Write
+fi;
+CI1!Read;
+Fire()().
+
+process class Kernel3(Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+ExecutionTimes: Array, Status: ProcessMonitor
+
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |Distribution: GeneralDiscrete|
+
+ExecutionTimes := new(Array) size(2);
+Distribution := new(GeneralDiscrete)
+   withParameters(4, 1);
+ExecutionTimes put(1, Distribution);
+Distribution := new(GeneralDiscrete)
+   withParameters(2.5, 1);
+ExecutionTimes put(2, Distribution);
+Status := new(ProcessMonitor) init(Monitor, MonitorID, Trace, Name);
+abort
+   par Fire()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+Fire()() |Scenario: Integer|
+
+CI2!Inspect;
+CI2?Scenario(Scenario);
+if Scenario = 0 then
+   DI3!Inspect(3);
+   DO4!Room(1);
+   DO4!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI3!Read;
+   DO4!Write
+fi;
+if Scenario = 1 then
+   DI3!Inspect(1);
+   DO4!Room(1);
+   DO4!Reserve;
+   Status start(currentTime);
+   delay(ExecutionTimes get(Scenario + 1) sample);
+   Status end(currentTime);
+   DI3!Read;
+   DO4!Write
+fi;
+CI2!Read;
+Fire()().
+
+process class Detector0(Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+Status: ProcessMonitor, MarkovChains: Array
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |MarkovChain: MarkovChain|
+
+MarkovChains := new(Array) size(1);
+MarkovChain := new(MarkovChain) init
+   addState("S1", 0)
+      addTransition("S1", "S2", 0, 0.333333)
+      addTransition("S1", "S3", 0.333333, 1)
+   addState("S2", 1)
+      addTransition("S2", "S3", 0, 1)
+   addState("S3", 1)
+      addTransition("S3", "S1", 0, 1)
+   setInitialState("S1");
+MarkovChains put(1, MarkovChain);
+Status := new(ProcessMonitor) init(Monitor, MonitorID, Trace, Name);
+abort
+   par Fire()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+Fire()() |Scenario, SubScenario: Integer|
+
+Scenario := 0;
+SubScenario := MarkovChains get(Scenario + 1) getNextSubScenario;
+if SubScenario = 0 then
+   DI5!Inspect(1);
+   CO0!Room(1);
+   CO1!Room(3);
+   CO2!Room(2);
+   CO0!Reserve;
+   CO1!Reserve;
+   CO2!Reserve;
+   Status start(currentTime);
+   Status end(currentTime);
+   DI5!Read;
+   CO0!Write(0);
+   CO1!Write(0);
+   CO2!Write(0)
+fi;
+if SubScenario = 1 then
+   DI5!Inspect(1);
+   CO0!Room(2);
+   CO1!Room(4);
+   CO2!Room(4);
+   CO0!Reserve;
+   CO1!Reserve;
+   CO2!Reserve;
+   Status start(currentTime);
+   Status end(currentTime);
+   DI5!Read;
+   CO0!Write(1);
+   CO1!Write(1);
+   CO2!Write(1)
+fi;
+Fire()().
+
+process class SimulationController(NumberOfMonitors: Integer, LogFile: String)
+instance variables
+Status: MonitorStatus
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()() |MonitorID: Integer, Results: String|
+
+Status := new(MonitorStatus) init(NumberOfMonitors, LogFile);
+CheckAccuracyStatus()();
+abort while true do Monitor!StopSimulation od with delay(1.0e-10);
+MonitorID := 1;
+while MonitorID <= NumberOfMonitors do
+   Monitor?Results(Results){Status append(Results)};
+   MonitorID := MonitorID + 1
+od;
+Status log.
+
+CheckAccuracyStatus()() |MonitorID: Integer, Accurate: Boolean|
+
+delay(200);
+MonitorID := 1;
+while MonitorID <= NumberOfMonitors do
+   Monitor!Status(MonitorID);
+   Monitor?AccuracyStatus(MonitorID, Accurate){Status register(MonitorID, Accurate)};
+   MonitorID := MonitorID + 1
+od;
+if (Status accurate not) then CheckAccuracyStatus()() fi.
+
+process class DataBuffer(BufferSize: Integer, InitialTokens: Integer, TokenSize: Integer, Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+Status: DataBufferMonitor
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()()
+
+Status := new(DataBufferMonitor) init(BufferSize, InitialTokens, TokenSize, Monitor, MonitorID, Trace, Name);
+abort
+   par HandleInput()() and HandleOutput()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+HandleInput()() |NumberOfTokens: Integer|
+
+In?Room(NumberOfTokens | Status room(NumberOfTokens));
+In?Reserve{Status reserve(NumberOfTokens, currentTime)};
+In?Write{Status write(NumberOfTokens)};
+HandleInput()().
+
+HandleOutput()() |NumberOfTokens: Integer|
+
+Out?Inspect(NumberOfTokens | Status available(NumberOfTokens));
+Out?Read{Status remove(NumberOfTokens, currentTime)};
+HandleOutput()().
+
+process class ControlBuffer(BufferSize: Integer, NumbersInitialTokens: Queue, ContentInitialTokens: Queue, TokenSize: Integer, Monitor: Boolean, MonitorID: Integer, Trace: Boolean, Name: String)
+instance variables
+Status: ControlBufferMonitor
+
+initial method call
+Initialise()()
+
+instance methods
+Initialise()()
+
+Status := new(ControlBufferMonitor) init(BufferSize, NumbersInitialTokens, ContentInitialTokens, TokenSize, Monitor, MonitorID, Trace, Name);
+abort
+   par HandleInput()() and HandleOutput()() and if Monitor then CheckAccuracyStatus()() fi rap
+with Monitor?StopSimulation; if Monitor then Monitor!Results(Status getResults) fi.
+
+CheckAccuracyStatus()() |ID: Integer|
+
+Monitor?Status(ID | ID = MonitorID);
+Monitor!AccuracyStatus(MonitorID, Status accurate);
+CheckAccuracyStatus()().
+
+HandleInput()() |NumberOfTokens: Integer, Scenario: Integer|
+
+In?Room(NumberOfTokens | Status room(NumberOfTokens));
+In?Reserve{Status reserve(NumberOfTokens, currentTime)};
+In?Write(Scenario){Status write(NumberOfTokens, Scenario)};
+HandleInput()().
+
+HandleOutput()()
+
+[Status available] Out?Inspect;
+Out!Scenario(Status inspect);
+Out?Read{Status remove(currentTime)};
+HandleOutput()().
+
+data class MarkovChain
+extends Object
+instance variables
+NumberOfStates: Integer, StateSpace: Array, SubScenarios: Array, Transitions: Array, CurrentState: String, Random: Uniform
+instance methods
+init : MarkovChain
+
+NumberOfStates := 0;
+StateSpace := new(Array);
+SubScenarios := new(Array);
+Transitions := new(Array);
+Random := new(Uniform) withParameters(0.0, 1.0);
+return(self).
+
+addState(State: String, SubScenario: Integer) : MarkovChain
+
+NumberOfStates := NumberOfStates + 1;
+StateSpace size(NumberOfStates); StateSpace put(NumberOfStates, State);
+SubScenarios size(NumberOfStates); SubScenarios put(NumberOfStates, SubScenario);
+Transitions size(NumberOfStates); Transitions put(NumberOfStates, new(Array));
+return(self).
+
+addTransition(State: String, NextState: String, LowerBound: Real, UpperBound: Real) : MarkovChain |i, StateNumber: Integer, T, A: Array|
+
+i := 1;
+while i <= StateSpace getSize do
+   if StateSpace get(i) = State then StateNumber := i fi;
+   i := i + 1
+od;
+T := Transitions get(StateNumber);
+A := new(Array) size(3); A put(1, NextState) put(2, LowerBound) put(3, UpperBound);
+T size(T getSize + 1); T put(T getSize, A);
+return(self).
+
+setInitialState(State: String) : MarkovChain
+
+CurrentState := State;
+return(self).
+
+getNextSubScenario : Integer |NextState: String, SubScenario, i, StateNumber: Integer, T: Array, Sample: Real|
+
+i := 1;
+while i <= StateSpace getSize do
+   if StateSpace get(i) = CurrentState then StateNumber := i fi;
+   i := i + 1
+od;
+T := Transitions get(StateNumber);
+Sample := Random sample;
+i := 1;
+while i <= T getSize do
+   if ((Sample > T get(i) get(2)) & (Sample <= T get(i) get(3))) then NextState := T get(i) get(1) fi;
+   i := i + 1
+od;
+i := 1;
+while i <= StateSpace getSize do
+   if StateSpace get(i) = NextState then SubScenario := SubScenarios get(i) fi;
+   i := i + 1
+od;
+CurrentState := NextState;
+return(SubScenario).
+
+data class ProcessMonitor
+extends Object
+instance variables
+Name: String, Memory: Integer, Utilisation: Integer, Throughput: LongRunRateAverage, PreviousUpdateTime: Real, PreviousFireTime: Real, ResponseDelay: Real, Monitor: Boolean, Trace: Boolean, TraceFile: FileOut, AverageDelay: LongRunSampleAverage, VarianceDelay: LongRunSampleVariance, MaximumDelay: Real, MinimumDelay: Real
+
+instance methods
+init(M: Boolean, ID: Integer, T: Boolean, N: String) : ProcessMonitor
+
+Utilisation := 0;
+PreviousUpdateTime := nil; PreviousFireTime:= nil;
+Name := N;
+Monitor := M;
+if Monitor then
+   ResponseDelay := nil;
+   MaximumDelay := 0.0; MinimumDelay = nil;
+   Throughput := new(LongRunRateAverage) withParameters(0.95, 0.95);
+   AverageDelay := new(LongRunSampleAverage) withParameters(0.95, 0.95);
+   VarianceDelay := new(LongRunSampleVariance) withParameters(0.95, 0.95)
+fi;
+Trace := T;
+if Trace then
+   TraceFile := new(FileOut) destination("Process_" + Name + ".trace") open;
+   TraceFile writeString("Traced Behaviour of Process: " + Name cr cr)
+fi;
+return(self).
+
+start(CurrentTime: Real) : ProcessMonitor
+
+if PreviousUpdateTime != nil then
+   if Trace & (CurrentTime > PreviousUpdateTime) then TraceFile writeString("At time: " + PreviousUpdateTime printString + " Utilisation: " + Utilisation printString cr) fi
+fi;
+Utilisation := Utilisation + 1;
+PreviousUpdateTime := CurrentTime;
+return(self).
+
+end(CurrentTime: Real) : ProcessMonitor
+
+if Trace & (CurrentTime > PreviousUpdateTime) then
+   TraceFile writeString("At time: " + PreviousUpdateTime printString + " Utilisation: " + Utilisation printString cr)
+fi;
+Utilisation := Utilisation - 1;
+if Monitor & (ResponseDelay = nil) then ResponseDelay := CurrentTime fi;
+if Monitor & (PreviousFireTime != nil) then
+   if (CurrentTime - PreviousFireTime) > MaximumDelay then MaximumDelay := CurrentTime - PreviousFireTime fi;
+   if MinimumDelay != nil then
+      if (CurrentTime - PreviousFireTime) < MinimumDelay then MinimumDelay := CurrentTime - PreviousFireTime fi
+   else
+      MinimumDelay := CurrentTime - PreviousFireTime
+   fi;
+   Throughput rewardBM(1.0, CurrentTime);
+   AverageDelay rewardBM(CurrentTime - PreviousFireTime);
+   VarianceDelay rewardBM(CurrentTime - PreviousFireTime)
+fi;
+PreviousUpdateTime := CurrentTime; PreviousFireTime := CurrentTime;
+return(self).
+
+accurate : Boolean
+
+if Monitor then
+   return((Throughput accurate) & (AverageDelay accurate))
+else
+   return(true)
+fi.
+
+getResults : String |Result: String|
+
+Result := "-------------------------------" cr + "Statistics for Process: " + Name cr cr;
+Result := Result + "Observed Response Delay: " + ResponseDelay printString cr;
+Result := Result + "Observed Minimum Inter-Firing Latency: " + MinimumDelay printString cr;
+Result := Result + "Observed Maximum Inter-Firing Latency: " + MaximumDelay printString cr cr;
+Result := Result + "Average Inter-Firing Latency:" cr + AverageDelay logStatistics cr cr;
+Result := Result + "Variance in Inter-Firing Latency:" cr + VarianceDelay logStatistics cr cr;
+Result := Result + "Throughput:" cr + Throughput logStatistics cr cr;
+return(Result).
+
+data class DataBufferMonitor
+extends Object
+instance variables
+Name: String, AvailableTokens: Integer, AverageOccupation: LongRunTimeAverage, VarianceOccupation: LongRunTimeVariance, BufferSize: Integer, MaximumOccupation: Integer, Monitor: Boolean, PreviousTime: Real, ReservedLocations: Integer, TokenSize: Integer, Trace: Boolean, TraceFile: FileOut
+
+instance methods
+init(BS, IT, TS: Integer, M: Boolean, ID: Integer, T: Boolean, N: String) : DataBufferMonitor
+
+Name := N;
+BufferSize := BS; TokenSize := TS; AvailableTokens := 0; ReservedLocations := 0;
+PreviousTime := 0.0;
+Monitor := M;
+if Monitor then
+   MaximumOccupation := 0;
+   AverageOccupation := new(LongRunTimeAverage) withParameters(0.95, 0.95);
+   VarianceOccupation := new(LongRunTimeVariance) withParameters(0.95, 0.95)
+fi;
+Trace := T;
+if Trace then
+   TraceFile := new(FileOut) destination("Channel_" + Name + ".trace") open;
+   TraceFile writeString("Traced Buffer Occupancy for Channel: " + Name cr cr)
+fi;
+self reserve(IT, 0.0); self write(IT);
+return(self).
+
+room(NumberOfTokens: Integer) : Boolean
+
+if BufferSize > 0 then
+   return((ReservedLocations + AvailableTokens + NumberOfTokens) <= BufferSize)
+else
+   return(true)
+fi.
+
+available(NumberOfTokens: Integer) : Boolean
+
+return(AvailableTokens >= NumberOfTokens).
+
+reserve(NumberOfTokens: Integer, CurrentTime: Real) : DataBufferMonitor |Occupation: Integer|
+
+Occupation := ReservedLocations + AvailableTokens;
+if Trace & (CurrentTime > PreviousTime) then
+   TraceFile writeString("At time: " + PreviousTime printString + " Occupation: " + (Occupation * TokenSize) printString cr)
+fi;
+ReservedLocations := ReservedLocations + NumberOfTokens; Occupation := Occupation + NumberOfTokens;
+if Monitor then
+   if (Occupation * TokenSize) > MaximumOccupation then MaximumOccupation := Occupation * TokenSize fi;
+   AverageOccupation rewardBM(Occupation * TokenSize, CurrentTime); VarianceOccupation rewardBM(Occupation * TokenSize, CurrentTime)
+fi;
+PreviousTime := CurrentTime;
+return(self).
+
+write(NumberOfTokens: Integer) : DataBufferMonitor
+
+ReservedLocations := ReservedLocations - NumberOfTokens;
+AvailableTokens := AvailableTokens + NumberOfTokens;
+return(self).
+
+remove(NumberOfTokens: Integer, CurrentTime: Real) : DataBufferMonitor |Occupation: Integer|
+
+Occupation := ReservedLocations + AvailableTokens;
+if Trace & (CurrentTime > PreviousTime) then
+   TraceFile writeString("At time: " + PreviousTime printString + " Occupation: " + (Occupation * TokenSize) printString cr)
+fi;
+AvailableTokens := AvailableTokens - NumberOfTokens; Occupation := Occupation - NumberOfTokens;
+if Monitor then
+   AverageOccupation rewardBM(Occupation * TokenSize, CurrentTime); VarianceOccupation rewardBM(Occupation * TokenSize, CurrentTime)
+fi;
+PreviousTime := CurrentTime;
+return(self).
+
+accurate : Boolean
+
+if Monitor then
+   return(AverageOccupation accurate)
+else
+   return(true)
+fi.
+
+getResults : String |Result: String|
+
+Result := "-------------------------------" cr + "Statistics for Channel: " + Name cr cr;
+Result := Result + "Observed Maximum Buffer Occupancy: " + MaximumOccupation printString cr cr;
+Result := Result + "Average Buffer Occupancy:" cr + AverageOccupation logStatistics cr cr;
+Result := Result + "Variance in Buffer Occupancy:" cr + VarianceOccupation logStatistics cr cr;
+return(Result).
+
+data class ControlBufferMonitor
+extends Object
+instance variables
+Name: String, AvailableTokens: Integer, AverageOccupation: LongRunTimeAverage, VarianceOccupation: LongRunTimeVariance, BufferSize: Integer, MaximumOccupation: Integer, Monitor: Boolean, PreviousTime: Real, ReservedLocations: Integer, TokenSize: Integer, Trace: Boolean, TraceFile: FileOut, Buffer: Queue
+
+instance methods
+init(BS: Integer, NIT, CIT: Queue, TS: Integer, M: Boolean, ID: Integer, T: Boolean, N: String) : ControlBufferMonitor
+
+Name := N;
+BufferSize := BS; TokenSize := TS; AvailableTokens := 0; ReservedLocations := 0;
+PreviousTime := 0.0;
+Monitor := M;
+if Monitor then
+   MaximumOccupation := 0;
+   AverageOccupation := new(LongRunTimeAverage) withParameters(0.95, 0.95);
+   VarianceOccupation := new(LongRunTimeVariance) withParameters(0.95, 0.95)
+fi;
+Trace := T;
+if Trace then
+   TraceFile := new(FileOut) destination("Channel_" + Name + ".trace") open;
+   TraceFile writeString("Traced Buffer Occupancy for Channel: " + Name cr cr)
+fi;
+Buffer := new(Queue) init;
+while NIT isNotEmpty do
+   self reserve(NIT inspect, 0.0); self write(NIT inspect, CIT inspect);
+   NIT remove; CIT remove
+od;
+return(self).
+
+room(NumberOfTokens: Integer) : Boolean
+
+if BufferSize > 0 then
+   return((ReservedLocations + AvailableTokens + NumberOfTokens) <= BufferSize)
+else
+   return(true)
+fi.
+
+inspect() : Integer
+
+return(Buffer inspect).
+
+reserve(NumberOfTokens: Integer, CurrentTime: Real) : ControlBufferMonitor |Occupation: Integer|
+
+Occupation := ReservedLocations + AvailableTokens;
+if Trace & (CurrentTime > PreviousTime) then
+   TraceFile writeString("At time: " + PreviousTime printString + " Occupation: " + (Occupation * TokenSize) printString cr)
+fi;
+ReservedLocations := ReservedLocations + NumberOfTokens; Occupation := Occupation + NumberOfTokens;
+if Monitor then
+   if (Occupation * TokenSize) > MaximumOccupation then MaximumOccupation := Occupation * TokenSize fi;
+   AverageOccupation rewardBM(Occupation * TokenSize, CurrentTime); VarianceOccupation rewardBM(Occupation * TokenSize, CurrentTime)
+fi;
+PreviousTime := CurrentTime;
+return(self).
+
+write(NumberOfTokens: Integer, Scenario: Integer) : ControlBufferMonitor |Counter: Integer|
+
+ReservedLocations := ReservedLocations - NumberOfTokens;
+AvailableTokens := AvailableTokens + NumberOfTokens;
+Counter := NumberOfTokens;
+while (Counter > 0) do
+   Buffer put(Scenario);
+   Counter := Counter - 1
+od;
+return(self).
+
+available : Boolean
+
+return(AvailableTokens >= 1).
+
+remove(CurrentTime: Real) : Integer |Occupation: Integer|
+
+Occupation := ReservedLocations + AvailableTokens;
+if Trace & (CurrentTime > PreviousTime) then
+   TraceFile writeString("At time: " + PreviousTime printString + " Occupation: " + (Occupation * TokenSize) printString cr)
+fi;
+AvailableTokens := AvailableTokens - 1; Occupation := Occupation - 1;
+if Monitor then
+   AverageOccupation rewardBM(Occupation * TokenSize, CurrentTime); VarianceOccupation rewardBM(Occupation * TokenSize, CurrentTime)
+fi;
+PreviousTime := CurrentTime;
+return(Buffer remove).
+
+accurate : Boolean
+
+if Monitor then
+   return(AverageOccupation accurate)
+else
+   return(true)
+fi.
+
+getResults : String |Result: String|
+
+Result := "-------------------------------" cr + "Statistics for Channel: " + Name cr cr;
+Result := Result + "Observed Maximum Buffer Occupancy: " + MaximumOccupation printString cr cr;
+Result := Result + "Average Buffer Occupancy:" cr + AverageOccupation logStatistics cr cr;
+Result := Result + "Variance in Buffer Occupancy:" cr + VarianceOccupation logStatistics cr cr;
+return(Result).
+
+data class MonitorStatus
+extends Object
+instance variables
+Status: Array, NumberOfMonitors: Integer, LogFileName: String, Result: String
+instance methods
+init(N: Integer, LFN: String) : MonitorStatus
+
+NumberOfMonitors := N;
+Status := new(Array) size(NumberOfMonitors) putAll(false);
+LogFileName := LFN;
+Result := "Summary of Simulation Results" cr cr;
+return(self).
+
+accurate : Boolean |Accurate: Boolean, i: Integer|
+Accurate := true; i := 1;while i <= NumberOfMonitors do Accurate := Accurate & Status get(i); i := i + 1 od;
+return(Accurate).
+
+register(ID: Integer, S: Boolean) : MonitorStatus
+Status put(ID, S);
+return(self).
+
+append(R: String) : MonitorStatus
+
+Result := Result + R;
+return(self).
+
+log : MonitorStatus |LogFile: FileOut|
+
+LogFile := new(FileOut) destination(LogFileName) open;
+LogFile writeString(Result);
+LogFile close;
+return(self).
+
+data class ConfidenceInterval
+extends Object
+instance variables
+ConfidenceLevel: Real, UpperBound: Real, LowerBound: Real
+
+instance methods
+extendedTimes(x, y: Real) : Real
+
+   if (x = nil) | (y = nil) then
+      return(nil)
+   else
+      return(x * y)
+   fi.
+
+extendedPlus(x, y: Real) : Real
+   if (x = nil) | (y = nil) then
+      return(nil)
+   else
+      return(x + y)
+   fi.
+
+*(CI: ConfidenceInterval) : ConfidenceInterval |Lower, Upper, Level: Real|
+
+   if self extendedLowerGreaterEqualZero then
+      if CI extendedLowerGreaterEqualZero then
+         Lower := self extendedTimes(LowerBound, CI getLowerBound);
+         Upper := self extendedTimes(UpperBound, CI getUpperBound)
+      else
+         if CI extendedUpperLessZero then
+            Lower := self extendedTimes(UpperBound, CI getLowerBound);
+            Upper := self extendedTimes(LowerBound, CI getUpperBound)
+         else
+            Lower := self extendedTimes(UpperBound, CI getLowerBound);
+            Upper := self extendedTimes(UpperBound, CI getUpperBound)
+         fi
+      fi
+   else
+      if self extendedUpperLessZero then
+         if CI extendedLowerGreaterEqualZero then
+            Lower := self extendedTimes(LowerBound, CI getUpperBound);
+            Upper := self extendedTimes(UpperBound, CI getLowerBound)
+         else
+            if CI extendedUpperLessZero then
+               Lower := self extendedTimes(UpperBound, CI getUpperBound);
+               Upper := self extendedTimes(LowerBound, CI getLowerBound)
+            else
+               Lower := self extendedTimes(LowerBound, CI getUpperBound);
+               Upper := self extendedTimes(LowerBound, CI getLowerBound)
+            fi
+         fi
+      else
+         if CI extendedLowerGreaterEqualZero then
+            Lower := self extendedTimes(LowerBound, CI getUpperBound);
+            Upper := self extendedTimes(UpperBound, CI getUpperBound)
+         else
+            if CI extendedUpperLessZero then
+               Lower := self extendedTimes(UpperBound, CI getLowerBound);
+               Upper := self extendedTimes(LowerBound, CI getLowerBound)
+            else
+               Lower := self extendedMin(self extendedTimes(LowerBound, CI getUpperBound), self extendedTimes(UpperBound, CI getLowerBound));
+               Upper := self extendedMax(self extendedTimes(LowerBound, CI getLowerBound), self extendedTimes(UpperBound, CI getUpperBound))
+            fi
+         fi
+      fi
+   fi;
+   Level := ConfidenceLevel + CI getConfidenceLevel - 1;
+   return(new(ConfidenceInterval) withParameters(Lower, Upper, Level)).
+
+/(CI: ConfidenceInterval) : ConfidenceInterval
+
+   return(self * CI reciprocal).
+
+getUpperBound() : Real
+
+   return(UpperBound).
+
+extendedMin(x, y: Real) : Real
+
+   if (x = nil) | (y = nil) then
+      return(nil)
+   else
+      if x < y then
+         return(x)
+      else
+         return(y)
+      fi
+   fi.
+
+sqr() : ConfidenceInterval |Lower, Upper: Real|
+
+   if self extendedLowerGreaterEqualZero then
+      Lower := self extendedTimes(LowerBound, LowerBound);
+      Upper := self extendedTimes(UpperBound, UpperBound)
+   else
+      if self extendedUpperLessZero then
+         Lower := self extendedTimes(UpperBound, UpperBound);
+         Upper := self extendedTimes(LowerBound, LowerBound)
+      else
+         Lower := 0.0;
+         Upper := self extendedMax(self extendedTimes(LowerBound, LowerBound), self extendedTimes(UpperBound, UpperBound))
+      fi
+   fi;
+   return(new(ConfidenceInterval) withParameters(Lower, Upper, ConfidenceLevel)).
+
++(CI: ConfidenceInterval) : ConfidenceInterval |Lower, Upper, Level: Real|
+
+   Lower := self extendedPlus(LowerBound, CI getLowerBound);
+   Upper := self extendedPlus(UpperBound, CI getUpperBound);
+   Level := ConfidenceLevel + CI getConfidenceLevel - 1;
+   return(new(ConfidenceInterval) withParameters(Lower, Upper, Level)).
+
+extendedUpperGreaterZero() : Boolean
+
+   if UpperBound = nil then
+      return(true)
+   else
+      return(UpperBound > 0.0)
+   fi.
+
+extendedLowerGreaterEqualZero() : Boolean
+
+   if LowerBound = nil then
+      return(false)
+   else
+      return(LowerBound >= 0.0)
+   fi.
+
+extendedLowerLessZero() : Boolean
+
+   if LowerBound = nil then
+      return(true)
+   else
+      return(LowerBound < 0.0)
+   fi.
+
+getRelativeError() : Real |Lower, Upper: Real|
+
+   if (LowerBound = nil) | (UpperBound = nil) then
+      return(nil)
+   else
+      if LowerBound > 0.0 then
+         return((UpperBound - LowerBound) / (2 * LowerBound))
+      else
+         if UpperBound < 0.0 then
+            return((LowerBound - UpperBound) / (2 * UpperBound))
+         else
+            return(nil)
+         fi
+      fi
+   fi.
+
+extendedUpperLessZero() : Boolean
+
+   if UpperBound = nil then
+      return(false)
+   else
+      return(UpperBound < 0.0)
+   fi.
+
+getLowerBound() : Real
+
+   return(LowerBound).
+
+reciprocal() : ConfidenceInterval |Lower, Upper: Real|
+
+   if (self extendedLowerLessZero) & (self extendedUpperGreaterZero) then
+      Lower := nil;
+      Upper := nil
+   else
+      Lower := self extendedReciprocal(UpperBound);
+      Upper := self extendedReciprocal(LowerBound)
+   fi;
+   return(new(ConfidenceInterval) withParameters(Lower, Upper, ConfidenceLevel)).
+
+-(CI : ConfidenceInterval) : ConfidenceInterval
+
+   return(self + CI negate).
+
+extendedNegate(x: Real) : Real
+
+   if x = nil then
+      return(nil)
+   else
+      return(-x)
+   fi.
+
+extendedReciprocal(x: Real) : Real
+
+   if x = nil then
+      return(0.0)
+   else
+      if x = 0.0 then
+         return(nil)
+      else
+         return(1 / x)
+      fi
+   fi.
+
+accurate(Accuracy: Real) : Boolean |RelativeError: Real|
+
+   RelativeError := self getRelativeError;
+   if RelativeError = nil then
+      return(false)
+   else
+      return(RelativeError <= 1 - Accuracy)
+   fi.
+
+getConfidenceLevel() : Real
+
+   return(ConfidenceLevel).
+
+negate() : ConfidenceInterval |Lower,Upper: Real|
+
+   Lower := self extendedNegate(UpperBound);
+   Upper := self extendedNegate(LowerBound);
+   return(new(ConfidenceInterval) withParameters(Lower, Upper, ConfidenceLevel)).
+
+extendedMax(x, y: Real) : Real
+
+   if (x = nil) | (y = nil) then
+      return(nil)
+   else
+      if x > y then
+         return(x)
+      else
+         return(y)
+      fi
+   fi.
+
+withParameters(Lower, Upper, Level: Real) : ConfidenceInterval
+
+   LowerBound := Lower;
+   UpperBound := Upper;
+   ConfidenceLevel := Level;
+   return(self).
+
+logHeading : String
+
+   return("Point Estimation:" tab + "Confidence Interval:" tab tab + "Confidence Level:" tab + "Relative Error:").
+
+logStatistics : String |RelativeError: Real, LogOut: String|
+
+   if (LowerBound = nil) | (UpperBound = nil) then
+      LogOut := "Not Specified" tab + "["
+   else
+      LogOut := (0.5 * (LowerBound + UpperBound)) printString tab tab + "["
+   fi;
+   if LowerBound = nil then
+      LogOut := LogOut + "-inf, "
+   else
+      LogOut := LogOut + LowerBound printString + ", "
+   fi;
+   if UpperBound = nil then
+      LogOut := LogOut + "inf]" tab
+   else
+      LogOut := LogOut + UpperBound printString + "]" tab
+   fi;
+   if (LowerBound = nil) & (UpperBound = nil) then
+      LogOut tab tab tab
+   fi;
+   LogOut := LogOut + ConfidenceLevel printString tab tab tab;
+   RelativeError := self getRelativeError;
+   if RelativeError == nil then
+      LogOut := LogOut + "inf" tab tab
+   else
+      LogOut := LogOut + RelativeError printString
+   fi;
+   return(LogOut).
+
+data class PerformanceMonitor
+extends Object
+instance variables
+ConfidenceLevel: Real, Accuracy: Real, BatchSize: Integer, IntervalEstimation: ConfidenceInterval, LogFile: FileOut
+
+instance methods
+setDefaultBatchSize() : PerformanceMonitor
+
+   BatchSize := 1000;
+   return(self).
+
+accurate() : Boolean
+
+   return(IntervalEstimation accurate(Accuracy)).
+
+logStatistics() : String
+
+   return(IntervalEstimation logHeading tab + "Accurate:" cr + IntervalEstimation logStatistics tab + IntervalEstimation accurate(Accuracy) printString).
+
+data class LongRunSampleAverage
+extends PerformanceMonitor
+
+instance variables
+AverageSumLengthProduct: Real, CurrentSum: Real, CurrentLength: Integer, NumberOfCycles: Integer, AverageLength: Real, AverageSquaredSum: Real, AverageSum: Real, TransientMode: Boolean, AverageSquaredLength: Real, Constant: Real
+
+instance methods
+setBatchSize(m: Integer) : LongRunSampleAverage
+
+   if m > 0 then
+      BatchSize := m
+   else
+      self error("BatchSize parameter for Long Run Sample Average must be larger than 0")
+   fi;
+   return(self).
+
+rewardBM(Reward: Real) : LongRunSampleAverage
+
+   self rewardRC(Reward, (CurrentLength = 0) | (CurrentLength = BatchSize));
+   return(self).
+
+withConfidenceLevel(CL: Real) : LongRunSampleAverage
+
+   if (CL < 0.0) | (CL >= 1.0) then
+      self error("ConfidenceLevel parameter for Long Run Sample Average must be within the interval [0.0, 1.0)")
+   fi;
+   ConfidenceLevel := CL;
+   IntervalEstimation := new(ConfidenceInterval) withParameters(nil, nil, ConfidenceLevel);
+   Constant := (2.0 sqrt) * (self calculateInverseErfC(1.0 - ConfidenceLevel));
+   TransientMode := true;
+   NumberOfCycles := 0;
+   CurrentLength := 0;
+   AverageSum := 0.0;
+   AverageLength := 0.0;
+   AverageSquaredSum := 0.0;
+   AverageSquaredLength := 0.0;
+   AverageSumLengthProduct := 0.0;
+   self setDefaultBatchSize;
+   return(self).
+
+getCurrentLength() : Integer
+
+   return(CurrentLength).
+
+getIntervalEstimation() : ConfidenceInterval
+
+   return(IntervalEstimation).
+
+rewardRC(Reward: Real, RecurrenceCondition: Boolean) : LongRunSampleAverage |PointEstimation, StandardDeviation, Variance, Factor, HalfWidth: Real|
+
+   if RecurrenceCondition then
+      if TransientMode then
+         TransientMode := false
+      else
+         NumberOfCycles := NumberOfCycles + 1;
+         Factor := (NumberOfCycles - 1) / NumberOfCycles;
+         AverageSum := (Factor * AverageSum) + (CurrentSum / NumberOfCycles);
+         AverageLength := (Factor * AverageLength) + (CurrentLength / NumberOfCycles);
+         AverageSquaredSum := (Factor * AverageSquaredSum) + (CurrentSum sqr / NumberOfCycles);
+         AverageSquaredLength := (Factor * AverageSquaredLength) + (CurrentLength sqr / NumberOfCycles);
+         AverageSumLengthProduct := (Factor * AverageSumLengthProduct) + ((CurrentSum * CurrentLength) / NumberOfCycles);
+         if NumberOfCycles > 1 then
+            PointEstimation := AverageSum / AverageLength;
+            Variance := ((1 / Factor) * (AverageSquaredSum - (2 * PointEstimation * AverageSumLengthProduct) + (PointEstimation sqr * AverageSquaredLength)));
+            if Variance > 0 then StandardDeviation := Variance sqrt else StandardDeviation := 0.0 fi;
+            HalfWidth := (Constant * StandardDeviation) / (AverageLength * (NumberOfCycles asReal sqrt));
+            IntervalEstimation := new(ConfidenceInterval) withParameters(PointEstimation - HalfWidth, PointEstimation + HalfWidth, ConfidenceLevel)
+         fi
+      fi;
+      CurrentSum := Reward;
+      CurrentLength := 1
+   else
+      if TransientMode not then
+         CurrentSum := CurrentSum + Reward;
+         CurrentLength := CurrentLength + 1
+      fi
+   fi;
+   return(self).
+
+withParameters(A, CL: Real) : LongRunSampleAverage
+
+   if (A <= 0.0) | (A >= 1.0) then
+      self error("Accuracy parameter for Long Run Sample Average must be within the interval (0.0, 1.0)")
+   fi;
+   Accuracy := A;
+   self withConfidenceLevel(CL);
+   return(self).
+
+calculateInverseErfC(y: Real) : Real |s, t, u, w, x, z: Real|
+
+    z := y;
+    w := 0.916461398268964 - z ln;
+    u := w sqrt;
+    s := (u ln + 0.488826640273108) / w;
+    t := 1 / (u + 0.231729200323405);
+    x := u * (1 - s * (s * 0.124610454613712 + 0.5)) - 
+        ((((-0.0728846765585675 * t + 0.269999308670029) * t + 
+        0.150689047360223) * t + 0.116065025341614) * t + 
+        0.499999303439796) * t;
+    t := 3.97886080735226 / (x + 3.97886080735226);
+    u := t - 0.5;
+    s := (((((((((0.00112648096188977922 * u + 
+        0.000105739299623423047) * u - 0.00351287146129100025) * u - 
+        0.000771708358954120939) * u + 0.00685649426074558612) * u + 
+        0.00339721910367775861) * u - 0.011274916933250487) * u - 
+        0.0118598117047771104) * u + 0.0142961988697898018) * u + 
+        0.0346494207789099922) * u + 0.00220995927012179067;
+    s := ((((((((((((s * u - 0.0743424357241784861) * u - 
+        0.105872177941595488) * u + 0.0147297938331485121) * u + 
+        0.316847638520135944) * u + 0.713657635868730364) * u + 
+        1.05375024970847138) * u + 1.21448730779995237) * u + 
+        1.16374581931560831) * u + 0.956464974744799006) * u + 
+        0.686265948274097816) * u + 0.434397492331430115) * u + 
+        0.244044510593190935) * t - 
+        z * (2.718281828459045 power(x * x - 0.120782237635245222));
+    x := x + s * (x * s + 1);
+    return(x).
+
+data class LongRunSampleVariance
+extends PerformanceMonitor
+instance variables
+AverageReward: LongRunSampleAverage, AverageSquaredReward: LongRunSampleAverage
+
+instance methods
+setBatchSize(m: Integer) : LongRunSampleVariance
+
+   if m > 0 then
+      BatchSize := m;
+      AverageReward setBatchSize(BatchSize);
+      AverageSquaredReward setBatchSize(BatchSize)
+   else
+      self error("BatchSize parameter for Long Run Sample Variance must be larger than 0")
+   fi;
+   return(self).
+
+rewardBM(Reward: Real) : LongRunSampleVariance
+
+   self rewardRC(Reward, (AverageReward getCurrentLength = 0) | (AverageReward getCurrentLength = BatchSize));
+   return(self).
+
+rewardRC(Reward: Real, RecurrenceCondition: Boolean) : LongRunSampleVariance
+
+   AverageReward rewardRC(Reward, RecurrenceCondition);
+   AverageSquaredReward rewardRC(Reward * Reward, RecurrenceCondition);
+   if RecurrenceCondition then
+      IntervalEstimation := (AverageSquaredReward getIntervalEstimation) - ((AverageReward getIntervalEstimation) sqr)
+   fi;
+   return(self).
+
+withParameters(A, CL: Real) : LongRunSampleVariance
+
+   if (A <= 0.0) | (A >= 1.0) then
+      self error("Accuracy parameter for Long Run Sample Variance must be within the interval (0.0, 1.0)")
+   fi;
+   Accuracy := A;
+   if (CL < 0.0) | (CL >= 1.0) then
+      self error("ConfidenceLevel parameter for Long Run Sample Variance must be within the interval [0.0, 1.0)")
+   fi;
+   ConfidenceLevel := CL;
+   AverageReward := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   AverageSquaredReward := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   IntervalEstimation := (AverageSquaredReward getIntervalEstimation) - ((AverageReward getIntervalEstimation) sqr);
+   self setDefaultBatchSize();
+   return(self).
+
+data class LongRunTimeAverage
+extends PerformanceMonitor
+instance variables
+PreviousReward: Real, AverageTime: LongRunSampleAverage, AverageRewardTimeProduct: LongRunSampleAverage, LastTime: Real
+
+instance methods
+setBatchSize(m: Integer) : LongRunTimeAverage
+
+   if m > 0 then
+      BatchSize := m;
+      AverageRewardTimeProduct setBatchSize(BatchSize);
+      AverageTime setBatchSize(BatchSize)
+   else
+      self error("BatchSize parameter for Long Run Time Average must be larger than 0")
+   fi;
+   return(self).
+
+rewardBM(Reward, CurrentTime: Real) : LongRunTimeAverage
+
+   self rewardRC(Reward, CurrentTime, (AverageRewardTimeProduct getCurrentLength = 0) | (AverageRewardTimeProduct getCurrentLength = BatchSize));
+   return(self).
+
+withConfidenceLevel(CL: Real) : LongRunTimeAverage
+
+   if (CL < 0.0) | (CL >= 1.0) then
+      self error("ConfidenceLevel parameter for Long Run Time Average must be within the interval [0.0, 1.0)")
+   fi;
+   ConfidenceLevel := CL;
+   AverageRewardTimeProduct := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   AverageTime := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   IntervalEstimation := (AverageRewardTimeProduct getIntervalEstimation) / (AverageTime getIntervalEstimation);
+   self setDefaultBatchSize();
+   return(self).
+
+getCurrentLength() : Integer
+
+   return(AverageRewardTimeProduct getCurrentLength).
+
+getIntervalEstimation() : ConfidenceInterval
+
+   return(IntervalEstimation).
+
+rewardRC(Reward, CurrentTime: Real, RecurrenceCondition: Boolean) : LongRunTimeAverage
+
+   if LastTime != nil then
+      AverageRewardTimeProduct rewardRC(PreviousReward * (CurrentTime - LastTime), RecurrenceCondition);
+      AverageTime rewardRC(CurrentTime - LastTime, RecurrenceCondition)
+   fi;
+   PreviousReward := Reward;
+   LastTime := CurrentTime;
+   if RecurrenceCondition then
+      IntervalEstimation := (AverageRewardTimeProduct getIntervalEstimation) / (AverageTime getIntervalEstimation)
+   fi;
+   return(self).
+
+withParameters(A, CL: Real) : LongRunTimeAverage
+
+   if (A <= 0.0) | (A >= 1.0) then
+      self error("Accuracy parameter for Long Run Time Average must be within the interval (0.0, 1.0)")
+   fi;
+   Accuracy := A;
+   self withConfidenceLevel(CL);
+   return(self).
+
+data class LongRunRateAverage
+extends PerformanceMonitor
+instance variables
+AverageReward: LongRunSampleAverage, AverageTime: LongRunSampleAverage, LastTime: Real
+
+instance methods
+setBatchSize(m: Integer) : LongRunRateAverage
+
+   if m > 0 then
+      BatchSize := m;
+      AverageReward setBatchSize(BatchSize);
+      AverageTime setBatchSize(BatchSize)
+   else
+      self error("BatchSize parameter for Long Run Rate Average must be larger than 0")
+   fi;
+   return(self).
+
+rewardBM(Reward, CurrentTime: Real) : LongRunRateAverage
+
+   self rewardRC(Reward, CurrentTime, (AverageReward getCurrentLength = 0) | (AverageReward getCurrentLength = BatchSize));
+   return(self).
+
+withConfidenceLevel(CL: Real) : LongRunRateAverage
+
+   if (CL < 0.0) | (CL >= 1.0) then
+      self error("ConfidenceLevel parameter for Long Run Rate Average must be within the interval [0.0, 1.0)")
+   fi;
+   ConfidenceLevel := CL;
+   AverageReward := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   AverageTime := new(LongRunSampleAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   IntervalEstimation := (AverageReward getIntervalEstimation) / (AverageTime getIntervalEstimation);
+   self setDefaultBatchSize();
+   return(self).
+
+getCurrentLength() : Integer
+
+   return(AverageReward getCurrentLength).
+
+getIntervalEstimation() : ConfidenceInterval
+
+   return(IntervalEstimation).
+
+rewardRC(Reward, CurrentTime: Real, RecurrenceCondition: Boolean) : LongRunRateAverage
+
+   if LastTime != nil then
+      AverageReward rewardRC(Reward, RecurrenceCondition);
+      AverageTime rewardRC(CurrentTime - LastTime, RecurrenceCondition)
+   fi;
+   LastTime := CurrentTime;
+   if RecurrenceCondition then
+      IntervalEstimation := (AverageReward getIntervalEstimation) / (AverageTime getIntervalEstimation)
+   fi;
+   return(self).
+
+withParameters(A, CL: Real) : LongRunRateAverage
+
+   if (A <= 0.0) | (A >= 1.0) then
+      self error("Accuracy parameter for Long Run Rate Average must be within the interval (0.0, 1.0)")
+   fi;
+   Accuracy := A;
+   self withConfidenceLevel(CL);
+   return(self).
+
+data class LongRunTimeVariance
+extends PerformanceMonitor
+instance variables
+AverageReward: LongRunTimeAverage, AverageSquaredReward: LongRunTimeAverage
+
+instance methods
+setBatchSize(m: Integer) : LongRunTimeVariance
+
+   if m > 0 then
+      BatchSize := m;
+      AverageReward setBatchSize(BatchSize);
+      AverageSquaredReward setBatchSize(BatchSize)
+   else
+      self error("BatchSize parameter for Long Run Time Variance must be larger than 0")
+   fi;
+   return(self).
+
+rewardBM(Reward, CurrentTime: Real) : LongRunTimeVariance
+
+   self rewardRC(Reward, CurrentTime, (AverageReward getCurrentLength = 0) | (AverageReward getCurrentLength = BatchSize));
+   return(self).
+
+rewardRC(Reward, CurrentTime: Real, RecurrenceCondition: Boolean) : LongRunTimeVariance
+
+   AverageReward rewardRC(Reward, CurrentTime, RecurrenceCondition);
+   AverageSquaredReward rewardRC(Reward * Reward, CurrentTime, RecurrenceCondition);
+   if RecurrenceCondition then
+      IntervalEstimation := (AverageSquaredReward getIntervalEstimation) - ((AverageReward getIntervalEstimation) sqr)
+   fi;
+   return(self).
+
+withParameters(A, CL: Real) : LongRunTimeVariance
+
+   if (A <= 0.0) | (A >= 1.0) then
+      self error("Accuracy parameter for Long Run Sample Variance must within the interval (0.0, 1.0)")
+   fi;
+   Accuracy := A;
+   if (CL < 0.0) | (CL >= 1.0) then
+      self error("ConfidenceLevel parameter for Long Run Sample Variance must be within the interval [0.0, 1.0)")
+   fi;
+   ConfidenceLevel := CL;
+   AverageReward := new(LongRunTimeAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   AverageSquaredReward := new(LongRunTimeAverage) withConfidenceLevel((ConfidenceLevel + 1) / 2);
+   IntervalEstimation := (AverageSquaredReward getIntervalEstimation) - ((AverageReward getIntervalEstimation) sqr);
+   self setDefaultBatchSize();
+   return(self).
+
+data class Distribution
+extends Object
+instance variables
+Random: RandomGenerator
+
+instance methods
+initialise : Distribution
+
+  Random := new(RandomGenerator) randomiseSeed;
+  return(self).
+
+data class Uniform
+extends Distribution
+instance variables
+IntervalLength: Real, LowerBound: Real
+
+instance methods
+withParameters(LB, UB: Real) : Uniform
+
+   self initialise;
+   LowerBound := LB; IntervalLength := UB - LB;
+   return(self).
+
+sample : Real
+
+   return(LowerBound + (Random random * IntervalLength)).
+
+data class GeneralDiscrete
+extends Distribution
+instance variables
+UpperBounds: Array, LowerBounds: Array, Weights: Array, SampleValues: Array
+
+instance methods
+withParameters(Value: Object, Weight: Real) : GeneralDiscrete |Index, Size: Integer, CumulativeWeight, Total: Real|
+
+if Random = nil then
+    self initialise;
+    SampleValues := new(Array);
+    Weights := new(Array);
+    LowerBounds := new(Array);
+    UpperBounds := new(Array)
+fi;
+Size := SampleValues getSize + 1;
+SampleValues size(Size);
+SampleValues put(Size, Value);
+Weights size(Size);
+Weights put(Size, Weight);
+LowerBounds size(Size);
+UpperBounds size(Size);
+Index := 1; Total := 0.0;
+while Index <= Size do
+   Total := Total + Weights get(Index);
+   Index := Index + 1
+od;
+Index := 1; CumulativeWeight := 0.0;
+while Index <= Size do
+    LowerBounds put(Index, CumulativeWeight/Total);
+    CumulativeWeight := CumulativeWeight + Weights get(Index);
+    UpperBounds put(Index, CumulativeWeight/Total);
+    Index := Index + 1
+od;
+return self.
+
+sample() : Object |Sample: Real, Result : Object, Index: Integer|
+
+Sample := Random random;
+Index := 1;
+while Result = nil do
+   if (LowerBounds get(Index) < Sample) & (Sample <= UpperBounds get(Index)) then Result := SampleValues get(Index) else Index := Index + 1 fi
+od;
+return Result.
+
+data class Queue
+extends Object
+instance variables
+PrimairElement: QueueElement, Occupation: Integer
+
+instance methods
+init : Queue
+
+   PrimairElement := new(QueueElement);
+   PrimairElement setNext(PrimairElement) setPrevious(PrimairElement);
+   Occupation := 0;
+   return(self).
+
+put(NewElement: Object) : Object |NQE: QueueElement|
+
+   NQE := new(QueueElement) setElement(NewElement);
+   NQE setNext(PrimairElement getNext) setPrevious(PrimairElement);
+   PrimairElement setNext(NQE);
+   NQE getNext setPrevious(NQE);
+   Occupation := Occupation + 1;
+   return(self).
+
+inspect : Object |QE: QueueElement|
+
+   QE := PrimairElement getPrevious;
+   return(QE getElement).
+
+remove : Object |QE: QueueElement|
+
+   QE := PrimairElement getPrevious;
+   QE getNext setPrevious(QE getPrevious);
+   QE getPrevious setNext(QE getNext);
+   Occupation := Occupation - 1;
+   return(QE getElement).
+
+isNotEmpty : Boolean
+
+   return(Occupation != 0).
+
+data class QueueElement
+extends Object
+instance variables
+Next: QueueElement, Element: Object, Previous: QueueElement
+
+instance methods
+setNext(QE: QueueElement): QueueElement
+
+   Next := QE;
+   return(self).
+
+getPrevious: QueueElement
+
+   return(Previous).
+
+setElement(E: Object): QueueElement
+
+   Element := E;
+   return(self).
+
+getElement: Object
+
+   return(Element).
+
+getNext: QueueElement
+
+   return(Next).
+
+setPrevious(QE: QueueElement): QueueElement
+
+   Previous := QE;
+   return(self).
+
+data class Object
+instance variables
+instance methods
+error(ErrorMessage: String): Object primitive.
+deepCopy: Object primitive.
+=  (Operand2: Object): Boolean primitive.
+!= (Operand2: Object): Boolean primitive.
+== (Operand2: Object): Boolean primitive.
+!==(Operand2: Object): Boolean primitive.
+printString: String primitive.
+shallowCopy: Object primitive.
+
+data class Number
+extends Object
+instance variables
+instance methods
+
+data class Integer
+extends Number
+instance variables
+instance methods
++  (Operand2: Number): Number primitive.
+/  (Operand2: Number): Number primitive.
+*  (Operand2: Number): Number primitive.
+-  (Operand2: Number): Number primitive.
+<  (Operand2: Number): Boolean primitive.
+>  (Operand2: Number): Boolean primitive.
+<= (Operand2: Number): Boolean primitive.
+>= (Operand2: Number): Boolean primitive.
+unaryMinus: Integer primitive.
+abs: Integer primitive.
+&  (Operand2: Integer): Integer primitive.
+|  (Operand2: Integer): Integer primitive.
+not: Integer primitive.
+sqrt: Number primitive.
+power(Operand2: Number): Number primitive.
+sqr: Integer primitive.
+div(Operand2: Integer): Integer primitive.
+modulo(Operand2: Number): Number primitive.
+asInteger: Integer primitive.
+asReal: Real primitive.
+asString: String primitive.
+printString: String primitive.
+fac: Integer primitive.
+monus(n: Integer): Integer if n > self then 0 else self - n fi.
+
+data class Real
+extends Number
+instance variables
+instance methods
++  (Operand2: Number): Real primitive.
+/  (Operand2: Number): Real primitive.
+*  (Operand2: Number): Real primitive.
+-  (Operand2: Number): Real primitive.
+<  (Operand2: Number): Boolean primitive.
+>  (Operand2: Number): Boolean primitive.
+<= (Operand2: Number): Boolean primitive.
+>= (Operand2: Number): Boolean primitive.
+unaryMinus: Real primitive.
+acos: Real primitive.
+asin: Real primitive.
+atan: Real primitive.
+atan2(Denom: Real): Real primitive.
+cos: Real primitive.
+sin: Real primitive.
+tan: Real primitive.
+abs: Real primitive.
+log: Real primitive.
+ln: Real primitive.
+sqrt: Real primitive.
+exp: Real primitive.
+power(Operand2: Number): Real primitive.
+sqr: Real primitive.
+ceiling: Integer primitive.
+floor: Integer primitive.
+round: Integer primitive.
+div(Operand2: Number): Integer primitive.
+modulo(Operand2: Number): Real primitive.
+asInteger: Integer primitive.
+asReal: Real primitive.
+asString: String primitive.
+printString: String primitive.
+
+primitive data class Boolean
+extends Object
+instance variables
+instance methods
+&  (Operand2: Boolean): Boolean primitive.
+|  (Operand2: Boolean): Boolean primitive.
+not: Boolean primitive.
+printString: String primitive.
+
+primitive data class Char
+extends Object
+instance variables
+instance methods
+printString: String primitive.
+
+primitive data class Array
+extends Object
+instance variables
+instance methods
+get(FromPosition: Integer): Object primitive.
+getSize: Integer primitive.
+size(newSize: Integer): Array primitive.
+put(AtPosition: Integer, Element: Object): Array primitive.
+putAll(Element: Object): Array primitive.
+printString: String | i, s: Integer, Str: String |
+   Str := "Array ("; i := 0; s := self getSize;
+   while i < s do Str append(self get(i := i + 1) printString) append(if i < s then "," else ")" fi) od;
+   Str.
+
+primitive data class String
+extends Object
+instance variables
+instance methods
++  (aString: String): String primitive.
+<  (Operand2: String): Boolean primitive.
+>  (Operand2: String): Boolean primitive.
+<= (Operand2: String): Boolean primitive.
+>= (Operand2: String): Boolean primitive.
+append(aString: String): String primitive.
+copy(From, To: Integer): String primitive.
+concat(aString: String): String primitive.
+cr: String primitive.
+get(FromPosition: Integer): Char primitive.
+length: Integer primitive.
+printString: String primitive.
+put(AtPosition: Integer, aChar: Char): String primitive.
+tab: String primitive.
+
+primitive data class RandomGenerator
+extends Object
+instance variables
+instance methods
+random: Real primitive.
+randomInt(n: Integer): Integer primitive.
+randomiseSeed: RandomGenerator primitive.
+setSeed(aSeed: Integer): RandomGenerator primitive.
+
+primitive data class FileOut
+extends Object
+instance variables
+instance methods
+append: FileOut primitive.
+destination(FileName: String): FileOut primitive.
+close: Object primitive.
+open: FileOut primitive.
+writeString(aString: String): FileOut primitive.
+write(anObject: Object): FileOut
+   self writeString(anObject printString append(" ")).
+writeln(anObject: Object): FileOut
+   self writeString(anObject printString cr).
+
+primitive data class FileIn
+extends Object
+instance variables
+instance methods
+open: FileIn primitive.
+close: Object primitive.
+readString: String primitive.
+readInteger: Integer primitive.
+readNumber: Object primitive.
+readReal: Real primitive.
+readBoolean: Boolean primitive.
+readChar: Char primitive.
+source(FileName: String): FileIn primitive.
+

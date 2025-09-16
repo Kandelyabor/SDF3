@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='6.06289e-07' sz='303'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='1'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='1.0748e-06' sz='304'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='2'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='1.46851e-06' sz='305'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='3'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='1.77438e-06' sz='306'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='4'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.03993e-06' sz='307'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='5'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.24118e-06' sz='308'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='6'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.39896e-06' sz='309'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='7'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.58064e-06' sz='310'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='8'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.79209e-06' sz='311'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='9'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.91136e-06' sz='312'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='10'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.04128e-06' sz='313'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='11'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.18333e-06' sz='315'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='13'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.33931e-06' sz='317'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='15'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.51136e-06' sz='319'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='17'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.7021e-06' sz='322'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='20'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.91475e-06' sz='327'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='25'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='4.15332e-06' sz='335'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='33'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='4.42286e-06' sz='352'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='50'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='4.72981e-06' sz='401'>
+            <distribution>
+                <ch name='mc2me' sz='1'/>
+                <ch name='me2mbc' sz='99'/>
+                <ch name='mbc2vlc' sz='99'/>
+                <ch name='mbc2mbd' sz='99'/>
+                <ch name='mbd2mc' sz='99'/>
+                <ch name='vlc2vlc' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

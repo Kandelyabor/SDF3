@@ -1,0 +1,4 @@
+add_subdirectory(flow)
+add_subdirectory(platform_binding)
+add_subdirectory(platform_graph)
+add_subdirectory(scheduling)

@@ -1,0 +1,2180 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="two_switches">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="switch_fab9" type="switch_fab9">
+          <port name="fab9_0" type="out" rate="2"/>
+          <port name="switch_fab9_sync_1" type="out" rate="1"/>
+          <port name="switch_fab9_sync_2" type="in" rate="1"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="fbc11_0" type="in" rate="2"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="fbc11_0" type="out" rate="2"/>
+          <port name="fab9_0" type="in" rate="2"/>
+          <port name="fab10_1" type="in" rate="3"/>
+        </actor>
+        <actor name="switch_fab10" type="switch_fab10">
+          <port name="fab10_1" type="out" rate="3"/>
+          <port name="switch_fab10_sync_1" type="out" rate="1"/>
+          <port name="switch_fab10_sync_2" type="in" rate="1"/>
+        </actor>
+        <channel name="fab9_1" srcActor="switch_fab9" srcPort="fab9_0" dstActor="b" dstPort="fab9_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fab10_1" srcActor="switch_fab10" srcPort="fab10_1" dstActor="b" dstPort="fab10_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fbc11" srcActor="b" srcPort="fbc11_0" dstActor="c" dstPort="fbc11_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_fab9_sync" srcActor="switch_fab9" srcPort="switch_fab9_sync_1" dstActor="switch_fab9" dstPort="switch_fab9_sync_2" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_fab9_sync" persistentFinalTokenNames="t_switch_fab9_sync"/>
+        <channel name="switch_fab10_sync" srcActor="switch_fab10" srcPort="switch_fab10_sync_1" dstActor="switch_fab10" dstPort="switch_fab10_sync_2" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_fab10_sync" persistentFinalTokenNames="t_switch_fab10_sync"/>
+      </scenariograph>
+      <scenariograph name="detector" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="switch_fab9_0" type="out" rate="2"/>
+          <port name="switch_fab9_ctrl_1" type="out" rate="1"/>
+          <port name="switch_fab10_2" type="out" rate="3"/>
+          <port name="switch_fab10_ctrl_3" type="out" rate="1"/>
+          <port name="detect_loadSched0_ctrl_4" type="out" rate="1"/>
+          <port name="detect_loadSched1_ctrl_5" type="out" rate="1"/>
+          <port name="detect_loadSched2_ctrl_6" type="out" rate="1"/>
+          <port name="detect_loadSched3_ctrl_7" type="out" rate="1"/>
+        </actor>
+        <actor name="switch_fab9" type="switch_fab9">
+          <port name="switch_fab9_0" type="in" rate="2"/>
+          <port name="switch_fab9_ctrl_1" type="in" rate="1"/>
+          <port name="switch_fab9_sync_2" type="out" rate="1"/>
+          <port name="switch_fab9_sync_3" type="in" rate="1"/>
+          <port name="loadSched0_switch_fab9_4" type="in" rate="1"/>
+        </actor>
+        <actor name="switch_fab10" type="switch_fab10">
+          <port name="switch_fab10_0" type="in" rate="3"/>
+          <port name="switch_fab10_ctrl_1" type="in" rate="1"/>
+          <port name="switch_fab10_sync_2" type="out" rate="1"/>
+          <port name="switch_fab10_sync_3" type="in" rate="1"/>
+          <port name="loadSched0_switch_fab10_4" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched0" type="loadSched0">
+          <port name="detect_loadSched0_ctrl_0" type="in" rate="1"/>
+          <port name="loadSched0_switch_fab9_1" type="out" rate="1"/>
+          <port name="loadSched0_switch_fab10_2" type="out" rate="1"/>
+        </actor>
+        <actor name="loadSched1" type="loadSched1">
+          <port name="detect_loadSched1_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched2" type="loadSched2">
+          <port name="detect_loadSched2_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched3" type="loadSched3">
+          <port name="detect_loadSched3_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <channel name="switch_fab9_data" srcActor="a" srcPort="switch_fab9_0" dstActor="switch_fab9" dstPort="switch_fab9_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_fab9_ctrl" srcActor="a" srcPort="switch_fab9_ctrl_1" dstActor="switch_fab9" dstPort="switch_fab9_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_fab10_data" srcActor="a" srcPort="switch_fab10_2" dstActor="switch_fab10" dstPort="switch_fab10_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_fab10_ctrl" srcActor="a" srcPort="switch_fab10_ctrl_3" dstActor="switch_fab10" dstPort="switch_fab10_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_fab9_sync" srcActor="switch_fab9" srcPort="switch_fab9_sync_2" dstActor="switch_fab9" dstPort="switch_fab9_sync_3" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_fab9_sync" persistentFinalTokenNames="t_switch_fab9_sync"/>
+        <channel name="switch_fab10_sync" srcActor="switch_fab10" srcPort="switch_fab10_sync_2" dstActor="switch_fab10" dstPort="switch_fab10_sync_3" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_fab10_sync" persistentFinalTokenNames="t_switch_fab10_sync"/>
+        <channel name="detect_loadSched0_ctrl" srcActor="a" srcPort="detect_loadSched0_ctrl_4" dstActor="loadSched0" dstPort="detect_loadSched0_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_fab9" srcActor="loadSched0" srcPort="loadSched0_switch_fab9_1" dstActor="switch_fab9" dstPort="loadSched0_switch_fab9_4" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_fab10" srcActor="loadSched0" srcPort="loadSched0_switch_fab10_2" dstActor="switch_fab10" dstPort="loadSched0_switch_fab10_4" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched1_ctrl" srcActor="a" srcPort="detect_loadSched1_ctrl_5" dstActor="loadSched1" dstPort="detect_loadSched1_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched2_ctrl" srcActor="a" srcPort="detect_loadSched2_ctrl_6" dstActor="loadSched2" dstPort="detect_loadSched2_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched3_ctrl" srcActor="a" srcPort="detect_loadSched3_ctrl_7" dstActor="loadSched3" dstPort="detect_loadSched3_ctrl_0" initialTokens="0" finalTokens="0"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="switch_fab9"/>
+        <actorProperties actor="c"/>
+        <actorProperties actor="b"/>
+        <actorProperties actor="switch_fab10"/>
+        <actorProperties actor="a"/>
+        <actorProperties actor="loadSched0"/>
+        <actorProperties actor="loadSched1"/>
+        <actorProperties actor="loadSched2"/>
+        <actorProperties actor="loadSched3"/>
+        <channelProperties channel="fab9_1"/>
+        <channelProperties channel="fab10_1"/>
+        <channelProperties channel="fbc11"/>
+        <channelProperties channel="switch_fab9_sync"/>
+        <channelProperties channel="switch_fab10_sync"/>
+        <channelProperties channel="switch_fab9_data"/>
+        <channelProperties channel="switch_fab9_ctrl"/>
+        <channelProperties channel="switch_fab10_data"/>
+        <channelProperties channel="switch_fab10_ctrl"/>
+        <channelProperties channel="detect_loadSched0_ctrl"/>
+        <channelProperties channel="loadSched0_switch_fab9"/>
+        <channelProperties channel="loadSched0_switch_fab10"/>
+        <channelProperties channel="detect_loadSched1_ctrl"/>
+        <channelProperties channel="detect_loadSched2_ctrl"/>
+        <channelProperties channel="detect_loadSched3_ctrl"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="scenario1" graph="scenario1" reward="1">
+          <actorProperties actor="switch_fab9" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="switch_fab9_func">
+                  <argumentMapping>
+                    <argument number="0" port="fab9_0"/>
+                    <argument number="1" port="switch_fab9_sync_1"/>
+                    <argument number="0" port="switch_fab9_sync_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="0" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="c_func">
+                  <argumentMapping>
+                    <argument number="0" port="fbc11_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="b_func">
+                  <argumentMapping>
+                    <argument number="0" port="fbc11_0"/>
+                    <argument number="0" port="fab9_0"/>
+                    <argument number="1" port="fab10_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_fab10" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="switch_fab10_func">
+                  <argumentMapping>
+                    <argument number="0" port="fab10_1"/>
+                    <argument number="1" port="switch_fab10_sync_1"/>
+                    <argument number="0" port="switch_fab10_sync_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="0" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="fab9_1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fab10_1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc11">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab9_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab10_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="fab10_1" sz="0"/>
+              <channel name="fab9_1" sz="0"/>
+              <channel name="fbc11" sz="0"/>
+              <channel name="switch_fab10_sync" sz="0"/>
+              <channel name="switch_fab9_sync" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="11" thr="5e-05">
+              <channel name="fab10_1" sz="3"/>
+              <channel name="fab9_1" sz="2"/>
+              <channel name="fbc11" sz="2"/>
+              <channel name="switch_fab10_sync" sz="2"/>
+              <channel name="switch_fab9_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="13" thr="0.0001">
+              <channel name="fab10_1" sz="3"/>
+              <channel name="fab9_1" sz="2"/>
+              <channel name="fbc11" sz="4"/>
+              <channel name="switch_fab10_sync" sz="2"/>
+              <channel name="switch_fab9_sync" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+        <scenario name="detector" graph="detector" reward="0">
+          <actorProperties actor="a" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="a_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_fab9_0"/>
+                    <argument number="1" port="switch_fab9_ctrl_1"/>
+                    <argument number="2" port="switch_fab10_2"/>
+                    <argument number="3" port="switch_fab10_ctrl_3"/>
+                    <argument number="4" port="detect_loadSched0_ctrl_4"/>
+                    <argument number="5" port="detect_loadSched1_ctrl_5"/>
+                    <argument number="6" port="detect_loadSched2_ctrl_6"/>
+                    <argument number="7" port="detect_loadSched3_ctrl_7"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_fab9" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_fab9_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_fab9_0"/>
+                    <argument number="1" port="switch_fab9_ctrl_1"/>
+                    <argument number="0" port="switch_fab9_sync_2"/>
+                    <argument number="2" port="switch_fab9_sync_3"/>
+                    <argument number="3" port="loadSched0_switch_fab9_4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_fab10" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_fab10_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_fab10_0"/>
+                    <argument number="1" port="switch_fab10_ctrl_1"/>
+                    <argument number="0" port="switch_fab10_sync_2"/>
+                    <argument number="2" port="switch_fab10_sync_3"/>
+                    <argument number="3" port="loadSched0_switch_fab10_4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched0" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched0_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched0_ctrl_0"/>
+                    <argument number="0" port="loadSched0_switch_fab9_1"/>
+                    <argument number="1" port="loadSched0_switch_fab10_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched1_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched1_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched2_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched2_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched3" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched3_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched3_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="switch_fab9_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab9_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab10_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab10_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab9_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_fab10_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched0_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_fab9">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_fab10">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched1_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched2_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched3_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="detect_loadSched0_ctrl" sz="0"/>
+              <channel name="detect_loadSched1_ctrl" sz="0"/>
+              <channel name="detect_loadSched2_ctrl" sz="0"/>
+              <channel name="detect_loadSched3_ctrl" sz="0"/>
+              <channel name="loadSched0_switch_fab10" sz="0"/>
+              <channel name="loadSched0_switch_fab9" sz="0"/>
+              <channel name="switch_fab10_ctrl" sz="0"/>
+              <channel name="switch_fab10_data" sz="0"/>
+              <channel name="switch_fab10_sync" sz="0"/>
+              <channel name="switch_fab9_ctrl" sz="0"/>
+              <channel name="switch_fab9_data" sz="0"/>
+              <channel name="switch_fab9_sync" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="17" thr="9.2773e-05">
+              <channel name="detect_loadSched0_ctrl" sz="1"/>
+              <channel name="detect_loadSched1_ctrl" sz="1"/>
+              <channel name="detect_loadSched2_ctrl" sz="1"/>
+              <channel name="detect_loadSched3_ctrl" sz="1"/>
+              <channel name="loadSched0_switch_fab10" sz="1"/>
+              <channel name="loadSched0_switch_fab9" sz="1"/>
+              <channel name="switch_fab10_ctrl" sz="1"/>
+              <channel name="switch_fab10_data" sz="3"/>
+              <channel name="switch_fab10_sync" sz="2"/>
+              <channel name="switch_fab9_ctrl" sz="1"/>
+              <channel name="switch_fab9_data" sz="2"/>
+              <channel name="switch_fab9_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="24" thr="9.55657e-05">
+              <channel name="detect_loadSched0_ctrl" sz="1"/>
+              <channel name="detect_loadSched1_ctrl" sz="1"/>
+              <channel name="detect_loadSched2_ctrl" sz="1"/>
+              <channel name="detect_loadSched3_ctrl" sz="1"/>
+              <channel name="loadSched0_switch_fab10" sz="1"/>
+              <channel name="loadSched0_switch_fab9" sz="1"/>
+              <channel name="switch_fab10_ctrl" sz="2"/>
+              <channel name="switch_fab10_data" sz="6"/>
+              <channel name="switch_fab10_sync" sz="2"/>
+              <channel name="switch_fab9_ctrl" sz="2"/>
+              <channel name="switch_fab9_data" sz="4"/>
+              <channel name="switch_fab9_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="28" thr="0.0001">
+              <channel name="detect_loadSched0_ctrl" sz="2"/>
+              <channel name="detect_loadSched1_ctrl" sz="2"/>
+              <channel name="detect_loadSched2_ctrl" sz="2"/>
+              <channel name="detect_loadSched3_ctrl" sz="2"/>
+              <channel name="loadSched0_switch_fab10" sz="1"/>
+              <channel name="loadSched0_switch_fab9" sz="1"/>
+              <channel name="switch_fab10_ctrl" sz="2"/>
+              <channel name="switch_fab10_data" sz="6"/>
+              <channel name="switch_fab10_sync" sz="2"/>
+              <channel name="switch_fab9_ctrl" sz="2"/>
+              <channel name="switch_fab9_data" sz="4"/>
+              <channel name="switch_fab9_sync" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>2.0000000000e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+    </fsmsadfProperties>
+    <fsm initialstate="detector" detector="a">
+      <state name="q1" scenario="scenario1">
+        <transition destination="detector"/>
+      </state>
+      <state name="detector" scenario="detector">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="x4tile1dma">
+    <tile name="mb0">
+      <processor name="mb0" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx0y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb1">
+      <processor name="mb1" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="131072" type="instr"/>
+      <memory name="dmem" size="131072" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx1y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb2">
+      <processor name="mb2" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx2y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb3">
+      <processor name="mb3" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx2y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="shared">
+      <memory name="memory" size="134217728" type="shared"/>
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_4" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_5" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_7" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_8" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_9" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_10" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_11" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_12" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_13" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_14" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_15" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_16" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_17" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_18" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_19" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_20" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_21" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_22" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_23" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_24" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_25" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+  </architectureGraph>
+  <mapping name="initial" appGraph="two_switches" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints/>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <cluster name="detector_a">
+          <actor name="a"/>
+          <actor name="switch_fab9"/>
+          <actor name="switch_fab10"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="0"/>
+        <memory name="dmem" size="0"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="0"/>
+        <memory name="dmem" size="0"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="0"/>
+        <memory name="dmem" size="0"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="0"/>
+        <memory name="dmem" size="0"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="6" appGraph="two_switches" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="b"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="b" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="b" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fbc11" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="fab10_1" bufferType="dst"/>
+          <channel name="fab9_1" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fab10_1" in="true"/>
+          <channel name="fab9_1" in="true"/>
+          <channel name="fbc11" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="switch_fab10" startOfPeriodicRegime="true"/>
+              <state actor="switch_fab9"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fab10_1" bufferType="src"/>
+          <channel name="fab9_1" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="fab10_1" out="true"/>
+          <channel name="fab9_1" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="c"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="fbc11" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="fbc11" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9">
+        <channel name="fbc11"/>
+      </connection>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="fab10_1"/>
+        <channel name="fab9_1"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fab10_1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fab9_1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc11">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="a"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_fab9"/>
+              <state actor="switch_fab10"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab10" bufferType="mem"/>
+          <channel name="switch_fab10_ctrl" bufferType="mem"/>
+          <channel name="switch_fab10_data" bufferType="mem"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab9" bufferType="mem"/>
+          <channel name="switch_fab9_ctrl" bufferType="mem"/>
+          <channel name="switch_fab9_data" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_15">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab10">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab9">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_data">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_a">
+          <actor name="a"/>
+          <actor name="switch_fab9"/>
+          <actor name="switch_fab10"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="8"/>
+        <memory name="cmemin0" size="24"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="2" inBandwidth="4e-09" nrOutConnections="1" outBandwidth="1.6e-09"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4317"/>
+        <memory name="dmem" size="4072"/>
+        <memory name="cmemout0" size="32"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="3" outBandwidth="4e-09"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="12"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="1.6e-09" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="103"/>
+        <memory name="dmem" size="105"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="8e-10" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="13" appGraph="two_switches" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="b"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="b" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="b" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="b" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fbc11" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="fab10_1" bufferType="dst"/>
+          <channel name="fab9_1" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fab10_1" in="true"/>
+          <channel name="fab9_1" in="true"/>
+          <channel name="fbc11" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="switch_fab10" startOfPeriodicRegime="true"/>
+              <state actor="switch_fab9"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fab10_1" bufferType="src"/>
+          <channel name="fab9_1" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="fab10_1" out="true"/>
+          <channel name="fab9_1" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="c"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="fbc11" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="fbc11" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10">
+        <channel name="fbc11"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="fab10_1"/>
+        <channel name="fab9_1"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fab10_1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fab9_1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc11">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="a"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_fab9"/>
+              <state actor="switch_fab10"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab10" bufferType="mem"/>
+          <channel name="switch_fab10_ctrl" bufferType="mem"/>
+          <channel name="switch_fab10_data" bufferType="mem"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab9" bufferType="mem"/>
+          <channel name="switch_fab9_ctrl" bufferType="mem"/>
+          <channel name="switch_fab9_data" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_15">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab10">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab9">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_data">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_a">
+          <actor name="a"/>
+          <actor name="switch_fab9"/>
+          <actor name="switch_fab10"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="8"/>
+        <memory name="cmemin0" size="24"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="2" inBandwidth="4e-09" nrOutConnections="1" outBandwidth="1.6e-09"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4317"/>
+        <memory name="dmem" size="4072"/>
+        <memory name="cmemout0" size="32"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="3" outBandwidth="4e-09"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="103"/>
+        <memory name="dmem" size="105"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="8e-10" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="12"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="1.6e-09" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="20" appGraph="two_switches" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="c"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="c" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="c" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="fbc11" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fbc11" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="b"/>
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="switch_fab10" startOfPeriodicRegime="true"/>
+              <state actor="switch_fab9"/>
+              <state actor="b"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="b" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="b" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="fab10_1" bufferType="mem"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="fab9_1" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fbc11" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="fbc11" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="fbc11"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fab10_1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fab9_1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc11">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="a"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_fab10"/>
+          <actor name="switch_fab9"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_fab9"/>
+              <state actor="switch_fab10"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_fab10" processorType="microblaze"/>
+          <actor name="switch_fab9" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab10" bufferType="mem"/>
+          <channel name="switch_fab10_ctrl" bufferType="mem"/>
+          <channel name="switch_fab10_data" bufferType="mem"/>
+          <channel name="switch_fab10_sync" bufferType="mem"/>
+          <channel name="loadSched0_switch_fab9" bufferType="mem"/>
+          <channel name="switch_fab9_ctrl" bufferType="mem"/>
+          <channel name="switch_fab9_data" bufferType="mem"/>
+          <channel name="switch_fab9_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="58000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_15">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab10">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_fab9">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_data">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab10_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_fab9_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_a">
+          <actor name="a"/>
+          <actor name="switch_fab9"/>
+          <actor name="switch_fab10"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_a"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="12"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="1" inBandwidth="1.6e-09" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="8317"/>
+        <memory name="dmem" size="4092"/>
+        <memory name="cmemout0" size="20"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="3" outBandwidth="2.4e-09"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="103"/>
+        <memory name="dmem" size="105"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="8e-10" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="103"/>
+        <memory name="dmem" size="105"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="8e-10" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+</sdf3>

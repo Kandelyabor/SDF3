@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>FSMSADF analyze: buffersizing-maxplus on simplefsmsadf</name>
+		<program>sdf3analyze-fsmsadf --graph simplefsmsadf.xml --algo buffersize-maxplus --output fsmsadf-buffersize.xml</program>
+		<type>xmlcompare</type>
+        <programTimeout>10</programTimeout>
+		<programOutput>fsmsadf-buffersize.xml</programOutput>
+	</settings>
+      
+</sdf3>

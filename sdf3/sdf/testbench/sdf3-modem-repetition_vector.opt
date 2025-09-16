@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: repetition_vector on modem</name>
+		<program>sdf3analyze-sdf --algo repetition_vector --graph modem.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Repetition vector:
+ [fork1] = 1
+ [biq] = 1
+ [bi] = 1
+ [add] = 1
+ [ac] = 1
+ [fork2] = 2
+ [conj] = 1
+ [mul1] = 1
+ [in] = 16
+ [filt] = 16
+ [hil] = 2
+ [eq] = 1
+ [mul2] = 1
+ [deci] = 1
+ [deco] = 1
+ [out] = 1</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

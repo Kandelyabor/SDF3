@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute number of states, resolve nondeterminism, on example1</name>
+		<program>sdf3analyze-sadf --graph example1.xml --compute number_of_states(resolve_non_determinism)</program>
+		<type>outputcompare</type>
+		<reference>SADF graph 'example1' implies a Markov chain with 460 unique states.</reference>
+	</settings>
+
+</sdf3>

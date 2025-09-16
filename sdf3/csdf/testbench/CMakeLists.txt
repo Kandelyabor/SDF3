@@ -1,0 +1,4 @@
+add_subdirectory(analysis)
+add_subdirectory(buffersizing)
+add_subdirectory(print)
+add_subdirectory(transform)

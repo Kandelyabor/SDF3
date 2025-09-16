@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: mpeigen on mp3 decoder granule parallelism</name>
+		<program>sdf3analyze-sdf --algo mpeigen --graph mp3decoder_granule_parallelism.xml</program>
+		<type>outputcompare</type>
+		<expected>TIMEOUT</expected>
+		<programOutput></programOutput>
+		<reference></reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

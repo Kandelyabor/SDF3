@@ -1,0 +1,159 @@
+Graph (h263decoder)
+id:        0
+type:      H263decoder
+
+Actor (vld)
+id:         0
+type:       A0
+processor:  arm
+exec time:  26018
+state size: 10848
+processor:  encoder (default)
+exec time:  13009
+state size: 10848
+
+Port (p0)
+id:        0
+type:      out
+rate:      594
+connected: true
+
+Port (p1)
+id:        1
+type:      in
+rate:      1
+connected: true
+
+Port (p2)
+id:        2
+type:      out
+rate:      1
+connected: true
+
+Actor (iq)
+id:         1
+type:       A1
+processor:  arm (default)
+exec time:  559
+state size: 400
+
+Port (p0)
+id:        0
+type:      in
+rate:      1
+connected: true
+
+Port (p1)
+id:        1
+type:      out
+rate:      1
+connected: true
+
+Port (p2)
+id:        2
+type:      in
+rate:      1
+connected: true
+
+Port (p3)
+id:        3
+type:      out
+rate:      1
+connected: true
+
+Actor (idct)
+id:         2
+type:       A2
+processor:  arm (default)
+exec time:  486
+state size: 400
+
+Port (p0)
+id:        0
+type:      in
+rate:      1
+connected: true
+
+Port (p1)
+id:        1
+type:      out
+rate:      1
+connected: true
+
+Actor (mc)
+id:         3
+type:       A3
+processor:  arm
+exec time:  10958
+state size: 8000
+processor:  motion (default)
+exec time:  5479
+state size: 8000
+
+Port (p0)
+id:        0
+type:      in
+rate:      594
+connected: true
+
+Port (p1)
+id:        1
+type:      in
+rate:      1
+connected: true
+
+Port (p2)
+id:        2
+type:      out
+rate:      1
+connected: true
+
+Channel (vld2iq)
+id:             0
+initial tokens: 0
+connected:      true
+source:         vld.p0
+destination:    iq.p0
+token size:     512
+
+Channel (iq2idct)
+id:             1
+initial tokens: 0
+connected:      true
+source:         iq.p1
+destination:    idct.p0
+token size:     512
+
+Channel (idct2mc)
+id:             2
+initial tokens: 0
+connected:      true
+source:         idct.p1
+destination:    mc.p0
+token size:     512
+
+Channel (vld2vld)
+id:             3
+initial tokens: 1
+connected:      true
+source:         vld.p2
+destination:    vld.p1
+token size:     8192
+
+Channel (iq2iq)
+id:             4
+initial tokens: 1
+connected:      true
+source:         iq.p3
+destination:    iq.p2
+token size:     512
+
+Channel (mc2mc)
+id:             5
+initial tokens: 1
+connected:      true
+source:         mc.p2
+destination:    mc.p1
+token size:     304128
+
+

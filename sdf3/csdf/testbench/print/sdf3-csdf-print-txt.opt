@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>CSDF print: text format on simple_example</name>
+		<program>sdf3print-csdf --format txt --graph simple_example.xml --output csdf-print-txt.txt</program>
+		<type>outputcompare</type>
+		<programOutput>csdf-print-txt.txt</programOutput>
+	</settings>
+
+</sdf3>

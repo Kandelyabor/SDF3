@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE communication SYSTEM "../../etc/dtd/communicationgrm.dtd">
+<communication>
+  <application id="smap">
+    <connection id="0" qos="GT">
+      <initiator ip="mb0" port="dma0_pi"/>
+      <target ip="mb1" port="cmemin0_pt"/>
+      <read bw="3.05176e-06" burstsize="4"/>
+      <write bw="3.05176e-06" burstsize="4"/>
+    </connection>
+    <connection id="1" qos="GT">
+      <initiator ip="mb1" port="dma0_pi"/>
+      <target ip="mb0" port="cmemin0_pt"/>
+      <read bw="3.05176e-06" burstsize="4"/>
+      <write bw="3.05176e-06" burstsize="4"/>
+    </connection>
+  </application>
+  <application id="monitoring">
+    <connection id="0" qos="GT">
+      <initiator ip="monitor" port="pi"/>
+      <target ip="shared" port="pt"/>
+      <read bw="8"/>
+      <write bw="8"/>
+    </connection>
+  </application>
+  <application id="fake">
+    <connection id="0" qos="GT">
+      <initiator ip="mb0" port="dma0_pi"/>
+      <target ip="mb0" port="cmemin0_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+    <connection id="1" qos="GT">
+      <initiator ip="mb0" port="dma1_pi"/>
+      <target ip="mb0" port="cmemin1_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+    <connection id="2" qos="GT">
+      <initiator ip="mb0" port="dma2_pi"/>
+      <target ip="mb0" port="cmemin2_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+    <connection id="3" qos="GT">
+      <initiator ip="mb1" port="dma0_pi"/>
+      <target ip="mb1" port="cmemin0_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+    <connection id="4" qos="GT">
+      <initiator ip="mb1" port="dma1_pi"/>
+      <target ip="mb1" port="cmemin1_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+    <connection id="5" qos="GT">
+      <initiator ip="mb1" port="dma2_pi"/>
+      <target ip="mb1" port="cmemin2_pt"/>
+      <read bw="0.01"/>
+      <write bw="0.01"/>
+    </connection>
+  </application>
+</communication>

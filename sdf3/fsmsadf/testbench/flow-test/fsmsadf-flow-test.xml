@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="smap" type="fsmsadf">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="out1_0" rate="3" type="out"/>
+          <port name="aa1_1" rate="1" type="out"/>
+          <port name="aa1_0" rate="1" type="in"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="fce11_0" rate="2" type="out"/>
+          <port name="fbc12_0" rate="2" type="in"/>
+        </actor>
+        <actor name="b" type="b">
+          <port name="fbd10_0" rate="4" type="out"/>
+          <port name="fbc12_1" rate="4" type="out"/>
+          <port name="fbb13_2" rate="1" type="out"/>
+          <port name="fbb13_0" rate="1" type="in"/>
+          <port name="out1_1" rate="3" type="in"/>
+        </actor>
+        <actor name="e" type="e">
+          <port name="ee_0" rate="1" type="out"/>
+          <port name="fde8_0" rate="2" type="in"/>
+          <port name="ee_1" rate="1" type="in"/>
+          <port name="fce11_2" rate="4" type="in"/>
+        </actor>
+        <actor name="d" type="d">
+          <port name="fde8_0" rate="2" type="out"/>
+          <port name="fbd10_0" rate="4" type="in"/>
+        </actor>
+        <channel dstActor="e" dstPort="fde8_0" name="fde8" srcActor="d" srcPort="fde8_0"/>
+        <channel dstActor="e" dstPort="ee_1" initialTokens="1" name="ee" persistentTokenNames="t3" srcActor="e" srcPort="ee_0"/>
+        <channel dstActor="d" dstPort="fbd10_0" name="fbd10" srcActor="b" srcPort="fbd10_0"/>
+        <channel dstActor="e" dstPort="fce11_2" name="fce11" srcActor="c" srcPort="fce11_0"/>
+        <channel dstActor="c" dstPort="fbc12_0" name="fbc12" srcActor="b" srcPort="fbc12_1"/>
+        <channel dstActor="b" dstPort="fbb13_0" initialTokens="1" name="fbb13" persistentTokenNames="t4" srcActor="b" srcPort="fbb13_2"/>
+        <channel dstActor="b" dstPort="out1_1" name="out1" srcActor="a" srcPort="out1_0"/>
+        <channel dstActor="a" dstPort="aa1_0" initialTokens="1" name="aa1" persistentTokenNames="t1" srcActor="a" srcPort="aa1_1"/>
+      </scenariograph>
+      <scenariograph name="scenario2" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="out1_0" rate="3" type="out"/>
+          <port name="aa1_1" rate="1" type="out"/>
+          <port name="aa1_0" rate="1" type="in"/>
+        </actor>
+        <actor name="c" type="c">
+          <port name="fce22_0" rate="2" type="out"/>
+          <port name="ffc23_0" rate="2" type="in"/>
+        </actor>
+        <actor name="e" type="e">
+          <port name="ee_0" rate="1" type="out"/>
+          <port name="fge19_0" rate="4" type="in"/>
+          <port name="ee_1" rate="1" type="in"/>
+          <port name="fce22_2" rate="4" type="in"/>
+        </actor>
+        <actor name="g" type="g">
+          <port name="fge19_0" rate="2" type="out"/>
+          <port name="ffg21_0" rate="2" type="in"/>
+        </actor>
+        <actor name="f" type="f">
+          <port name="ffg21_0" rate="4" type="out"/>
+          <port name="ffc23_1" rate="4" type="out"/>
+          <port name="fff24_2" rate="1" type="out"/>
+          <port name="fff24_0" rate="1" type="in"/>
+          <port name="out1_1" rate="3" type="in"/>
+        </actor>
+        <channel dstActor="e" dstPort="fge19_0" name="fge19" srcActor="g" srcPort="fge19_0"/>
+        <channel dstActor="e" dstPort="ee_1" initialTokens="1" name="ee" persistentTokenNames="t3" srcActor="e" srcPort="ee_0"/>
+        <channel dstActor="g" dstPort="ffg21_0" name="ffg21" srcActor="f" srcPort="ffg21_0"/>
+        <channel dstActor="e" dstPort="fce22_2" name="fce22" srcActor="c" srcPort="fce22_0"/>
+        <channel dstActor="c" dstPort="ffc23_0" name="ffc23" srcActor="f" srcPort="ffc23_1"/>
+        <channel dstActor="f" dstPort="fff24_0" initialTokens="1" name="fff24" persistentTokenNames="t4" srcActor="f" srcPort="fff24_2"/>
+        <channel dstActor="f" dstPort="out1_1" name="out1" srcActor="a" srcPort="out1_0"/>
+        <channel dstActor="a" dstPort="aa1_0" initialTokens="1" name="aa1" persistentTokenNames="t1" srcActor="a" srcPort="aa1_1"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>3e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+      <scenarios>
+        <scenario graph="scenario1" name="scenario1" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="a_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="c_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="b_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="e">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="e_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="d_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="fde8">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="ee">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbd10">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fce11">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc12">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbb13">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="out1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="aa1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+        <scenario graph="scenario2" name="scenario2" reward="1">
+          <actorProperties actor="a">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="a_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="c_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="e">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="e_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="g">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="g_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="f">
+            <processor default="true" type="microblaze">
+              <implementation>
+                <function symbol="f_func"/>
+              </implementation>
+              <executionTime time="10000"/>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="fge19">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="ee">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="ffg21">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fce22">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="ffc23">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fff24">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="out1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="aa1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+    </fsmsadfProperties>
+    <fsm detector="a" initialstate="q1">
+      <state name="q2" scenario="scenario2">
+        <transition destination="q1"/>
+        <transition destination="q2"/>
+      </state>
+      <state name="q1" scenario="scenario1">
+        <transition destination="q1"/>
+        <transition destination="q2"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+</sdf3>

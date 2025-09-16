@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: simple_cycles on modem</name>
+		<program>sdf3analyze-sdf --algo simple_cycles --graph modem.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Simple cycles:
+Cycle: fork1
+Cycle: biq
+Cycle: bi
+Cycle: add
+Cycle: ac
+Cycle: fork2
+Cycle: conj
+Cycle: mul1
+Cycle: in
+Cycle: filt
+Cycle: hil
+Cycle: eq
+Cycle: mul2
+Cycle: deci
+Cycle: deco
+Cycle: out
+Cycle: mul1, deci, mul2, eq
+Cycle: fork1, biq, add, ac, fork2, mul1, deci
+Cycle: fork1, bi, add, ac, fork2, mul1, deci
+Cycle: fork1, biq, add, ac, fork2, conj, mul2, eq, mul1, deci
+Cycle: fork1, bi, add, ac, fork2, conj, mul2, eq, mul1, deci</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

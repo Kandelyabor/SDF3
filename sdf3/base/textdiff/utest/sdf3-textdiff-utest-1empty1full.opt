@@ -1,0 +1,69 @@
+<sdf3 type="">
+	<settings type="test">
+		<name>Text Diff test one empty input</name> 
+		<type>outputcompare</type>
+		<program>textdiff-test a.txt empty.txt</program>
+    <reference>============
+1d0
+&lt;
+2d0
+&lt;I know you've been hurt,
+3d0
+&lt;by someone else.
+4d0
+&lt;I can tell by the way 
+5d0
+&lt;you carry yourself.
+6d0
+&lt;but if you'll let me.
+7d0
+&lt;here is what I do
+8d0
+&lt;I'll take care of you.
+9d0
+&lt; 
+10d0
+&lt;I I've lost and lost
+11d0
+&lt;same as you.
+12d0
+&lt;so you see I know
+13d0
+&lt;just what you've-been through
+14d0
+&lt;and if you let me
+15d0
+&lt;here is what I'll do
+16d0
+&lt;owh I just got to take care of you.
+17d0
+&lt; 
+18d0
+&lt;you've don't ever have to worry
+19d0
+&lt;you don't ever have to cry
+20d0
+&lt;yeah I'll be there beside you.
+21d0
+&lt;To dry your weeping-eye's
+22d0
+&lt; 
+23d0
+&lt;So darling tell me,
+24d0
+&lt;that you'll be truth
+25d0
+&lt;there is no doubt in my mind
+26d0
+&lt;I know what I wanna do //what I want to do
+27d0
+&lt;just as sure one and one is two
+28d0
+&lt;I just got, I got to take care of you
+29d0
+&lt;I just got to take care of you
+30d0
+&lt;take care of you.
+============</reference>
+	</settings>
+</sdf3>

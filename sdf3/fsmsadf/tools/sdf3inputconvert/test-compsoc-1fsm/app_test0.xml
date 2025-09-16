@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<nest type='csdf' xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+    xmlns='uri:nest' version='1.0'
+    xsi:schemaLocation='uri:nest https://www.es.ele.tue.nl/nest/xsd/csdf.xsd'>
+    <applicationGraph name='mp3playback-app'>
+    <!-- This example shows a simple application modelled with a CSDF graph.
+         The graph consists of three actors connected through three channels.
+         One of these channels contains four initial tokens.
+    -->
+    <csdfgraph name='example-app'>
+        <!-- The 'csdfgraph' element contains the structure of the
+             graph. The graph consists of a set of actors connected via
+             channels.
+        -->
+        <actor name='mp3' size='1'>
+            <port name='p1' type='out' rate='10'/>
+            <port name='p2' type='in' rate='1'/>
+            <port name='p3' type='out' rate='1'/>
+
+            <executionTime time='7510'/>
+        </actor>
+        <actor name='src' size='1'>
+			<port type='in'  name='p0' rate='4'/>
+			<port type='out' name='p3' rate='4'/>
+			<port type='in'  name='p4' rate='1'/>
+			<port type='out' name='p5' rate='1'/>
+			<executionTime time='1000'/>
+        </actor>
+        <actor name='app' size='1'>
+            <port type='in'  name='p0' rate='1'/>
+            <port type='in'  name='p2' rate='1'/>
+            <port type='out' name='p3' rate='1'/>
+            <port type='in'  name='p4' rate='1'/>
+            <port type='out' name='p5' rate='1'/>
+            <executionTime time='22'/>
+        </actor>
+        <actor name='dac' size='1'>
+            <port type='in'  name='p0' rate='1'/>
+            <port type='out' name='p1' rate='1'/>
+            <port type='in'  name='p2' rate='1'/>
+            <port type='out' name='p3' rate='1'/>
+
+            <executionTime time='22'/>
+        </actor>
+        <!-- The number of initial tokens on a channel is an optional
+             argument. When it is not specified, it is assumed that the
+             channel contains no initial tokens.
+        -->
+          <channel name='mp3s' srcActor='mp3' srcPort='p3' dstActor='mp3' dstPort='p2' initialTokens='1'/>
+            <channel name='srcs' srcActor='src' srcPort='p5' dstActor='src' dstPort='p4' initialTokens='1'/>
+            <channel name='apps' srcActor='app' srcPort='p5' dstActor='app' dstPort='p4' initialTokens='1'/>
+            <channel name='dacs' srcActor='dac' srcPort='p3' dstActor='dac' dstPort='p2' initialTokens='1'/>
+
+            <channel name='ch0' srcActor='mp3' srcPort='p1' dstActor='src' dstPort='p0'/>
+            <channel name='ch1' srcActor='src' srcPort='p3' dstActor='app' dstPort='p0'/>
+            <channel name='ch2' srcActor='app' srcPort='p3' dstActor='dac' dstPort='p0'/>
+            <channel name='ch3' srcActor='dac' srcPort='p1' dstActor='app' dstPort='p2' initialTokens='2'/>
+
+    </csdfgraph>
+    <csdfProperties>
+          <units>
+            <timeUnit>10 ns</timeUnit>
+            <dataUnit> 1 B </dataUnit>
+        </units>
+        <actorProperties actor='mp3'>
+            <processor type='microblaze' default='true'>
+                <defaultProperties>
+                    <!-- worst-case execution time in clock cycles -->
+                    <executionTime cycles='7510'/>
+                    <memory>
+                        <memoryElement name='.code'>
+                            <size>100</size>
+                            <accessType>IFetch</accessType>
+                            <accessSize>word</accessSize>
+                        </memoryElement>
+                        <memoryElement name='.data'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>halfword</accessSize>
+                        </memoryElement>
+                        <memoryElement name='sharedVar'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>byte</accessSize>
+                        </memoryElement>
+                    </memory>
+                </defaultProperties>
+            </processor>
+        </actorProperties>
+        <actorProperties actor='src'>
+            <processor type='microblaze' default='true'>
+                <defaultProperties>
+                    <!-- worst-case execution time in clock cycles -->
+                    <executionTime cycles='1000'/>
+                    <memory>
+                        <memoryElement name='.code'>
+                            <size>100</size>
+                            <accessType>IFetch</accessType>
+                            <accessSize>word</accessSize>
+                        </memoryElement>
+                        <memoryElement name='.data'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>halfword</accessSize>
+                        </memoryElement>
+                        <memoryElement name='sharedVar'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>byte</accessSize>
+                        </memoryElement>
+                    </memory>
+                </defaultProperties>
+            </processor>
+        </actorProperties>
+        <actorProperties actor='app'>
+            <processor type='microblaze' default='true'>
+                <defaultProperties>
+                    <!-- worst-case execution time in clock cycles -->
+                    <executionTime cycles='22'/>
+                    <memory>
+                        <memoryElement name='.code'>
+                            <size>100</size>
+                            <accessType>IFetch</accessType>
+                            <accessSize>word</accessSize>
+                        </memoryElement>
+                        <memoryElement name='.data'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>halfword</accessSize>
+                        </memoryElement>
+                        <memoryElement name='sharedVar'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>byte</accessSize>
+                        </memoryElement>
+                    </memory>
+                </defaultProperties>
+            </processor>
+        </actorProperties>
+        <actorProperties actor='dac'>
+            <processor type='microblaze' default='true'>
+                <defaultProperties>
+                    <!-- worst-case execution time in clock cycles -->
+                    <executionTime cycles='22'/>
+                    <memory>
+                        <memoryElement name='.code'>
+                            <size>100</size>
+                            <accessType>IFetch</accessType>
+                            <accessSize>word</accessSize>
+                        </memoryElement>
+                        <memoryElement name='.data'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>halfword</accessSize>
+                        </memoryElement>
+                        <memoryElement name='sharedVar'>
+                            <size>100</size>
+                            <accessType>DRead,DWrite</accessType>
+                            <accessSize>byte</accessSize>
+                        </memoryElement>
+                    </memory>
+                </defaultProperties>
+            </processor>
+        </actorProperties>
+        <channelProperties channel='mp3s'>
+            <tokenSize size='1'/>
+        </channelProperties>
+        <channelProperties channel='srcs'>
+          <tokenSize size='1'/>
+        </channelProperties>
+        <channelProperties channel='apps'>
+          <tokenSize size='1'/>
+        </channelProperties>
+      <channelProperties channel='dacs'>
+          <tokenSize size='1'/>
+        </channelProperties>
+      <channelProperties channel='ch0'>
+          <tokenSize size='1'/>
+        </channelProperties>
+      <channelProperties channel='ch1'>
+          <tokenSize size='1'/>
+        </channelProperties>
+      <channelProperties channel='ch2'>
+          <tokenSize size='1'/>
+        </channelProperties>
+      <channelProperties channel='ch3'>
+          <tokenSize size='1'/>
+        </channelProperties>
+
+
+        <graphProperties>
+            <!-- The 'graphProperties' element specifies the timing constraints
+                 of the application graph. -->
+            <timeConstraints>
+                <!-- Throughput constraint in iterations / time-unit. The
+                     throughput constraint uses the standard notion of an
+                     iteration as it is defined for CSDF graphs. For most
+                     practical CSDF models there is a natural relation between
+                     the concept of an iteration and the amount of output that
+                     is produced by the graph. (E.g. a typical CSDF model of a
+                     video decoder produces one frame per iteration.)  -->
+                <throughput>0.0000000001</throughput>
+                <!-- Latency constraint between a source and destination actor
+                     in time-units -->
+                <latency srcActor='mp3' dstActor='dac'>2.6e6</latency>
+            </timeConstraints>
+        </graphProperties>
+    </csdfProperties>
+    </applicationGraph>
+</nest>
+

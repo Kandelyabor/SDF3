@@ -1,0 +1,43 @@
+// srcRate the rate on the source port
+// dstRate the rate on the destination port
+// tokenSize the size of the token in words 
+// initialToken the number of initial tokens.
+
+dftype = fsmsadf
+digraph scenario1 {
+  d->e [srcRate=2 dstRate=2]
+  e->e [initialTokens=t2 channelName=ee]
+  b->d [srcRate=4 dstRate=4]
+  c->e [srcRate=2 dstRate=4]
+  b->c [srcRate=4 dstRate=2] 
+  b->b [initialTokens=t3]
+  a->b [srcRate=2 dstRate=2 channelName=out2]
+  a->b [srcRate=1 dstRate=1 channelName=out1]
+  b->a [srcRate=2 dstRate=2 initialTokens=t5a,t5b channelName=in1]
+  a->a [initialTokens=t1 channelName=aa]
+}
+
+//scenario2
+digraph scenario2 {
+  g->e [srcRate=2 dstRate=4]
+  e->e [initialTokens=t2 channelName=ee]
+  f->g [srcRate=4 dstRate=2]
+  c->e [srcRate=2 dstRate=4]
+  f->c [srcRate=4 dstRate=2]
+  f->f [initialTokens=t3]
+  a->f [srcRate=2 dstRate=2 channelName=out2]
+  a->f [srcRate=1 dstRate=1 channelName=out1]
+  f->a [srcRate=2 dstRate=2 initialTokens=t5a,t5b channelName=in1]
+  a->a [initialTokens=t1 channelName=aa]
+}
+
+fsm [initial=scenario1 detector=a] {
+  scenario1 -> scenario1
+  scenario1 -> scenario2
+  scenario2 -> scenario2
+  scenario2 -> scenario1
+}
+
+timeUnit = 20 ns
+dataUnit = 1 B
+throughput=1e-10

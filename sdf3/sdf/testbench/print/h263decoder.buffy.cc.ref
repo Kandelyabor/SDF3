@@ -1,0 +1,2103 @@
+#define SDF_NUM_ACTORS          4
+#define SDF_NUM_CHANNELS        6
+
+#define LB_DISTRIBUTION_SZ      1192
+#define UB_DISTRIBUTION_SZ      4756
+
+#define LB_OUTPUT_INTERVAL      486
+
+#define MIN_CHANNEL_SZ          {594, 1, 594, 1, 1, 1}
+#define MAX_CHANNEL_SZ          {1188, 1188, 1188, 2, 1188, 2}
+#define MIN_CHANNEL_SZ_STEP     {1, 1, 1, 1, 1, 1}
+
+#define STACK_SIZE              1000
+#define HASH_TABLE_SIZE         10000
+#define DEPENDENCY_STACK_SIZE   1000
+
+typedef short TBufSize;
+typedef double TTime;
+
+#define TTIME_MAX INT_MAX
+
+TBufSize minSz[] = MIN_CHANNEL_SZ;
+TBufSize maxSz[] = MAX_CHANNEL_SZ;
+TBufSize minSzStep[] = MIN_CHANNEL_SZ_STEP;
+
+TBufSize maxDistributionSz = UB_DISTRIBUTION_SZ;
+TTime lbOutputInterval = LB_OUTPUT_INTERVAL;
+
+#include <math.h>
+#include <istd::ostream>
+#include <assert.h>
+
+using std::ostream;
+using std::cout;
+using std::cerr;
+using std::endl;
+
+/**
+ * exit ()
+ * Exit the program with an error message.
+ */
+void exit(const char *msg, const int errorno)
+{
+    cerr << msg << std::endl;
+    exit(errorno);
+}
+
+/******************************************************************************
+ * State
+ *****************************************************************************/
+
+typedef struct _State
+{
+    TTime act_clk[SDF_NUM_ACTORS];
+    TTime glb_clk;
+    TBufSize ch[SDF_NUM_CHANNELS];
+} State;
+
+/**
+ * printState ()
+ * The function writes the state to the supplied stream.
+ */
+void printState(std::ostream &out, const State &s)
+{
+    out << "State:" << std::endl;
+
+    for (int i = 0; i < SDF_NUM_ACTORS; i++)
+        out << "act_clk[" << i << "] = " << s.act_clk[i] << std::endl;
+
+    out << "glb_clk = " << s.glb_clk << std::endl;
+
+    for (int i = 0; i < SDF_NUM_CHANNELS; i++)
+        out << "ch[" << i << "] = " << s.ch[i] << std::endl;
+}
+
+/**
+ * clearState ()
+ * The function sets the state to zero.
+ */
+void clearState(State &s)
+{
+    char *s_ptr = (char*)&s;
+
+    for (int i = 0; i < sizeof(State); i++)
+        s_ptr[i] = 0;
+}
+
+/**
+ * equalStates ()
+ * The function compares to states and returns true if they are equal.
+ */
+inline
+bool equalStates(const State &s1, const State &s2)
+{
+    int *s1_ptr = (int*)&s1;
+    int *s2_ptr = (int*)&s2;
+
+    for (int i = 0; i < sizeof(State) >> 2; i++)
+        if (s1_ptr[i] != s2_ptr[i])
+            return false;
+
+    return true;
+}
+
+/**
+ * copyState ()
+ * The function copies the state.
+ */
+inline
+void copyState(State &to, const State &from)
+{
+    memcpy(&to, &from, sizeof(State));
+}
+
+/******************************************************************************
+ * Stack
+ *****************************************************************************/
+
+/**
+ * StackPos
+ * Index into stack.
+ */
+typedef long long StackPos;
+
+/**
+ * stack
+ * The stack...
+ */
+State *stack;
+
+/**
+ * stackPtr
+ * Index into stack of the first free space.
+ */
+StackPos stackPtr;
+StackPos maxStackPtr;
+
+/**
+ * createStack ()
+ * The function creates a stack.
+ */
+void createStack()
+{
+    stack = (State*)malloc(sizeof(State)*STACK_SIZE);
+
+    if (stack == NULL)
+        exit("Failed creating stack.", 1);
+
+    maxStackPtr = 0;
+}
+
+/**
+ * destroyStack()
+ * The function destroys a stack.
+ */
+void destroyStack()
+{
+    free(stack);
+}
+
+/**
+ * clearStack ()
+ * Reset the stack to an empty state.
+ */
+void clearStack()
+{
+    stackPtr = 0;
+}
+
+/**
+ * popStack ()
+ * Remove last element from the stack.
+ */
+inline
+void popStack()
+{
+    if (stackPtr > 0)
+        stackPtr--;
+}
+
+/**
+ * pushStack ()
+ * Put an element on the stack.
+ */
+inline
+void pushStack(const State &s)
+{
+    if (stackPtr >= STACK_SIZE)
+        exit("Stack overflow.", 1);
+
+    copyState(stack[stackPtr], s);
+    stackPtr++;
+
+    if (stackPtr > maxStackPtr) maxStackPtr = stackPtr;
+}
+
+/**
+ * topStack ()
+ * The function returns the last element of the stack.
+ */
+inline
+State &topStack()
+{
+    return stack[stackPtr-1];
+}
+
+/******************************************************************************
+ * Hash
+ *****************************************************************************/
+
+#define INVALID_HASH_KEY    NULL
+#define NO_SLOT_IN_HASH     -1
+
+/**
+ * HashKey
+ *
+ */
+typedef unsigned long long HashKey;
+
+/**
+ * HashSlot
+ *
+ */
+typedef struct _HashSlot
+{
+    StackPos value;
+    struct _HashSlot *next;
+} HashSlot;
+
+/**
+ * hashTable
+ * The hash table...
+ */
+HashSlot **hashTable;
+
+/**
+ * createHashTable ()
+ * The function constructs a hash table.
+ */
+void createHashTable()
+{
+    hashTable = (HashSlot**)malloc(sizeof(HashSlot*)*HASH_TABLE_SIZE);
+
+    if (hashTable == NULL)
+        exit("Failed creating hash table.", 1);
+
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+        hashTable[i] = INVALID_HASH_KEY;
+}
+
+/**
+ * destroyHashTable ()
+ * The function destroys a hash table.
+ */
+void destroyHashTable()
+{
+    HashSlot *s_cur, *s_next;
+
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+    {
+        for (s_cur = hashTable[i]; s_cur != INVALID_HASH_KEY; s_cur = s_next)
+        {
+            s_next = s_cur->next;
+            free(s_cur);
+        }
+    }
+
+    free(hashTable);
+}
+
+/**
+ * clearHashTable ()
+ * Resets the hash table to contain no keys.
+ */
+void clearHashTable()
+{
+    HashSlot *s_cur, *s_next;
+
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
+    {
+        for (s_cur = hashTable[i]; s_cur != INVALID_HASH_KEY; s_cur = s_next)
+        {
+            s_next = s_cur->next;
+            free(s_cur);
+        }
+
+        hashTable[i] = INVALID_HASH_KEY;
+    }
+}
+
+/**
+ * hash ()
+ * The hash function. It is a standard multiplication hash.
+ */
+inline
+HashKey hash(const State &s)
+{
+    double key = 0;
+    char *s_ptr = (char*)&s;
+    long long key_part;
+
+    for (int i = 0; i < sizeof(State); i+=4)
+    {
+        key_part = 0;
+        for (int j = 0; j < 4 && i+j < sizeof(State); j++)
+        {
+            key_part = key_part << 8; // radix: 128
+            key_part = key_part + (long long)(abs(s_ptr[i]));
+        }
+
+        key = key * 39164205.20662217 + double(key_part) * 0.6180339887;
+    }
+
+    key = fmod(key, 1);
+    return (HashKey) floor(HASH_TABLE_SIZE * key);
+}
+
+/**
+ * insertKeyHashTable ()
+ * The function inserts a (key, value) pair into the hash table.
+ */
+inline
+void insertKeyHashTable(const HashKey key, const StackPos value)
+{
+    HashSlot *slot = (HashSlot*)malloc(sizeof(HashSlot));
+    slot->value = value;
+    slot->next = hashTable[key];
+
+    // Insert the stack position in the hash table
+    hashTable[key] = slot;
+}
+
+/**
+ * findValueInHashTable ()
+ * The function returns the StackPos at which the given (key,state) pair is
+ * located or NO_SLOT_IN_HASH if unkown.
+ */
+inline
+StackPos findValueInHashTable(const HashKey key, const State &s)
+{
+    HashSlot *slot;
+
+    for (slot = hashTable[key]; slot != INVALID_HASH_KEY; slot = slot->next)
+    {
+        StackPos pos = slot->value;
+
+        if (equalStates(stack[pos], s))
+            return pos;
+    }
+
+    return NO_SLOT_IN_HASH;
+}
+
+/**
+ * printHashKey ()
+ * The function outputs the all hash slots with the given key.
+ */
+void printHashKey(std::ostream &out, const HashKey key)
+{
+    out << "Key: " << key <<std::endl;
+    out << std::endl;
+
+    for (HashSlot *slot = hashTable[key]; slot != NULL; slot = slot->next)
+    {
+        printState(out, stack[slot->value]);
+        out << std::endl;
+    }
+}
+
+/******************************************************************************
+ * Dependencies
+ *****************************************************************************/
+
+#define NODE_PREV_PERIOD -1
+#define NODE_INVALID -2
+
+typedef long long DepPtr;
+
+typedef struct _DependencyEdge
+{
+    bool actor;
+    bool ch[SDF_NUM_CHANNELS];
+    bool ch_back[SDF_NUM_CHANNELS];
+    DepPtr  node;
+} DependencyEdge;
+
+typedef struct _DependencyNode
+{
+    int actor;
+    DepPtr prev;
+    bool depFlag;
+    DependencyEdge deps[SDF_NUM_ACTORS];
+} DependencyNode;
+
+/**
+ * dependencyStack
+ * The dependency stack...
+ */
+DependencyNode *dependencyStack;
+
+/**
+ * dependencyStackPtr
+ * Index into dependency stack of the first free space.
+ */
+DepPtr dependencyStackPtr;
+
+/**
+ * prevDependencyNode
+ * The index of the last dependency node created for each actor
+ * before the current time-step.
+ */
+DepPtr prevDependencyNode[SDF_NUM_ACTORS];
+DepPtr curDependencyNode[SDF_NUM_ACTORS];
+
+/**
+ * dependencyDFScolor
+ * Array to administer dependency node visits during DFS.
+ * before the current time-step.
+ */
+int *dependencyDFScolor;
+
+/**
+ * curReachableNodes
+ * The array indicates wether an actor b in the current period has a chain
+ * of dependencies to an actor a in the previous period. If there is
+ * such a dependency the value of curReachableNodes[b][a] == 1, else it is 0.
+ *
+ * The 'curReachableNodesCh' array maintains the information which back channels
+ * are seen on at least one of the paths from b to a.
+ *
+ * The 'prev' version of both arrays are used during the dependency construction
+ * process.
+ */
+bool curReachableNodes[SDF_NUM_ACTORS][SDF_NUM_ACTORS];
+bool prevReachableNodes[SDF_NUM_ACTORS][SDF_NUM_ACTORS];
+
+bool curReachableNodesCh[SDF_NUM_ACTORS][SDF_NUM_ACTORS][SDF_NUM_CHANNELS];
+bool prevReachableNodesCh[SDF_NUM_ACTORS][SDF_NUM_ACTORS][SDF_NUM_CHANNELS];
+
+/**
+ * dependenciesDFScolor
+ * Array to administer dependency node visits during DFS.
+ * before the current time-step.
+ */
+int dependenciesDFScolor[SDF_NUM_ACTORS];
+
+/**
+ * clearDependencyNode ()
+ * Set all dependencies in a dependency node to false and the
+ * previous dependency node pointer is set as invalid.
+ */
+inline
+void clearDependencyNode(DepPtr d)
+{
+    char *s_ptr = (char*)&dependencyStack[d];
+
+    for (int i = 0; i < sizeof(DependencyNode); i++)
+        s_ptr[i] = 0;
+
+    dependencyStack[d].prev = NODE_INVALID;
+
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        dependencyStack[d].deps[a].node = NODE_INVALID;
+}
+
+void printDependencyEdge(std::ostream &out, DependencyEdge &e)
+{
+    if (e.node == NODE_INVALID)
+        return;
+    else if (e.node == NODE_PREV_PERIOD)
+        out << "        dep: <previous period>" << std::endl;
+    else
+        out << "        dep: " << e.node << std::endl;
+
+    if (e.actor)
+        out << "        actor:   true" << std::endl;
+
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        if (e.ch[c])
+            out << "        ch:      " << c << std::endl;
+
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        if (e.ch_back[c])
+            out << "        ch_back: " << c << std::endl;
+}
+
+void printDependencyNode(std::ostream &out, DependencyNode &d)
+{
+    out << "actor:        " << d.actor << std::endl;
+
+    if (d.prev == NODE_PREV_PERIOD)
+        out << "prev:         <previous period>" << std::endl;
+    else if (d.prev == NODE_INVALID)
+        out << "prev:         <invalid>" << std::endl;
+    else
+        out << "prev:         " << d.prev << std::endl;
+
+    out << "dependencies: " << std::endl;
+
+    if (d.depFlag == false)
+        out << "    none." << std::endl;
+    else
+        for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        {
+            out << "    to actor: " << a << std::endl;
+            printDependencyEdge(out, d.deps[a]);
+        }
+
+    out << std::endl;
+}
+
+/**
+ * createDependencyStack ()
+ * The function creates a dependency stack.
+ */
+void createDependencyStack()
+{
+    dependencyStackPtr = 0;
+    dependencyStack = (DependencyNode*) malloc(sizeof(DependencyNode)
+                            *DEPENDENCY_STACK_SIZE);
+
+    if (dependencyStack == NULL)
+        exit("Failed creating dependency stack.", 1);
+
+    dependencyDFScolor = (int*) malloc(sizeof(int)
+                            *DEPENDENCY_STACK_SIZE);
+
+    if (dependencyDFScolor == NULL)
+        exit("Failed creating dependency stack.", 2);
+}
+
+/**
+ * destroyDependencyStack()
+ * The function destroys the dependency stack.
+ */
+void destroyDependencyStack()
+{
+    free(dependencyStack);
+    free(dependencyDFScolor);
+}
+
+/**
+ * clearDependencyStack ()
+ * Reset the dependency stack to an empty state.
+ */
+void clearDependencyStack()
+{
+    dependencyStackPtr = 0;
+}
+
+/**
+ * popDependencyStack ()
+ * Remove last element from the dependency stack.
+ */
+inline
+void popDependencyStack()
+{
+    if (dependencyStackPtr > 0)
+        dependencyStack--;
+}
+
+/**
+ * pushDependencyStack ()
+ * Put an element on the dependency stack.
+ */
+inline
+DepPtr pushDependencyStack()
+{
+    DepPtr d = dependencyStackPtr;
+
+    if (dependencyStackPtr >= DEPENDENCY_STACK_SIZE)
+        exit("Dependency stack overflow.", 1);
+
+    clearDependencyNode(dependencyStackPtr);
+    dependencyStackPtr++;
+
+    return d;
+}
+
+/**
+ * initDependencies ()
+ * The function initializes the dependency stack and the last dependency
+ * node pointers.
+ */
+inline
+void initDependencies()
+{
+    clearDependencyStack();
+
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        prevDependencyNode[a] = NODE_PREV_PERIOD;
+        curDependencyNode[a] = NODE_INVALID;
+    }
+
+    for (int d = 0; d < DEPENDENCY_STACK_SIZE; d++)
+        dependencyDFScolor[d] = 0;
+
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        for (int b = 0; b < SDF_NUM_ACTORS; b++)
+            if (a == b)
+                curReachableNodes[a][b] = true;
+            else
+                curReachableNodes[a][b] = false;
+
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        for (int b = 0; b < SDF_NUM_ACTORS; b++)
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                curReachableNodesCh[a][b][c] = false;
+
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        dependenciesDFScolor[a] = 0;
+
+}
+
+/**
+ * createDependencyNode ()
+ * Create a new dependency node for the actor a and add the dependency
+ * to the list 'curDependencyNode'.
+ */
+inline
+DepPtr createDependencyNode(int a)
+{
+    DepPtr d;
+
+    // Get a dependency node from the stack
+    d = pushDependencyStack();
+
+    dependencyStack[d].actor = a;
+    dependencyStack[d].depFlag = false;
+    dependencyStack[d].prev = prevDependencyNode[a];
+
+    curDependencyNode[a] = d;
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        curReachableNodes[b][a] = false;
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            curReachableNodesCh[b][a][c] = false;
+
+    return d;
+}
+
+/**
+ * addDependencyEdgeForActor ()
+ * Add a dependency edge to the dependency node d which expresses a
+ * dependency of d to the previous firing of actor a.
+ */
+inline
+void addDependencyEdgeForActor(DepPtr d, int a)
+{
+    // No dependency edge needed if the dependency to which the edge
+    // goes has no dependencies and does not belong to the previous period.
+    DepPtr prev = prevDependencyNode[a];
+    if (prev != NODE_PREV_PERIOD && dependencyStack[prev].depFlag == false)
+        return;
+
+    dependencyStack[d].depFlag = true;
+    dependencyStack[d].deps[a].actor = true;
+    dependencyStack[d].deps[a].node = prevDependencyNode[a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        curReachableNodes[b][dependencyStack[d].actor] =
+                        curReachableNodes[b][dependencyStack[d].actor]
+                            || prevReachableNodes[b][a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            curReachableNodesCh[b][dependencyStack[d].actor][c] =
+                        curReachableNodesCh[b][dependencyStack[d].actor][c]
+                            || prevReachableNodesCh[b][a][c];
+}
+
+/**
+ * addDependencyEdgeChSpace ()
+ * Add a dependency edge to the dependency node d which expresses a
+ * dependency of d to tokens consumed on channel c by the previous firing of
+ * actor a.
+ */
+inline
+void addDependencyEdgeForChSpace(DepPtr d, int a, int c)
+{
+    // No dependency edge needed if the dependency to which the edge
+    // goes has no dependencies and does not belong to the previous period.
+    DepPtr prev = prevDependencyNode[a];
+    if (prev != NODE_PREV_PERIOD && dependencyStack[prev].depFlag == false)
+        return;
+
+    dependencyStack[d].depFlag = true;
+    dependencyStack[d].deps[a].ch_back[c] = true;
+    dependencyStack[d].deps[a].node = prevDependencyNode[a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        curReachableNodes[b][dependencyStack[d].actor] =
+                        curReachableNodes[b][dependencyStack[d].actor]
+                            || prevReachableNodes[b][a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            curReachableNodesCh[b][dependencyStack[d].actor][c] =
+                        curReachableNodesCh[b][dependencyStack[d].actor][c]
+                            || prevReachableNodesCh[b][a][c];
+
+    // Add the back edge to all channels a connects to in previous period
+    for (int x = 0; x < SDF_NUM_ACTORS; x++)
+    {
+        if (curReachableNodes[x][a])
+        {
+            curReachableNodesCh[x][dependencyStack[d].actor][c] = true;
+        }
+    }
+}
+
+/**
+ * addDependencyEdgeForChTokens ()
+ * Add a dependency edge to the dependency node d which expresses a
+ * dependency of d to tokens produced on channel c by the previous firing of
+ * actor a.
+ */
+inline
+void addDependencyEdgeForChTokens(DepPtr d, int a, int c)
+{
+    // No dependency edge needed if the dependency to which the edge
+    // goes has no dependencies and does not belong to the previous period.
+    DepPtr prev = prevDependencyNode[a];
+    if (prev != NODE_PREV_PERIOD && dependencyStack[prev].depFlag == false)
+        return;
+
+    dependencyStack[d].depFlag = true;
+    dependencyStack[d].deps[a].ch[c] = true;
+    dependencyStack[d].deps[a].node = prevDependencyNode[a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        curReachableNodes[b][dependencyStack[d].actor] =
+                        curReachableNodes[b][dependencyStack[d].actor]
+                            || prevReachableNodes[b][a];
+
+    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            curReachableNodesCh[b][dependencyStack[d].actor][c] =
+                        curReachableNodesCh[b][dependencyStack[d].actor][c]
+                            || prevReachableNodesCh[b][a][c];
+}
+
+/**
+ * findAllDependencyPaths ()
+ * The function performs a DFS to find all paths that go from the actor to
+ * itself in the previous period (i.e. it looks for a path in the dependency
+ * nodes from the last dependency node of the actor in the current period to
+ * a dependency node of the same actor in the previous firing). When such a
+ * path is found, the list of blocked channels is updated. Requirement is that
+ * a channel must be blocked on at least one path.
+ */
+void findAllDependencyPaths(const int actor, DepPtr d, bool *chP, bool *block)
+{
+    DependencyNode *n = &dependencyStack[d];
+    bool ch[SDF_NUM_CHANNELS];
+
+    // Does dependency node have dependencies?
+    if (n->depFlag == false)
+        return;
+
+    // Visited dependency node before?
+    if (dependencyDFScolor[d] == 1)
+        return;
+
+    dependencyDFScolor[d] = 1;
+
+    // Recursion
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        // Is there no dependency with a?
+        if (n->deps[a].node == NODE_INVALID)
+            continue;
+
+        // Add all back channels in the dependency to the set ch
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            ch[c] = chP[c] || n->deps[a].ch_back[c];
+
+        if (n->deps[a].node == NODE_PREV_PERIOD)
+        {
+            // Found a cycle in the dependencies?
+            if (a == actor)
+            {
+                for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                    block[c] = block[c] || ch[c];
+            }
+            else
+            {
+                // Continue with last dependency node of the actor
+                // in the previous period
+                findAllDependencyPaths(actor, prevDependencyNode[a], ch, block);
+            }
+        }
+        else
+        {
+            findAllDependencyPaths(actor, n->deps[a].node, ch, block);
+        }
+    }
+
+    dependencyDFScolor[d] = 0;
+}
+
+/**
+ * findAllDependencies ()
+ * The function performs a DFS to find all paths that go from the actor to
+ * itself in the previous period (i.e. it looks for a path in the dependency
+ * nodes from the last dependency node of the actor in the current period to
+ * a dependency node of the same actor in the previous firing). When such a
+ * path is found, the list of blocked channels is updated. Requirement is that
+ * a channel must be blocked on at least one path.
+ */
+void findAllDependencies(const int actor, const int b, bool *chP, bool *block)
+{
+    bool ch[SDF_NUM_CHANNELS];
+
+    // Visited node b before?
+    if (dependenciesDFScolor[b])
+    {
+        // Is the node b the actor we are looking for?
+        if (actor == b)
+        {
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                block[c] = block[c] || chP[c];
+        }
+
+        return;
+    }
+
+    dependenciesDFScolor[b] = 1;
+
+    // Iterate over all nodes to find nodes reachable from b
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        // Is node a reachable from b?
+        if (curReachableNodes[b][a])
+        {
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                ch[c] = chP[c] || curReachableNodesCh[b][a][c];
+
+            findAllDependencies(actor, a, ch, block);
+        }
+    }
+
+    dependenciesDFScolor[b] = 0;
+}
+
+/******************************************************************************
+ * SDF
+ *****************************************************************************/
+
+/**
+ * outputIntervalCycle ()
+ * The function calculates the output interval of the states on the cycle. Its
+ * value is equal to the average time between two firings in the cycle.
+ */
+inline
+TTime outputIntervalCycle(const StackPos cyclePos)
+{
+    int nr_fire = 0;
+    TTime time = 0;
+
+    // Check all state from stack till cycle complete
+    for (StackPos ptr = stackPtr -1; ptr >= cyclePos; ptr--)
+    {
+        // Output actor fired?
+        if (stack[ptr].act_clk[3] == 1)
+            nr_fire++;
+
+        // Time between previous state
+        time += stack[ptr].glb_clk;
+    }
+
+    return time/nr_fire;
+}
+
+/**
+ * storeState ()
+ * The function stores the given state at the stack and insert an entry
+ * into the hash table. Cycle detection is performed, as well as a
+ * check to verify wether a cycle is valid or not.
+ *
+ * Return values:
+ *      -1      - added state to stack
+ *      >= 0    - output interval of detected cycle
+ */
+inline
+TTime storeState(State &sdfState)
+{
+    // Calculate the key in the hash table
+    HashKey key = hash(sdfState);
+
+    // Check occurrence in hash table
+    StackPos stackPos = findValueInHashTable(key, sdfState);
+    if (stackPos == NO_SLOT_IN_HASH)
+    {
+        // State not in hash table (i.e. state not seen before)
+        // Insert state in hash table
+        insertKeyHashTable(key, stackPtr);
+
+        // Insert state in stack
+        pushStack(sdfState);
+    }
+    else
+    {
+        // State has been visited before (i.e. found cycle)
+        return outputIntervalCycle(stackPos);
+    }
+
+    return -1;
+}
+
+#define GLB_CLK             sdfState.glb_clk
+#define ACT_CLK(a)          sdfState.act_clk[a]
+#define CH(c)               sdfState.ch[c]
+
+#define ACT_READY(a)        (ACT_CLK(a) == 0)
+#define CH_TOKENS(c,n)      (CH(c) >= n)
+#define CH_SPACE(c,n)       (CH(c) <= sz[c] - n)
+#define FIRE_ACT(a,t)       ACT_CLK(a) = t;
+#define CONSUME(c,n)        CH(c) = CH(c) - n;
+#define PRODUCE(c,n)        CH(c) = CH(c) + n;
+#define LOWER_CLK(a)        if (ACT_CLK(a) > 0) { ACT_CLK(a) = ACT_CLK(a) - 1; }
+#define ACT_END_FIRE(a)     (ACT_CLK(a) == 1)
+#define ADVANCE_CLK         GLB_CLK = GLB_CLK + 1;
+#define NEXT_ITER           GLB_CLK = 0;
+
+#define ACT_READY_PREV(a)   (prevStateP.act_clk[a] == 0)
+#define CH_TOKENS_PREV(c,n) (prevStateP.ch[c] >= n)
+#define CH_SPACE_PREV(c,n)  (prevStateP.ch[c] <= sz[c] - n)
+
+State sdfState;
+State prevState;
+State prevStateP;
+
+/**
+ * analyzePeriodicPhase ()
+ * Analyze the periodic phase of the schedule to find all critical cycles.
+ */
+void analyzePeriodicPhase(const TBufSize *sz, bool *block)
+{
+    State periodicState;
+    DepPtr d;
+
+    // Current sdf state is a periodic state
+    copyState(periodicState, sdfState);
+
+    // Initialize the dependencies
+    initDependencies();
+
+    // Start new iteration of the periodic phase
+    NEXT_ITER;
+
+    // Complete the remaining actor firings
+
+    // Fire the actors
+    while (true)
+    {
+        // Lower clocks
+        LOWER_CLK(0);
+        LOWER_CLK(1);
+        LOWER_CLK(2);
+        LOWER_CLK(3);
+
+        // Advance the global clock
+        ADVANCE_CLK;
+
+        // Update previous actor dependencies
+        for (int a = 0; a < SDF_NUM_ACTORS; a++)
+            for (int b = 0; b < SDF_NUM_ACTORS; b++)
+                prevReachableNodes[a][b] = curReachableNodes[a][b];
+
+        for (int a = 0; a < SDF_NUM_ACTORS; a++)
+            for (int b = 0; b < SDF_NUM_ACTORS; b++)
+                for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                prevReachableNodesCh[a][b][c] = curReachableNodesCh[a][b][c];
+
+        // Start actor firings
+        if (ACT_READY(0))
+        {
+            bool fire = true;
+
+            // Check space on each output
+            if (!CH_SPACE(0,594))
+                fire = false;
+            if (!CH_SPACE(3,1))
+                fire = false;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(3,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+            {
+                // Create a dependency node for this actor firing
+                d = createDependencyNode(0);
+
+                // Which dependencies were resolved in previous time step?
+                if (!ACT_READY_PREV(0))
+                {
+                    // Previous firing of actor was not finished
+                    addDependencyEdgeForActor(d,0);
+                }
+                else
+                {
+                    // Check tokens and space on each channel
+                    if (!CH_SPACE_PREV(0,594))
+                        addDependencyEdgeForChSpace(d,1,0);
+                    if (!CH_TOKENS_PREV(3,1))
+                        addDependencyEdgeForChTokens(d,0,3);
+                    if (!CH_SPACE_PREV(3,1))
+                        addDependencyEdgeForChSpace(d,0,3);
+                }
+
+                // Fire actor
+                FIRE_ACT(0,13009);
+            }
+        }
+        if (ACT_READY(1))
+        {
+            bool fire = true;
+
+            // Check space on each output
+            if (!CH_SPACE(1,1))
+                fire = false;
+            if (!CH_SPACE(4,1))
+                fire = false;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(0,1))
+                fire = false;
+            if (!CH_TOKENS(4,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+            {
+                // Create a dependency node for this actor firing
+                d = createDependencyNode(1);
+
+                // Which dependencies were resolved in previous time step?
+                if (!ACT_READY_PREV(1))
+                {
+                    // Previous firing of actor was not finished
+                    addDependencyEdgeForActor(d,1);
+                }
+                else
+                {
+                    // Check tokens and space on each channel
+                    if (!CH_TOKENS_PREV(0,1))
+                        addDependencyEdgeForChTokens(d,0,0);
+                    if (!CH_SPACE_PREV(1,1))
+                        addDependencyEdgeForChSpace(d,2,1);
+                    if (!CH_TOKENS_PREV(4,1))
+                        addDependencyEdgeForChTokens(d,1,4);
+                    if (!CH_SPACE_PREV(4,1))
+                        addDependencyEdgeForChSpace(d,1,4);
+                }
+
+                // Fire actor
+                FIRE_ACT(1,559);
+            }
+        }
+        if (ACT_READY(2))
+        {
+            bool fire = true;
+
+            // Check space on each output
+            if (!CH_SPACE(2,1))
+                fire = false;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(1,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+            {
+                // Create a dependency node for this actor firing
+                d = createDependencyNode(2);
+
+                // Which dependencies were resolved in previous time step?
+                if (!ACT_READY_PREV(2))
+                {
+                    // Previous firing of actor was not finished
+                    addDependencyEdgeForActor(d,2);
+                }
+                else
+                {
+                    // Check tokens and space on each channel
+                    if (!CH_TOKENS_PREV(1,1))
+                        addDependencyEdgeForChTokens(d,1,1);
+                    if (!CH_SPACE_PREV(2,1))
+                        addDependencyEdgeForChSpace(d,3,2);
+                }
+
+                // Fire actor
+                FIRE_ACT(2,486);
+            }
+        }
+        if (ACT_READY(3))
+        {
+            bool fire = true;
+
+            // Check space on each output
+            if (!CH_SPACE(5,1))
+                fire = false;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(2,594))
+                fire = false;
+            if (!CH_TOKENS(5,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+            {
+                // Create a dependency node for this actor firing
+                d = createDependencyNode(3);
+
+                // Which dependencies were resolved in previous time step?
+                if (!ACT_READY_PREV(3))
+                {
+                    // Previous firing of actor was not finished
+                    addDependencyEdgeForActor(d,3);
+                }
+                else
+                {
+                    // Check tokens and space on each channel
+                    if (!CH_TOKENS_PREV(2,594))
+                        addDependencyEdgeForChTokens(d,2,2);
+                    if (!CH_TOKENS_PREV(5,1))
+                        addDependencyEdgeForChTokens(d,3,5);
+                    if (!CH_SPACE_PREV(5,1))
+                        addDependencyEdgeForChSpace(d,3,5);
+                }
+
+                // Fire actor
+                FIRE_ACT(3,5479);
+            }
+        }
+
+        // Update previous actor dependency nodes
+        for (int a = 0; a < SDF_NUM_ACTORS; a++)
+        {
+            // Current node is a valid node?
+            if (curDependencyNode[a] != NODE_INVALID)
+            {
+                prevDependencyNode[a] = curDependencyNode[a];
+                curDependencyNode[a] = NODE_INVALID;
+            }
+        }
+
+        // Store state to check for progress
+        copyState(prevStateP, sdfState);
+
+        // Finish actor firings
+        if (ACT_END_FIRE(0))
+        {
+            PRODUCE(0,594);
+            CONSUME(3,1);
+            PRODUCE(3,1);
+        }
+        if (ACT_END_FIRE(1))
+        {
+            CONSUME(0,1);
+            PRODUCE(1,1);
+            CONSUME(4,1);
+            PRODUCE(4,1);
+        }
+        if (ACT_END_FIRE(2))
+        {
+            CONSUME(1,1);
+            PRODUCE(2,1);
+        }
+        if (ACT_END_FIRE(3))
+        {
+            CONSUME(2,594);
+            CONSUME(5,1);
+            PRODUCE(5,1);
+
+            // Reached periodic state?
+            if (equalStates(periodicState, sdfState))
+                break;
+
+            NEXT_ITER;
+        }
+    }
+
+    // Print all dependencies
+    //for (DepPtr d = 0; d < dependencyStackPtr; d++)
+    //{
+    //    cerr << "Dependency: " << d << std::endl;
+    //    printDependencyNode(cerr, dependencyStack[d]);
+    //}
+    //cerr << std::endl;
+
+    // Print reachable nodes
+    //for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    //{
+    //    for (int b = 0; b < SDF_NUM_ACTORS; b++)
+    //    {
+    //        if (curReachableNodes[a][b])
+    //        {
+    //            cerr << "prev(" << a << ") -> act(" << b << ")" << std::endl;
+    //
+    //            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+    //            {
+    //                if (curReachableNodesCh[a][b][c])
+    //                    cerr << "   ch: " << c << std::endl;
+    //            }
+    //            cerr << std::endl;
+    //        }
+    //    }
+    //}
+
+    // Find all paths from an actor to itself in the state-space
+    // This is a path from the actor to a dependency of the same actor
+    // in a previous period (This version does not find the critical cycle).
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        bool ch[SDF_NUM_CHANNELS];
+
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            ch[c] = false;
+
+        findAllDependencies(a, a, ch ,block);
+    }
+
+    // Find all paths from an actor to itself in the state-space
+    // This is a path from the last dependency node (i.e. entry in the
+    // prevDependencyNode array) to a dependency of the same node in a
+    // previous period (This version finds the critical cycle).
+    //for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    //{
+    //    bool ch[SDF_NUM_CHANNELS];
+    //
+    //    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+    //        ch[c] = false;
+    //
+    //    findAllDependencyPaths(a, prevDependencyNode[a], ch ,block);
+    //}
+}
+
+/**
+ * analyzeDeadlock ()
+ * Analyze the deadlock in the schedule.
+ */
+void analyzeDeadlock(const TBufSize *sz, bool *block)
+{
+    DepPtr d;
+
+    // Initialize the dependencies
+    initDependencies();
+
+    // Create a dependency node for each actor to find
+    // the cause of it blocking.
+    // Actor: 0
+    // Create a dependency node for this actor firing
+    d = createDependencyNode(0);
+    dependencyStack[d].depFlag = true;
+
+    // Check space on each output
+    if (!CH_SPACE(0,594))
+        addDependencyEdgeForChSpace(d,1,0);
+    if (!CH_SPACE(3,1))
+        addDependencyEdgeForChSpace(d,0,3);
+
+    // Check tokens on each input
+    if (!CH_TOKENS(3,1))
+        addDependencyEdgeForChTokens(d,0,3);
+    // Actor: 1
+    // Create a dependency node for this actor firing
+    d = createDependencyNode(1);
+    dependencyStack[d].depFlag = true;
+
+    // Check space on each output
+    if (!CH_SPACE(1,1))
+        addDependencyEdgeForChSpace(d,2,1);
+    if (!CH_SPACE(4,1))
+        addDependencyEdgeForChSpace(d,1,4);
+
+    // Check tokens on each input
+    if (!CH_TOKENS(0,1))
+        addDependencyEdgeForChTokens(d,0,0);
+    if (!CH_TOKENS(4,1))
+        addDependencyEdgeForChTokens(d,1,4);
+    // Actor: 2
+    // Create a dependency node for this actor firing
+    d = createDependencyNode(2);
+    dependencyStack[d].depFlag = true;
+
+    // Check space on each output
+    if (!CH_SPACE(2,1))
+        addDependencyEdgeForChSpace(d,3,2);
+
+    // Check tokens on each input
+    if (!CH_TOKENS(1,1))
+        addDependencyEdgeForChTokens(d,1,1);
+    // Actor: 3
+    // Create a dependency node for this actor firing
+    d = createDependencyNode(3);
+    dependencyStack[d].depFlag = true;
+
+    // Check space on each output
+    if (!CH_SPACE(5,1))
+        addDependencyEdgeForChSpace(d,3,5);
+
+    // Check tokens on each input
+    if (!CH_TOKENS(2,594))
+        addDependencyEdgeForChTokens(d,2,2);
+    if (!CH_TOKENS(5,1))
+        addDependencyEdgeForChTokens(d,3,5);
+    // Update previous actor dependency nodes
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        // Current node is a valid node?
+        if (curDependencyNode[a] != NODE_INVALID)
+        {
+            prevDependencyNode[a] = curDependencyNode[a];
+            curDependencyNode[a] = NODE_INVALID;
+        }
+    }
+
+    // Print all dependencies
+    //for (DepPtr d = 0; d < dependencyStackPtr; d++)
+    //{
+    //    cerr << "Dependency: " << d << std::endl;
+    //    printDependencyNode(cerr, dependencyStack[d]);
+    //}
+    //cerr << std::endl;
+
+    // Find all paths from an actor to itself in the state-space
+    // This is a path from the last dependency node (i.e. entry in the
+    // prevDependencyNode array) to a dependency of the same node in the
+    // previous period.
+    for (int a = 0; a < SDF_NUM_ACTORS; a++)
+    {
+        bool ch[SDF_NUM_CHANNELS];
+
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            ch[c] = false;
+
+        findAllDependencyPaths(a, prevDependencyNode[a], ch ,block);
+    }
+}
+
+/**
+ * execSDFGraph()
+ * Execute the SDF graph till a deadlock is found or a recurrent state. The output interval
+ * (i.e. inverse of throughput) is returned.
+ */
+TTime execSDFGraph(const TBufSize *sz, bool *block)
+{
+    TTime output_interval;
+
+    // Create initial state and add it to stack
+    clearState(sdfState);
+    copyState(prevState, sdfState);
+    prevState.glb_clk = TTIME_MAX;
+
+    // Initial tokens
+    if (!CH_SPACE(3,1))
+    {
+        block[3] = true;
+        return TTIME_MAX;
+    }
+    PRODUCE(3,1);
+    if (!CH_SPACE(4,1))
+    {
+        block[4] = true;
+        return TTIME_MAX;
+    }
+    PRODUCE(4,1);
+    if (!CH_SPACE(5,1))
+    {
+        block[5] = true;
+        return TTIME_MAX;
+    }
+    PRODUCE(5,1);
+
+    // Fire the actors
+    while (true)
+    {
+        // Finish actor firings
+        if (ACT_END_FIRE(0))
+        {
+            PRODUCE(0,594);
+            CONSUME(3,1);
+            PRODUCE(3,1);
+        }
+        if (ACT_END_FIRE(1))
+        {
+            CONSUME(0,1);
+            PRODUCE(1,1);
+            CONSUME(4,1);
+            PRODUCE(4,1);
+        }
+        if (ACT_END_FIRE(2))
+        {
+            CONSUME(1,1);
+            PRODUCE(2,1);
+        }
+        if (ACT_END_FIRE(3))
+        {
+            CONSUME(2,594);
+            CONSUME(5,1);
+            PRODUCE(5,1);
+
+            // Add state to hash of visited states
+            output_interval = storeState(sdfState);
+            if (output_interval != -1)
+            {
+#ifndef SEARCH_FULL_SPACE
+                analyzePeriodicPhase(sz, block);
+#endif
+                return output_interval;
+            }
+            NEXT_ITER;
+        }
+
+        // Lower clocks
+        LOWER_CLK(0);
+        LOWER_CLK(1);
+        LOWER_CLK(2);
+        LOWER_CLK(3);
+
+        // Check for progress (i.e. no deadlock)
+        if (equalStates(prevState, sdfState))
+        {
+            // Find cause of deadlock
+            analyzeDeadlock(sz, block);
+
+            return TTIME_MAX;
+        }
+
+        // Advance the global clock
+        ADVANCE_CLK;
+
+        // Store state to check for progress
+        copyState(prevState, sdfState);
+
+        // Start actor firings
+        if (ACT_READY(0))
+        {
+            bool fire = true;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(3,1))
+                fire = false;
+
+            // Check space on each output
+            if (!CH_SPACE(0,594))
+                fire = false;
+            if (!CH_SPACE(3,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+                FIRE_ACT(0,13009);
+        }
+        if (ACT_READY(1))
+        {
+            bool fire = true;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(0,1))
+                fire = false;
+            if (!CH_TOKENS(4,1))
+                fire = false;
+
+            // Check space on each output
+            if (!CH_SPACE(1,1))
+                fire = false;
+            if (!CH_SPACE(4,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+                FIRE_ACT(1,559);
+        }
+        if (ACT_READY(2))
+        {
+            bool fire = true;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(1,1))
+                fire = false;
+
+            // Check space on each output
+            if (!CH_SPACE(2,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+                FIRE_ACT(2,486);
+        }
+        if (ACT_READY(3))
+        {
+            bool fire = true;
+
+            // Check tokens on each input
+            if (!CH_TOKENS(2,594))
+                fire = false;
+            if (!CH_TOKENS(5,1))
+                fire = false;
+
+            // Check space on each output
+            if (!CH_SPACE(5,1))
+                fire = false;
+
+            // Ready to fire?
+            if (fire)
+                FIRE_ACT(3,5479);
+        }
+
+        // Store state to find actor activity in periodic phase
+        copyState(prevStateP, sdfState);
+    }
+}
+
+/*******************************************************************************
+ * Distributions
+ ******************************************************************************/
+typedef struct _Distribution
+{
+    TBufSize size;
+    TTime outputInterval;
+    TBufSize sz[SDF_NUM_CHANNELS];
+    bool block[SDF_NUM_CHANNELS];
+    struct _Distribution *next;
+    struct _Distribution *check;
+} Distribution;
+
+typedef struct _MinStorageDistr
+{
+    TBufSize size;
+    TTime   outputInterval;
+    Distribution *distributions;
+    struct _MinStorageDistr *next;
+    struct _MinStorageDistr *prev;
+} MinStorageDistr;
+
+/**
+ * minStorageDistributions
+ * List of all minimal storage distributions.
+ */
+MinStorageDistr *minStorageDistributions = NULL;
+
+/**
+ * checkedDistributions
+ * Lists of all checked distributions.
+ */
+Distribution *checkedDistributions = NULL;
+
+/**
+ * execDistribution ()
+ * Execute one distribution.
+ */
+void execDistribution(Distribution *d)
+{
+    // Clear stack and hash table
+    clearStack();
+    clearHashTable();
+
+    // Initialize blocking channels
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        d->block[c] = false;
+
+    // Execute the SDF graph to find its output interval
+    d->outputInterval = execSDFGraph(d->sz, d->block);
+
+    //cerr << d->size << " " << d->outputInterval << std::endl;
+    //for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+    //    cerr << d->sz[c] << " " << d->block[c] << std::endl;
+    //cerr << std::endl;
+}
+
+/**
+ * findLbOutputInterval ()
+ * Find the lower bound on the output interval by executing the
+ * graph with the upper bounds on the channel sizes.
+ */
+TTime findLbOutputInterval()
+{
+    TTime outputInterval;
+    Distribution d;
+
+    // Create distribution with upper bounds
+    d.next = NULL;
+    d.check = NULL;
+    d.size = UB_DISTRIBUTION_SZ;
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        d.sz[c] = maxSz[c];
+
+    // Execute distribution to find output interval
+    execDistribution(&d);
+    outputInterval = d.outputInterval;
+
+    return outputInterval;
+}
+
+/**
+ * graphDeadlockFree()
+ * The function checks wether the SDF graph is deadlock free. If not,
+ * false is returned. Else, the function returns true.
+ */
+bool graphDeadlockFree()
+{
+    TTime outputInterval;
+
+    // Find output interval for unbounded graph
+    outputInterval = findLbOutputInterval();
+
+    if (outputInterval == TTIME_MAX)
+        return false;
+
+    return true;
+}
+
+
+/**
+ * updateMinimalDistributions ()
+ * Add the distribution d to the set of minimal storage
+ * distribution (if it is one) and remove all distributions
+ * which can not be a minimal storage distribution because of d.
+ */
+void updateMinimalDistributions(Distribution *d)
+{
+    MinStorageDistr *dist = minStorageDistributions;
+    MinStorageDistr *distn;
+
+    // Infinite output interval (deadlock)?
+    if (d->outputInterval == TTIME_MAX)
+        return;
+
+    while (dist != NULL)
+    {
+        // Larger throughput with larger size
+        if (d->outputInterval < dist->outputInterval
+                && d->size > dist->size)
+        {
+            if (dist->next == NULL) break;
+
+            // Next distribution
+            dist = dist->next;
+            continue;
+        }
+
+        // Smaller throughput with equal or larger size or
+        // equal throughput with larger size
+        if ((d->outputInterval > dist->outputInterval && d->size >= dist->size)
+                || (d->outputInterval == dist->outputInterval
+                        && d->size > dist->size))
+        {
+            // Distribution d is not minimal
+            return;
+        }
+
+        // Equal throughput and size
+        if (d->outputInterval == dist->outputInterval && d->size == dist->size)
+        {
+            // Add distribution d to dist
+            d->next = dist->distributions;
+            dist->distributions = d;
+
+            // done
+            return;
+        }
+
+        // Smaller throughput with a smaller size
+        if (d->outputInterval > dist->outputInterval && d->size < dist->size)
+        {
+            // Add distribution d before dist
+            distn = new MinStorageDistr;
+            distn->outputInterval = d->outputInterval;
+            distn->size = d->size;
+            distn->distributions = d;
+            distn->prev = dist->prev;
+            distn->next = dist;
+            if (dist->prev != NULL)
+                dist->prev->next = distn;
+            dist->prev = distn;
+
+            if (distn->prev == NULL)
+                minStorageDistributions = distn;
+
+            // done
+            return;
+        }
+
+        // Equal throughput with smaller size or
+        // larger throughput with smaller or equal size
+        if ((d->outputInterval == dist->outputInterval && d->size < dist->size)
+                || (d->outputInterval < dist->outputInterval
+                        && d->size <= dist->size))
+        {
+            // Distribution d is minimal, but dist is not minimal
+            // (and possibly other after d are also not minimal)
+            distn = new MinStorageDistr;
+            distn->outputInterval = d->outputInterval;
+            distn->size = d->size;
+            distn->distributions = d;
+            distn->prev = dist->prev;
+            if (dist->prev != NULL)
+                dist->prev->next = distn;
+
+            if (distn->prev == NULL)
+                minStorageDistributions = distn;
+
+            while (dist != NULL && (d->outputInterval < dist->outputInterval
+                    || (d->outputInterval == dist->outputInterval
+                        && d->size < dist->size)))
+                dist = dist->next;
+
+            distn->next = dist;
+            if (dist != NULL)
+                dist->prev = distn;
+
+            // done
+            return;
+        }
+    }
+
+    // Add storage distribution to the end of the list
+    distn = new MinStorageDistr;
+    distn->outputInterval = d->outputInterval;
+    distn->size = d->size;
+    distn->distributions = d;
+    distn->next = NULL;
+
+    if (minStorageDistributions == NULL)
+    {
+        distn->prev = NULL;
+        minStorageDistributions = distn;
+    }
+    else
+    {
+        distn->prev = dist;
+        dist->next = distn;
+    }
+}
+
+/**
+ * checkedDistribution ()
+ * The function returns true if the distribution d has been
+ * executed before, else it returns false.
+ */
+bool checkedDistribution(Distribution *d)
+{
+    Distribution *dist = checkedDistributions;
+
+    while (dist != NULL)
+    {
+        bool equal = true;
+
+        // Compare distributions d and dist
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        {
+            if (d->sz[c] != dist->sz[c])
+            {
+                equal = false;
+                break;
+            }
+        }
+
+        // Distributions equal?
+        if (equal)
+            return true;
+
+        // Next distribution
+        dist = dist->check;
+    }
+
+    return false;
+}
+
+/**
+ * checkDistribution ()
+ * Compute the output interval of a distribution and enlarge
+ * all channels which block execution (recursively check those
+ * distributions). After computing the output interval, the
+ * list of minimal storage distributions is updated.
+ */
+void checkDistribution(Distribution *d)
+{
+    Distribution *dn;
+
+    // Add d to list of checked distributions
+    d->check = checkedDistributions;
+    checkedDistributions = d;
+
+    // Compute output interval of this distribution
+    execDistribution(d);
+
+    if (d->outputInterval == lbOutputInterval
+            && d->size < maxDistributionSz)
+        maxDistributionSz = d->size;
+
+    // Add the distribution to the set of minimal distributions
+    updateMinimalDistributions(d);
+
+    // Enlarge each of the blocked channels
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+    {
+        if (d->block[c])
+        {
+            if (d->sz[c] < maxSz[c])
+            {
+                // Create a new distribution
+                dn = new Distribution;
+                dn->next = NULL;
+                dn->size = d->size + minSzStep[c];
+                for (int ch = 0; ch < SDF_NUM_CHANNELS; ch++)
+                    dn->sz[ch] = d->sz[ch];
+                dn->sz[c] += minSzStep[c];
+
+                // Distribution checked before or too large?
+                if (dn->size > maxDistributionSz || checkedDistribution(dn))
+                {
+                    delete dn;
+                }
+                else
+                {
+                    // Check distribution
+                    checkDistribution(dn);
+                }
+            }
+        }
+    }
+}
+
+/**
+ * findMinimalStorageDistributions ()
+ * The function computes all minimal storage distributions.
+ */
+void findMinimalStorageDistributions()
+{
+    Distribution *d;
+
+    // Check deadlock in graph
+    if (!graphDeadlockFree())
+        exit("Graph is not deadlock free.",1);
+
+    // Find lower bound of the output interval
+    lbOutputInterval = findLbOutputInterval();
+
+    // Create distribution with lower bound
+    d = new Distribution;
+    d->next = NULL;
+    d->size = LB_DISTRIBUTION_SZ;
+    for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+        d->sz[c] = minSz[c];
+
+    // Check the distribution
+    checkDistribution(d);
+}
+
+/**
+ * checkAllDistributions ()
+ * Check all distributions within the given margins.
+ */
+void checkAllDistributions(short c, TBufSize usedSz, TBufSize requiredMinSz,
+        TBufSize distributionSz, MinStorageDistr *distr)
+{
+    static Distribution d;
+
+    // Last channel - end of recursion
+    if (c == (SDF_NUM_CHANNELS - 1))
+    {
+        d.sz[c] = distributionSz - usedSz;
+
+        // Compute output interval of this distribution
+        execDistribution(&d);
+
+        // Smaller than current minimum?
+        if (d.outputInterval < distr->outputInterval)
+        {
+            // Remove existing distributions
+            while (distr->distributions != NULL)
+            {
+                Distribution *dn = distr->distributions;
+                distr->distributions = dn->next;
+                delete dn;
+            }
+
+            // Create first distribution with this output interval
+            Distribution *dn = new Distribution;
+            dn->next = NULL;
+            for (int ch = 0; ch < SDF_NUM_CHANNELS; ch++)
+                dn->sz[ch] = d.sz[ch];
+            distr->distributions = dn;
+            distr->outputInterval = d.outputInterval;
+        }
+        else if (d.outputInterval == distr->outputInterval)
+        {
+            // Add alternative distribution
+            Distribution *dn = new Distribution;
+            dn->next = NULL;
+            for (int ch = 0; ch < SDF_NUM_CHANNELS; ch++)
+                dn->sz[ch] = d.sz[ch];
+            dn->next = distr->distributions;
+            distr->distributions = dn;
+        }
+
+        // done
+        return;
+
+    }
+
+    // Enlarge channel c
+    for (d.sz[c] = minSz[c]; (d.sz[c] + usedSz) <=
+            (distributionSz-(requiredMinSz-minSz[c])) && d.sz[c] <= maxSz[c];
+                d.sz[c] = d.sz[c] + minSzStep[c])
+    {
+        // usedSz must be smaller as distributionSz
+        if (usedSz+d.sz[c] <= distributionSz)
+            checkAllDistributions(c+1, usedSz+d.sz[c], requiredMinSz-minSz[c],
+                        distributionSz, distr);
+    }
+}
+
+/**
+ * findMinimumOutputInterval ()
+ * The function checks all storage distributions with |distribution| =
+ * maxDistributionSz to find the minimal output interval.
+ */
+MinStorageDistr *findMinimumOutputInterval(TBufSize distributionSz)
+{
+    MinStorageDistr *distr = new MinStorageDistr;
+    TBufSize requiredMinSz = 0;
+
+    // Initialize minimal storage distribution
+    distr->outputInterval = TTIME_MAX;
+    distr->size = distributionSz;
+    distr->distributions = NULL;
+    distr->next = NULL;
+    distr->prev = NULL;
+
+    // Set the minimal size of all fifos
+#ifdef SEARCH_FULL_SPACE
+    if (false)
+#else
+    if (minStorageDistributions != NULL)
+#endif
+    {
+        for (Distribution *d = minStorageDistributions->distributions;
+                d != NULL; d = d->next)
+        {
+            // Set minimal size of all channels and
+            // which channels must be enlarged
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                minSz[c] = d->sz[c];
+
+            // Lower bound distribution size
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+                requiredMinSz += minSz[c];
+
+            checkAllDistributions(0, 0, requiredMinSz, distributionSz, distr);
+        }
+    }
+    else
+    {
+        // Lower bound distribution size
+        for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            requiredMinSz += minSz[c];
+
+        checkAllDistributions(0, 0, requiredMinSz, distributionSz, distr);
+    }
+
+    return distr;
+}
+
+/**
+ * findMinimalStorageDistributions ()
+ * The function uses linear search from the lower bound to the upper bound
+ * to find all minimal storage distributions.
+ */
+void findMinimalStorageDistributions(TBufSize lb_distr_sz, TBufSize ub_distr_sz)
+{
+    TBufSize m;
+    MinStorageDistr *d;
+
+    // Start with lower bound
+    m = lb_distr_sz;
+
+    // Find lower bound of the output interval
+    lbOutputInterval = findLbOutputInterval();
+
+    do
+    {
+        // Find smallest output interval with distribution size m.
+        d = findMinimumOutputInterval(m);
+
+        // Is set distributions d a set of minimal distributions?
+        if (minStorageDistributions == NULL ||
+                d->outputInterval < minStorageDistributions->outputInterval)
+        {
+            // Distribution d has output interval smaller than infinite?
+            if (d->outputInterval < TTIME_MAX)
+            {
+                // Add d to the list of minimal distributions
+                d->next = minStorageDistributions;
+                minStorageDistributions = d;
+            }
+            else
+            {
+                // Distribution d is not minimal, remove it
+                while(d->distributions != NULL)
+                {
+                    Distribution *t = d->distributions;
+                    d->distributions = t->next;
+                    delete t;
+                }
+                delete d;
+            }
+        }
+        else
+        {
+            // Distribution d is not minimal, remove it
+            while(d->distributions != NULL)
+            {
+                Distribution *t = d->distributions;
+                d->distributions = t->next;
+                delete t;
+            }
+            delete d;
+        }
+
+        // Lower bound output interval reached?
+        if (minStorageDistributions != NULL &&
+            minStorageDistributions->outputInterval <= lbOutputInterval)
+            return;
+
+        // Next distribution size
+        m++;
+    } while (ub_distr_sz >= m);
+}
+
+/**
+ * printMinimalDistributions ()
+ * Output all minimal distributions to the supplied stream.
+ */
+void printMinimalDistributions(std::ostream &out)
+{
+    out << "<?xml version='1.0' encoding='UTF-8'?>" << std::endl;
+    out << "<!DOCTYPE buffy >" << std::endl;
+    out << "<buffy";
+    out << " nrChannels='" << SDF_NUM_CHANNELS << "'";
+    out << " lbDistributionSz='" << LB_DISTRIBUTION_SZ;
+    out << "' ubDistributionSz='" << UB_DISTRIBUTION_SZ;
+    out << "' maxStates='" << maxStackPtr << "'>" << std::endl;
+
+    for (MinStorageDistr *p = minStorageDistributions; p != NULL;
+            p = p->next)
+    {
+        out << "    <minDistributions outputInterval='" << p->outputInterval;
+        out << "' distributionSz='" << p->size << "'>" << std::endl;
+        for (Distribution *d = p->distributions; d != NULL; d = d->next)
+        {
+            out << "        <distribution>" << std::endl;
+            for (int c = 0; c < SDF_NUM_CHANNELS; c++)
+            {
+                out << "            <ch id='" << c << "' sz='" << d->sz[c];
+                out << "'/>" << std::endl;
+            }
+            out << "        </distribution>" << std::endl;
+        }
+        out << "    </minDistributions>" << std::endl;
+    }
+    out << "</buffy>" << std::endl;
+}
+
+int main(int argc, char **argv)
+{
+    // Check bounds
+    if (LB_DISTRIBUTION_SZ > UB_DISTRIBUTION_SZ)
+        exit("lb_distribution_sz > ub_distribution_sz", 1);
+
+    // Create hash and stack
+    createStack();
+    createHashTable();
+    createDependencyStack();
+
+    // Search the space
+#ifdef SEARCH_FULL_SPACE
+    findMinimalStorageDistributions(LB_DISTRIBUTION_SZ, UB_DISTRIBUTION_SZ);
+#else
+    findMinimalStorageDistributions();
+#endif
+
+    // Output all minimal storage distributions
+    printMinimalDistributions(std::cout);
+
+    // Cleanup
+    destroyStack();
+    destroyHashTable();
+    destroyDependencyStack();
+
+    return 0;
+}

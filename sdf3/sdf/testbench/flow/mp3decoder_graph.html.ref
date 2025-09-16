@@ -1,0 +1,1687 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <title>SDF3 :: SDF graph</title>
+    <meta http-equiv='Content-type' content='text/html;charset=iso-8859-1' />
+    <style>        #header a {
+            text-decoration: none;
+            color: #6889b5;
+            font-size: 20pt;
+            font-weight: bold;
+        }
+        
+        #nav-main {
+            background-color: #4f6889;
+            width: 100%;
+            font-weight: bold;
+            font-family: 'Luxi Sans', verdana, helvetica, arial, sans-serif;
+            font-size: x-small;
+            margin-top: 5px;
+        }
+        
+        #nav-main-list {
+            height: 20px; /* size of navigation bar */
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #nav-main-list li {
+            float: left;
+            display: inline;
+        }
+        
+        #nav-main-list a {
+            color: #fff;
+            text-decoration: none;
+            vertical-align: middle;
+            padding-left: 10px;
+            padding-right: 10px;
+            line-height: 20px;
+            display: block;
+        }
+         
+        #nav-main-list a:hover {
+            background-color: #7ca3d6;
+        } 
+        
+        #nav-main-list li strong{
+            background-color: #6889b5;
+            display: block;
+        } 
+        
+        * html .nav-corner-br {
+            margin-top: -12px;
+        }
+        
+        * html .nav-corner-bl {
+            margin-top: -12px;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: 'Luxi Sans', 'Bitstream Vera Sans', 'Lucida Grande', 'Trebuchet MS', helvetica, verdana, arial, sans-serif;
+            font-size: small;
+            color: #333;
+        }
+        
+        #mainone {
+            min-width: 720px;
+            padding-left: 30px;
+            padding-right: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        
+        #site-left {
+            width: 120px;
+            float: left;
+            margin-right: 20px;
+        }
+        
+        #site-middle-two {
+            margin-left: 140px;  /*width of site-left block */
+        }
+        
+        #content {
+            margin: 10px;
+        }
+        
+        img {
+            border: 0px;
+        }
+        
+        div.center {
+            text-align: center;
+        }
+        
+        .command {
+            font-family: 'Courier';
+        }
+        
+        div.command {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            white-space: pre;
+        }
+        
+        div.example {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        code.screen, pre.screen {
+            font-family: 'Courier';
+            display: block;
+            padding: 10px;
+            border: 1px solid #bbb;
+            background-color: #eee;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        pre {
+            font-size: 10pt;
+        }
+        
+        img.right {
+            display: block;
+            float: right;
+            margin: 10px;
+        }
+        
+        img.left {
+            display: block;
+            float: left;
+            margin: 10px;
+        }
+        
+        p.right {
+            text-align: right;
+        }
+        
+        div.caution {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            background-color: #ccccff;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        div.info {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            background-color: #ccccff;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        th {
+            color: #4f6889;
+        }
+        
+        .header {
+            color: #4f6889;
+        }
+        
+        ul.separate li {
+            margin-bottom: 10px;
+        }
+        
+        ol.separate li {
+            margin-bottom: 10px;
+        }
+        
+        li.obsolete {
+            color: #aaa;
+        }
+        
+        div.tabs {
+            width: 100%;
+            height: 20px; /* size of navigation bar */
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            
+        }
+        
+        div.tabs ul {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        div.tabs li {
+            float: left;
+            display: inline;
+        }
+        
+        div.tabs a {
+            color: #6f6f6f;
+            text-decoration: none;
+            padding-left: 0px;
+            padding-right: 10px;
+            line-height: 20px;
+            display: block;
+        }
+         
+        div.tabs a:hover {
+            text-decoration: underline;
+        } 
+        
+        #current{
+            font-weight: bold;
+            display: block;
+        } 
+        
+        .center{
+            text-align: center;
+        } 
+        td {
+            padding-right: 30px;
+        }
+        
+        th {
+            padding-right: 30px;
+        }
+        .footer {
+            font-size: x-small;
+            color: #777;
+            padding-top: 50px;
+            padding-bottom: 30px;
+            clear: both;
+        }
+        
+        a.footer {
+            text-decoration: none;
+            color: #666699;
+        }
+        
+        a.footer:visited {
+            color: #666699;
+        }
+        
+        a.footer:hover {
+            text-decoration: underline;
+            color: #666699;
+        }
+    </style>
+</head>
+<body>
+<a name='top'/>
+<div id='mainone'>
+
+    <!-- header -->
+    <div id='header'>
+        <a href='https://www.es.ele.tue.nl/sdf3'>SDF3</a>
+    </div>
+
+    <!-- navigation -->
+    <div id='nav-main'>
+        <ul id='nav-main-list'>
+            <li><a href='mp3decoder_graph.html'>Application</a></li>
+            <li><a href='mp3decoder_platform.html'>Platform</a></li>
+            <li><a href='mp3decoder_platform_mapping.html'>Platform Mapping</a></li>
+            <li><a href='mp3decoder_platform_usage.html'>Platform Usage</a></li>
+            <li><a href='mp3decoder_interconnect.html'>Interconnect</a></li>
+            <li><a href='mp3decoder_interconnect_mapping.html'>Interconnect Mapping</a></li>
+            <li><a href='mp3decoder_interconnect_usage.html'>Interconnect Usage</a></li>
+        </ul>
+    </div>
+
+    <div id='content'><a name='actor_mp3decoder'/>
+<h2>Graph: mp3decoder</h2>
+
+<map id="mp3decoder" name="mp3decoder">
+<area shape="poly" id="node1" href="#actor_huffman" title="huffman" alt="" coords="223,36,220,29,213,22,201,17,186,13,169,12,153,13,138,17,126,22,118,29,115,36,118,44,126,50,138,56,153,59,169,60,186,59,201,56,213,50,220,44"/>
+<area shape="poly" id="edge15" href="#channel_ch14" title="ch14(1)" alt="" coords="218,23,239,26,250,36,244,44,233,48,231,43,241,40,244,37,237,30,217,28"/>
+<area shape="rect" id="edge15-label" href="#channel_ch14" title="ch14(1)" alt="" coords="247,26,304,46"/>
+<area shape="rect" id="edge15-headlabel" href="#channel_ch14" title="1" alt="" coords="217,47,227,67"/>
+<area shape="rect" id="edge15-taillabel" href="#channel_ch14" title="1" alt="" coords="217,5,227,25"/>
+<area shape="poly" id="node2" href="#actor_req0" title="req0" alt="" coords="117,152,115,145,110,138,102,133,92,129,81,128,70,129,60,133,52,138,47,145,45,152,47,160,52,166,60,172,70,175,81,176,92,175,102,172,110,166,115,160"/>
+<area shape="poly" id="edge1" href="#channel_ch0" title="ch0" alt="" coords="154,61,108,120,104,117,150,58"/>
+<area shape="rect" id="edge1-label" href="#channel_ch0" title="ch0" alt="" coords="130,84,158,104"/>
+<area shape="rect" id="edge1-headlabel" href="#channel_ch0" title="1" alt="" coords="88,110,97,130"/>
+<area shape="rect" id="edge1-taillabel" href="#channel_ch0" title="2" alt="" coords="143,59,152,79"/>
+<area shape="poly" id="node4" href="#actor_req1" title="req1" alt="" coords="294,152,293,145,288,138,280,133,270,129,258,128,247,129,237,133,229,138,224,145,222,152,224,160,229,166,237,172,247,175,258,176,270,175,280,172,288,166,293,160"/>
+<area shape="poly" id="edge2" href="#channel_ch1" title="ch1" alt="" coords="188,58,235,117,231,120,184,61"/>
+<area shape="rect" id="edge2-label" href="#channel_ch1" title="ch1" alt="" coords="220,84,248,104"/>
+<area shape="rect" id="edge2-headlabel" href="#channel_ch1" title="1" alt="" coords="233,110,242,130"/>
+<area shape="rect" id="edge2-taillabel" href="#channel_ch1" title="2" alt="" coords="177,59,186,79"/>
+<area shape="poly" id="edge16" href="#channel_ch15" title="ch15(1)" alt="" coords="114,139,134,141,141,145,144,152,140,160,130,165,128,160,136,157,138,152,137,149,132,146,114,144"/>
+<area shape="rect" id="edge16-label" href="#channel_ch15" title="ch15(1)" alt="" coords="141,142,198,162"/>
+<area shape="rect" id="edge16-headlabel" href="#channel_ch15" title="1" alt="" coords="114,163,123,183"/>
+<area shape="rect" id="edge16-taillabel" href="#channel_ch15" title="1" alt="" coords="114,122,123,142"/>
+<area shape="poly" id="node3" href="#actor_reorder0" title="reorder0" alt="" coords="169,268,166,261,158,254,146,249,130,245,113,244,96,245,81,249,68,254,60,261,58,268,60,276,68,282,81,288,96,291,113,292,130,291,146,288,158,282,166,276"/>
+<area shape="poly" id="edge3" href="#channel_ch2" title="ch2" alt="" coords="90,176,105,229,100,230,85,177"/>
+<area shape="rect" id="edge3-label" href="#channel_ch2" title="ch2" alt="" coords="100,200,128,220"/>
+<area shape="rect" id="edge3-headlabel" href="#channel_ch2" title="1" alt="" coords="97,224,107,244"/>
+<area shape="rect" id="edge3-taillabel" href="#channel_ch2" title="1" alt="" coords="78,176,88,196"/>
+<area shape="poly" id="node6" href="#actor_stereo" title="stereo" alt="" coords="223,384,221,377,215,370,205,365,193,361,180,360,166,361,154,365,145,370,139,377,136,384,139,392,145,398,154,404,166,407,180,408,193,407,205,404,215,398,221,392"/>
+<area shape="poly" id="edge5" href="#channel_ch4" title="ch4" alt="" coords="129,291,161,346,157,349,124,293"/>
+<area shape="rect" id="edge5-label" href="#channel_ch4" title="ch4" alt="" coords="150,316,178,336"/>
+<area shape="rect" id="edge5-headlabel" href="#channel_ch4" title="1" alt="" coords="158,341,167,361"/>
+<area shape="rect" id="edge5-taillabel" href="#channel_ch4" title="1" alt="" coords="117,292,126,312"/>
+<area shape="poly" id="edge17" href="#channel_ch16" title="ch16(1)" alt="" coords="291,139,311,141,318,145,321,152,317,160,307,165,305,160,313,157,316,152,314,149,309,146,291,144"/>
+<area shape="rect" id="edge17-label" href="#channel_ch16" title="ch16(1)" alt="" coords="318,142,376,162"/>
+<area shape="rect" id="edge17-headlabel" href="#channel_ch16" title="1" alt="" coords="291,163,301,183"/>
+<area shape="rect" id="edge17-taillabel" href="#channel_ch16" title="1" alt="" coords="291,122,301,142"/>
+<area shape="poly" id="node5" href="#actor_reorder1" title="reorder1" alt="" coords="309,268,306,261,298,254,286,249,270,245,253,244,236,245,221,249,208,254,200,261,198,268,200,276,208,282,221,288,236,291,253,292,270,291,286,288,298,282,306,276"/>
+<area shape="poly" id="edge4" href="#channel_ch3" title="ch3" alt="" coords="260,177,258,229,252,229,255,176"/>
+<area shape="rect" id="edge4-label" href="#channel_ch3" title="ch3" alt="" coords="256,200,284,220"/>
+<area shape="rect" id="edge4-headlabel" href="#channel_ch3" title="1" alt="" coords="245,224,254,244"/>
+<area shape="rect" id="edge4-taillabel" href="#channel_ch3" title="1" alt="" coords="248,176,257,196"/>
+<area shape="poly" id="edge6" href="#channel_ch5" title="ch5" alt="" coords="241,293,204,350,200,347,236,290"/>
+<area shape="rect" id="edge6-label" href="#channel_ch5" title="ch5" alt="" coords="221,316,249,336"/>
+<area shape="rect" id="edge6-headlabel" href="#channel_ch5" title="1" alt="" coords="185,341,194,361"/>
+<area shape="rect" id="edge6-taillabel" href="#channel_ch5" title="1" alt="" coords="229,292,239,312"/>
+<area shape="poly" id="node7" href="#actor_antialias0" title="antialias0" alt="" coords="169,500,166,493,157,486,145,481,128,477,110,476,93,477,76,481,63,486,55,493,52,500,55,508,63,514,76,520,93,523,110,524,128,523,145,520,157,514,166,508"/>
+<area shape="poly" id="edge7" href="#channel_ch6" title="ch6" alt="" coords="169,409,134,465,130,462,164,406"/>
+<area shape="rect" id="edge7-label" href="#channel_ch6" title="ch6" alt="" coords="150,432,178,452"/>
+<area shape="rect" id="edge7-headlabel" href="#channel_ch6" title="1" alt="" coords="115,456,124,476"/>
+<area shape="rect" id="edge7-taillabel" href="#channel_ch6" title="1" alt="" coords="157,407,166,427"/>
+<area shape="poly" id="node11" href="#actor_antialias1" title="antialias1" alt="" coords="314,500,311,493,303,486,290,481,274,477,256,476,238,477,222,481,209,486,201,493,198,500,201,508,209,514,222,520,238,523,256,524,274,523,290,520,303,514,311,508"/>
+<area shape="poly" id="edge8" href="#channel_ch7" title="ch7" alt="" coords="197,406,235,463,230,466,192,409"/>
+<area shape="rect" id="edge8-label" href="#channel_ch7" title="ch7" alt="" coords="222,432,250,452"/>
+<area shape="rect" id="edge8-headlabel" href="#channel_ch7" title="1" alt="" coords="232,457,241,477"/>
+<area shape="rect" id="edge8-taillabel" href="#channel_ch7" title="1" alt="" coords="185,407,194,427"/>
+<area shape="poly" id="node8" href="#actor_hybridsynth0" title="hybridsynth0" alt="" coords="160,616,156,609,145,602,128,597,106,593,82,592,59,593,37,597,20,602,9,609,5,616,9,624,20,630,37,636,59,639,82,640,106,639,128,636,145,630,156,624"/>
+<area shape="poly" id="edge9" href="#channel_ch8" title="ch8" alt="" coords="107,525,94,578,89,577,102,524"/>
+<area shape="rect" id="edge9-label" href="#channel_ch8" title="ch8" alt="" coords="98,548,126,568"/>
+<area shape="rect" id="edge9-headlabel" href="#channel_ch8" title="1" alt="" coords="79,572,88,592"/>
+<area shape="rect" id="edge9-taillabel" href="#channel_ch8" title="1" alt="" coords="95,524,105,544"/>
+<area shape="poly" id="node9" href="#actor_freqinv0" title="freqinv0" alt="" coords="136,732,134,725,126,718,114,713,99,709,82,708,66,709,51,713,39,718,31,725,29,732,31,740,39,746,51,752,66,755,82,756,99,755,114,752,126,746,134,740"/>
+<area shape="poly" id="edge11" href="#channel_ch10" title="ch10" alt="" coords="85,640,85,693,80,693,80,640"/>
+<area shape="rect" id="edge11-label" href="#channel_ch10" title="ch10" alt="" coords="82,664,120,684"/>
+<area shape="rect" id="edge11-headlabel" href="#channel_ch10" title="1" alt="" coords="73,688,82,708"/>
+<area shape="rect" id="edge11-taillabel" href="#channel_ch10" title="1" alt="" coords="73,640,82,660"/>
+<area shape="poly" id="node10" href="#actor_subbinv0" title="subbinv0" alt="" coords="141,848,139,841,130,834,117,829,101,825,82,824,64,825,48,829,35,834,26,841,24,848,26,856,35,862,48,868,64,871,82,872,101,871,117,868,130,862,139,856"/>
+<area shape="poly" id="edge13" href="#channel_ch12" title="ch12" alt="" coords="85,756,85,809,80,809,80,756"/>
+<area shape="rect" id="edge13-label" href="#channel_ch12" title="ch12" alt="" coords="82,780,120,800"/>
+<area shape="rect" id="edge13-headlabel" href="#channel_ch12" title="1" alt="" coords="73,804,82,824"/>
+<area shape="rect" id="edge13-taillabel" href="#channel_ch12" title="1" alt="" coords="73,756,82,776"/>
+<area shape="poly" id="node12" href="#actor_hybridsynth1" title="hybridsynth1" alt="" coords="338,616,334,609,324,602,306,597,285,593,261,592,237,593,216,597,199,602,188,609,184,616,188,624,199,630,216,636,237,639,261,640,285,639,306,636,324,630,334,624"/>
+<area shape="poly" id="edge10" href="#channel_ch9" title="ch9" alt="" coords="260,524,262,577,257,577,254,525"/>
+<area shape="rect" id="edge10-label" href="#channel_ch9" title="ch9" alt="" coords="258,548,286,568"/>
+<area shape="rect" id="edge10-headlabel" href="#channel_ch9" title="1" alt="" coords="251,572,260,592"/>
+<area shape="rect" id="edge10-taillabel" href="#channel_ch9" title="1" alt="" coords="248,524,257,544"/>
+<area shape="poly" id="node13" href="#actor_freqinv1" title="freqinv1" alt="" coords="315,732,312,725,305,718,293,713,278,709,261,708,245,709,230,713,218,718,210,725,207,732,210,740,218,746,230,752,245,755,261,756,278,755,293,752,305,746,312,740"/>
+<area shape="poly" id="edge12" href="#channel_ch11" title="ch11" alt="" coords="264,640,264,693,258,693,258,640"/>
+<area shape="rect" id="edge12-label" href="#channel_ch11" title="ch11" alt="" coords="261,664,298,684"/>
+<area shape="rect" id="edge12-headlabel" href="#channel_ch11" title="1" alt="" coords="252,688,261,708"/>
+<area shape="rect" id="edge12-taillabel" href="#channel_ch11" title="1" alt="" coords="252,640,261,660"/>
+<area shape="poly" id="node14" href="#actor_subbinv1" title="subbinv1" alt="" coords="320,848,317,841,309,834,296,829,279,825,261,824,243,825,226,829,213,834,205,841,202,848,205,856,213,862,226,868,243,871,261,872,279,871,296,868,309,862,317,856"/>
+<area shape="poly" id="edge14" href="#channel_ch13" title="ch13" alt="" coords="264,756,264,809,258,809,258,756"/>
+<area shape="rect" id="edge14-label" href="#channel_ch13" title="ch13" alt="" coords="261,780,298,800"/>
+<area shape="rect" id="edge14-headlabel" href="#channel_ch13" title="1" alt="" coords="252,804,261,824"/>
+<area shape="rect" id="edge14-taillabel" href="#channel_ch13" title="1" alt="" coords="252,756,261,776"/>
+</map>
+<p class='center'><img src='mp3decoder_graph.png' usemap='#mp3decoder'/></p>
+
+<p><b>Actors: </b>
+<a href='#actor_huffman'>huffman</a>, <a href='#actor_req0'>req0</a>, <a href='#actor_reorder0'>reorder0</a>, <a href='#actor_req1'>req1</a>, <a href='#actor_reorder1'>reorder1</a>, <a href='#actor_stereo'>stereo</a>, <a href='#actor_antialias0'>antialias0</a>, <a href='#actor_hybridsynth0'>hybridsynth0</a>, <a href='#actor_freqinv0'>freqinv0</a>, <a href='#actor_subbinv0'>subbinv0</a>, <a href='#actor_antialias1'>antialias1</a>, <a href='#actor_hybridsynth1'>hybridsynth1</a>, <a href='#actor_freqinv1'>freqinv1</a>, <a href='#actor_subbinv1'>subbinv1</a></p>
+
+<p><b>Channel: </b>
+<a href='#channel_ch0'>ch0</a>, <a href='#channel_ch1'>ch1</a>, <a href='#channel_ch2'>ch2</a>, <a href='#channel_ch3'>ch3</a>, <a href='#channel_ch4'>ch4</a>, <a href='#channel_ch5'>ch5</a>, <a href='#channel_ch6'>ch6</a>, <a href='#channel_ch7'>ch7</a>, <a href='#channel_ch8'>ch8</a>, <a href='#channel_ch9'>ch9</a>, <a href='#channel_ch10'>ch10</a>, <a href='#channel_ch11'>ch11</a>, <a href='#channel_ch12'>ch12</a>, <a href='#channel_ch13'>ch13</a>, <a href='#channel_ch14'>ch14</a>, <a href='#channel_ch15'>ch15</a>, <a href='#channel_ch16'>ch16</a></p>
+
+<p><b class='header'>Throughput constraint:</b> 
+2e-07</p>
+
+<hr/><a name='actor_huffman'/>
+<h3>Actor: huffman</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>out</td>
+        <td>2</td>
+        <td><a href='#channel_ch0'>ch0</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>2</td>
+        <td><a href='#channel_ch1'>ch1</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch14'>ch14</a></td>
+    </tr>
+    <tr>
+        <td>p3</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch14'>ch14</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>151977</td>
+        <td>48544</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>encoder</td>
+        <td>75988</td>
+        <td>48544</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_req0'/>
+<h3>Actor: req0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch0'>ch0</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch2'>ch2</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch15'>ch15</a></td>
+    </tr>
+    <tr>
+        <td>p3</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch15'>ch15</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>72695</td>
+        <td>832</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_reorder0'/>
+<h3>Actor: reorder0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch2'>ch2</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch4'>ch4</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>34684</td>
+        <td>18816</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_req1'/>
+<h3>Actor: req1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch1'>ch1</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch3'>ch3</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch16'>ch16</a></td>
+    </tr>
+    <tr>
+        <td>p3</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch16'>ch16</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>72695</td>
+        <td>832</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_reorder1'/>
+<h3>Actor: reorder1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch3'>ch3</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch5'>ch5</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>34684</td>
+        <td>18816</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_stereo'/>
+<h3>Actor: stereo</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch4'>ch4</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch5'>ch5</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch6'>ch6</a></td>
+    </tr>
+    <tr>
+        <td>p3</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch7'>ch7</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>53602</td>
+        <td>544</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_antialias0'/>
+<h3>Actor: antialias0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch6'>ch6</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch8'>ch8</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>409</td>
+        <td>5088</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_hybridsynth0'/>
+<h3>Actor: hybridsynth0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch8'>ch8</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch10'>ch10</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>7414</td>
+        <td>80</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_freqinv0'/>
+<h3>Actor: freqinv0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch10'>ch10</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch12'>ch12</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>4912</td>
+        <td>128</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_subbinv0'/>
+<h3>Actor: subbinv0</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch12'>ch12</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>1.865e+06</td>
+        <td>29888</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>subbinv</td>
+        <td>932500</td>
+        <td>3736</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_antialias1'/>
+<h3>Actor: antialias1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch7'>ch7</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch9'>ch9</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>409</td>
+        <td>5088</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_hybridsynth1'/>
+<h3>Actor: hybridsynth1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch9'>ch9</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch11'>ch11</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>7414</td>
+        <td>80</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_freqinv1'/>
+<h3>Actor: freqinv1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch11'>ch11</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_ch13'>ch13</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>4912</td>
+        <td>128</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_subbinv1'/>
+<h3>Actor: subbinv1</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_ch13'>ch13</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>1.865e+06</td>
+        <td>29888</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>subbinv</td>
+        <td>932500</td>
+        <td>29888</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch0'/>
+<h3>Channel: ch0</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_huffman'>huffman</a></td>
+        <td>p0</td>
+        <td><a href='#actor_req0'>req0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>2/2/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch1'/>
+<h3>Channel: ch1</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_huffman'>huffman</a></td>
+        <td>p1</td>
+        <td><a href='#actor_req1'>req1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>2/2/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch2'/>
+<h3>Channel: ch2</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_req0'>req0</a></td>
+        <td>p1</td>
+        <td><a href='#actor_reorder0'>reorder0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch3'/>
+<h3>Channel: ch3</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_req1'>req1</a></td>
+        <td>p1</td>
+        <td><a href='#actor_reorder1'>reorder1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch4'/>
+<h3>Channel: ch4</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_reorder0'>reorder0</a></td>
+        <td>p1</td>
+        <td><a href='#actor_stereo'>stereo</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch5'/>
+<h3>Channel: ch5</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_reorder1'>reorder1</a></td>
+        <td>p1</td>
+        <td><a href='#actor_stereo'>stereo</a></td>
+        <td>p1</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch6'/>
+<h3>Channel: ch6</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_stereo'>stereo</a></td>
+        <td>p2</td>
+        <td><a href='#actor_antialias0'>antialias0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch7'/>
+<h3>Channel: ch7</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_stereo'>stereo</a></td>
+        <td>p3</td>
+        <td><a href='#actor_antialias1'>antialias1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch8'/>
+<h3>Channel: ch8</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_antialias0'>antialias0</a></td>
+        <td>p1</td>
+        <td><a href='#actor_hybridsynth0'>hybridsynth0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch9'/>
+<h3>Channel: ch9</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_antialias1'>antialias1</a></td>
+        <td>p1</td>
+        <td><a href='#actor_hybridsynth1'>hybridsynth1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch10'/>
+<h3>Channel: ch10</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_hybridsynth0'>hybridsynth0</a></td>
+        <td>p1</td>
+        <td><a href='#actor_freqinv0'>freqinv0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch11'/>
+<h3>Channel: ch11</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_hybridsynth1'>hybridsynth1</a></td>
+        <td>p1</td>
+        <td><a href='#actor_freqinv1'>freqinv1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>100000</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch12'/>
+<h3>Channel: ch12</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_freqinv0'>freqinv0</a></td>
+        <td>p1</td>
+        <td><a href='#actor_subbinv0'>subbinv0</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>0</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch13'/>
+<h3>Channel: ch13</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_freqinv1'>freqinv1</a></td>
+        <td>p1</td>
+        <td><a href='#actor_subbinv1'>subbinv1</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>4608</td>
+        <td>0</td>
+        <td>0.00491566</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch14'/>
+<h3>Channel: ch14</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_huffman'>huffman</a></td>
+        <td>p3</td>
+        <td><a href='#actor_huffman'>huffman</a></td>
+        <td>p2</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>8192</td>
+        <td>100000</td>
+        <td>0.00436948</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch15'/>
+<h3>Channel: ch15</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_req0'>req0</a></td>
+        <td>p3</td>
+        <td><a href='#actor_req0'>req0</a></td>
+        <td>p2</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>100000</td>
+        <td>0.000546185</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_ch16'/>
+<h3>Channel: ch16</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_req1'>req1</a></td>
+        <td>p3</td>
+        <td><a href='#actor_req1'>req1</a></td>
+        <td>p2</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>100000</td>
+        <td>0.000546185</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+
+    </div>
+</div>
+</body>
+</html>

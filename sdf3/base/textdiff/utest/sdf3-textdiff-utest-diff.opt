@@ -1,0 +1,22 @@
+<sdf3 type="">
+	<settings type="test">
+		<name>Text Diff test</name>
+		<type>outputcompare</type>
+		<program>textdiff-test b.txt a.txt</program>
+    <reference>============
+1a1
+&gt;
+12d12
+&lt;just what you've been through
+13a13
+&gt;just what you've-been through
+21d21
+&lt;clear
+22d21
+&lt;
+22a22
+&gt; 
+============
+</reference>
+	</settings>
+</sdf3>

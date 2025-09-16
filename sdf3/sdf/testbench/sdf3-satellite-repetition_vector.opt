@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: repetition_vector on satellite</name>
+		<program>sdf3analyze-sdf --algo repetition_vector --graph satellite.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Repetition vector:
+ [a] = 1056
+ [b] = 264
+ [c] = 24
+ [d] = 1056
+ [e] = 264
+ [f] = 24
+ [g] = 24
+ [h] = 24
+ [i] = 24
+ [j] = 240
+ [k] = 24
+ [l] = 24
+ [m] = 24
+ [n] = 240
+ [p] = 240
+ [q] = 1
+ [r] = 1
+ [s] = 240
+ [t] = 240
+ [u] = 240
+ [v] = 1
+ [w] = 240</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

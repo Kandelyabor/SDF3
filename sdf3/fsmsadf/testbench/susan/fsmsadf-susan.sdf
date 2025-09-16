@@ -1,0 +1,48 @@
+// srcRate the rate on the source port
+// dstRate the rate on the destination port
+// tokenSize the size of the token in words 
+// initialToken the number of initial tokens.
+
+name = susan
+dftype = fsmsadf
+digraph scenario1 {
+	get_image->susan_usan [srcRate=2 tokenSize=1132 channelName=imusan]
+	get_image->get_image [tokenSize=8 initialTokens=t1 channelName=gigi]
+	susan_usan->susan_direction [tokenSize=1132]
+	susan_usan->susan_direction [tokenSize=4528]
+	susan_direction->susan_thin [tokenSize=1132]
+	susan_direction->susan_thin [tokenSize=4528]
+	susan_direction->susan_thin [tokenSize=1092]
+	susan_thin->put_image [tokenSize=1132]
+	susan_thin->put_image [tokenSize=1092]
+}
+
+digraph scenario2 {
+	get_image->split [tokenSize=1132 srcRate=2 dstRate=2 channelName=imusan]
+	get_image->get_image [tokenSize=8 initialTokens=t1 channelName=gigi]
+	split->susan_usan1 [tokenSize=1132]
+	split->susan_usan2 [tokenSize=1132]
+	susan_usan1->susan_direction1 [tokenSize=1132]
+	susan_usan1->susan_direction1 [tokenSize=4528]
+    susan_usan2->susan_direction2 [tokenSize=1132]
+	susan_usan2->susan_direction2 [tokenSize=4528]
+	susan_direction1->susan_thin [tokenSize=1132]
+	susan_direction1->susan_thin [tokenSize=4528]
+	susan_direction1->susan_thin [tokenSize=1092]
+	susan_direction2->susan_thin [tokenSize=1132]
+	susan_direction2->susan_thin [tokenSize=4528]
+	susan_direction2->susan_thin [tokenSize=1092]
+	susan_thin->put_image [tokenSize=1132 srcRate=2]
+	susan_thin->put_image [tokenSize=1092 srcRate=2]
+}
+
+fsm [initial=scenario1 detector=get_image] {
+  scenario1 -> scenario1
+  scenario1 -> scenario2
+  scenario2 -> scenario1
+  scenario2 -> scenario2
+}
+
+timeUnit = 10 ns
+dataUnit = 1 B
+throughput=1e-7

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>sdf3flow-fsmsadf flow</name>
+		<program>./run_flow-test.sh --settings sdf3-fsmsadf-flow-test.opt</program>
+		<type>xmlcompare</type>
+    <programTimeout>30</programTimeout>
+		<programOutput>fsmsadf-flow-test-mapped.xml</programOutput>
+		<programOutput>fsmsadf-flow-test-bag.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+  <settings type="generate" random="no">
+	<input file="fsmsadf-flow-test.sdf"/>
+  </settings>
+
+  <settings type="flow">
+    <platformType type="CompSoC"/>
+    <flowType type="NSoC"/> <!--supported types: NSoC -->
+    <maxNrBindingsTileBindingAlgo n="5"/>
+    <!-- maximum number of platform bindings outputted by tile binding  and
+         scheduling algorithm. -->
+    <applicationGraph file="fsmsadf-flow-test.xml"/> 
+    <!-- application graphs are mapped in the order in which they appear in 
+         this file. -->
+    <architectureGraph file="duo-arch.xml"/>
+    <!-- SDF3 creates an SDF3 document from an applicationGraph and the
+         architectureGraph. It uses the applicationGraph and mapping nodes 
+         from the applicationGraph file and it uses the architectureGraph node
+         from the architecture graph. -->
+	<output file="fsmsadf-flow-test-mapped.xml"/>
+	<chanToConnModelFile>compsoc-chantoconn.xml</chanToConnModelFile>
+  </settings>
+
+  <settings type="transform">
+	<graph file="fsmsadf-flow-test-mapped.xml"/>
+    <transform>
+        <type name="to_binding_aware"/>
+    </transform>
+    <output file="fsmsadf-flow-test-bag.xml"/>
+  </settings>
+
+  <settings type="analyze">
+	<graph file="bag-13.xml"/>
+    <algo name="schedule-check"/>
+    <seq>
+        <entry name="scenario1"/>
+        <entry name="scenario2"/>
+        <entry name="scenario2"/>
+        <entry name="scenario1"/>
+    </seq>
+  </settings>
+
+</sdf3>

@@ -1,0 +1,1247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='1.57915e-06' sz='1195'>
+            <distribution>
+                <ch name='vld2iq' sz='594'/>
+                <ch name='iq2idct' sz='1'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.89809e-06' sz='1196'>
+            <distribution>
+                <ch name='vld2iq' sz='594'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.90279e-06' sz='1197'>
+            <distribution>
+                <ch name='vld2iq' sz='595'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.90751e-06' sz='1198'>
+            <distribution>
+                <ch name='vld2iq' sz='596'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.91224e-06' sz='1199'>
+            <distribution>
+                <ch name='vld2iq' sz='597'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.91699e-06' sz='1200'>
+            <distribution>
+                <ch name='vld2iq' sz='598'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.92176e-06' sz='1201'>
+            <distribution>
+                <ch name='vld2iq' sz='599'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.92654e-06' sz='1202'>
+            <distribution>
+                <ch name='vld2iq' sz='600'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.93133e-06' sz='1203'>
+            <distribution>
+                <ch name='vld2iq' sz='601'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.93614e-06' sz='1204'>
+            <distribution>
+                <ch name='vld2iq' sz='602'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.94097e-06' sz='1205'>
+            <distribution>
+                <ch name='vld2iq' sz='603'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.94581e-06' sz='1206'>
+            <distribution>
+                <ch name='vld2iq' sz='604'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.95067e-06' sz='1207'>
+            <distribution>
+                <ch name='vld2iq' sz='605'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.95555e-06' sz='1208'>
+            <distribution>
+                <ch name='vld2iq' sz='606'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.96044e-06' sz='1209'>
+            <distribution>
+                <ch name='vld2iq' sz='607'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.96403e-06' sz='1210'>
+            <distribution>
+                <ch name='vld2iq' sz='608'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.96534e-06' sz='1211'>
+            <distribution>
+                <ch name='vld2iq' sz='608'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='608'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.96894e-06' sz='1212'>
+            <distribution>
+                <ch name='vld2iq' sz='609'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='609'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.97027e-06' sz='1213'>
+            <distribution>
+                <ch name='vld2iq' sz='609'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='609'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='609'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.97388e-06' sz='1214'>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.97521e-06' sz='1215'>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='610'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.97883e-06' sz='1216'>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.98016e-06' sz='1217'>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='611'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.9838e-06' sz='1218'>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.98514e-06' sz='1219'>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='612'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.98879e-06' sz='1220'>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.99013e-06' sz='1221'>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='613'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.99379e-06' sz='1222'>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.99513e-06' sz='1223'>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='614'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='2.99881e-06' sz='1224'>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.00016e-06' sz='1225'>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='615'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.00384e-06' sz='1226'>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.0052e-06' sz='1227'>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='11'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='603'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='616'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.00889e-06' sz='1228'>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='603'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='11'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.01025e-06' sz='1229'>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='12'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='11'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='604'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='617'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='603'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='3.01163e-06' sz='1230'>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='2'/>
+                <ch name='idct2mc' sz='604'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='3'/>
+                <ch name='idct2mc' sz='603'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='4'/>
+                <ch name='idct2mc' sz='602'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='5'/>
+                <ch name='idct2mc' sz='601'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='6'/>
+                <ch name='idct2mc' sz='600'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='7'/>
+                <ch name='idct2mc' sz='599'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='8'/>
+                <ch name='idct2mc' sz='598'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='9'/>
+                <ch name='idct2mc' sz='597'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='10'/>
+                <ch name='idct2mc' sz='596'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='11'/>
+                <ch name='idct2mc' sz='595'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+            <distribution>
+                <ch name='vld2iq' sz='618'/>
+                <ch name='iq2idct' sz='12'/>
+                <ch name='idct2mc' sz='594'/>
+                <ch name='vld2vld' sz='2'/>
+                <ch name='iq2iq' sz='2'/>
+                <ch name='mc2mc' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="sdf">
+    <applicationGraph>
+        <sdf name="RFID" type="G">
+            <actor name="idxWafer" type="A0">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="in" rate="1" />
+                <port name="p2" type="out" rate="1" />
+            </actor>
+            <actor name="diePickup" type="A1">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="in" rate="1" />
+                <port name="p2" type="out" rate="1" />
+                <port name="p3" type="out" rate="1" />
+            </actor>
+            <actor name="idxMill" type="A2">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="in" rate="1" />
+                <port name="p2" type="in" rate="1" />
+                <port name="p3" type="out" rate="1" />
+                <port name="p4" type="out" rate="1" />
+                <port name="p5" type="out" rate="1" />
+            </actor>
+            <actor name="dieAttach" type="A3">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="in" rate="1" />
+                <port name="p2" type="out" rate="1" />
+                <port name="p3" type="out" rate="1" />
+            </actor>
+            <actor name="inspect" type="A4">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="in" rate="1" />
+                <port name="p2" type="out" rate="1" />
+                <port name="p3" type="out" rate="1" />
+            </actor>
+            <actor name="idxSub" type="A5">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="out" rate="1" />
+                <port name="p2" type="out" rate="1" />
+            </actor>
+            <actor name="unblock" type="A6">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="out" rate="1" />
+            </actor>
+            <actor name="block" type="A7">
+                <port name="p0" type="in" rate="1" />
+                <port name="p1" type="out" rate="1" />
+            </actor>
+            <input name="die">
+                <port type="out" name="p0" rate="1"/>
+            </input>
+            <output name="tag">
+                <port type="in" name="p0" rate="1"/>
+            </output>
+            <channel name="in" srcInput="die" srcPort="p0" dstActor="idxWafer" dstPort="p0" />
+            <channel name="ch0" srcActor="idxWafer" srcPort="p2" dstActor="diePickup" dstPort="p0" />
+            <channel name="x1" srcActor="diePickup" srcPort="p2" dstActor="idxWafer" dstPort="p1" initialTokens="1" />
+            <channel name="x2" srcActor="diePickup" srcPort="p3" dstActor="idxMill" dstPort="p0" initialTokens="1" />
+            <channel name="ch3" srcActor="idxMill" srcPort="p3" dstActor="diePickup" dstPort="p1" />
+            <channel name="ch4" srcActor="idxMill" srcPort="p4" dstActor="dieAttach" dstPort="p0" />
+            <channel name="x3" srcActor="dieAttach" srcPort="p2" dstActor="idxMill" dstPort="p1" initialTokens="1" />
+            <channel name="x4" srcActor="dieAttach" srcPort="p3" dstActor="inspect" dstPort="p0" initialTokens="1" />
+            <channel name="ch7" srcActor="inspect" srcPort="p2" dstActor="idxSub" dstPort="p0" />
+            <channel name="ch8" srcActor="idxSub" srcPort="p1" dstActor="dieAttach" dstPort="p1" />
+            <channel name="out" srcActor="idxSub" srcPort="p2" dstOutput="tag" dstPort="p0" />
+            <channel name="ch9" srcActor="idxMill" srcPort="p5" dstActor="unblock" dstPort="p0" />
+            <channel name="ch10" srcActor="unblock" srcPort="p1" dstActor="inspect" dstPort="p1" />
+            <channel name="ch11" srcActor="inspect" srcPort="p3" dstActor="block" dstPort="p0" />
+            <channel name="ch12" srcActor="block" srcPort="p1" dstActor="idxMill" dstPort="p2" />
+
+        </sdf>
+        <sdfProperties>
+            <actorProperties actor="idxWafer">
+                <processor type="proc_0" default="true">
+                    <executionTime time="30" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="diePickup">
+                <processor type="proc_0" default="true">
+                    <executionTime time="25" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="idxMill">
+                <processor type="proc_0" default="true">
+                    <executionTime time="50" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="dieAttach">
+                <processor type="proc_0" default="true">
+                    <executionTime time="25" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="inspect">
+                <processor type="proc_0" default="true">
+                    <executionTime time="20" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="idxSub">
+                <processor type="proc_0" default="true">
+                    <executionTime time="30" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="unblock">
+                <processor type="proc_0" default="true">
+                    <executionTime time="-40" />
+                </processor>
+            </actorProperties>
+            <actorProperties actor="block">
+                <processor type="proc_0" default="true">
+                    <executionTime time="-40" />
+                </processor>
+            </actorProperties>
+            <inputProperties input="die">
+                <eventSequence name="die">
+                <event timeStamp="0.0"/>
+                <event timeStamp="75"/>
+                <event timeStamp="180"/>
+                </eventSequence>
+            </inputProperties>  
+            <graphProperties />
+        </sdfProperties>
+    </applicationGraph>
+</sdf3>

@@ -1,0 +1,2 @@
+add_subdirectory(to_sdf)
+add_subdirectory(to_wc_fsm_sadf)

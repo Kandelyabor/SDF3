@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='0.03125' sz='70'>
+            <distribution>
+                <ch name='a' sz='1'/>
+                <ch name='b' sz='1'/>
+                <ch name='c' sz='1'/>
+                <ch name='d' sz='1'/>
+                <ch name='e' sz='1'/>
+                <ch name='f' sz='2'/>
+                <ch name='g' sz='2'/>
+                <ch name='h' sz='2'/>
+                <ch name='i' sz='2'/>
+                <ch name='j' sz='2'/>
+                <ch name='k' sz='2'/>
+                <ch name='l' sz='1'/>
+                <ch name='m' sz='8'/>
+                <ch name='n' sz='4'/>
+                <ch name='o' sz='2'/>
+                <ch name='p' sz='2'/>
+                <ch name='q' sz='2'/>
+                <ch name='r' sz='1'/>
+                <ch name='s' sz='1'/>
+                <ch name='_ch20' sz='2'/>
+                <ch name='_ch21' sz='2'/>
+                <ch name='_ch22' sz='2'/>
+                <ch name='_ch23' sz='2'/>
+                <ch name='_ch24' sz='2'/>
+                <ch name='_ch25' sz='2'/>
+                <ch name='_ch26' sz='2'/>
+                <ch name='_ch27' sz='2'/>
+                <ch name='_ch28' sz='2'/>
+                <ch name='_ch29' sz='2'/>
+                <ch name='_ch30' sz='2'/>
+                <ch name='_ch31' sz='2'/>
+                <ch name='_ch32' sz='2'/>
+                <ch name='_ch33' sz='2'/>
+                <ch name='_ch34' sz='2'/>
+                <ch name='_ch35' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0555556' sz='71'>
+            <distribution>
+                <ch name='a' sz='1'/>
+                <ch name='b' sz='1'/>
+                <ch name='c' sz='1'/>
+                <ch name='d' sz='1'/>
+                <ch name='e' sz='1'/>
+                <ch name='f' sz='2'/>
+                <ch name='g' sz='2'/>
+                <ch name='h' sz='2'/>
+                <ch name='i' sz='2'/>
+                <ch name='j' sz='2'/>
+                <ch name='k' sz='2'/>
+                <ch name='l' sz='2'/>
+                <ch name='m' sz='8'/>
+                <ch name='n' sz='4'/>
+                <ch name='o' sz='2'/>
+                <ch name='p' sz='2'/>
+                <ch name='q' sz='2'/>
+                <ch name='r' sz='1'/>
+                <ch name='s' sz='1'/>
+                <ch name='_ch20' sz='2'/>
+                <ch name='_ch21' sz='2'/>
+                <ch name='_ch22' sz='2'/>
+                <ch name='_ch23' sz='2'/>
+                <ch name='_ch24' sz='2'/>
+                <ch name='_ch25' sz='2'/>
+                <ch name='_ch26' sz='2'/>
+                <ch name='_ch27' sz='2'/>
+                <ch name='_ch28' sz='2'/>
+                <ch name='_ch29' sz='2'/>
+                <ch name='_ch30' sz='2'/>
+                <ch name='_ch31' sz='2'/>
+                <ch name='_ch32' sz='2'/>
+                <ch name='_ch33' sz='2'/>
+                <ch name='_ch34' sz='2'/>
+                <ch name='_ch35' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0625' sz='72'>
+            <distribution>
+                <ch name='a' sz='1'/>
+                <ch name='b' sz='1'/>
+                <ch name='c' sz='1'/>
+                <ch name='d' sz='1'/>
+                <ch name='e' sz='1'/>
+                <ch name='f' sz='2'/>
+                <ch name='g' sz='2'/>
+                <ch name='h' sz='2'/>
+                <ch name='i' sz='2'/>
+                <ch name='j' sz='2'/>
+                <ch name='k' sz='2'/>
+                <ch name='l' sz='2'/>
+                <ch name='m' sz='9'/>
+                <ch name='n' sz='4'/>
+                <ch name='o' sz='2'/>
+                <ch name='p' sz='2'/>
+                <ch name='q' sz='2'/>
+                <ch name='r' sz='1'/>
+                <ch name='s' sz='1'/>
+                <ch name='_ch20' sz='2'/>
+                <ch name='_ch21' sz='2'/>
+                <ch name='_ch22' sz='2'/>
+                <ch name='_ch23' sz='2'/>
+                <ch name='_ch24' sz='2'/>
+                <ch name='_ch25' sz='2'/>
+                <ch name='_ch26' sz='2'/>
+                <ch name='_ch27' sz='2'/>
+                <ch name='_ch28' sz='2'/>
+                <ch name='_ch29' sz='2'/>
+                <ch name='_ch30' sz='2'/>
+                <ch name='_ch31' sz='2'/>
+                <ch name='_ch32' sz='2'/>
+                <ch name='_ch33' sz='2'/>
+                <ch name='_ch34' sz='2'/>
+                <ch name='_ch35' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

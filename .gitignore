@@ -1,0 +1,35 @@
+# output directory
+sdf3/build/
+build/
+
+# CMake
+cmake-build-debug/
+
+# netbeans file
+sdf3/nbproject/
+sdf3/Makefile-sdf3.mk
+sdf3/.dep.inc
+
+# eclipse files
+.cproject
+.project
+.settings
+
+# temp files by bcpp
+*.orig
+
+# More temp files (vim)
+*~
+*.bak
+
+# VSCode editor internals
+.vscode
+.vs
+
+**/.cache
+**/.cmake
+
+.ninja_deps
+.ninja_log
+build.ninja
+VSinheritEnvironments.txt

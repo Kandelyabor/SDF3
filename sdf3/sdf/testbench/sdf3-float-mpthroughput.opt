@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="sdf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: mpthroughput on simple model with floating point execution times</name>
+		<program>sdf3analyze-sdf --algo mpthroughput --graph float-execution-time.sdfx</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>thr(Model) = 0.407947</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

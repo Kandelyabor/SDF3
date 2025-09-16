@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='0.000919118' sz='44'>
+            <distribution>
+                <ch name='ch1' sz='1'/>
+                <ch name='ch2' sz='4'/>
+                <ch name='ch3' sz='8'/>
+                <ch name='ch4' sz='14'/>
+                <ch name='ch5' sz='5'/>
+                <ch name='_ch6' sz='2'/>
+                <ch name='_ch7' sz='2'/>
+                <ch name='_ch8' sz='2'/>
+                <ch name='_ch9' sz='2'/>
+                <ch name='_ch10' sz='2'/>
+                <ch name='_ch11' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.000971817' sz='45'>
+            <distribution>
+                <ch name='ch1' sz='1'/>
+                <ch name='ch2' sz='4'/>
+                <ch name='ch3' sz='8'/>
+                <ch name='ch4' sz='14'/>
+                <ch name='ch5' sz='6'/>
+                <ch name='_ch6' sz='2'/>
+                <ch name='_ch7' sz='2'/>
+                <ch name='_ch8' sz='2'/>
+                <ch name='_ch9' sz='2'/>
+                <ch name='_ch10' sz='2'/>
+                <ch name='_ch11' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.00104167' sz='46'>
+            <distribution>
+                <ch name='ch1' sz='2'/>
+                <ch name='ch2' sz='4'/>
+                <ch name='ch3' sz='8'/>
+                <ch name='ch4' sz='14'/>
+                <ch name='ch5' sz='6'/>
+                <ch name='_ch6' sz='2'/>
+                <ch name='_ch7' sz='2'/>
+                <ch name='_ch8' sz='2'/>
+                <ch name='_ch9' sz='2'/>
+                <ch name='_ch10' sz='2'/>
+                <ch name='_ch11' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

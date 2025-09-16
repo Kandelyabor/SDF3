@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph name="example-app">
+    <fsmsadf>
+      <scenariograph name="scenario-s1" type="SCENARIO-S1">
+        <actor name="a" type="A">
+          <port name="in0" type="in" rate="2"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="2"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out0" dstActor="b" dstPort="in0"/>
+        <channel name="b2c" srcActor="b" srcPort="out0" dstActor="c" dstPort="in0"/>
+        <channel name="c2a" srcActor="c" srcPort="out0" dstActor="a" dstPort="in0" initialTokens="4"/>
+      </scenariograph>
+      <scenariograph name="scenario-s2" type="SCENARIO-S2">
+        <actor name="a" type="A">
+          <port name="in0" type="in" rate="2"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="2"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out0" dstActor="b" dstPort="in0"/>
+        <channel name="b2c" srcActor="b" srcPort="out0" dstActor="c" dstPort="in0"/>
+        <channel name="c2a" srcActor="c" srcPort="out0" dstActor="a" dstPort="in0" initialTokens="4"/>
+      </scenariograph>
+      <scenariograph name="scenario-s3" type="SCENARIO-S3">
+        <actor name="a" type="A">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out0" dstActor="b" dstPort="in0"/>
+        <channel name="b2c" srcActor="b" srcPort="out0" dstActor="c" dstPort="in0"/>
+        <channel name="c2a" srcActor="c" srcPort="out0" dstActor="a" dstPort="in0" initialTokens="4"/>
+      </scenariograph>
+      <scenariograph name="scenario-s4" type="SCENARIO-S4">
+        <actor name="a" type="A">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="b" type="B">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <actor name="c" type="C">
+          <port name="in0" type="in" rate="1"/>
+          <port name="out0" type="out" rate="1"/>
+        </actor>
+        <channel name="a2b" srcActor="a" srcPort="out0" dstActor="b" dstPort="in0"/>
+        <channel name="b2c" srcActor="b" srcPort="out0" dstActor="c" dstPort="in0"/>
+        <channel name="c2a" srcActor="c" srcPort="out0" dstActor="a" dstPort="in0" initialTokens="4"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <scenarios>
+        <scenario name="s1" graph="scenario-s1">
+          <actorProperties actor="a">
+            <processor type="microblaze" default="true">
+              <executionTime time="100"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+              <memory name="sharedVar" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="microblaze" default="true">
+              <executionTime time="10"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="microblaze" default="true">
+              <executionTime time="13"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="1280"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="a2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="128"/>
+          </channelProperties>
+        </scenario>
+        <scenario name="s2" graph="scenario-s2">
+          <actorProperties actor="a">
+            <processor type="microblaze" default="true">
+              <executionTime time="100"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+              <memory name="sharedVar" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="microblaze" default="true">
+              <executionTime time="10"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="microblaze" default="true">
+              <executionTime time="0"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="1280"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="a2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="128"/>
+          </channelProperties>
+        </scenario>
+        <scenario name="s3" graph="scenario-s3">
+          <actorProperties actor="a">
+            <processor type="microblaze" default="true">
+              <executionTime time="50"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+              <memory name="sharedVar" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="microblaze" default="true">
+              <executionTime time="10"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="microblaze" default="true">
+              <executionTime time="11"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="1280"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="a2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="128"/>
+          </channelProperties>
+        </scenario>
+        <scenario name="s4" graph="scenario-s4">
+          <actorProperties actor="a">
+            <processor type="microblaze" default="true">
+              <executionTime time="50"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+              <memory name="sharedVar" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b">
+            <processor type="microblaze" default="true">
+              <executionTime time="10"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c">
+            <processor type="microblaze" default="true">
+              <executionTime time="11"/>
+              <memory name=".code" size="128000" type="instr"/>
+              <memory name=".data" size="128000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="a2b">
+            <tokenSize sz="1280"/>
+          </channelProperties>
+          <channelProperties channel="b2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="a2c">
+            <tokenSize sz="128"/>
+          </channelProperties>
+          <channelProperties channel="c2a">
+            <tokenSize sz="128"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1e-09</throughput>
+        </timeConstraints>
+      </graphProperties>
+    </fsmsadfProperties>
+    <fsm initialstate="q1">
+      <state name="q1" scenario="s1">
+        <transition destination="q2"/>
+      </state>
+      <state name="q2" scenario="s2">
+        <transition destination="q3"/>
+      </state>
+      <state name="q3" scenario="s3">
+        <transition destination="q4"/>
+      </state>
+      <state name="q4" scenario="s4">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="xilinx2tile3dma">
+    <tile name="mb0">
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="proc" type="microblaze">
+        <arbitration type="TDMA" wheelsize="215000" contextSwitchOverhead="1500" slotLength="20000" preemptive="true"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="4096" type="commout"/>
+      <memory name="cmemout1" size="4096" type="commout"/>
+      <memory name="cmemout2" size="4096" type="commout"/>
+      <memory name="cmemin0" size="4096" type="commin"/>
+      <memory name="cmemin1" size="4096" type="commin"/>
+      <memory name="cmemin2" size="4096" type="commin"/>
+    </tile>
+    <tile name="mb1">
+      <networkInterface name="NIx1y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="proc" type="microblaze">
+        <arbitration type="TDMA" wheelsize="215000" contextSwitchOverhead="1500" slotLength="20000" preemptive="true"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemout1" size="8192" type="commout"/>
+      <memory name="cmemout2" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <memory name="cmemin1" size="8192" type="commin"/>
+      <memory name="cmemin2" size="8192" type="commin"/>
+    </tile>
+    <tile name="shared">
+      <networkInterface name="NIx0y0n1" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <memory name="memory" size="262144" type="shared"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx0y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_4" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_5" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_7" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="shared" dstNetworkInterface="NIx0y0n1" latency="1200"/>
+    <connection name="con_8" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb0" dstNetworkInterface="NIx1y0n0" latency="1200"/>
+    <connection name="con_9" srcTile="mb1" srcNetworkInterface="NIx1y0n1" dstTile="mb1" dstNetworkInterface="NIx1y0n1" latency="1200"/>
+  </architectureGraph>
+</sdf3>

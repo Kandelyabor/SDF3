@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>Input convert, virtual platform</name>
+		<program>sdf3inputconvert-fsmsadf --settings sdf3-input-conversion-virtual.opt</program>
+		<type>xmlcompare</type>
+		<programOutput>fsmsadf-input-convert-virtual.xml</programOutput>
+	</settings>
+
+      <settings type="input-convert">
+	  	<platformType type="Virtual"/>
+		<applicationGraph file="example.xml"/>
+		<architectureGraph file="example.xml"/>
+		<output file="fsmsadf-input-convert-virtual.xml"/>
+	</settings>
+
+</sdf3>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <architectureGraph name="x4tile1dma">
+    <tile name="mb0">
+      <networkInterface name="NIx0y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="mb0" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4.64e+6" contextSwitchOverhead="8e+3" slotLength="5e+4" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+    </tile>
+    <tile name="mb1">
+      <networkInterface name="NIx1y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="mb1" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4.64e+6" contextSwitchOverhead="8e+3" slotLength="5e+4" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="131072" type="instr"/>
+      <memory name="dmem" size="131072" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+    </tile>
+    <tile name="mb2">
+      <networkInterface name="NIx2y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="mb2" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4.64e+6" contextSwitchOverhead="8e+3" slotLength="5e+4" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+    </tile>
+    <tile name="mb3">
+      <networkInterface name="NIx2y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <processor name="mb3" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4.64e+6" contextSwitchOverhead="8e+3" slotLength="5e+4" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+    </tile>
+
+    <tile name="shared">
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+      <memory name="memory" size="134217728" type="shared"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_4" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_5" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_7" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_8" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_9" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_10" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+
+    <connection name="con_11" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_12" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_13" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_14" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_15" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+
+    <connection name="con_16" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_17" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_18" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_19" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_20" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+
+    <connection name="con_21" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_22" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_23" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_24" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_25" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+  </architectureGraph>
+</sdf3>

@@ -1,0 +1,2958 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+    <applicationGraph name="mp3decoder">
+        <fsmsadf>
+            <scenariograph name="mp3decoder-ll-ll" type="MP3DECODER-LL">
+                <actor name="Feed" type="Feed">
+                    <port name="Out_FD2H" type="out" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Play" type="Play">
+                    <port name="In_WB2PL" type="in" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Huffman" type="Huffman">
+                    <port name="In_FD2H" type="in" rate="1" />
+                    <port name="Out_H2RQR" type="out" rate="2" />
+                    <port name="Out_H2RQL" type="out" rate="2" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReQuantizationLeft" type="ReQuantizationLeft">
+                    <port name="In_H2RQL" type="in" rate="1" />
+                    <port name="Out_RQL2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReQuantizationRight" type="ReQuantizationRight">
+                    <port name="In_H2RQR" type="in" rate="1" />
+                    <port name="Out_RQR2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="Stereo" type="Stereo">
+                    <port name="In_RQR2S" type="in" rate="1" />
+                    <port name="In_RQL2S" type="in" rate="1" />
+                    <port name="Out_S2AAR" type="out" rate="32" />
+                    <port name="Out_S2AAL" type="out" rate="32" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync1" type="Sync1">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="AntiAliasLeft" type="AntiAliasLeft">
+                    <port name="In_S2AAL" type="in" rate="1" />
+                    <port name="Out_AAL2IDL" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res32_In" type="in" rate="1" />
+                </actor>
+                <actor name="AntiAliasRight" type="AntiAliasRight">
+                    <port name="In_S2AAR" type="in" rate="1" />
+                    <port name="Out_AAR2IDR" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res32_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTLeft" type="IMDCTLeft">
+                    <port name="In_AAL2IDL" type="in" rate="1" />
+                    <port name="Out_IDL2FIL" type="out" rate="1" />
+                </actor>
+                <actor name="IMDCTRight" type="IMDCTRight">
+                    <port name="In_AAR2IDR" type="in" rate="1" />
+                    <port name="Out_IDR2FIR" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLeft" type="FrequencyInversionLeft">
+                    <port name="In_IDL2FIL" type="in" rate="1" />
+                    <port name="Out_FIL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionRight" type="FrequencyInversionRight">
+                    <port name="In_IDR2FIR" type="in" rate="1" />
+                    <port name="Out_FIR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthLeft" type="PolySynthLeft">
+                    <port name="In_FIL2PSL" type="in" rate="32" />
+                    <port name="Out_PSL2WB" type="out" rate="1" />
+                    <port name="Res32_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthRight" type="PolySynthRight">
+                    <port name="In_FIR2PSR" type="in" rate="32" />
+                    <port name="Out_PSR2WB" type="out" rate="1" />
+                </actor>
+                <actor name="WriteBack" type="WriteBack">
+                    <port name="In_PSR2WB" type="in" rate="1" />
+                    <port name="In_PSL2WB" type="in" rate="1" />
+                    <port name="Out_WB2PL" type="out" rate="1" />
+                    <port name="Res32_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync2" type="Sync2">
+                    <port name="Res32_In" type="in" rate="1" />
+                    <port name="Res32_Out" type="out" rate="32" />
+                </actor>
+                <actor name="Sync3" type="Sync3">
+                    <port name="Res32_In" type="in" rate="1" />
+                    <port name="Res32_Out" type="out" rate="32" />
+                </actor>
+                <channel name="Self_Feed" srcActor="Feed" srcPort="Self_Out" dstActor="Feed"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Feed"
+                    persistentFinalTokenNames="Feed" />
+                <channel name="Res1_SY12H" srcActor="Sync1" srcPort="Res2_Out" dstActor="Huffman"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R1"
+                    persistentFinalTokenNames="R1" />
+                <channel name="Res2_PSL2SY2" srcActor="PolySynthLeft" srcPort="Res32_Out"
+                    dstActor="Sync2" dstPort="Res32_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R2" persistentFinalTokenNames="R2" />
+                <channel name="Res3_WB2SY3" srcActor="WriteBack" srcPort="Res32_Out"
+                    dstActor="Sync3" dstPort="Res32_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R3" persistentFinalTokenNames="R3" />
+                <channel name="Self_Play" srcActor="Play" srcPort="Self_Out" dstActor="Play"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Play"
+                    persistentFinalTokenNames="Play" />
+                <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="Res_Out"
+                    dstActor="ReQuantizationLeft" dstPort="Res_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res2_FIL2AAL" srcActor="FrequencyInversionLeft" srcPort="Res1_Out"
+                    dstActor="AntiAliasLeft" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res3_FIR2AAR" srcActor="FrequencyInversionRight" srcPort="Res1_Out"
+                    dstActor="AntiAliasRight" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="FD2H" srcActor="Feed" srcPort="Out_FD2H" dstActor="Huffman"
+                    dstPort="In_FD2H" initialTokens="0" finalTokens="0" />
+                <channel name="H2RQL" srcActor="Huffman" srcPort="Out_H2RQL"
+                    dstActor="ReQuantizationLeft" dstPort="In_H2RQL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="H2RQR" srcActor="Huffman" srcPort="Out_H2RQR"
+                    dstActor="ReQuantizationRight" dstPort="In_H2RQR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQL2S" srcActor="ReQuantizationLeft" srcPort="Out_RQL2S"
+                    dstActor="Stereo" dstPort="In_RQL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="Res_Out"
+                    dstActor="ReQuantizationRight" dstPort="Res_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQR2S" srcActor="ReQuantizationRight" srcPort="Out_RQR2S"
+                    dstActor="Stereo" dstPort="In_RQR2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="Res2_Out" dstActor="Sync1"
+                    dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAL" srcActor="Stereo" srcPort="Out_S2AAL" dstActor="AntiAliasLeft"
+                    dstPort="In_S2AAL" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAR" srcActor="Stereo" srcPort="Out_S2AAR"
+                    dstActor="AntiAliasRight" dstPort="In_S2AAR" initialTokens="0" finalTokens="0" />
+                <channel name="AAL2IDL" srcActor="AntiAliasLeft" srcPort="Out_AAL2IDL"
+                    dstActor="IMDCTLeft" dstPort="In_AAL2IDL" initialTokens="0" finalTokens="0" />
+                <channel name="AAR2IDR" srcActor="AntiAliasRight" srcPort="Out_AAR2IDR"
+                    dstActor="IMDCTRight" dstPort="In_AAR2IDR" initialTokens="0" finalTokens="0" />
+                <channel name="IDL2FIL" srcActor="IMDCTLeft" srcPort="Out_IDL2FIL"
+                    dstActor="FrequencyInversionLeft" dstPort="In_IDL2FIL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="IDR2FIR" srcActor="IMDCTRight" srcPort="Out_IDR2FIR"
+                    dstActor="FrequencyInversionRight" dstPort="In_IDR2FIR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIL2PSL" srcActor="FrequencyInversionLeft" srcPort="Out_FIL2PSL"
+                    dstActor="PolySynthLeft" dstPort="In_FIL2PSL" initialTokens="0" finalTokens="0" />
+                <channel name="FIR2PSR" srcActor="FrequencyInversionRight" srcPort="Out_FIR2PSR"
+                    dstActor="PolySynthRight" dstPort="In_FIR2PSR" initialTokens="0" finalTokens="0" />
+                <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="Out_PSL2WB"
+                    dstActor="WriteBack" dstPort="In_PSL2WB" initialTokens="0" finalTokens="0" />
+                <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="Out_PSR2WB"
+                    dstActor="WriteBack" dstPort="In_PSR2WB" initialTokens="0" finalTokens="0" />
+                <channel name="WB2PL" srcActor="WriteBack" srcPort="Out_WB2PL" dstActor="Play"
+                    dstPort="In_WB2PL" initialTokens="0" finalTokens="0" />
+                <channel name="Res2_SY22AAL" srcActor="Sync2" srcPort="Res32_Out"
+                    dstActor="AntiAliasLeft" dstPort="Res32_In" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY32AAR" srcActor="Sync3" srcPort="Res32_Out"
+                    dstActor="AntiAliasRight" dstPort="Res32_In" initialTokens="0" finalTokens="0" />
+            </scenariograph>
+            <scenariograph name="mp3decoder-ss-ss" type="MP3DECODER-SS">
+                <actor name="Feed" type="Feed">
+                    <port name="Out_FD2H" type="out" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Play" type="Play">
+                    <port name="In_WB2PL" type="in" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Huffman" type="Huffman">
+                    <port name="In_FD2H" type="in" rate="1" />
+                    <port name="Out_H2RQR" type="out" rate="2" />
+                    <port name="Out_H2RQL" type="out" rate="2" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReQuantizationLeft" type="ReQuantizationLeft">
+                    <port name="In_H2RQL" type="in" rate="1" />
+                    <port name="Out_RQL2ROL" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReQuantizationRight" type="ReQuantizationRight">
+                    <port name="In_H2RQR" type="in" rate="1" />
+                    <port name="Out_RQR2ROR" type="out" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReOrderLeft" type="ReOrderLeft">
+                    <port name="In_RQL2ROL" type="in" rate="1" />
+                    <port name="Out_ROL2S" type="out" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReOrderRight" type="ReOrderRight">
+                    <port name="In_RQR2ROR" type="in" rate="1" />
+                    <port name="Out_ROR2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="Stereo" type="Stereo">
+                    <port name="In_ROR2S" type="in" rate="1" />
+                    <port name="In_ROL2S" type="in" rate="1" />
+                    <port name="Out_S2IDR" type="out" rate="96" />
+                    <port name="Out_S2IDL" type="out" rate="96" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync1" type="Sync1">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="IMDCTLeft" type="IMDCTLeft">
+                    <port name="In_S2IDL" type="in" rate="1" />
+                    <port name="Out_IDL2FIL" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res96_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTRight" type="IMDCTRight">
+                    <port name="In_S2IDR" type="in" rate="1" />
+                    <port name="Out_IDR2FIR" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res96_In" type="in" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLeft" type="FrequencyInversionLeft">
+                    <port name="In_IDL2FIL" type="in" rate="1" />
+                    <port name="Out_FIL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionRight" type="FrequencyInversionRight">
+                    <port name="In_IDR2FIR" type="in" rate="1" />
+                    <port name="Out_FIR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthLeft" type="PolySynthLeft">
+                    <port name="In_FIL2PSL" type="in" rate="96" />
+                    <port name="Out_PSL2WB" type="out" rate="1" />
+                    <port name="Res96_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthRight" type="PolySynthRight">
+                    <port name="In_FIR2PSR" type="in" rate="96" />
+                    <port name="Out_PSR2WB" type="out" rate="1" />
+                </actor>
+                <actor name="WriteBack" type="WriteBack">
+                    <port name="In_PSR2WB" type="in" rate="1" />
+                    <port name="In_PSL2WB" type="in" rate="1" />
+                    <port name="Out_WB2PL" type="out" rate="1" />
+                    <port name="Res96_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync2" type="Sync2">
+                    <port name="Res96_In" type="in" rate="1" />
+                    <port name="Res96_Out" type="out" rate="96" />
+                </actor>
+                <actor name="Sync3" type="Sync3">
+                    <port name="Res96_In" type="in" rate="1" />
+                    <port name="Res96_Out" type="out" rate="96" />
+                </actor>
+                <channel name="Self_Feed" srcActor="Feed" srcPort="Self_Out" dstActor="Feed"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Feed"
+                    persistentFinalTokenNames="Feed" />
+                <channel name="Res1_SY12H" srcActor="Sync1" srcPort="Res2_Out" dstActor="Huffman"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R1"
+                    persistentFinalTokenNames="R1" />
+                <channel name="Res2_PSL2SY2" srcActor="PolySynthLeft" srcPort="Res96_Out"
+                    dstActor="Sync2" dstPort="Res96_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R2" persistentFinalTokenNames="R2" />
+                <channel name="Res3_WB2SY3" srcActor="WriteBack" srcPort="Res96_Out"
+                    dstActor="Sync3" dstPort="Res96_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R3" persistentFinalTokenNames="R3" />
+                <channel name="Self_Play" srcActor="Play" srcPort="Self_Out" dstActor="Play"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Play"
+                    persistentFinalTokenNames="Play" />
+                <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="Res_Out"
+                    dstActor="ReQuantizationLeft" dstPort="Res_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res2_FIL2IDL" srcActor="FrequencyInversionLeft" srcPort="Res1_Out"
+                    dstActor="IMDCTLeft" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res3_FIR2IDR" srcActor="FrequencyInversionRight" srcPort="Res1_Out"
+                    dstActor="IMDCTRight" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="FD2H" srcActor="Feed" srcPort="Out_FD2H" dstActor="Huffman"
+                    dstPort="In_FD2H" initialTokens="0" finalTokens="0" />
+                <channel name="H2RQL" srcActor="Huffman" srcPort="Out_H2RQL"
+                    dstActor="ReQuantizationLeft" dstPort="In_H2RQL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="H2RQR" srcActor="Huffman" srcPort="Out_H2RQR"
+                    dstActor="ReQuantizationRight" dstPort="In_H2RQR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQL2ROL" srcActor="ReQuantizationLeft" srcPort="Out_RQL2ROL"
+                    dstActor="ReOrderLeft" dstPort="In_RQL2ROL" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="Res_Out"
+                    dstActor="ReQuantizationRight" dstPort="Res_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQR2ROR" srcActor="ReQuantizationRight" srcPort="Out_RQR2ROR"
+                    dstActor="ReOrderRight" dstPort="In_RQR2ROR" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQR2ROL" srcActor="ReQuantizationRight" srcPort="Res_Out"
+                    dstActor="ReOrderLeft" dstPort="Res_In" initialTokens="0" finalTokens="0" />
+                <channel name="ROL2S" srcActor="ReOrderLeft" srcPort="Out_ROL2S" dstActor="Stereo"
+                    dstPort="In_ROL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_ROL2ROR" srcActor="ReOrderLeft" srcPort="Res_Out"
+                    dstActor="ReOrderRight" dstPort="Res_In" initialTokens="0" finalTokens="0" />
+                <channel name="ROR2S" srcActor="ReOrderRight" srcPort="Out_ROR2S" dstActor="Stereo"
+                    dstPort="In_ROR2S" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDL" srcActor="Stereo" srcPort="Out_S2IDL" dstActor="IMDCTLeft"
+                    dstPort="In_S2IDL" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDR" srcActor="Stereo" srcPort="Out_S2IDR" dstActor="IMDCTRight"
+                    dstPort="In_S2IDR" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="Res2_Out" dstActor="Sync1"
+                    dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="IDL2FIL" srcActor="IMDCTLeft" srcPort="Out_IDL2FIL"
+                    dstActor="FrequencyInversionLeft" dstPort="In_IDL2FIL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="IDR2FIR" srcActor="IMDCTRight" srcPort="Out_IDR2FIR"
+                    dstActor="FrequencyInversionRight" dstPort="In_IDR2FIR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIL2PSL" srcActor="FrequencyInversionLeft" srcPort="Out_FIL2PSL"
+                    dstActor="PolySynthLeft" dstPort="In_FIL2PSL" initialTokens="0" finalTokens="0" />
+                <channel name="FIR2PSR" srcActor="FrequencyInversionRight" srcPort="Out_FIR2PSR"
+                    dstActor="PolySynthRight" dstPort="In_FIR2PSR" initialTokens="0" finalTokens="0" />
+                <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="Out_PSL2WB"
+                    dstActor="WriteBack" dstPort="In_PSL2WB" initialTokens="0" finalTokens="0" />
+                <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="Out_PSR2WB"
+                    dstActor="WriteBack" dstPort="In_PSR2WB" initialTokens="0" finalTokens="0" />
+                <channel name="WB2PL" srcActor="WriteBack" srcPort="Out_WB2PL" dstActor="Play"
+                    dstPort="In_WB2PL" initialTokens="0" finalTokens="0" />
+                <channel name="Res2_SY22IDL" srcActor="Sync2" srcPort="Res96_Out"
+                    dstActor="IMDCTLeft" dstPort="Res96_In" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY32IDR" srcActor="Sync3" srcPort="Res96_Out"
+                    dstActor="IMDCTRight" dstPort="Res96_In" initialTokens="0" finalTokens="0" />
+            </scenariograph>
+            <scenariograph name="mp3decoder-m-m" type="MP3DECODER-M">
+                <actor name="Feed" type="Feed">
+                    <port name="Out_FD2H" type="out" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Play" type="Play">
+                    <port name="In_WB2PL" type="in" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Huffman" type="Huffman">
+                    <port name="In_FD2H" type="in" rate="1" />
+                    <port name="Out_H2RQR" type="out" rate="2" />
+                    <port name="Out_H2RQL" type="out" rate="2" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReQuantizationLeft" type="ReQuantizationLeft">
+                    <port name="In_H2RQL" type="in" rate="1" />
+                    <port name="Out_RQL2ROL" type="out" rate="1" />
+                    <port name="Out_RQL2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReQuantizationRight" type="ReQuantizationRight">
+                    <port name="In_H2RQR" type="in" rate="1" />
+                    <port name="Out_RQR2ROR" type="out" rate="1" />
+                    <port name="Out_RQR2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReOrderLeft" type="ReOrderLeft">
+                    <port name="In_RQL2ROL" type="in" rate="1" />
+                    <port name="Out_ROL2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReOrderRight" type="ReOrderRight">
+                    <port name="In_RQR2ROR" type="in" rate="1" />
+                    <port name="Out_ROR2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="Stereo" type="Stereo">
+                    <port name="In_ROR2S" type="in" rate="1" />
+                    <port name="In_ROL2S" type="in" rate="1" />
+                    <port name="In_RQR2S" type="in" rate="1" />
+                    <port name="In_RQL2S" type="in" rate="1" />
+                    <port name="Out_S2AAL" type="out" rate="2" />
+                    <port name="Out_S2AAR" type="out" rate="2" />
+                    <port name="Out_S2IDSL" type="out" rate="90" />
+                    <port name="Out_S2IDSR" type="out" rate="90" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync1" type="Sync1">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="AntiAliasLeft" type="AntiAliasLeft">
+                    <port name="In_S2AAL" type="in" rate="1" />
+                    <port name="Out_AAL2IDLL" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="AntiAliasRight" type="AntiAliasRight">
+                    <port name="In_S2AAR" type="in" rate="1" />
+                    <port name="Out_AAR2IDLR" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTLongLeft" type="IMDCTLongLeft">
+                    <port name="In_AAL2IDLL" type="in" rate="1" />
+                    <port name="Out_IDLL2FILL" type="out" rate="1" />
+                </actor>
+                <actor name="IMDCTLongRight" type="IMDCTLongRight">
+                    <port name="In_AAR2IDLR" type="in" rate="1" />
+                    <port name="Out_IDLR2FILR" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLongLeft" type="FrequencyInversionLongLeft">
+                    <port name="In_IDLL2FILL" type="in" rate="1" />
+                    <port name="Out_FILL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLongRight" type="FrequencyInversionLongRight">
+                    <port name="In_IDLR2FILR" type="in" rate="1" />
+                    <port name="Out_FILR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync2" type="Sync2">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res90_Out" type="out" rate="90" />
+                </actor>
+                <actor name="Sync3" type="Sync3">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res90_Out" type="out" rate="90" />
+                </actor>
+                <actor name="IMDCTShortLeft" type="IMDCTShortLeft">
+                    <port name="In_S2IDSL" type="in" rate="1" />
+                    <port name="Out_IDSL2FISL" type="out" rate="1" />
+                    <port name="Res90_In" type="in" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTShortRight" type="IMDCTShortRight">
+                    <port name="In_S2IDSR" type="in" rate="1" />
+                    <port name="Out_IDSR2FISR" type="out" rate="1" />
+                    <port name="Res90_In" type="in" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionShortLeft" type="FrequencyInversionShortLeft">
+                    <port name="In_IDSL2FISL" type="in" rate="1" />
+                    <port name="Out_FISL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionShortRight" type="FrequencyInversionShortRight">
+                    <port name="In_IDSR2FISR" type="in" rate="1" />
+                    <port name="Out_FISR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthLeft" type="PolySynthLeft">
+                    <port name="In_FILL2PSL" type="in" rate="2" />
+                    <port name="In_FISL2PSL" type="in" rate="90" />
+                    <port name="Out_PSL2WB" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthRight" type="PolySynthRight">
+                    <port name="In_FILR2PSR" type="in" rate="2" />
+                    <port name="In_FISR2PSR" type="in" rate="90" />
+                    <port name="Out_PSR2WB" type="out" rate="1" />
+                </actor>
+                <actor name="WriteBack" type="WriteBack">
+                    <port name="In_PSR2WB" type="in" rate="1" />
+                    <port name="In_PSL2WB" type="in" rate="1" />
+                    <port name="Out_WB2PL" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync4" type="Sync4">
+                    <port name="Res2_In" type="in" rate="1" />
+                    <port name="Res2_Out" type="out" rate="2" />
+                </actor>
+                <actor name="Sync5" type="Sync5">
+                    <port name="Res2_In" type="in" rate="1" />
+                    <port name="Res2_Out" type="out" rate="2" />
+                </actor>
+                <channel name="Self_Feed" srcActor="Feed" srcPort="Self_Out" dstActor="Feed"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Feed"
+                    persistentFinalTokenNames="Feed" />
+                <channel name="Res1_SY12H" srcActor="Sync1" srcPort="Res2_Out" dstActor="Huffman"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R1"
+                    persistentFinalTokenNames="R1" />
+                <channel name="Res2_PSL2SY4" srcActor="PolySynthLeft" srcPort="Res2_Out"
+                    dstActor="Sync4" dstPort="Res2_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R2" persistentFinalTokenNames="R2" />
+                <channel name="Res3_WB2SY5" srcActor="WriteBack" srcPort="Res2_Out" dstActor="Sync5"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R3"
+                    persistentFinalTokenNames="R3" />
+                <channel name="Self_Play" srcActor="Play" srcPort="Self_Out" dstActor="Play"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Play"
+                    persistentFinalTokenNames="Play" />
+                <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="Res_Out"
+                    dstActor="ReQuantizationLeft" dstPort="Res_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res2_FILL2AAL" srcActor="FrequencyInversionLongLeft"
+                    srcPort="Res1_Out" dstActor="AntiAliasLeft" dstPort="Res1_In" initialTokens="1"
+                    finalTokens="1" />
+                <channel name="Res3_FILR2AAR" srcActor="FrequencyInversionLongRight"
+                    srcPort="Res1_Out" dstActor="AntiAliasRight" dstPort="Res1_In" initialTokens="1"
+                    finalTokens="1" />
+                <channel name="Res2_FISL2IDSL" srcActor="FrequencyInversionShortLeft"
+                    srcPort="Res1_Out" dstActor="IMDCTShortLeft" dstPort="Res1_In" initialTokens="1"
+                    finalTokens="1" />
+                <channel name="Res3_FISR2IDSR" srcActor="FrequencyInversionShortRight"
+                    srcPort="Res1_Out" dstActor="IMDCTShortRight" dstPort="Res1_In"
+                    initialTokens="1" finalTokens="1" />
+                <channel name="FD2H" srcActor="Feed" srcPort="Out_FD2H" dstActor="Huffman"
+                    dstPort="In_FD2H" initialTokens="0" finalTokens="0" />
+                <channel name="H2RQL" srcActor="Huffman" srcPort="Out_H2RQL"
+                    dstActor="ReQuantizationLeft" dstPort="In_H2RQL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="H2RQR" srcActor="Huffman" srcPort="Out_H2RQR"
+                    dstActor="ReQuantizationRight" dstPort="In_H2RQR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQL2ROL" srcActor="ReQuantizationLeft" srcPort="Out_RQL2ROL"
+                    dstActor="ReOrderLeft" dstPort="In_RQL2ROL" initialTokens="0" finalTokens="0" />
+                <channel name="RQL2S" srcActor="ReQuantizationLeft" srcPort="Out_RQL2S"
+                    dstActor="Stereo" dstPort="In_RQL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="Res_Out"
+                    dstActor="ReQuantizationRight" dstPort="Res_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQR2ROR" srcActor="ReQuantizationRight" srcPort="Out_RQR2ROR"
+                    dstActor="ReOrderRight" dstPort="In_RQR2ROR" initialTokens="0" finalTokens="0" />
+                <channel name="RQR2S" srcActor="ReQuantizationRight" srcPort="Out_RQR2S"
+                    dstActor="Stereo" dstPort="In_RQR2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQR2ROL" srcActor="ReQuantizationRight" srcPort="Res_Out"
+                    dstActor="ReOrderLeft" dstPort="Res_In" initialTokens="0" finalTokens="0" />
+                <channel name="ROL2S" srcActor="ReOrderLeft" srcPort="Out_ROL2S" dstActor="Stereo"
+                    dstPort="In_ROL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_ROL2ROR" srcActor="ReOrderLeft" srcPort="Res_Out"
+                    dstActor="ReOrderRight" dstPort="Res_In" initialTokens="0" finalTokens="0" />
+                <channel name="ROR2S" srcActor="ReOrderRight" srcPort="Out_ROR2S" dstActor="Stereo"
+                    dstPort="In_ROR2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="Res2_Out" dstActor="Sync1"
+                    dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAL" srcActor="Stereo" srcPort="Out_S2AAL" dstActor="AntiAliasLeft"
+                    dstPort="In_S2AAL" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAR" srcActor="Stereo" srcPort="Out_S2AAR"
+                    dstActor="AntiAliasRight" dstPort="In_S2AAR" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDSL" srcActor="Stereo" srcPort="Out_S2IDSL"
+                    dstActor="IMDCTShortLeft" dstPort="In_S2IDSL" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDSR" srcActor="Stereo" srcPort="Out_S2IDSR"
+                    dstActor="IMDCTShortRight" dstPort="In_S2IDSR" initialTokens="0" finalTokens="0" />
+                <channel name="AAL2IDLL" srcActor="AntiAliasLeft" srcPort="Out_AAL2IDLL"
+                    dstActor="IMDCTLongLeft" dstPort="In_AAL2IDLL" initialTokens="0" finalTokens="0" />
+                <channel name="AAR2IDLR" srcActor="AntiAliasRight" srcPort="Out_AAR2IDLR"
+                    dstActor="IMDCTLongRight" dstPort="In_AAR2IDLR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="IDLL2FILL" srcActor="IMDCTLongLeft" srcPort="Out_IDLL2FILL"
+                    dstActor="FrequencyInversionLongLeft" dstPort="In_IDLL2FILL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="IDLR2FILR" srcActor="IMDCTLongRight" srcPort="Out_IDLR2FILR"
+                    dstActor="FrequencyInversionLongRight" dstPort="In_IDLR2FILR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FILL2PSL" srcActor="FrequencyInversionLongLeft"
+                    srcPort="Out_FILL2PSL" dstActor="PolySynthLeft" dstPort="In_FILL2PSL"
+                    initialTokens="0" finalTokens="0" />
+                <channel name="Res2_FILL2SY2" srcActor="FrequencyInversionLongLeft"
+                    srcPort="Res2_Out" dstActor="Sync2" dstPort="Res2_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FILR2PSR" srcActor="FrequencyInversionLongRight"
+                    srcPort="Out_FILR2PSR" dstActor="PolySynthRight" dstPort="In_FILR2PSR"
+                    initialTokens="0" finalTokens="0" />
+                <channel name="Res3_FILR2SY3" srcActor="FrequencyInversionLongRight"
+                    srcPort="Res2_Out" dstActor="Sync3" dstPort="Res2_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="Res2_SY22IDSL" srcActor="Sync2" srcPort="Res90_Out"
+                    dstActor="IMDCTShortLeft" dstPort="Res90_In" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY32IDSR" srcActor="Sync3" srcPort="Res90_Out"
+                    dstActor="IMDCTShortRight" dstPort="Res90_In" initialTokens="0" finalTokens="0" />
+                <channel name="IDSL2FISL" srcActor="IMDCTShortLeft" srcPort="Out_IDSL2FISL"
+                    dstActor="FrequencyInversionShortLeft" dstPort="In_IDSL2FISL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="IDSR2FISR" srcActor="IMDCTShortRight" srcPort="Out_IDSR2FISR"
+                    dstActor="FrequencyInversionShortRight" dstPort="In_IDSR2FISR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FISL2PSL" srcActor="FrequencyInversionShortLeft"
+                    srcPort="Out_FISL2PSL" dstActor="PolySynthLeft" dstPort="In_FISL2PSL"
+                    initialTokens="0" finalTokens="0" />
+                <channel name="FISR2PSR" srcActor="FrequencyInversionShortRight"
+                    srcPort="Out_FISR2PSR" dstActor="PolySynthRight" dstPort="In_FISR2PSR"
+                    initialTokens="0" finalTokens="0" />
+                <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="Out_PSL2WB"
+                    dstActor="WriteBack" dstPort="In_PSL2WB" initialTokens="0" finalTokens="0" />
+                <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="Out_PSR2WB"
+                    dstActor="WriteBack" dstPort="In_PSR2WB" initialTokens="0" finalTokens="0" />
+                <channel name="WB2PL" srcActor="WriteBack" srcPort="Out_WB2PL" dstActor="Play"
+                    dstPort="In_WB2PL" initialTokens="0" finalTokens="0" />
+                <channel name="Res2_SY42AAL" srcActor="Sync4" srcPort="Res2_Out"
+                    dstActor="AntiAliasLeft" dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY52AAR" srcActor="Sync5" srcPort="Res2_Out"
+                    dstActor="AntiAliasRight" dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+            </scenariograph>
+            <scenariograph name="mp3decoder-ls-ls" type="MP3DECODER-LS">
+                <actor name="Feed" type="Feed">
+                    <port name="Out_FD2H" type="out" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Play" type="Play">
+                    <port name="In_WB2PL" type="in" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Huffman" type="Huffman">
+                    <port name="In_FD2H" type="in" rate="1" />
+                    <port name="Out_H2RQR" type="out" rate="2" />
+                    <port name="Out_H2RQL" type="out" rate="2" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReQuantizationLeft" type="ReQuantizationLeft">
+                    <port name="In_H2RQL" type="in" rate="1" />
+                    <port name="Out_RQL2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReQuantizationRight" type="ReQuantizationRight">
+                    <port name="In_H2RQR" type="in" rate="1" />
+                    <port name="Out_RQR2ROR" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReOrderRight" type="ReOrderRight">
+                    <port name="In_RQR2ROR" type="in" rate="1" />
+                    <port name="Out_ROR2S" type="out" rate="1" />
+                </actor>
+                <actor name="Stereo" type="Stereo">
+                    <port name="In_ROR2S" type="in" rate="1" />
+                    <port name="In_RQL2S" type="in" rate="1" />
+                    <port name="Out_S2IDR" type="out" rate="96" />
+                    <port name="Out_S2AAL" type="out" rate="32" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync1" type="Sync1">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="AntiAliasLeft" type="AntiAliasLeft">
+                    <port name="In_S2AAL" type="in" rate="1" />
+                    <port name="Out_AAL2IDL" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res32_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTLeft" type="IMDCTLeft">
+                    <port name="In_AAL2IDL" type="in" rate="1" />
+                    <port name="Out_IDL2FIL" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLeft" type="FrequencyInversionLeft">
+                    <port name="In_IDL2FIL" type="in" rate="1" />
+                    <port name="Out_FIL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthLeft" type="PolySynthLeft">
+                    <port name="In_FIL2PSL" type="in" rate="32" />
+                    <port name="Out_PSL2WB" type="out" rate="1" />
+                    <port name="Res32_Out" type="out" rate="1" />
+                </actor>
+                <actor name="IMDCTRight" type="IMDCTRight">
+                    <port name="In_S2IDR" type="in" rate="1" />
+                    <port name="Out_IDR2FIR" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res96_In" type="in" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionRight" type="FrequencyInversionRight">
+                    <port name="In_IDR2FIR" type="in" rate="1" />
+                    <port name="Out_FIR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthRight" type="PolySynthRight">
+                    <port name="In_FIR2PSR" type="in" rate="96" />
+                    <port name="Out_PSR2WB" type="out" rate="1" />
+                </actor>
+                <actor name="WriteBack" type="WriteBack">
+                    <port name="In_PSR2WB" type="in" rate="1" />
+                    <port name="In_PSL2WB" type="in" rate="1" />
+                    <port name="Out_WB2PL" type="out" rate="1" />
+                    <port name="Res96_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync2" type="Sync2">
+                    <port name="Res32_In" type="in" rate="1" />
+                    <port name="Res32_Out" type="out" rate="32" />
+                </actor>
+                <actor name="Sync3" type="Sync3">
+                    <port name="Res96_In" type="in" rate="1" />
+                    <port name="Res96_Out" type="out" rate="96" />
+                </actor>
+                <channel name="Self_Feed" srcActor="Feed" srcPort="Self_Out" dstActor="Feed"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Feed"
+                    persistentFinalTokenNames="Feed" />
+                <channel name="Res1_SY12H" srcActor="Sync1" srcPort="Res2_Out" dstActor="Huffman"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R1"
+                    persistentFinalTokenNames="R1" />
+                <channel name="Res2_PSL2SY2" srcActor="PolySynthLeft" srcPort="Res32_Out"
+                    dstActor="Sync2" dstPort="Res32_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R2" persistentFinalTokenNames="R2" />
+                <channel name="Res3_WB2SY3" srcActor="WriteBack" srcPort="Res96_Out"
+                    dstActor="Sync3" dstPort="Res96_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R3" persistentFinalTokenNames="R3" />
+                <channel name="Self_Play" srcActor="Play" srcPort="Self_Out" dstActor="Play"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Play"
+                    persistentFinalTokenNames="Play" />
+                <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="Res_Out"
+                    dstActor="ReQuantizationLeft" dstPort="Res_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res2_FIL2AAL" srcActor="FrequencyInversionLeft" srcPort="Res1_Out"
+                    dstActor="AntiAliasLeft" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res3_FIR2IDR" srcActor="FrequencyInversionRight" srcPort="Res1_Out"
+                    dstActor="IMDCTRight" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="FD2H" srcActor="Feed" srcPort="Out_FD2H" dstActor="Huffman"
+                    dstPort="In_FD2H" initialTokens="0" finalTokens="0" />
+                <channel name="H2RQL" srcActor="Huffman" srcPort="Out_H2RQL"
+                    dstActor="ReQuantizationLeft" dstPort="In_H2RQL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="H2RQR" srcActor="Huffman" srcPort="Out_H2RQR"
+                    dstActor="ReQuantizationRight" dstPort="In_H2RQR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQR2ROR" srcActor="ReQuantizationRight" srcPort="Out_RQR2ROR"
+                    dstActor="ReOrderRight" dstPort="In_RQR2ROR" initialTokens="0" finalTokens="0" />
+                <channel name="ROR2S" srcActor="ReOrderRight" srcPort="Out_ROR2S" dstActor="Stereo"
+                    dstPort="In_ROR2S" initialTokens="0" finalTokens="0" />
+                <channel name="RQL2S" srcActor="ReQuantizationLeft" srcPort="Out_RQL2S"
+                    dstActor="Stereo" dstPort="In_RQL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="Res_Out"
+                    dstActor="ReQuantizationRight" dstPort="Res_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="Res2_Out" dstActor="Sync1"
+                    dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAL" srcActor="Stereo" srcPort="Out_S2AAL" dstActor="AntiAliasLeft"
+                    dstPort="In_S2AAL" initialTokens="0" finalTokens="0" />
+                <channel name="AAL2IDL" srcActor="AntiAliasLeft" srcPort="Out_AAL2IDL"
+                    dstActor="IMDCTLeft" dstPort="In_AAL2IDL" initialTokens="0" finalTokens="0" />
+                <channel name="IDL2FIL" srcActor="IMDCTLeft" srcPort="Out_IDL2FIL"
+                    dstActor="FrequencyInversionLeft" dstPort="In_IDL2FIL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIL2PSL" srcActor="FrequencyInversionLeft" srcPort="Out_FIL2PSL"
+                    dstActor="PolySynthLeft" dstPort="In_FIL2PSL" initialTokens="0" finalTokens="0" />
+                <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="Out_PSL2WB"
+                    dstActor="WriteBack" dstPort="In_PSL2WB" initialTokens="0" finalTokens="0" />
+                <channel name="WB2PL" srcActor="WriteBack" srcPort="Out_WB2PL" dstActor="Play"
+                    dstPort="In_WB2PL" initialTokens="0" finalTokens="0" />
+                <channel name="Res2_SY22AAL" srcActor="Sync2" srcPort="Res32_Out"
+                    dstActor="AntiAliasLeft" dstPort="Res32_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDR" srcActor="Stereo" srcPort="Out_S2IDR" dstActor="IMDCTRight"
+                    dstPort="In_S2IDR" initialTokens="0" finalTokens="0" />
+                <channel name="IDR2FIR" srcActor="IMDCTRight" srcPort="Out_IDR2FIR"
+                    dstActor="FrequencyInversionRight" dstPort="In_IDR2FIR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIR2PSR" srcActor="FrequencyInversionRight" srcPort="Out_FIR2PSR"
+                    dstActor="PolySynthRight" dstPort="In_FIR2PSR" initialTokens="0" finalTokens="0" />
+                <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="Out_PSR2WB"
+                    dstActor="WriteBack" dstPort="In_PSR2WB" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY32IDR" srcActor="Sync3" srcPort="Res96_Out"
+                    dstActor="IMDCTRight" dstPort="Res96_In" initialTokens="0" finalTokens="0" />
+            </scenariograph>
+            <scenariograph name="mp3decoder-sl-sl" type="MP3DECODER-SL">
+                <actor name="Feed" type="Feed">
+                    <port name="Out_FD2H" type="out" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Play" type="Play">
+                    <port name="In_WB2PL" type="in" rate="1" />
+                    <port name="Self_In" type="in" rate="1" />
+                    <port name="Self_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Huffman" type="Huffman">
+                    <port name="In_FD2H" type="in" rate="1" />
+                    <port name="Out_H2RQR" type="out" rate="2" />
+                    <port name="Out_H2RQL" type="out" rate="2" />
+                    <port name="Res2_In" type="in" rate="1" />
+                </actor>
+                <actor name="ReQuantizationRight" type="ReQuantizationRight">
+                    <port name="In_H2RQR" type="in" rate="1" />
+                    <port name="Out_RQR2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReQuantizationLeft" type="ReQuantizationLeft">
+                    <port name="In_H2RQL" type="in" rate="1" />
+                    <port name="Out_RQL2ROL" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                    <port name="Res_Out" type="out" rate="1" />
+                </actor>
+                <actor name="ReOrderLeft" type="ReOrderLeft">
+                    <port name="In_RQL2ROL" type="in" rate="1" />
+                    <port name="Out_ROL2S" type="out" rate="1" />
+                    <port name="Res_In" type="in" rate="1" />
+                </actor>
+                <actor name="Stereo" type="Stereo">
+                    <port name="In_ROL2S" type="in" rate="1" />
+                    <port name="In_RQR2S" type="in" rate="1" />
+                    <port name="Out_S2IDL" type="out" rate="96" />
+                    <port name="Out_S2AAR" type="out" rate="32" />
+                    <port name="Res_Out" type="out" rate="1" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync1" type="Sync1">
+                    <port name="Res2_In" type="in" rate="2" />
+                    <port name="Res2_Out" type="out" rate="1" />
+                </actor>
+                <actor name="AntiAliasRight" type="AntiAliasRight">
+                    <port name="In_S2AAR" type="in" rate="1" />
+                    <port name="Out_AAR2IDR" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res32_In" type="in" rate="1" />
+                </actor>
+                <actor name="IMDCTRight" type="IMDCTRight">
+                    <port name="In_AAR2IDR" type="in" rate="1" />
+                    <port name="Out_IDR2FIR" type="out" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionRight" type="FrequencyInversionRight">
+                    <port name="In_IDR2FIR" type="in" rate="1" />
+                    <port name="Out_FIR2PSR" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthRight" type="PolySynthRight">
+                    <port name="In_FIR2PSR" type="in" rate="32" />
+                    <port name="Out_PSR2WB" type="out" rate="1" />
+                    <port name="Res32_Out" type="out" rate="1" />
+                </actor>
+                <actor name="IMDCTLeft" type="IMDCTLeft">
+                    <port name="In_S2IDL" type="in" rate="1" />
+                    <port name="Out_IDL2FIL" type="out" rate="1" />
+                    <port name="Res1_In" type="in" rate="1" />
+                    <port name="Res96_In" type="in" rate="1" />
+                </actor>
+                <actor name="FrequencyInversionLeft" type="FrequencyInversionLeft">
+                    <port name="In_IDL2FIL" type="in" rate="1" />
+                    <port name="Out_FIL2PSL" type="out" rate="1" />
+                    <port name="Res1_Out" type="out" rate="1" />
+                </actor>
+                <actor name="PolySynthLeft" type="PolySynthLeft">
+                    <port name="In_FIL2PSL" type="in" rate="96" />
+                    <port name="Out_PSL2WB" type="out" rate="1" />
+                </actor>
+                <actor name="WriteBack" type="WriteBack">
+                    <port name="In_PSL2WB" type="in" rate="1" />
+                    <port name="In_PSR2WB" type="in" rate="1" />
+                    <port name="Out_WB2PL" type="out" rate="1" />
+                    <port name="Res96_Out" type="out" rate="1" />
+                </actor>
+                <actor name="Sync2" type="Sync2">
+                    <port name="Res96_In" type="in" rate="1" />
+                    <port name="Res96_Out" type="out" rate="96" />
+                </actor>
+                <actor name="Sync3" type="Sync3">
+                    <port name="Res32_In" type="in" rate="1" />
+                    <port name="Res32_Out" type="out" rate="32" />
+                </actor>
+                <channel name="Self_Feed" srcActor="Feed" srcPort="Self_Out" dstActor="Feed"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Feed"
+                    persistentFinalTokenNames="Feed" />
+                <channel name="Res1_SY12H" srcActor="Sync1" srcPort="Res2_Out" dstActor="Huffman"
+                    dstPort="Res2_In" initialTokens="1" finalTokens="1" persistentTokenNames="R1"
+                    persistentFinalTokenNames="R1" />
+                <channel name="Res2_WB2SY2" srcActor="WriteBack" srcPort="Res96_Out"
+                    dstActor="Sync2" dstPort="Res96_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R2" persistentFinalTokenNames="R2" />
+                <channel name="Res3_PSR2SY3" srcActor="PolySynthRight" srcPort="Res32_Out"
+                    dstActor="Sync3" dstPort="Res32_In" initialTokens="1" finalTokens="1"
+                    persistentTokenNames="R3" persistentFinalTokenNames="R3" />
+                <channel name="Self_Play" srcActor="Play" srcPort="Self_Out" dstActor="Play"
+                    dstPort="Self_In" initialTokens="1" finalTokens="1" persistentTokenNames="Play"
+                    persistentFinalTokenNames="Play" />
+                <channel name="Res1_S2RQL" srcActor="Stereo" srcPort="Res_Out"
+                    dstActor="ReQuantizationLeft" dstPort="Res_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res2_FIL2IDL" srcActor="FrequencyInversionLeft" srcPort="Res1_Out"
+                    dstActor="IMDCTLeft" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="Res3_FIR2AAR" srcActor="FrequencyInversionRight" srcPort="Res1_Out"
+                    dstActor="AntiAliasRight" dstPort="Res1_In" initialTokens="1" finalTokens="1" />
+                <channel name="FD2H" srcActor="Feed" srcPort="Out_FD2H" dstActor="Huffman"
+                    dstPort="In_FD2H" initialTokens="0" finalTokens="0" />
+                <channel name="H2RQR" srcActor="Huffman" srcPort="Out_H2RQR"
+                    dstActor="ReQuantizationRight" dstPort="In_H2RQR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="H2RQL" srcActor="Huffman" srcPort="Out_H2RQL"
+                    dstActor="ReQuantizationLeft" dstPort="In_H2RQL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="RQL2ROL" srcActor="ReQuantizationLeft" srcPort="Out_RQL2ROL"
+                    dstActor="ReOrderLeft" dstPort="In_RQL2ROL" initialTokens="0" finalTokens="0" />
+                <channel name="RQR2S" srcActor="ReQuantizationRight" srcPort="Out_RQR2S"
+                    dstActor="Stereo" dstPort="In_RQR2S" initialTokens="0" finalTokens="0" />
+                <channel name="ROL2S" srcActor="ReOrderLeft" srcPort="Out_ROL2S" dstActor="Stereo"
+                    dstPort="In_ROL2S" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_RQL2RQR" srcActor="ReQuantizationLeft" srcPort="Res_Out"
+                    dstActor="ReQuantizationRight" dstPort="Res_In" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="Res1_RQR2ROL" srcActor="ReQuantizationRight" srcPort="Res_Out"
+                    dstActor="ReOrderLeft" dstPort="Res_In" initialTokens="0" finalTokens="0" />
+                <channel name="Res1_S2SY1" srcActor="Stereo" srcPort="Res2_Out" dstActor="Sync1"
+                    dstPort="Res2_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2AAR" srcActor="Stereo" srcPort="Out_S2AAR"
+                    dstActor="AntiAliasRight" dstPort="In_S2AAR" initialTokens="0" finalTokens="0" />
+                <channel name="AAR2IDR" srcActor="AntiAliasRight" srcPort="Out_AAR2IDR"
+                    dstActor="IMDCTRight" dstPort="In_AAR2IDR" initialTokens="0" finalTokens="0" />
+                <channel name="IDR2FIR" srcActor="IMDCTRight" srcPort="Out_IDR2FIR"
+                    dstActor="FrequencyInversionRight" dstPort="In_IDR2FIR" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIR2PSR" srcActor="FrequencyInversionRight" srcPort="Out_FIR2PSR"
+                    dstActor="PolySynthRight" dstPort="In_FIR2PSR" initialTokens="0" finalTokens="0" />
+                <channel name="PSR2WB" srcActor="PolySynthRight" srcPort="Out_PSR2WB"
+                    dstActor="WriteBack" dstPort="In_PSR2WB" initialTokens="0" finalTokens="0" />
+                <channel name="WB2PL" srcActor="WriteBack" srcPort="Out_WB2PL" dstActor="Play"
+                    dstPort="In_WB2PL" initialTokens="0" finalTokens="0" />
+                <channel name="Res3_SY32AAR" srcActor="Sync3" srcPort="Res32_Out"
+                    dstActor="AntiAliasRight" dstPort="Res32_In" initialTokens="0" finalTokens="0" />
+                <channel name="S2IDL" srcActor="Stereo" srcPort="Out_S2IDL" dstActor="IMDCTLeft"
+                    dstPort="In_S2IDL" initialTokens="0" finalTokens="0" />
+                <channel name="IDL2FIL" srcActor="IMDCTLeft" srcPort="Out_IDL2FIL"
+                    dstActor="FrequencyInversionLeft" dstPort="In_IDL2FIL" initialTokens="0"
+                    finalTokens="0" />
+                <channel name="FIL2PSL" srcActor="FrequencyInversionLeft" srcPort="Out_FIL2PSL"
+                    dstActor="PolySynthLeft" dstPort="In_FIL2PSL" initialTokens="0" finalTokens="0" />
+                <channel name="PSL2WB" srcActor="PolySynthLeft" srcPort="Out_PSL2WB"
+                    dstActor="WriteBack" dstPort="In_PSL2WB" initialTokens="0" finalTokens="0" />
+                <channel name="Res2_SY22IDL" srcActor="Sync2" srcPort="Res96_Out"
+                    dstActor="IMDCTLeft" dstPort="Res96_In" initialTokens="0" finalTokens="0" />
+            </scenariograph>
+        </fsmsadf>
+        <fsmsadfProperties>
+            <defaultProperties>
+                <actorProperties actor="Feed" />
+                <actorProperties actor="Play" />
+                <actorProperties actor="Huffman" />
+                <actorProperties actor="ReQuantizationLeft" />
+                <actorProperties actor="ReQuantizationRight" />
+                <actorProperties actor="Stereo" />
+                <actorProperties actor="Sync1" />
+                <actorProperties actor="AntiAliasLeft" />
+                <actorProperties actor="AntiAliasRight" />
+                <actorProperties actor="IMDCTLeft" />
+                <actorProperties actor="IMDCTRight" />
+                <actorProperties actor="FrequencyInversionLeft" />
+                <actorProperties actor="FrequencyInversionRight" />
+                <actorProperties actor="PolySynthLeft" />
+                <actorProperties actor="PolySynthRight" />
+                <actorProperties actor="WriteBack" />
+                <actorProperties actor="Sync2" />
+                <actorProperties actor="Sync3" />
+                <actorProperties actor="ReOrderLeft" />
+                <actorProperties actor="ReOrderRight" />
+                <actorProperties actor="IMDCTLongLeft" />
+                <actorProperties actor="IMDCTLongRight" />
+                <actorProperties actor="FrequencyInversionLongLeft" />
+                <actorProperties actor="FrequencyInversionLongRight" />
+                <actorProperties actor="IMDCTShortLeft" />
+                <actorProperties actor="IMDCTShortRight" />
+                <actorProperties actor="FrequencyInversionShortLeft" />
+                <actorProperties actor="FrequencyInversionShortRight" />
+                <actorProperties actor="Sync4" />
+                <actorProperties actor="Sync5" />
+                <channelProperties channel="Self_Feed" />
+                <channelProperties channel="Res1_SY12H" />
+                <channelProperties channel="Res2_PSL2SY2" />
+                <channelProperties channel="Res3_WB2SY3" />
+                <channelProperties channel="Self_Play" />
+                <channelProperties channel="Res1_S2RQL" />
+                <channelProperties channel="Res2_FIL2AAL" />
+                <channelProperties channel="Res3_FIR2AAR" />
+                <channelProperties channel="FD2H" />
+                <channelProperties channel="H2RQL" />
+                <channelProperties channel="H2RQR" />
+                <channelProperties channel="RQL2S" />
+                <channelProperties channel="Res1_RQL2RQR" />
+                <channelProperties channel="RQR2S" />
+                <channelProperties channel="Res1_S2SY1" />
+                <channelProperties channel="S2AAL" />
+                <channelProperties channel="S2AAR" />
+                <channelProperties channel="AAL2IDL" />
+                <channelProperties channel="AAR2IDR" />
+                <channelProperties channel="IDL2FIL" />
+                <channelProperties channel="IDR2FIR" />
+                <channelProperties channel="FIL2PSL" />
+                <channelProperties channel="FIR2PSR" />
+                <channelProperties channel="PSL2WB" />
+                <channelProperties channel="PSR2WB" />
+                <channelProperties channel="WB2PL" />
+                <channelProperties channel="Res2_SY22AAL" />
+                <channelProperties channel="Res3_SY32AAR" />
+                <channelProperties channel="Res2_FIL2IDL" />
+                <channelProperties channel="Res3_FIR2IDR" />
+                <channelProperties channel="RQL2ROL" />
+                <channelProperties channel="RQR2ROR" />
+                <channelProperties channel="Res1_RQR2ROL" />
+                <channelProperties channel="ROL2S" />
+                <channelProperties channel="Res1_ROL2ROR" />
+                <channelProperties channel="ROR2S" />
+                <channelProperties channel="S2IDL" />
+                <channelProperties channel="S2IDR" />
+                <channelProperties channel="Res2_SY22IDL" />
+                <channelProperties channel="Res3_SY32IDR" />
+                <channelProperties channel="Res2_PSL2SY4" />
+                <channelProperties channel="Res3_WB2SY5" />
+                <channelProperties channel="Res2_FILL2AAL" />
+                <channelProperties channel="Res3_FILR2AAR" />
+                <channelProperties channel="Res2_FISL2IDSL" />
+                <channelProperties channel="Res3_FISR2IDSR" />
+                <channelProperties channel="S2IDSL" />
+                <channelProperties channel="S2IDSR" />
+                <channelProperties channel="AAL2IDLL" />
+                <channelProperties channel="AAR2IDLR" />
+                <channelProperties channel="IDLL2FILL" />
+                <channelProperties channel="IDLR2FILR" />
+                <channelProperties channel="FILL2PSL" />
+                <channelProperties channel="Res2_FILL2SY2" />
+                <channelProperties channel="FILR2PSR" />
+                <channelProperties channel="Res3_FILR2SY3" />
+                <channelProperties channel="Res2_SY22IDSL" />
+                <channelProperties channel="Res3_SY32IDSR" />
+                <channelProperties channel="IDSL2FISL" />
+                <channelProperties channel="IDSR2FISR" />
+                <channelProperties channel="FISL2PSL" />
+                <channelProperties channel="FISR2PSR" />
+                <channelProperties channel="Res2_SY42AAL" />
+                <channelProperties channel="Res3_SY52AAR" />
+                <channelProperties channel="Res2_WB2SY2" />
+                <channelProperties channel="Res3_PSR2SY3" />
+            </defaultProperties>
+            <scenarios>
+                <scenario name="ll" graph="mp3decoder-ll-ll" reward="1">
+                    <actorProperties actor="Feed" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5830000" />
+                            <implementation>
+                                <function symbol="Feed_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Out_FD2H" />
+                                        <argument number="0" port="Self_In" />
+                                        <argument number="1" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Play" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="2320000" />
+                            <implementation>
+                                <function symbol="Play_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_WB2PL" />
+                                        <argument number="1" port="Self_In" />
+                                        <argument number="0" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Huffman" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="236070" />
+                            <implementation>
+                                <function symbol="Huffman_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FD2H" />
+                                        <argument number="0" port="Out_H2RQR" />
+                                        <argument number="1" port="Out_H2RQL" />
+                                        <argument number="1" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="110785" />
+                            <implementation>
+                                <function symbol="ReQuantizationLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQL" />
+                                        <argument number="0" port="Out_RQL2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="110785" />
+                            <implementation>
+                                <function symbol="ReQuantizationRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQR" />
+                                        <argument number="0" port="Out_RQR2S" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Stereo" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="73618" />
+                            <implementation>
+                                <function symbol="Stereo_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQR2S" />
+                                        <argument number="1" port="In_RQL2S" />
+                                        <argument number="0" port="Out_S2AAR" />
+                                        <argument number="1" port="Out_S2AAL" />
+                                        <argument number="2" port="Res_Out" />
+                                        <argument number="3" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync1" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync1_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasLeft" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAL" />
+                                        <argument number="0" port="Out_AAL2IDL" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res32_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasRight" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAR" />
+                                        <argument number="0" port="Out_AAR2IDR" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res32_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLeft" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAL2IDL" />
+                                        <argument number="0" port="Out_IDL2FIL" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTRight" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAR2IDR" />
+                                        <argument number="0" port="Out_IDR2FIR" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLeft" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDL2FIL" />
+                                        <argument number="0" port="Out_FIL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionRight" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDR2FIR" />
+                                        <argument number="0" port="Out_FIR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIL2PSL" />
+                                        <argument number="0" port="Out_PSL2WB" />
+                                        <argument number="1" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIR2PSR" />
+                                        <argument number="0" port="Out_PSR2WB" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="WriteBack" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="21448" />
+                            <implementation>
+                                <function symbol="WriteBack_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_PSR2WB" />
+                                        <argument number="1" port="In_PSL2WB" />
+                                        <argument number="0" port="Out_WB2PL" />
+                                        <argument number="1" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync2" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync2_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res32_In" />
+                                        <argument number="0" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync3" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync3_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res32_In" />
+                                        <argument number="0" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <channelProperties channel="Self_Feed">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_SY12H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_PSL2SY2">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_WB2SY3">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Self_Play">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FIL2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FIR2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FD2H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQL2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2SY1">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAL2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAR2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDL2FIL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDR2FIR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSL2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSR2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="WB2PL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY22AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY32AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                </scenario>
+                <scenario name="ss" graph="mp3decoder-ss-ss" reward="1">
+                    <actorProperties actor="Feed" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5830000" />
+                            <implementation>
+                                <function symbol="Feed_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Out_FD2H" />
+                                        <argument number="0" port="Self_In" />
+                                        <argument number="1" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Play" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="2915000" />
+                            <implementation>
+                                <function symbol="Play_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_WB2PL" />
+                                        <argument number="1" port="Self_In" />
+                                        <argument number="0" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Huffman" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="236070" />
+                            <implementation>
+                                <function symbol="Huffman_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FD2H" />
+                                        <argument number="0" port="Out_H2RQR" />
+                                        <argument number="1" port="Out_H2RQL" />
+                                        <argument number="1" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="139325" />
+                            <implementation>
+                                <function symbol="ReQuantizationLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQL" />
+                                        <argument number="0" port="Out_RQL2ROL" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="139325" />
+                            <implementation>
+                                <function symbol="ReQuantizationRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQR" />
+                                        <argument number="0" port="Out_RQR2ROR" />
+                                        <argument number="1" port="Res_Out" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="69385" />
+                            <implementation>
+                                <function symbol="ReOrderLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQL2ROL" />
+                                        <argument number="0" port="Out_ROL2S" />
+                                        <argument number="1" port="Res_Out" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="69385" />
+                            <implementation>
+                                <function symbol="ReOrderRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQR2ROR" />
+                                        <argument number="0" port="Out_ROR2S" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Stereo" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="58239" />
+                            <implementation>
+                                <function symbol="Stereo_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_ROR2S" />
+                                        <argument number="1" port="In_ROL2S" />
+                                        <argument number="0" port="Out_S2IDR" />
+                                        <argument number="1" port="Out_S2IDL" />
+                                        <argument number="2" port="Res_Out" />
+                                        <argument number="3" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync1" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync1_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLeft" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDL" />
+                                        <argument number="0" port="Out_IDL2FIL" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res96_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTRight" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDR" />
+                                        <argument number="0" port="Out_IDR2FIR" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res96_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLeft" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDL2FIL" />
+                                        <argument number="0" port="Out_FIL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionRight" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDR2FIR" />
+                                        <argument number="0" port="Out_FIR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIL2PSL" />
+                                        <argument number="0" port="Out_PSL2WB" />
+                                        <argument number="1" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIR2PSR" />
+                                        <argument number="0" port="Out_PSR2WB" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="WriteBack" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="21448" />
+                            <implementation>
+                                <function symbol="WriteBack_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_PSR2WB" />
+                                        <argument number="1" port="In_PSL2WB" />
+                                        <argument number="0" port="Out_WB2PL" />
+                                        <argument number="1" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync2" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync2_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res96_In" />
+                                        <argument number="0" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync3" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync3_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res96_In" />
+                                        <argument number="0" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <channelProperties channel="Self_Feed">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_SY12H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_PSL2SY2">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_WB2SY3">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Self_Play">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FIL2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FIR2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FD2H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQL2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2ROR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQR2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_ROL2ROR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2SY1">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDL2FIL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDR2FIR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSL2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSR2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="WB2PL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY22IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY32IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                </scenario>
+                <scenario name="m" graph="mp3decoder-m-m" reward="1">
+                    <actorProperties actor="Feed" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5830000" />
+                            <implementation>
+                                <function symbol="Feed_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Out_FD2H" />
+                                        <argument number="0" port="Self_In" />
+                                        <argument number="1" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Play" repetitions="2">
+                        <processor type="Play" default="true">
+                            <executionTime time="2880000" />
+                            <implementation>
+                                <function symbol="Play_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_WB2PL" />
+                                        <argument number="1" port="Self_In" />
+                                        <argument number="0" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Huffman" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="236070" />
+                            <implementation>
+                                <function symbol="Huffman_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FD2H" />
+                                        <argument number="0" port="Out_H2RQR" />
+                                        <argument number="1" port="Out_H2RQL" />
+                                        <argument number="1" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="60594" />
+                            <implementation>
+                                <function symbol="ReQuantizationLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQL" />
+                                        <argument number="0" port="Out_RQL2ROL" />
+                                        <argument number="1" port="Out_RQL2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="2" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="60594" />
+                            <implementation>
+                                <function symbol="ReQuantizationRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQR" />
+                                        <argument number="0" port="Out_RQR2ROR" />
+                                        <argument number="1" port="Out_RQR2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="2" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="26269" />
+                            <implementation>
+                                <function symbol="ReOrderLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQL2ROL" />
+                                        <argument number="0" port="Out_ROL2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="26269" />
+                            <implementation>
+                                <function symbol="ReOrderRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQR2ROR" />
+                                        <argument number="0" port="Out_ROR2S" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Stereo" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="64527" />
+                            <implementation>
+                                <function symbol="Stereo_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_ROR2S" />
+                                        <argument number="1" port="In_ROL2S" />
+                                        <argument number="2" port="In_RQR2S" />
+                                        <argument number="3" port="In_RQL2S" />
+                                        <argument number="0" port="Out_S2AAL" />
+                                        <argument number="1" port="Out_S2AAR" />
+                                        <argument number="2" port="Out_S2IDSL" />
+                                        <argument number="3" port="Out_S2IDSR" />
+                                        <argument number="4" port="Res_Out" />
+                                        <argument number="5" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync1" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync1_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasLeft" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAL" />
+                                        <argument number="0" port="Out_AAL2IDLL" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasRight" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAR" />
+                                        <argument number="0" port="Out_AAR2IDLR" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLongLeft" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTLongLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAL2IDLL" />
+                                        <argument number="0" port="Out_IDLL2FILL" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLongRight" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTLongRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAR2IDLR" />
+                                        <argument number="0" port="Out_IDLR2FILR" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLongLeft" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLongLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDLL2FILL" />
+                                        <argument number="0" port="Out_FILL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                        <argument number="2" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLongRight" repetitions="4">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLongRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDLR2FILR" />
+                                        <argument number="0" port="Out_FILR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                        <argument number="2" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync2" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync2_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res90_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync3" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync3_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res90_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTShortLeft" repetitions="180">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTShortLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDSL" />
+                                        <argument number="0" port="Out_IDSL2FISL" />
+                                        <argument number="1" port="Res90_In" />
+                                        <argument number="2" port="Res1_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTShortRight" repetitions="180">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTShortRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDSR" />
+                                        <argument number="0" port="Out_IDSR2FISR" />
+                                        <argument number="1" port="Res90_In" />
+                                        <argument number="2" port="Res1_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionShortLeft" repetitions="180">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionShortLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDSL2FISL" />
+                                        <argument number="0" port="Out_FISL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionShortRight" repetitions="180">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionShortRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDSR2FISR" />
+                                        <argument number="0" port="Out_FISR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FILL2PSL" />
+                                        <argument number="1" port="In_FISL2PSL" />
+                                        <argument number="0" port="Out_PSL2WB" />
+                                        <argument number="1" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FILR2PSR" />
+                                        <argument number="1" port="In_FISR2PSR" />
+                                        <argument number="0" port="Out_PSR2WB" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="WriteBack" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="21448" />
+                            <implementation>
+                                <function symbol="WriteBack_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_PSR2WB" />
+                                        <argument number="1" port="In_PSL2WB" />
+                                        <argument number="0" port="Out_WB2PL" />
+                                        <argument number="1" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync4" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync4_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync5" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync5_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <channelProperties channel="Self_Feed">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_SY12H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_PSL2SY4">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_WB2SY5">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Self_Play">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FILL2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FILR2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FISL2IDSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FISR2IDSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FD2H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQL2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2ROR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQR2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_ROL2ROR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2SY1">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAL2IDLL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAR2IDLR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDLL2FILL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDLR2FILR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FILL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FILL2SY2">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FILR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FILR2SY3">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY22IDSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY32IDSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDSL2FISL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDSR2FISR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FISL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FISR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSL2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSR2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="WB2PL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY42AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY52AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                </scenario>
+                <scenario name="ls" graph="mp3decoder-ls-ls" reward="1">
+                    <actorProperties actor="Feed" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5830000" />
+                            <implementation>
+                                <function symbol="Feed_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Out_FD2H" />
+                                        <argument number="0" port="Self_In" />
+                                        <argument number="1" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Play" repetitions="2">
+                        <processor type="Play" default="true">
+                            <executionTime time="2915000" />
+                            <implementation>
+                                <function symbol="Play_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_WB2PL" />
+                                        <argument number="1" port="Self_In" />
+                                        <argument number="0" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Huffman" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="236070" />
+                            <implementation>
+                                <function symbol="Huffman_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FD2H" />
+                                        <argument number="0" port="Out_H2RQR" />
+                                        <argument number="1" port="Out_H2RQL" />
+                                        <argument number="1" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationLeft" repetitions="2">
+                        <processor type="ReQuantizationLeft" default="true">
+                            <executionTime time="110785" />
+                            <implementation>
+                                <function symbol="ReQuantizationLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQL" />
+                                        <argument number="0" port="Out_RQL2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationRight" repetitions="2">
+                        <processor type="ReQuantizationRight" default="true">
+                            <executionTime time="139325" />
+                            <implementation>
+                                <function symbol="ReQuantizationRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQR" />
+                                        <argument number="0" port="Out_RQR2ROR" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderRight" repetitions="2">
+                        <processor type="ReOrderRight" default="true">
+                            <executionTime time="69385" />
+                            <implementation>
+                                <function symbol="ReOrderRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQR2ROR" />
+                                        <argument number="0" port="Out_ROR2S" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Stereo" repetitions="2">
+                        <processor type="Stereo" default="true">
+                            <executionTime time="19" />
+                            <implementation>
+                                <function symbol="Stereo_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_ROR2S" />
+                                        <argument number="1" port="In_RQL2S" />
+                                        <argument number="0" port="Out_S2IDR" />
+                                        <argument number="1" port="Out_S2AAL" />
+                                        <argument number="2" port="Res_Out" />
+                                        <argument number="3" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync1" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync1_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasLeft" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAL" />
+                                        <argument number="0" port="Out_AAL2IDL" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res32_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLeft" repetitions="64">
+                        <processor type="IMDCTLeft" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAL2IDL" />
+                                        <argument number="0" port="Out_IDL2FIL" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLeft" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDL2FIL" />
+                                        <argument number="0" port="Out_FIL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIL2PSL" />
+                                        <argument number="0" port="Out_PSL2WB" />
+                                        <argument number="1" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTRight" repetitions="192">
+                        <processor type="IMDCTRight" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDR" />
+                                        <argument number="0" port="Out_IDR2FIR" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res96_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionRight" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDR2FIR" />
+                                        <argument number="0" port="Out_FIR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIR2PSR" />
+                                        <argument number="0" port="Out_PSR2WB" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="WriteBack" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="21448" />
+                            <implementation>
+                                <function symbol="WriteBack_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_PSR2WB" />
+                                        <argument number="1" port="In_PSL2WB" />
+                                        <argument number="0" port="Out_WB2PL" />
+                                        <argument number="1" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync2" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync2_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res32_In" />
+                                        <argument number="0" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync3" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync3_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res96_In" />
+                                        <argument number="0" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <channelProperties channel="Self_Feed">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_SY12H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_PSL2SY2">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_WB2SY3">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Self_Play">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FIL2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FIR2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FD2H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2ROR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQL2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2SY1">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAL2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDL2FIL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSL2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="WB2PL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY22AAL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDR2FIR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSR2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY32IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                </scenario>
+                <scenario name="sl" graph="mp3decoder-sl-sl" reward="1">
+                    <actorProperties actor="Feed" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="5830000" />
+                            <implementation>
+                                <function symbol="Feed_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Out_FD2H" />
+                                        <argument number="0" port="Self_In" />
+                                        <argument number="1" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Play" repetitions="2">
+                        <processor type="Play" default="true">
+                            <executionTime time="2320000" />
+                            <implementation>
+                                <function symbol="Play_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_WB2PL" />
+                                        <argument number="1" port="Self_In" />
+                                        <argument number="0" port="Self_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Huffman" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="236070" />
+                            <implementation>
+                                <function symbol="Huffman_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FD2H" />
+                                        <argument number="0" port="Out_H2RQR" />
+                                        <argument number="1" port="Out_H2RQL" />
+                                        <argument number="1" port="Res2_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationRight" repetitions="2">
+                        <processor type="ReQuantizationRight" default="true">
+                            <executionTime time="110785" />
+                            <implementation>
+                                <function symbol="ReQuantizationRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQR" />
+                                        <argument number="0" port="Out_RQR2S" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReQuantizationLeft" repetitions="2">
+                        <processor type="ReQuantizationLeft" default="true">
+                            <executionTime time="139325" />
+                            <implementation>
+                                <function symbol="ReQuantizationLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_H2RQL" />
+                                        <argument number="0" port="Out_RQL2ROL" />
+                                        <argument number="1" port="Res_In" />
+                                        <argument number="1" port="Res_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="ReOrderLeft" repetitions="2">
+                        <processor type="ReOrderRight" default="true">
+                            <executionTime time="69385" />
+                            <implementation>
+                                <function symbol="ReOrderLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_RQL2ROL" />
+                                        <argument number="0" port="Out_ROL2S" />
+                                        <argument number="1" port="Res_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Stereo" repetitions="2">
+                        <processor type="Stereo" default="true">
+                            <executionTime time="19" />
+                            <implementation>
+                                <function symbol="Stereo_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_ROL2S" />
+                                        <argument number="1" port="In_RQR2S" />
+                                        <argument number="0" port="Out_S2IDL" />
+                                        <argument number="1" port="Out_S2AAR" />
+                                        <argument number="2" port="Res_Out" />
+                                        <argument number="3" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync1" repetitions="1">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync1_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res2_In" />
+                                        <argument number="0" port="Res2_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="AntiAliasRight" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="409" />
+                            <implementation>
+                                <function symbol="AntiAliasRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2AAR" />
+                                        <argument number="0" port="Out_AAR2IDR" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res32_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTRight" repetitions="64">
+                        <processor type="IMDCTRight" default="true">
+                            <executionTime time="7414" />
+                            <implementation>
+                                <function symbol="IMDCTRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_AAR2IDR" />
+                                        <argument number="0" port="Out_IDR2FIR" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionRight" repetitions="64">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDR2FIR" />
+                                        <argument number="0" port="Out_FIR2PSR" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthRight" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthRight_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIR2PSR" />
+                                        <argument number="0" port="Out_PSR2WB" />
+                                        <argument number="1" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="IMDCTLeft" repetitions="192">
+                        <processor type="IMDCTLeft" default="true">
+                            <executionTime time="5561" />
+                            <implementation>
+                                <function symbol="IMDCTLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_S2IDL" />
+                                        <argument number="0" port="Out_IDL2FIL" />
+                                        <argument number="1" port="Res1_In" />
+                                        <argument number="2" port="Res96_In" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="FrequencyInversionLeft" repetitions="192">
+                        <processor type="arm7" default="true">
+                            <executionTime time="4912" />
+                            <implementation>
+                                <function symbol="FrequencyInversionLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_IDL2FIL" />
+                                        <argument number="0" port="Out_FIL2PSL" />
+                                        <argument number="1" port="Res1_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="PolySynthLeft" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="1866138" />
+                            <implementation>
+                                <function symbol="PolySynthLeft_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_FIL2PSL" />
+                                        <argument number="0" port="Out_PSL2WB" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="WriteBack" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="21448" />
+                            <implementation>
+                                <function symbol="WriteBack_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="In_PSL2WB" />
+                                        <argument number="1" port="In_PSR2WB" />
+                                        <argument number="0" port="Out_WB2PL" />
+                                        <argument number="1" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync2" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync2_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res96_In" />
+                                        <argument number="0" port="Res96_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <actorProperties actor="Sync3" repetitions="2">
+                        <processor type="arm7" default="true">
+                            <executionTime time="0" />
+                            <implementation>
+                                <function symbol="Sync3_func">
+                                    <argumentMapping>
+                                        <argument number="0" port="Res32_In" />
+                                        <argument number="0" port="Res32_Out" />
+                                    </argumentMapping>
+                                </function>
+                            </implementation>
+                        </processor>
+                    </actorProperties>
+                    <channelProperties channel="Self_Feed">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_SY12H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_WB2SY2">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_PSR2SY3">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Self_Play">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_FIL2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_FIR2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FD2H">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="H2RQL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQL2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="RQR2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="ROL2S">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQL2RQR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_RQR2ROL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res1_S2SY1">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="AAR2IDR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDR2FIR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIR2PSR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSR2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="WB2PL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res3_SY32AAR">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="S2IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="IDL2FIL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="FIL2PSL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="PSL2WB">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                    <channelProperties channel="Res2_SY22IDL">
+                        <tokenSize sz="1" />
+                    </channelProperties>
+                </scenario>
+            </scenarios>
+            <graphProperties>
+                <timeConstraints>
+                    <throughput>4.0000000000e-09</throughput>
+                </timeConstraints>
+            </graphProperties>
+        </fsmsadfProperties>
+        <fsm initialstate="q1" detector="">
+            <state name="q1" scenario="ss">
+                <transition destination="q1" />
+                <transition destination="q2" />
+                <transition destination="q3" />
+                <transition destination="q4" />
+                <transition destination="q5" />
+            </state>
+            <state name="q2" scenario="ll">
+                <transition destination="q1" />
+                <transition destination="q2" />
+                <transition destination="q3" />
+                <transition destination="q4" />
+                <transition destination="q5" />
+            </state>
+            <state name="q3" scenario="m">
+                <transition destination="q1" />
+                <transition destination="q2" />
+                <transition destination="q3" />
+                <transition destination="q4" />
+                <transition destination="q5" />
+            </state>
+            <state name="q4" scenario="ls">
+                <transition destination="q1" />
+                <transition destination="q2" />
+                <transition destination="q3" />
+                <transition destination="q4" />
+                <transition destination="q5" />
+            </state>
+            <state name="q5" scenario="sl">
+                <transition destination="q1" />
+                <transition destination="q2" />
+                <transition destination="q3" />
+                <transition destination="q4" />
+                <transition destination="q5" />
+            </state>
+        </fsm>
+    </applicationGraph>
+</sdf3>

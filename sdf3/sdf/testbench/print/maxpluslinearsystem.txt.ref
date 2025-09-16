@@ -1,0 +1,54 @@
+State matrix A:
+[
+55 75 75 55 ;
+55 75 75 55 ;
+-Inf 85 85 75 ;
+-Inf 85 85 75 
+]
+
+State matrix B:
+[
+55 ;
+55 ;
+-Inf ;
+-Inf 
+]
+
+State matrix C:
+[
+-Inf 60 60 50 
+]
+
+State matrix D:
+[
+-Inf 
+]
+
+State matrix H:
+[
+0 -Inf -Inf -Inf ;
+30 50 50 30 ;
+-Inf 0 0 -20 ;
+-Inf 60 60 50 ;
+-Inf 10 10 0 ;
+-Inf 30 30 20 ;
+-Inf 50 50 30 ;
+-Inf 30 30 20 
+]
+
+State matrix J:
+[
+0 ;
+30 ;
+-Inf ;
+-Inf ;
+-Inf ;
+-Inf ;
+-Inf ;
+-Inf 
+]
+
+Actor labels = [idxWafer, diePickup, idxMill, dieAttach, inspect, idxSub, unblock, block]
+State labels = [x1, x2, x3, x4]
+Input labels = [die]
+Output labels = [tag]

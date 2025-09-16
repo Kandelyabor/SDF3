@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: repetition_vector on H263 encoder</name>
+		<program>sdf3analyze-sdf --algo repetition_vector --graph h263encoder.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>Repetition vector:
+ [motion_estimation] = 1
+ [mb_encoding] = 99
+ [vlc] = 1
+ [mb_decoding] = 99
+ [motion_compensation] = 1</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

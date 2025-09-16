@@ -1,0 +1,18 @@
+\begin{ bmatrix }
+vld2vld\\
+iq2iq\\
+mc2mc\\
+\end{bmatrix} = 
+
+\begin{bmatrix}
+13009 &-\infty{} &-\infty{} \\
+345055 &332046 &-\infty{} \\
+351020 &338011 &5479 \\
+\end{bmatrix}
+
+\otimes \begin{ bmatrix }
+vld2vld\\
+iq2iq\\
+mc2mc\\
+\end{bmatrix} 
+

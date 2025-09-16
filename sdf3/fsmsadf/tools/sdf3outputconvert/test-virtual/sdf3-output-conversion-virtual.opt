@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>Output convert, virtual platform</name>
+		<program>sdf3outputconvert-fsmsadf --settings sdf3-output-conversion-virtual.opt</program>
+		<type>xmlcompare</type>
+		<programOutput>fsmsadf-output-convert-virtual.xml</programOutput>
+	</settings>
+
+      <settings type="output-convert">
+	  	<platformType type="Virtual"/>
+		<input file="input.xml"/>
+		<output file="fsmsadf-output-convert-virtual.xml"/>
+	</settings>
+
+</sdf3>

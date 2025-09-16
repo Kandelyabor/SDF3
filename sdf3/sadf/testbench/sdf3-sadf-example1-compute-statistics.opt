@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute statistics on example1</name>
+		<program>sdf3analyze-sadf --graph example1.xml --compute statistics</program>
+		<type>outputcompare</type>
+		<reference>Graph Statistics:
+  Number Of Kernels = 4
+  Number Of Detectors = 1
+  Number Of Data Channels = 6
+  Number Of Control Channels = 3
+Kernel Statistics:
+  Average Number Of Scenarios = 1.75
+  Average Number Of Profiles per Scenario = 1.42857
+Detector Statistics:
+  Average Number Of Scenarios = 1
+  Average Number Of Markov Chain States per Scenario = 3
+  Average Number Of SubScenarios = 2
+  Average Number Of Profiles per SubScenario = 1</reference>
+	</settings>
+
+</sdf3>

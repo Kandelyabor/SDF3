@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="sdf" version="1.0">
+
+	<settings type="test">
+		<name>SDF analyze: flow</name>
+		<program>sdf3flow-sdf --settings sdf3.opt --html --output result.xml</program>
+		<type>outputcompare</type>
+        <programTimeout>40</programTimeout>
+		<programOutput>h263decoder_graph.html</programOutput>
+		<programOutput>mp3decoder_graph.html</programOutput>
+		<programOutput>h263decoder_result.xml</programOutput>
+		<programOutput>mp3decoder_result.xml</programOutput>
+		<!-- ad hoc: ignore differenes due to graphviz version mismatch -->
+		<ignore>&lt;area shape=.*$</ignore>
+	</settings>
+      
+</sdf3>

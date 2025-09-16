@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>sdf3analyze-fsmsadf extractscenariographs</name>
+		<program>sdf3analyze-fsmsadf --settings sdf3-analyze-extractscenariographs.opt</program>
+		<type>outputcompare</type>
+		<programOutput>fsmsadf-analyze-test-extractscenariographs.xml</programOutput>
+	</settings>
+
+  <settings type="analyze">
+	<graph file="fsmsadf-analyze-test.xml"/>
+    <algo name="extractscenariographs"/>
+    <output file="fsmsadf-analyze-test-extractscenariographs.xml"/>
+  </settings>
+
+</sdf3>

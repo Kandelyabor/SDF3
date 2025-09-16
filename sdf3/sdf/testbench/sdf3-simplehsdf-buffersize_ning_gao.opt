@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: buffersize_ning_gao on simplehsdf</name>
+		<program>sdf3analyze-sdf --algo buffersize_ning_gao --graph simplehsdf.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>b(a) = 2
+b(b) = 2
+s(a) = 0
+s(b) = 3
+size =   4
+period = 4</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

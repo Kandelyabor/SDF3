@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='0.2' sz='1'>
+            <distribution>
+                <ch name='a_b' sz='1'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.333333' sz='2'>
+            <distribution>
+                <ch name='a_b' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

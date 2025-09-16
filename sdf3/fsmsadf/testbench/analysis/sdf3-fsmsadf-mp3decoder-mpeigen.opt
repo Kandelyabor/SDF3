@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+    
+	<settings type="test">
+		<name>FSM-SADF analyze: mpeigen on mp3 decoder</name>
+		<program>sdf3analyze-fsmsadf --algo mpeigen --graph mp3decoder.xml</program>
+		<type>outputcompare</type>
+		<programOutput></programOutput>
+		<reference>eigenvalue: 5.83e+06
+-7.46636e+06 ; -6.63992e+06 ; -2.38779e+06 ; -2.34489e+06 ; 0 ; -6.63992e+06 ; -4.25393e+06 ; -4.23248e+06 ; 
+eigenvalue: 5.83e+06
+-9.43472e+06 ; -8.24734e+06 ; -2.9799e+06 ; -2.93701e+06 ; 0 ; -8.24734e+06 ; -4.84604e+06 ; -4.82459e+06 ; 
+eigenvalue: 5.83e+06
+-9.08995e+06 ; -8.37737e+06 ; -2.94727e+06 ; -2.90437e+06 ; 0 ; -8.37737e+06 ; -5.75598e+06 ; -5.73453e+06 ; -4.81341e+06 ; -4.79196e+06 ; 
+eigenvalue: 5.83e+06
+-9.27858e+06 ; -8.40348e+06 ; -4.17568e+06 ; -2.93701e+06 ; 0 ; -8.40348e+06 ; -6.04182e+06 ; -4.82459e+06 ; 
+eigenvalue: 5.83e+06
+-8.66157e+06 ; -7.78647e+06 ; -2.32e+06 ; -3.55867e+06 ; 0 ; -7.78647e+06 ; -4.20759e+06 ; -5.42481e+06 ;</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>	
+      
+</sdf3>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>Input convert, compsoc platform</name>
+		<program>sdf3inputconvert-fsmsadf --settings sdf3-input-conversion-compsoc.opt</program>
+		<type>xmlcompare</type>
+		<programOutput>fsmsadf-input-convert-compsoc.xml</programOutput>
+	</settings>
+
+      <settings type="input-convert">
+	  <platformType type="CompSoC"/>
+	  <applicationGraph file="../examples/fsmsadf-input-output-convert/app_test0.xml"/>
+	  <architectureGraph file="../examples/fsmsadf-input-output-convert/arch_buffdim.xml"/>
+	    <wheelsize value="215000"/>
+	    <contextSwitchOverhead value="1500"/>
+		<slotLength value="20000"/>
+	    <preemptive value="false"/>
+		<output file="fsmsadf-input-convert-compsoc.xml"/>
+		</settings>
+
+</sdf3>

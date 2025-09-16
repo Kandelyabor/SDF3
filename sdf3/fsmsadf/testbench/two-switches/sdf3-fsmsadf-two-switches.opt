@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>fsmsadf two-switches</name>
+		<program>./run_two-switches.sh --settings sdf3-fsmsadf-two-switches.opt</program>
+		<type>xmlcompare</type>
+        <programTimeout>30</programTimeout>
+		<programOutput>fsmsadf-two-switches-mapped.xml</programOutput>
+		<programOutput>fsmsadf-two-switches-merged.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+  <settings type="generate" random="no">
+	<input file="fsmsadf-two-switches.sdf"/>
+  </settings>
+
+  <settings type="flow">
+    <platformType type="CompSoC"/>
+    <flowType type="NSoC"/> <!--supported types: NSoC -->
+    <maxNrBindingsTileBindingAlgo n="5"/>
+    <!-- maximum number of platform bindings outputted by tile binding  and
+         scheduling algorithm. -->
+    <applicationGraph file="fsmsadf-two-switches.xml"/> 
+    <!-- application graphs are mapped in the order in which they appear in 
+         this file. -->
+    <architectureGraph file="x4t1d-arch.xml"/>
+    <!-- SDF3 creates an SDF3 document from an applicationGraph and the
+         architectureGraph. It uses the applicationGraph and mapping nodes 
+         from the applicationGraph file and it uses the architectureGraph node
+         from the architecture graph. -->
+	<output file="fsmsadf-two-switches-mapped.xml"/>
+	<chanToConnModelFile>compsoc-chantoconn.xml</chanToConnModelFile>
+  </settings>
+
+  <settings type="transform">
+	<graph file="fsmsadf-two-switches-mapped.xml"/>
+    <transform>
+        <type name="merge_scenarios"/>
+    </transform>
+    <output file="fsmsadf-two-switches-merged.xml"/>
+  </settings>
+
+</sdf3>

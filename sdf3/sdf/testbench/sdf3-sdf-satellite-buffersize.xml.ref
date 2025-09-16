@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+      xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='0.000757576' sz='1586'>
+            <distribution>
+                <ch name='ch1' sz='4'/>
+                <ch name='ch2' sz='11'/>
+                <ch name='ch3' sz='1'/>
+                <ch name='ch4' sz='10'/>
+                <ch name='ch5' sz='4'/>
+                <ch name='ch6' sz='11'/>
+                <ch name='ch7' sz='1'/>
+                <ch name='ch8' sz='10'/>
+                <ch name='ch9' sz='1'/>
+                <ch name='ch10' sz='11'/>
+                <ch name='ch11' sz='10'/>
+                <ch name='ch12' sz='1'/>
+                <ch name='ch13' sz='11'/>
+                <ch name='ch14' sz='10'/>
+                <ch name='ch15' sz='240'/>
+                <ch name='ch16' sz='240'/>
+                <ch name='ch17' sz='240'/>
+                <ch name='ch18' sz='240'/>
+                <ch name='ch19' sz='1'/>
+                <ch name='ch20' sz='1'/>
+                <ch name='ch21' sz='1'/>
+                <ch name='ch22' sz='1'/>
+                <ch name='ch23' sz='1'/>
+                <ch name='ch24' sz='1'/>
+                <ch name='ch25' sz='240'/>
+                <ch name='ch26' sz='240'/>
+                <ch name='_ch27' sz='2'/>
+                <ch name='_ch28' sz='2'/>
+                <ch name='_ch29' sz='2'/>
+                <ch name='_ch30' sz='2'/>
+                <ch name='_ch31' sz='2'/>
+                <ch name='_ch32' sz='2'/>
+                <ch name='_ch33' sz='2'/>
+                <ch name='_ch34' sz='2'/>
+                <ch name='_ch35' sz='2'/>
+                <ch name='_ch36' sz='2'/>
+                <ch name='_ch37' sz='2'/>
+                <ch name='_ch38' sz='2'/>
+                <ch name='_ch39' sz='2'/>
+                <ch name='_ch40' sz='2'/>
+                <ch name='_ch41' sz='2'/>
+                <ch name='_ch42' sz='2'/>
+                <ch name='_ch43' sz='2'/>
+                <ch name='_ch44' sz='2'/>
+                <ch name='_ch45' sz='2'/>
+                <ch name='_ch46' sz='2'/>
+                <ch name='_ch47' sz='2'/>
+                <ch name='_ch48' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.00094697' sz='1588'>
+            <distribution>
+                <ch name='ch1' sz='5'/>
+                <ch name='ch2' sz='11'/>
+                <ch name='ch3' sz='1'/>
+                <ch name='ch4' sz='10'/>
+                <ch name='ch5' sz='5'/>
+                <ch name='ch6' sz='11'/>
+                <ch name='ch7' sz='1'/>
+                <ch name='ch8' sz='10'/>
+                <ch name='ch9' sz='1'/>
+                <ch name='ch10' sz='11'/>
+                <ch name='ch11' sz='10'/>
+                <ch name='ch12' sz='1'/>
+                <ch name='ch13' sz='11'/>
+                <ch name='ch14' sz='10'/>
+                <ch name='ch15' sz='240'/>
+                <ch name='ch16' sz='240'/>
+                <ch name='ch17' sz='240'/>
+                <ch name='ch18' sz='240'/>
+                <ch name='ch19' sz='1'/>
+                <ch name='ch20' sz='1'/>
+                <ch name='ch21' sz='1'/>
+                <ch name='ch22' sz='1'/>
+                <ch name='ch23' sz='1'/>
+                <ch name='ch24' sz='1'/>
+                <ch name='ch25' sz='240'/>
+                <ch name='ch26' sz='240'/>
+                <ch name='_ch27' sz='2'/>
+                <ch name='_ch28' sz='2'/>
+                <ch name='_ch29' sz='2'/>
+                <ch name='_ch30' sz='2'/>
+                <ch name='_ch31' sz='2'/>
+                <ch name='_ch32' sz='2'/>
+                <ch name='_ch33' sz='2'/>
+                <ch name='_ch34' sz='2'/>
+                <ch name='_ch35' sz='2'/>
+                <ch name='_ch36' sz='2'/>
+                <ch name='_ch37' sz='2'/>
+                <ch name='_ch38' sz='2'/>
+                <ch name='_ch39' sz='2'/>
+                <ch name='_ch40' sz='2'/>
+                <ch name='_ch41' sz='2'/>
+                <ch name='_ch42' sz='2'/>
+                <ch name='_ch43' sz='2'/>
+                <ch name='_ch44' sz='2'/>
+                <ch name='_ch45' sz='2'/>
+                <ch name='_ch46' sz='2'/>
+                <ch name='_ch47' sz='2'/>
+                <ch name='_ch48' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>

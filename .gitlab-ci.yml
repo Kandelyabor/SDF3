@@ -1,0 +1,50 @@
+before_script:
+    - apt-get update
+    - apt-get install --force-yes -y python3 lcov
+    - apt remove --purge --auto-remove cmake
+    - apt install -y software-properties-common lsb-release wget graphviz
+
+build:
+    tags:
+        - texlive64bit2404
+    script:
+        # - wget --no-check-certificate -vO - https://apt.kitware.com/keys/kitware-archive-latest.asc > ./key.txt
+        # - cat ./key.txt | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+        # - apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+        # - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 6AF7F09730B3F0A4
+        - apt update
+        - apt install -y cmake
+        - cd sdf3/; cmake -DCODE_COVERAGE=ON .
+        - make
+        - ctest
+        - make sdf3coverage
+    artifacts:
+      expire_in: 14d
+      when: always
+      paths:
+      - sdf3/output/test/xhtml/
+      - sdf3/output/coverage/
+
+build32bit:
+    tags:
+        - DebianBuster-32bit
+    script:
+        - apt-get install --force-yes -y libssl-dev
+        - wget https://github.com/Kitware/CMake/releases/download/v3.24.2/cmake-3.24.2.tar.gz
+        - tar -zxvf cmake-3.24.2.tar.gz
+        - cd cmake-3.24.2
+        - ./bootstrap
+        - make
+        - make install
+        - cmake --version
+        - cd ..
+        - cd sdf3/; cmake -DCODE_COVERAGE=ON.
+        - make
+        - ctest
+
+    artifacts:
+      expire_in: 14d
+      when: always
+      paths:
+      - sdf3/output/test/xhtml/
+      - sdf3/output/coverage/

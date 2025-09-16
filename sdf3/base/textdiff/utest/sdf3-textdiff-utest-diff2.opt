@@ -1,0 +1,13 @@
+<sdf3 type="">
+	<settings type="test">
+		<name>Text Diff test (wrong generated output)</name>
+		<type>outputcompare</type>
+		<program>textdiff-test a1.txt b1.txt</program>
+    <reference>============
+3d2
+&lt;============
+3a3
+&gt;===========
+============</reference>
+	</settings>
+</sdf3>

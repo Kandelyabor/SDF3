@@ -1,0 +1,5 @@
+add_subdirectory(csdf2sadf)
+add_subdirectory(sadf2csdf)
+add_subdirectory(sadf2fsmsadf)
+add_subdirectory(sadf2sdf)
+add_subdirectory(sdf2sadf)

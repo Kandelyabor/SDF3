@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<sdf3>
+  <test name="SDF analyze: mpconverthsdf on mp3 decoder granule parallelism">
+    <program>sdf3analyze-sdf --algo mpconverthsdf --graph mp3decoder_granule_parallelism.xml --output sdf3-sdf-mp3decoder-granule-parallelism-mpconverthsdf.xml</program>
+    <type>Xml Compare</type>
+    <return_value>0</return_value>
+    <stdout></stdout>
+    <stderr>[WARNING] XML: local complex type: The content model is not determinist.
+[WARNING] The document 'mp3decoder_granule_parallelism.xml' is not valid.
+[WARNING] XML: local complex type: The content model is not determinist.
+[WARNING] The document 'mp3decoder_granule_parallelism.xml' is not valid.
+[WARNING] XML: local complex type: The content model is not determinist.
+[WARNING] The document 'mp3decoder_granule_parallelism.xml' is not valid.
+</stderr>
+    <timestamp>1320939453</timestamp>
+    <programTimeout>10.0</programTimeout>
+    <programMemoryLimit>1024</programMemoryLimit>
+    <outputFile filename="sdf3-sdf-mp3decoder-granule-parallelism-mpconverthsdf.xml">
+      <result>EQUAL</result>
+    </outputFile>
+    <description>The test ran without errors.</description>
+    <result>PASSED</result>
+  </test>
+</sdf3>

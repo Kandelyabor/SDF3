@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <title>SDF3 :: SDF graph</title>
+    <meta http-equiv='Content-type' content='text/html;charset=iso-8859-1' />
+    <style>        #header a {
+            text-decoration: none;
+            color: #6889b5;
+            font-size: 20pt;
+            font-weight: bold;
+        }
+        
+        #nav-main {
+            background-color: #4f6889;
+            width: 100%;
+            font-weight: bold;
+            font-family: 'Luxi Sans', verdana, helvetica, arial, sans-serif;
+            font-size: x-small;
+            margin-top: 5px;
+        }
+        
+        #nav-main-list {
+            height: 20px; /* size of navigation bar */
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #nav-main-list li {
+            float: left;
+            display: inline;
+        }
+        
+        #nav-main-list a {
+            color: #fff;
+            text-decoration: none;
+            vertical-align: middle;
+            padding-left: 10px;
+            padding-right: 10px;
+            line-height: 20px;
+            display: block;
+        }
+         
+        #nav-main-list a:hover {
+            background-color: #7ca3d6;
+        } 
+        
+        #nav-main-list li strong{
+            background-color: #6889b5;
+            display: block;
+        } 
+        
+        * html .nav-corner-br {
+            margin-top: -12px;
+        }
+        
+        * html .nav-corner-bl {
+            margin-top: -12px;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: 'Luxi Sans', 'Bitstream Vera Sans', 'Lucida Grande', 'Trebuchet MS', helvetica, verdana, arial, sans-serif;
+            font-size: small;
+            color: #333;
+        }
+        
+        #mainone {
+            min-width: 720px;
+            padding-left: 30px;
+            padding-right: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        
+        #site-left {
+            width: 120px;
+            float: left;
+            margin-right: 20px;
+        }
+        
+        #site-middle-two {
+            margin-left: 140px;  /*width of site-left block */
+        }
+        
+        #content {
+            margin: 10px;
+        }
+        
+        img {
+            border: 0px;
+        }
+        
+        div.center {
+            text-align: center;
+        }
+        
+        .command {
+            font-family: 'Courier';
+        }
+        
+        div.command {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            white-space: pre;
+        }
+        
+        div.example {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        code.screen, pre.screen {
+            font-family: 'Courier';
+            display: block;
+            padding: 10px;
+            border: 1px solid #bbb;
+            background-color: #eee;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        pre {
+            font-size: 10pt;
+        }
+        
+        img.right {
+            display: block;
+            float: right;
+            margin: 10px;
+        }
+        
+        img.left {
+            display: block;
+            float: left;
+            margin: 10px;
+        }
+        
+        p.right {
+            text-align: right;
+        }
+        
+        div.caution {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            background-color: #ccccff;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        div.info {
+            display: block;
+            padding: 10px;
+            border: 1px solid #6666cc;
+            background-color: #ccccff;
+            color: #000;
+            overflow: auto;
+            margin: 1em 2em;
+        }
+        
+        th {
+            color: #4f6889;
+        }
+        
+        .header {
+            color: #4f6889;
+        }
+        
+        ul.separate li {
+            margin-bottom: 10px;
+        }
+        
+        ol.separate li {
+            margin-bottom: 10px;
+        }
+        
+        li.obsolete {
+            color: #aaa;
+        }
+        
+        div.tabs {
+            width: 100%;
+            height: 20px; /* size of navigation bar */
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            
+        }
+        
+        div.tabs ul {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        div.tabs li {
+            float: left;
+            display: inline;
+        }
+        
+        div.tabs a {
+            color: #6f6f6f;
+            text-decoration: none;
+            padding-left: 0px;
+            padding-right: 10px;
+            line-height: 20px;
+            display: block;
+        }
+         
+        div.tabs a:hover {
+            text-decoration: underline;
+        } 
+        
+        #current{
+            font-weight: bold;
+            display: block;
+        } 
+        
+        .center{
+            text-align: center;
+        } 
+        td {
+            padding-right: 30px;
+        }
+        
+        th {
+            padding-right: 30px;
+        }
+        .footer {
+            font-size: x-small;
+            color: #777;
+            padding-top: 50px;
+            padding-bottom: 30px;
+            clear: both;
+        }
+        
+        a.footer {
+            text-decoration: none;
+            color: #666699;
+        }
+        
+        a.footer:visited {
+            color: #666699;
+        }
+        
+        a.footer:hover {
+            text-decoration: underline;
+            color: #666699;
+        }
+    </style>
+</head>
+<body>
+<a name='top'/>
+<div id='mainone'>
+
+    <!-- header -->
+    <div id='header'>
+        <a href='https://www.es.ele.tue.nl/sdf3'>SDF3</a>
+    </div>
+
+    <!-- navigation -->
+    <div id='nav-main'>
+        <ul id='nav-main-list'>
+            <li><a href='h263decoder_graph.html'>Application</a></li>
+            <li><a href='h263decoder_platform.html'>Platform</a></li>
+            <li><a href='h263decoder_platform_mapping.html'>Platform Mapping</a></li>
+            <li><a href='h263decoder_platform_usage.html'>Platform Usage</a></li>
+            <li><a href='h263decoder_interconnect.html'>Interconnect</a></li>
+            <li><a href='h263decoder_interconnect_mapping.html'>Interconnect Mapping</a></li>
+            <li><a href='h263decoder_interconnect_usage.html'>Interconnect Usage</a></li>
+        </ul>
+    </div>
+
+    <div id='content'><a name='actor_h263decoder'/>
+<h2>Graph: h263decoder</h2>
+
+<map id="h263decoder" name="h263decoder">
+<area shape="poly" id="node1" href="#actor_vld" title="vld" alt="" coords="77,36,76,29,70,22,62,17,52,13,41,12,30,13,20,17,12,22,7,29,5,36,7,43,12,50,20,55,30,59,41,60,52,59,62,55,70,50,76,43"/>
+<area shape="poly" id="edge4" href="#channel_vld2vld" title="vld2vld(1)" alt="" coords="74,23,94,25,101,29,104,36,100,44,90,48,88,43,96,40,99,36,97,33,92,30,74,28"/>
+<area shape="rect" id="edge4-label" href="#channel_vld2vld" title="vld2vld(1)" alt="" coords="101,26,179,46"/>
+<area shape="rect" id="edge4-headlabel" href="#channel_vld2vld" title="1" alt="" coords="74,47,83,67"/>
+<area shape="rect" id="edge4-taillabel" href="#channel_vld2vld" title="1" alt="" coords="74,5,83,25"/>
+<area shape="poly" id="node2" href="#actor_iq" title="iq" alt="" coords="77,152,76,145,70,138,62,133,52,129,41,128,30,129,20,133,12,138,7,145,5,152,7,159,12,166,20,171,30,175,41,176,52,175,62,171,70,166,76,159"/>
+<area shape="poly" id="edge1" href="#channel_vld2iq" title="vld2iq" alt="" coords="44,60,44,112,39,112,39,60"/>
+<area shape="rect" id="edge1-label" href="#channel_vld2iq" title="vld2iq" alt="" coords="41,84,88,104"/>
+<area shape="rect" id="edge1-headlabel" href="#channel_vld2iq" title="1" alt="" coords="32,107,41,127"/>
+<area shape="rect" id="edge1-taillabel" href="#channel_vld2iq" title="594" alt="" coords="13,60,41,80"/>
+<area shape="poly" id="edge5" href="#channel_iq2iq" title="iq2iq(1)" alt="" coords="74,139,94,141,101,145,104,152,100,160,90,164,88,159,96,156,99,152,97,149,92,146,74,144"/>
+<area shape="rect" id="edge5-label" href="#channel_iq2iq" title="iq2iq(1)" alt="" coords="101,142,160,162"/>
+<area shape="rect" id="edge5-headlabel" href="#channel_iq2iq" title="1" alt="" coords="74,163,83,183"/>
+<area shape="rect" id="edge5-taillabel" href="#channel_iq2iq" title="1" alt="" coords="74,121,83,141"/>
+<area shape="poly" id="node3" href="#actor_idct" title="idct" alt="" coords="77,268,76,261,70,254,62,249,52,245,41,244,30,245,20,249,12,254,7,261,5,268,7,275,12,282,20,287,30,291,41,292,52,291,62,287,70,282,76,275"/>
+<area shape="poly" id="edge2" href="#channel_iq2idct" title="iq2idct" alt="" coords="44,176,44,228,39,228,39,176"/>
+<area shape="rect" id="edge2-label" href="#channel_iq2idct" title="iq2idct" alt="" coords="41,200,93,220"/>
+<area shape="rect" id="edge2-headlabel" href="#channel_iq2idct" title="1" alt="" coords="32,223,41,243"/>
+<area shape="rect" id="edge2-taillabel" href="#channel_iq2idct" title="1" alt="" coords="32,176,41,196"/>
+<area shape="poly" id="node4" href="#actor_mc" title="mc" alt="" coords="77,384,76,377,70,370,62,365,52,361,41,360,30,361,20,365,12,370,7,377,5,384,7,391,12,398,20,403,30,407,41,408,52,407,62,403,70,398,76,391"/>
+<area shape="poly" id="edge3" href="#channel_idct2mc" title="idct2mc" alt="" coords="44,292,44,344,39,344,39,292"/>
+<area shape="rect" id="edge3-label" href="#channel_idct2mc" title="idct2mc" alt="" coords="41,316,103,336"/>
+<area shape="rect" id="edge3-headlabel" href="#channel_idct2mc" title="594" alt="" coords="13,339,41,359"/>
+<area shape="rect" id="edge3-taillabel" href="#channel_idct2mc" title="1" alt="" coords="32,292,41,312"/>
+<area shape="poly" id="edge6" href="#channel_mc2mc" title="mc2mc(1)" alt="" coords="74,371,94,373,101,377,104,384,100,392,90,396,88,391,96,388,99,384,97,381,92,378,74,376"/>
+<area shape="rect" id="edge6-label" href="#channel_mc2mc" title="mc2mc(1)" alt="" coords="101,374,179,394"/>
+<area shape="rect" id="edge6-headlabel" href="#channel_mc2mc" title="1" alt="" coords="74,395,83,415"/>
+<area shape="rect" id="edge6-taillabel" href="#channel_mc2mc" title="1" alt="" coords="74,353,83,373"/>
+</map>
+<p class='center'><img src='h263decoder_graph.png' usemap='#h263decoder'/></p>
+
+<p><b>Actors: </b>
+<a href='#actor_vld'>vld</a>, <a href='#actor_iq'>iq</a>, <a href='#actor_idct'>idct</a>, <a href='#actor_mc'>mc</a></p>
+
+<p><b>Channel: </b>
+<a href='#channel_vld2iq'>vld2iq</a>, <a href='#channel_iq2idct'>iq2idct</a>, <a href='#channel_idct2mc'>idct2mc</a>, <a href='#channel_vld2vld'>vld2vld</a>, <a href='#channel_iq2iq'>iq2iq</a>, <a href='#channel_mc2mc'>mc2mc</a></p>
+
+<p><b class='header'>Throughput constraint:</b> 
+3e-08</p>
+
+<hr/><a name='actor_vld'/>
+<h3>Actor: vld</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>out</td>
+        <td>594</td>
+        <td><a href='#channel_vld2iq'>vld2iq</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_vld2vld'>vld2vld</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_vld2vld'>vld2vld</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>26018</td>
+        <td>10848</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>encoder</td>
+        <td>13009</td>
+        <td>10848</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_iq'/>
+<h3>Actor: iq</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_vld2iq'>vld2iq</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_iq2idct'>iq2idct</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_iq2iq'>iq2iq</a></td>
+    </tr>
+    <tr>
+        <td>p3</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_iq2iq'>iq2iq</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>559</td>
+        <td>400</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_idct'/>
+<h3>Actor: idct</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_iq2idct'>iq2idct</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_idct2mc'>idct2mc</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>486</td>
+        <td>400</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='actor_mc'/>
+<h3>Actor: mc</h3>
+
+<table class='center'>
+    <tr>
+        <th>port name</th>
+        <th>direction</th>
+        <th>rate</th>
+        <th>channel</th>
+    </tr>
+    <tr>
+        <td>p0</td>
+        <td>in</td>
+        <td>594</td>
+        <td><a href='#channel_idct2mc'>idct2mc</a></td>
+    </tr>
+    <tr>
+        <td>p1</td>
+        <td>in</td>
+        <td>1</td>
+        <td><a href='#channel_mc2mc'>mc2mc</a></td>
+    </tr>
+    <tr>
+        <td>p2</td>
+        <td>out</td>
+        <td>1</td>
+        <td><a href='#channel_mc2mc'>mc2mc</a></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>processor type</th>
+        <th>execution time</th>
+        <th>statesize</th>
+        <th>default</th>
+    </tr>
+    <tr>
+        <td>arm</td>
+        <td>10958</td>
+        <td>8000</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>motion</td>
+        <td>5479</td>
+        <td>8000</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_vld2iq'/>
+<h3>Channel: vld2iq</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_vld'>vld</a></td>
+        <td>p0</td>
+        <td><a href='#actor_iq'>iq</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>100000</td>
+        <td>0.480263</td>
+        <td>594/594/1/594</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_iq2idct'/>
+<h3>Channel: iq2idct</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_iq'>iq</a></td>
+        <td>p1</td>
+        <td><a href='#actor_idct'>idct</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>6262</td>
+        <td>0.480263</td>
+        <td>1/1/1/1</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_idct2mc'/>
+<h3>Channel: idct2mc</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_idct'>idct</a></td>
+        <td>p1</td>
+        <td><a href='#actor_mc'>mc</a></td>
+        <td>p0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>100000</td>
+        <td>0.480263</td>
+        <td>594/1/594/594</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_vld2vld'/>
+<h3>Channel: vld2vld</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_vld'>vld</a></td>
+        <td>p2</td>
+        <td><a href='#actor_vld'>vld</a></td>
+        <td>p1</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>8192</td>
+        <td>100000</td>
+        <td>0.0129364</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_iq2iq'/>
+<h3>Channel: iq2iq</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_iq'>iq</a></td>
+        <td>p3</td>
+        <td><a href='#actor_iq'>iq</a></td>
+        <td>p2</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>512</td>
+        <td>100000</td>
+        <td>0.480263</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+<hr/><a name='channel_mc2mc'/>
+<h3>Channel: mc2mc</h3>
+
+<table class='center'>
+    <tr>
+        <th>src actor</th>
+        <th>src port</th>
+        <th>dst actor</th>
+        <th>dst port</th>
+        <th>#initial tokens</th>
+    </tr>
+    <tr>
+        <td><a href='#actor_mc'>mc</a></td>
+        <td>p2</td>
+        <td><a href='#actor_mc'>mc</a></td>
+        <td>p1</td>
+        <td>1</td>
+    </tr>
+</table>
+
+<br/>
+
+<table class='center'>
+    <tr>
+        <th>tokensize</th>
+        <th>latency</th>
+        <th>bandwidth</th>
+        <th>buffersize (sz/src/dst/mem)</th>
+    </tr>
+    <tr>
+        <td>304128</td>
+        <td>100000</td>
+        <td>0.480263</td>
+        <td>2/1/1/2</td>    </tr>
+</table>
+
+<div><a class='footer' href='#top'>Back to graph</a></div>
+
+
+    </div>
+</div>
+</body>
+</html>

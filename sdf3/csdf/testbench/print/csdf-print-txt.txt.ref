@@ -1,0 +1,121 @@
+Graph (example)
+id:        0
+type:      example
+
+Actor (a)
+id:         0
+type:       a
+processor:  proc_0 (default)
+exec time:  1, 3
+state size: (max)
+
+Port (p0)
+id:        0
+type:      out
+rate:      3,1
+connected: true
+
+Port (p2)
+id:        1
+type:      in
+rate:      1,1
+connected: true
+
+Port (p3)
+id:        2
+type:      out
+rate:      1,1
+connected: true
+
+Actor (b)
+id:         1
+type:       b
+processor:  proc_0 (default)
+exec time:  2, 2
+state size: (max)
+
+Port (p0)
+id:        0
+type:      in
+rate:      4,2
+connected: true
+
+Port (p1)
+id:        1
+type:      out
+rate:      2,4
+connected: true
+
+Port (p2)
+id:        2
+type:      in
+rate:      1,1
+connected: true
+
+Port (p3)
+id:        3
+type:      out
+rate:      1,1
+connected: true
+
+Actor (c)
+id:         2
+type:       c
+processor:  proc_0 (default)
+exec time:  2, 3
+state size: (max)
+
+Port (p0)
+id:        0
+type:      in
+rate:      6,6
+connected: true
+
+Port (p2)
+id:        1
+type:      in
+rate:      1,1
+connected: true
+
+Port (p3)
+id:        2
+type:      out
+rate:      1,1
+connected: true
+
+Channel (alpha)
+id:             0
+initial tokens: 0
+connected:      true
+source:         a.p0
+destination:    b.p0
+
+Channel (beta)
+id:             1
+initial tokens: 0
+connected:      true
+source:         b.p1
+destination:    c.p0
+
+Channel (d1)
+id:             2
+initial tokens: 1
+connected:      true
+source:         a.p3
+destination:    a.p2
+
+Channel (d2)
+id:             3
+initial tokens: 1
+connected:      true
+source:         b.p3
+destination:    b.p2
+
+Channel (d3)
+id:             4
+initial tokens: 1
+connected:      true
+source:         c.p3
+destination:    c.p2
+
+

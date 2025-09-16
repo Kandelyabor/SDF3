@@ -1,0 +1,3677 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="susan">
+    <fsmsadf>
+      <scenariograph name="scenario1" type="scenariograph">
+        <actor name="susan_direction" type="susan_direction">
+          <port name="fsusan_directionsusan_thin13_0" type="out" rate="1"/>
+          <port name="fsusan_directionsusan_thin14_1" type="out" rate="1"/>
+          <port name="fsusan_directionsusan_thin15_2" type="out" rate="1"/>
+          <port name="fsusan_usansusan_direction11_0" type="in" rate="1"/>
+          <port name="fsusan_usansusan_direction12_1" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_usan" type="susan_usan">
+          <port name="fsusan_usansusan_direction11_0" type="out" rate="1"/>
+          <port name="fsusan_usansusan_direction12_1" type="out" rate="1"/>
+          <port name="imusan_0" type="in" rate="1"/>
+        </actor>
+        <actor name="switch_imusan" type="switch_imusan">
+          <port name="imusan_0" type="out" rate="2"/>
+          <port name="switch_imusan_sync_1" type="out" rate="1"/>
+          <port name="switch_imusan_sync_2" type="in" rate="1"/>
+        </actor>
+        <actor name="put_image" type="put_image">
+          <port name="fsusan_thinput_image16_0" type="in" rate="1"/>
+          <port name="fsusan_thinput_image17_1" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_thin" type="susan_thin">
+          <port name="fsusan_thinput_image16_0" type="out" rate="1"/>
+          <port name="fsusan_thinput_image17_1" type="out" rate="1"/>
+          <port name="fsusan_directionsusan_thin13_0" type="in" rate="1"/>
+          <port name="fsusan_directionsusan_thin14_1" type="in" rate="1"/>
+          <port name="fsusan_directionsusan_thin15_2" type="in" rate="1"/>
+        </actor>
+        <channel name="imusan_1" srcActor="switch_imusan" srcPort="imusan_0" dstActor="susan_usan" dstPort="imusan_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usansusan_direction11" srcActor="susan_usan" srcPort="fsusan_usansusan_direction11_0" dstActor="susan_direction" dstPort="fsusan_usansusan_direction11_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usansusan_direction12" srcActor="susan_usan" srcPort="fsusan_usansusan_direction12_1" dstActor="susan_direction" dstPort="fsusan_usansusan_direction12_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_directionsusan_thin13" srcActor="susan_direction" srcPort="fsusan_directionsusan_thin13_0" dstActor="susan_thin" dstPort="fsusan_directionsusan_thin13_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_directionsusan_thin14" srcActor="susan_direction" srcPort="fsusan_directionsusan_thin14_1" dstActor="susan_thin" dstPort="fsusan_directionsusan_thin14_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_directionsusan_thin15" srcActor="susan_direction" srcPort="fsusan_directionsusan_thin15_2" dstActor="susan_thin" dstPort="fsusan_directionsusan_thin15_2" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_thinput_image16" srcActor="susan_thin" srcPort="fsusan_thinput_image16_0" dstActor="put_image" dstPort="fsusan_thinput_image16_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_thinput_image17" srcActor="susan_thin" srcPort="fsusan_thinput_image17_1" dstActor="put_image" dstPort="fsusan_thinput_image17_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_imusan_sync" srcActor="switch_imusan" srcPort="switch_imusan_sync_1" dstActor="switch_imusan" dstPort="switch_imusan_sync_2" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_imusan_sync" persistentFinalTokenNames="t_switch_imusan_sync"/>
+      </scenariograph>
+      <scenariograph name="scenario2" type="scenariograph">
+        <actor name="switch_imusan" type="switch_imusan">
+          <port name="imusan_0" type="out" rate="2"/>
+          <port name="switch_imusan_sync_1" type="out" rate="1"/>
+          <port name="switch_imusan_sync_2" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_thin" type="susan_thin">
+          <port name="fsusan_thinput_image35_0" type="out" rate="2"/>
+          <port name="fsusan_thinput_image36_1" type="out" rate="2"/>
+          <port name="fsusan_direction1susan_thin29_0" type="in" rate="1"/>
+          <port name="fsusan_direction1susan_thin30_1" type="in" rate="1"/>
+          <port name="fsusan_direction1susan_thin31_2" type="in" rate="1"/>
+          <port name="fsusan_direction2susan_thin32_3" type="in" rate="1"/>
+          <port name="fsusan_direction2susan_thin33_4" type="in" rate="1"/>
+          <port name="fsusan_direction2susan_thin34_5" type="in" rate="1"/>
+        </actor>
+        <actor name="put_image" type="put_image">
+          <port name="fsusan_thinput_image35_0" type="in" rate="1"/>
+          <port name="fsusan_thinput_image36_1" type="in" rate="1"/>
+        </actor>
+        <actor name="split" type="split">
+          <port name="fsplitsusan_usan123_0" type="out" rate="1"/>
+          <port name="fsplitsusan_usan224_1" type="out" rate="1"/>
+          <port name="imusan_0" type="in" rate="2"/>
+        </actor>
+        <actor name="susan_direction2" type="susan_direction2">
+          <port name="fsusan_direction2susan_thin32_0" type="out" rate="1"/>
+          <port name="fsusan_direction2susan_thin33_1" type="out" rate="1"/>
+          <port name="fsusan_direction2susan_thin34_2" type="out" rate="1"/>
+          <port name="fsusan_usan2susan_direction227_0" type="in" rate="1"/>
+          <port name="fsusan_usan2susan_direction228_1" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_usan2" type="susan_usan2">
+          <port name="fsusan_usan2susan_direction227_0" type="out" rate="1"/>
+          <port name="fsusan_usan2susan_direction228_1" type="out" rate="1"/>
+          <port name="fsplitsusan_usan224_0" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_usan1" type="susan_usan1">
+          <port name="fsusan_usan1susan_direction125_0" type="out" rate="1"/>
+          <port name="fsusan_usan1susan_direction126_1" type="out" rate="1"/>
+          <port name="fsplitsusan_usan123_0" type="in" rate="1"/>
+        </actor>
+        <actor name="susan_direction1" type="susan_direction1">
+          <port name="fsusan_direction1susan_thin29_0" type="out" rate="1"/>
+          <port name="fsusan_direction1susan_thin30_1" type="out" rate="1"/>
+          <port name="fsusan_direction1susan_thin31_2" type="out" rate="1"/>
+          <port name="fsusan_usan1susan_direction125_0" type="in" rate="1"/>
+          <port name="fsusan_usan1susan_direction126_1" type="in" rate="1"/>
+        </actor>
+        <channel name="imusan_2" srcActor="switch_imusan" srcPort="imusan_0" dstActor="split" dstPort="imusan_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsplitsusan_usan123" srcActor="split" srcPort="fsplitsusan_usan123_0" dstActor="susan_usan1" dstPort="fsplitsusan_usan123_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsplitsusan_usan224" srcActor="split" srcPort="fsplitsusan_usan224_1" dstActor="susan_usan2" dstPort="fsplitsusan_usan224_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usan1susan_direction125" srcActor="susan_usan1" srcPort="fsusan_usan1susan_direction125_0" dstActor="susan_direction1" dstPort="fsusan_usan1susan_direction125_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usan1susan_direction126" srcActor="susan_usan1" srcPort="fsusan_usan1susan_direction126_1" dstActor="susan_direction1" dstPort="fsusan_usan1susan_direction126_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usan2susan_direction227" srcActor="susan_usan2" srcPort="fsusan_usan2susan_direction227_0" dstActor="susan_direction2" dstPort="fsusan_usan2susan_direction227_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_usan2susan_direction228" srcActor="susan_usan2" srcPort="fsusan_usan2susan_direction228_1" dstActor="susan_direction2" dstPort="fsusan_usan2susan_direction228_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction1susan_thin29" srcActor="susan_direction1" srcPort="fsusan_direction1susan_thin29_0" dstActor="susan_thin" dstPort="fsusan_direction1susan_thin29_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction1susan_thin30" srcActor="susan_direction1" srcPort="fsusan_direction1susan_thin30_1" dstActor="susan_thin" dstPort="fsusan_direction1susan_thin30_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction1susan_thin31" srcActor="susan_direction1" srcPort="fsusan_direction1susan_thin31_2" dstActor="susan_thin" dstPort="fsusan_direction1susan_thin31_2" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction2susan_thin32" srcActor="susan_direction2" srcPort="fsusan_direction2susan_thin32_0" dstActor="susan_thin" dstPort="fsusan_direction2susan_thin32_3" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction2susan_thin33" srcActor="susan_direction2" srcPort="fsusan_direction2susan_thin33_1" dstActor="susan_thin" dstPort="fsusan_direction2susan_thin33_4" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_direction2susan_thin34" srcActor="susan_direction2" srcPort="fsusan_direction2susan_thin34_2" dstActor="susan_thin" dstPort="fsusan_direction2susan_thin34_5" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_thinput_image35" srcActor="susan_thin" srcPort="fsusan_thinput_image35_0" dstActor="put_image" dstPort="fsusan_thinput_image35_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fsusan_thinput_image36" srcActor="susan_thin" srcPort="fsusan_thinput_image36_1" dstActor="put_image" dstPort="fsusan_thinput_image36_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_imusan_sync" srcActor="switch_imusan" srcPort="switch_imusan_sync_1" dstActor="switch_imusan" dstPort="switch_imusan_sync_2" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_imusan_sync" persistentFinalTokenNames="t_switch_imusan_sync"/>
+      </scenariograph>
+      <scenariograph name="detector" type="scenariograph">
+        <actor name="get_image" type="get_image">
+          <port name="gigi_1" type="out" rate="1"/>
+          <port name="gigi_0" type="in" rate="1"/>
+          <port name="switch_imusan_2" type="out" rate="2"/>
+          <port name="switch_imusan_ctrl_3" type="out" rate="1"/>
+          <port name="detect_loadSched0_ctrl_4" type="out" rate="1"/>
+          <port name="detect_loadSched1_ctrl_5" type="out" rate="1"/>
+          <port name="detect_loadSched2_ctrl_6" type="out" rate="1"/>
+          <port name="detect_loadSched3_ctrl_7" type="out" rate="1"/>
+        </actor>
+        <actor name="switch_imusan" type="switch_imusan">
+          <port name="switch_imusan_0" type="in" rate="2"/>
+          <port name="switch_imusan_ctrl_1" type="in" rate="1"/>
+          <port name="switch_imusan_sync_2" type="out" rate="1"/>
+          <port name="switch_imusan_sync_3" type="in" rate="1"/>
+          <port name="loadSched0_switch_imusan_4" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched0" type="loadSched0">
+          <port name="detect_loadSched0_ctrl_0" type="in" rate="1"/>
+          <port name="loadSched0_switch_imusan_1" type="out" rate="1"/>
+        </actor>
+        <actor name="loadSched1" type="loadSched1">
+          <port name="detect_loadSched1_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched2" type="loadSched2">
+          <port name="detect_loadSched2_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched3" type="loadSched3">
+          <port name="detect_loadSched3_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <channel name="gigi" srcActor="get_image" srcPort="gigi_1" dstActor="get_image" dstPort="gigi_0" initialTokens="1" finalTokens="1" persistentTokenNames="t1" persistentFinalTokenNames="t1"/>
+        <channel name="switch_imusan_data" srcActor="get_image" srcPort="switch_imusan_2" dstActor="switch_imusan" dstPort="switch_imusan_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_imusan_ctrl" srcActor="get_image" srcPort="switch_imusan_ctrl_3" dstActor="switch_imusan" dstPort="switch_imusan_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_imusan_sync" srcActor="switch_imusan" srcPort="switch_imusan_sync_2" dstActor="switch_imusan" dstPort="switch_imusan_sync_3" initialTokens="1" finalTokens="1" persistentTokenNames="t_switch_imusan_sync" persistentFinalTokenNames="t_switch_imusan_sync"/>
+        <channel name="detect_loadSched0_ctrl" srcActor="get_image" srcPort="detect_loadSched0_ctrl_4" dstActor="loadSched0" dstPort="detect_loadSched0_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_imusan" srcActor="loadSched0" srcPort="loadSched0_switch_imusan_1" dstActor="switch_imusan" dstPort="loadSched0_switch_imusan_4" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched1_ctrl" srcActor="get_image" srcPort="detect_loadSched1_ctrl_5" dstActor="loadSched1" dstPort="detect_loadSched1_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched2_ctrl" srcActor="get_image" srcPort="detect_loadSched2_ctrl_6" dstActor="loadSched2" dstPort="detect_loadSched2_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched3_ctrl" srcActor="get_image" srcPort="detect_loadSched3_ctrl_7" dstActor="loadSched3" dstPort="detect_loadSched3_ctrl_0" initialTokens="0" finalTokens="0"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="susan_direction"/>
+        <actorProperties actor="susan_usan"/>
+        <actorProperties actor="switch_imusan"/>
+        <actorProperties actor="put_image"/>
+        <actorProperties actor="susan_thin"/>
+        <actorProperties actor="split"/>
+        <actorProperties actor="susan_direction2"/>
+        <actorProperties actor="susan_usan2"/>
+        <actorProperties actor="susan_usan1"/>
+        <actorProperties actor="susan_direction1"/>
+        <actorProperties actor="get_image"/>
+        <actorProperties actor="loadSched0"/>
+        <actorProperties actor="loadSched1"/>
+        <actorProperties actor="loadSched2"/>
+        <actorProperties actor="loadSched3"/>
+        <channelProperties channel="imusan_1"/>
+        <channelProperties channel="fsusan_usansusan_direction11"/>
+        <channelProperties channel="fsusan_usansusan_direction12"/>
+        <channelProperties channel="fsusan_directionsusan_thin13"/>
+        <channelProperties channel="fsusan_directionsusan_thin14"/>
+        <channelProperties channel="fsusan_directionsusan_thin15"/>
+        <channelProperties channel="fsusan_thinput_image16"/>
+        <channelProperties channel="fsusan_thinput_image17"/>
+        <channelProperties channel="switch_imusan_sync"/>
+        <channelProperties channel="imusan_2"/>
+        <channelProperties channel="fsplitsusan_usan123"/>
+        <channelProperties channel="fsplitsusan_usan224"/>
+        <channelProperties channel="fsusan_usan1susan_direction125"/>
+        <channelProperties channel="fsusan_usan1susan_direction126"/>
+        <channelProperties channel="fsusan_usan2susan_direction227"/>
+        <channelProperties channel="fsusan_usan2susan_direction228"/>
+        <channelProperties channel="fsusan_direction1susan_thin29"/>
+        <channelProperties channel="fsusan_direction1susan_thin30"/>
+        <channelProperties channel="fsusan_direction1susan_thin31"/>
+        <channelProperties channel="fsusan_direction2susan_thin32"/>
+        <channelProperties channel="fsusan_direction2susan_thin33"/>
+        <channelProperties channel="fsusan_direction2susan_thin34"/>
+        <channelProperties channel="fsusan_thinput_image35"/>
+        <channelProperties channel="fsusan_thinput_image36"/>
+        <channelProperties channel="gigi"/>
+        <channelProperties channel="switch_imusan_data"/>
+        <channelProperties channel="switch_imusan_ctrl"/>
+        <channelProperties channel="detect_loadSched0_ctrl"/>
+        <channelProperties channel="loadSched0_switch_imusan"/>
+        <channelProperties channel="detect_loadSched1_ctrl"/>
+        <channelProperties channel="detect_loadSched2_ctrl"/>
+        <channelProperties channel="detect_loadSched3_ctrl"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="scenario1" graph="scenario1" reward="1">
+          <actorProperties actor="susan_direction" repetitions="2">
+            <processor type="microblaze" default="true">
+              <executionTime time="2802632"/>
+              <implementation>
+                <function symbol="susan_direction_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_directionsusan_thin13_0"/>
+                    <argument number="1" port="fsusan_directionsusan_thin14_1"/>
+                    <argument number="2" port="fsusan_directionsusan_thin15_2"/>
+                    <argument number="0" port="fsusan_usansusan_direction11_0"/>
+                    <argument number="1" port="fsusan_usansusan_direction12_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="7716" type="instr"/>
+              <memory name=".data" size="340" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_usan" repetitions="2">
+            <processor type="microblaze" default="true">
+              <executionTime time="656296"/>
+              <implementation>
+                <function symbol="susan_usan_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_usansusan_direction11_0"/>
+                    <argument number="1" port="fsusan_usansusan_direction12_1"/>
+                    <argument number="0" port="imusan_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="2244" type="instr"/>
+              <memory name=".data" size="548" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_imusan" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="switch_imusan_func">
+                  <argumentMapping>
+                    <argument number="0" port="imusan_0"/>
+                    <argument number="1" port="switch_imusan_sync_1"/>
+                    <argument number="0" port="switch_imusan_sync_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="0" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="put_image" repetitions="2">
+            <processor type="microblaze" default="true">
+              <executionTime time="27388"/>
+              <implementation>
+                <function symbol="put_image_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_thinput_image16_0"/>
+                    <argument number="1" port="fsusan_thinput_image17_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="5253" type="instr"/>
+              <memory name=".data" size="64848" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_thin" repetitions="2">
+            <processor type="microblaze" default="true">
+              <executionTime time="81811"/>
+              <implementation>
+                <function symbol="susan_thin_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_thinput_image16_0"/>
+                    <argument number="1" port="fsusan_thinput_image17_1"/>
+                    <argument number="0" port="fsusan_directionsusan_thin13_0"/>
+                    <argument number="1" port="fsusan_directionsusan_thin14_1"/>
+                    <argument number="2" port="fsusan_directionsusan_thin15_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="5444" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="imusan_1">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usansusan_direction11">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usansusan_direction12">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_directionsusan_thin13">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_directionsusan_thin14">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_directionsusan_thin15">
+            <tokenSize sz="1092"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_thinput_image16">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_thinput_image17">
+            <tokenSize sz="1092"/>
+          </channelProperties>
+          <channelProperties channel="switch_imusan_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="fsusan_directionsusan_thin13" sz="0"/>
+              <channel name="fsusan_directionsusan_thin14" sz="0"/>
+              <channel name="fsusan_directionsusan_thin15" sz="0"/>
+              <channel name="fsusan_thinput_image16" sz="0"/>
+              <channel name="fsusan_thinput_image17" sz="0"/>
+              <channel name="fsusan_usansusan_direction11" sz="0"/>
+              <channel name="fsusan_usansusan_direction12" sz="0"/>
+              <channel name="imusan_1" sz="0"/>
+              <channel name="switch_imusan_sync" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="11" thr="1.44553e-07">
+              <channel name="fsusan_directionsusan_thin13" sz="1"/>
+              <channel name="fsusan_directionsusan_thin14" sz="1"/>
+              <channel name="fsusan_directionsusan_thin15" sz="1"/>
+              <channel name="fsusan_thinput_image16" sz="1"/>
+              <channel name="fsusan_thinput_image17" sz="1"/>
+              <channel name="fsusan_usansusan_direction11" sz="1"/>
+              <channel name="fsusan_usansusan_direction12" sz="1"/>
+              <channel name="imusan_1" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="13" thr="1.73344e-07">
+              <channel name="fsusan_directionsusan_thin13" sz="1"/>
+              <channel name="fsusan_directionsusan_thin14" sz="1"/>
+              <channel name="fsusan_directionsusan_thin15" sz="1"/>
+              <channel name="fsusan_thinput_image16" sz="1"/>
+              <channel name="fsusan_thinput_image17" sz="1"/>
+              <channel name="fsusan_usansusan_direction11" sz="2"/>
+              <channel name="fsusan_usansusan_direction12" sz="2"/>
+              <channel name="imusan_1" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="16" thr="1.78404e-07">
+              <channel name="fsusan_directionsusan_thin13" sz="2"/>
+              <channel name="fsusan_directionsusan_thin14" sz="2"/>
+              <channel name="fsusan_directionsusan_thin15" sz="2"/>
+              <channel name="fsusan_thinput_image16" sz="1"/>
+              <channel name="fsusan_thinput_image17" sz="1"/>
+              <channel name="fsusan_usansusan_direction11" sz="2"/>
+              <channel name="fsusan_usansusan_direction12" sz="2"/>
+              <channel name="imusan_1" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+        <scenario name="scenario2" graph="scenario2" reward="1">
+          <actorProperties actor="switch_imusan" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="0"/>
+              <implementation>
+                <function symbol="switch_imusan_func">
+                  <argumentMapping>
+                    <argument number="0" port="imusan_0"/>
+                    <argument number="1" port="switch_imusan_sync_1"/>
+                    <argument number="0" port="switch_imusan_sync_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="0" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_thin" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="81811"/>
+              <implementation>
+                <function symbol="susan_thin_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_thinput_image35_0"/>
+                    <argument number="1" port="fsusan_thinput_image36_1"/>
+                    <argument number="0" port="fsusan_direction1susan_thin29_0"/>
+                    <argument number="1" port="fsusan_direction1susan_thin30_1"/>
+                    <argument number="2" port="fsusan_direction1susan_thin31_2"/>
+                    <argument number="3" port="fsusan_direction2susan_thin32_3"/>
+                    <argument number="4" port="fsusan_direction2susan_thin33_4"/>
+                    <argument number="5" port="fsusan_direction2susan_thin34_5"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="5444" type="instr"/>
+              <memory name=".data" size="0" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="put_image" repetitions="2">
+            <processor type="microblaze" default="true">
+              <executionTime time="27388"/>
+              <implementation>
+                <function symbol="put_image_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_thinput_image35_0"/>
+                    <argument number="1" port="fsusan_thinput_image36_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="5253" type="instr"/>
+              <memory name=".data" size="64848" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="split" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="5600"/>
+              <implementation>
+                <function symbol="split_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsplitsusan_usan123_0"/>
+                    <argument number="1" port="fsplitsusan_usan224_1"/>
+                    <argument number="0" port="imusan_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="400" type="instr"/>
+              <memory name=".data" size="400" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_direction2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="2802632"/>
+              <implementation>
+                <function symbol="susan_direction2_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_direction2susan_thin32_0"/>
+                    <argument number="1" port="fsusan_direction2susan_thin33_1"/>
+                    <argument number="2" port="fsusan_direction2susan_thin34_2"/>
+                    <argument number="0" port="fsusan_usan2susan_direction227_0"/>
+                    <argument number="1" port="fsusan_usan2susan_direction228_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="7716" type="instr"/>
+              <memory name=".data" size="340" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_usan2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="656296"/>
+              <implementation>
+                <function symbol="susan_usan2_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_usan2susan_direction227_0"/>
+                    <argument number="1" port="fsusan_usan2susan_direction228_1"/>
+                    <argument number="0" port="fsplitsusan_usan224_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="2244" type="instr"/>
+              <memory name=".data" size="548" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_usan1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="656296"/>
+              <implementation>
+                <function symbol="susan_usan1_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_usan1susan_direction125_0"/>
+                    <argument number="1" port="fsusan_usan1susan_direction126_1"/>
+                    <argument number="0" port="fsplitsusan_usan123_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="2244" type="instr"/>
+              <memory name=".data" size="548" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="susan_direction1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="2802632"/>
+              <implementation>
+                <function symbol="susan_direction1_func">
+                  <argumentMapping>
+                    <argument number="0" port="fsusan_direction1susan_thin29_0"/>
+                    <argument number="1" port="fsusan_direction1susan_thin30_1"/>
+                    <argument number="2" port="fsusan_direction1susan_thin31_2"/>
+                    <argument number="0" port="fsusan_usan1susan_direction125_0"/>
+                    <argument number="1" port="fsusan_usan1susan_direction126_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="7716" type="instr"/>
+              <memory name=".data" size="340" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="imusan_2">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsplitsusan_usan123">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsplitsusan_usan224">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usan1susan_direction125">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usan1susan_direction126">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usan2susan_direction227">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_usan2susan_direction228">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction1susan_thin29">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction1susan_thin30">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction1susan_thin31">
+            <tokenSize sz="1092"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction2susan_thin32">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction2susan_thin33">
+            <tokenSize sz="4528"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_direction2susan_thin34">
+            <tokenSize sz="1092"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_thinput_image35">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="fsusan_thinput_image36">
+            <tokenSize sz="1092"/>
+          </channelProperties>
+          <channelProperties channel="switch_imusan_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="fsplitsusan_usan123" sz="0"/>
+              <channel name="fsplitsusan_usan224" sz="0"/>
+              <channel name="fsusan_direction1susan_thin29" sz="0"/>
+              <channel name="fsusan_direction1susan_thin30" sz="0"/>
+              <channel name="fsusan_direction1susan_thin31" sz="0"/>
+              <channel name="fsusan_direction2susan_thin32" sz="0"/>
+              <channel name="fsusan_direction2susan_thin33" sz="0"/>
+              <channel name="fsusan_direction2susan_thin34" sz="0"/>
+              <channel name="fsusan_thinput_image35" sz="0"/>
+              <channel name="fsusan_thinput_image36" sz="0"/>
+              <channel name="fsusan_usan1susan_direction125" sz="0"/>
+              <channel name="fsusan_usan1susan_direction126" sz="0"/>
+              <channel name="fsusan_usan2susan_direction227" sz="0"/>
+              <channel name="fsusan_usan2susan_direction228" sz="0"/>
+              <channel name="imusan_2" sz="0"/>
+              <channel name="switch_imusan_sync" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="20" thr="2.89107e-07">
+              <channel name="fsplitsusan_usan123" sz="1"/>
+              <channel name="fsplitsusan_usan224" sz="1"/>
+              <channel name="fsusan_direction1susan_thin29" sz="1"/>
+              <channel name="fsusan_direction1susan_thin30" sz="1"/>
+              <channel name="fsusan_direction1susan_thin31" sz="1"/>
+              <channel name="fsusan_direction2susan_thin32" sz="1"/>
+              <channel name="fsusan_direction2susan_thin33" sz="1"/>
+              <channel name="fsusan_direction2susan_thin34" sz="1"/>
+              <channel name="fsusan_thinput_image35" sz="2"/>
+              <channel name="fsusan_thinput_image36" sz="2"/>
+              <channel name="fsusan_usan1susan_direction125" sz="1"/>
+              <channel name="fsusan_usan1susan_direction126" sz="1"/>
+              <channel name="fsusan_usan2susan_direction227" sz="1"/>
+              <channel name="fsusan_usan2susan_direction228" sz="1"/>
+              <channel name="imusan_2" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="24" thr="3.46687e-07">
+              <channel name="fsplitsusan_usan123" sz="1"/>
+              <channel name="fsplitsusan_usan224" sz="1"/>
+              <channel name="fsusan_direction1susan_thin29" sz="1"/>
+              <channel name="fsusan_direction1susan_thin30" sz="1"/>
+              <channel name="fsusan_direction1susan_thin31" sz="1"/>
+              <channel name="fsusan_direction2susan_thin32" sz="1"/>
+              <channel name="fsusan_direction2susan_thin33" sz="1"/>
+              <channel name="fsusan_direction2susan_thin34" sz="1"/>
+              <channel name="fsusan_thinput_image35" sz="2"/>
+              <channel name="fsusan_thinput_image36" sz="2"/>
+              <channel name="fsusan_usan1susan_direction125" sz="2"/>
+              <channel name="fsusan_usan1susan_direction126" sz="2"/>
+              <channel name="fsusan_usan2susan_direction227" sz="2"/>
+              <channel name="fsusan_usan2susan_direction228" sz="2"/>
+              <channel name="imusan_2" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="30" thr="3.56807e-07">
+              <channel name="fsplitsusan_usan123" sz="1"/>
+              <channel name="fsplitsusan_usan224" sz="1"/>
+              <channel name="fsusan_direction1susan_thin29" sz="2"/>
+              <channel name="fsusan_direction1susan_thin30" sz="2"/>
+              <channel name="fsusan_direction1susan_thin31" sz="2"/>
+              <channel name="fsusan_direction2susan_thin32" sz="2"/>
+              <channel name="fsusan_direction2susan_thin33" sz="2"/>
+              <channel name="fsusan_direction2susan_thin34" sz="2"/>
+              <channel name="fsusan_thinput_image35" sz="2"/>
+              <channel name="fsusan_thinput_image36" sz="2"/>
+              <channel name="fsusan_usan1susan_direction125" sz="2"/>
+              <channel name="fsusan_usan1susan_direction126" sz="2"/>
+              <channel name="fsusan_usan2susan_direction227" sz="2"/>
+              <channel name="fsusan_usan2susan_direction228" sz="2"/>
+              <channel name="imusan_2" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+        <scenario name="detector" graph="detector" reward="0">
+          <actorProperties actor="get_image" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="150276"/>
+              <implementation>
+                <function symbol="get_image_func">
+                  <argumentMapping>
+                    <argument number="0" port="gigi_1"/>
+                    <argument number="0" port="gigi_0"/>
+                    <argument number="1" port="switch_imusan_2"/>
+                    <argument number="2" port="switch_imusan_ctrl_3"/>
+                    <argument number="3" port="detect_loadSched0_ctrl_4"/>
+                    <argument number="4" port="detect_loadSched1_ctrl_5"/>
+                    <argument number="5" port="detect_loadSched2_ctrl_6"/>
+                    <argument number="6" port="detect_loadSched3_ctrl_7"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="5077" type="instr"/>
+              <memory name=".data" size="32481" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_imusan" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_imusan_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_imusan_0"/>
+                    <argument number="1" port="switch_imusan_ctrl_1"/>
+                    <argument number="0" port="switch_imusan_sync_2"/>
+                    <argument number="2" port="switch_imusan_sync_3"/>
+                    <argument number="3" port="loadSched0_switch_imusan_4"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched0" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched0_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched0_ctrl_0"/>
+                    <argument number="0" port="loadSched0_switch_imusan_1"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched1_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched1_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched2_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched2_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched3" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched3_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched3_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="gigi">
+            <tokenSize sz="8"/>
+          </channelProperties>
+          <channelProperties channel="switch_imusan_data">
+            <tokenSize sz="1132"/>
+          </channelProperties>
+          <channelProperties channel="switch_imusan_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_imusan_sync">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched0_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_imusan">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched1_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched2_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched3_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <storageDistributions>
+            <storageDistribution sz="0" thr="0">
+              <channel name="detect_loadSched0_ctrl" sz="0"/>
+              <channel name="detect_loadSched1_ctrl" sz="0"/>
+              <channel name="detect_loadSched2_ctrl" sz="0"/>
+              <channel name="detect_loadSched3_ctrl" sz="0"/>
+              <channel name="gigi" sz="0"/>
+              <channel name="loadSched0_switch_imusan" sz="0"/>
+              <channel name="switch_imusan_ctrl" sz="0"/>
+              <channel name="switch_imusan_data" sz="0"/>
+              <channel name="switch_imusan_sync" sz="0"/>
+            </storageDistribution>
+            <storageDistribution sz="12" thr="6.62011e-06">
+              <channel name="detect_loadSched0_ctrl" sz="1"/>
+              <channel name="detect_loadSched1_ctrl" sz="1"/>
+              <channel name="detect_loadSched2_ctrl" sz="1"/>
+              <channel name="detect_loadSched3_ctrl" sz="1"/>
+              <channel name="gigi" sz="2"/>
+              <channel name="loadSched0_switch_imusan" sz="1"/>
+              <channel name="switch_imusan_ctrl" sz="1"/>
+              <channel name="switch_imusan_data" sz="2"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="15" thr="6.63394e-06">
+              <channel name="detect_loadSched0_ctrl" sz="1"/>
+              <channel name="detect_loadSched1_ctrl" sz="1"/>
+              <channel name="detect_loadSched2_ctrl" sz="1"/>
+              <channel name="detect_loadSched3_ctrl" sz="1"/>
+              <channel name="gigi" sz="2"/>
+              <channel name="loadSched0_switch_imusan" sz="1"/>
+              <channel name="switch_imusan_ctrl" sz="2"/>
+              <channel name="switch_imusan_data" sz="4"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+            <storageDistribution sz="19" thr="6.65442e-06">
+              <channel name="detect_loadSched0_ctrl" sz="2"/>
+              <channel name="detect_loadSched1_ctrl" sz="2"/>
+              <channel name="detect_loadSched2_ctrl" sz="2"/>
+              <channel name="detect_loadSched3_ctrl" sz="2"/>
+              <channel name="gigi" sz="2"/>
+              <channel name="loadSched0_switch_imusan" sz="1"/>
+              <channel name="switch_imusan_ctrl" sz="2"/>
+              <channel name="switch_imusan_data" sz="4"/>
+              <channel name="switch_imusan_sync" sz="2"/>
+            </storageDistribution>
+          </storageDistributions>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>1.2500000000e-07</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units>
+        <timeUnit>10 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+    </fsmsadfProperties>
+    <fsm initialstate="detector" detector="get_image">
+      <state name="q2" scenario="scenario2">
+        <transition destination="detector"/>
+      </state>
+      <state name="q1" scenario="scenario1">
+        <transition destination="detector"/>
+      </state>
+      <state name="detector" scenario="detector">
+        <transition destination="q1"/>
+        <transition destination="q2"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="x4tile1dma">
+    <tile name="mb0">
+      <processor name="mb0" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemout1" size="8192" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx0y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb1">
+      <processor name="mb1" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="131072" type="instr"/>
+      <memory name="dmem" size="131072" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx1y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb2">
+      <processor name="mb2" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx2y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb3">
+      <processor name="mb3" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx2y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="shared">
+      <memory name="memory" size="134217728" type="shared"/>
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_4" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_5" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_7" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_8" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_9" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_10" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_11" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_12" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_13" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_14" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_15" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_16" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_17" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_18" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_19" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_20" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_21" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_22" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_23" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_24" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_25" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+  </architectureGraph>
+  <mapping name="initial" appGraph="susan" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsusan_thinput_image17">
+          <bufferLocation location="mem"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_1">
+          <bufferLocation location="mem"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan"/>
+          <actor name="susan_direction"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="scenario2">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan1"/>
+          <actor name="susan_direction1"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_usan2"/>
+          <actor name="susan_direction2"/>
+        </cluster>
+        <cluster name="four">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="gigi">
+          <bufferLocation location="mem"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_ctrl">
+          <bufferLocation location="mem"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_data">
+          <bufferLocation location="mem"/>
+        </channelConstraints>
+        <cluster name="detector_get_image">
+          <actor name="get_image"/>
+          <actor name="switch_imusan"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="55000"/>
+        <memory name="dmem" size="2048"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="55000"/>
+        <memory name="dmem" size="2048"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="55000"/>
+        <memory name="dmem" size="2048"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="0"/>
+        </processor>
+        <memory name="imem" size="55000"/>
+        <memory name="dmem" size="2048"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="0"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="0" appGraph="susan" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_thin"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_thinput_image16" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_thinput_image17" bufferType="src"/>
+          <channel name="fsusan_thinput_image17" bufferType="dst"/>
+          <channel name="imusan_1" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_directionsusan_thin13" in="true"/>
+          <channel name="fsusan_directionsusan_thin14" in="true"/>
+          <channel name="fsusan_directionsusan_thin15" in="true"/>
+          <channel name="fsusan_thinput_image17" in="true"/>
+          <channel name="fsusan_thinput_image17" out="true"/>
+          <channel name="imusan_1" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="susan_direction"/>
+          <actor name="susan_usan"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="susan_usan" startOfPeriodicRegime="true"/>
+              <state actor="susan_direction"/>
+              <state actor="susan_usan"/>
+              <state actor="susan_direction"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+          <channel name="fsusan_usansusan_direction11" bufferType="mem"/>
+          <channel name="fsusan_usansusan_direction12" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="src"/>
+          <channel name="imusan_1" bufferType="dst"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="imusan_1" in="true"/>
+          <channel name="fsusan_directionsusan_thin13" out="true"/>
+          <channel name="fsusan_directionsusan_thin14" out="true"/>
+          <channel name="fsusan_directionsusan_thin15" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4582000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="3654000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="fsusan_thinput_image17" bufferType="mem"/>
+          <channel name="imusan_1" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="fsusan_thinput_image17"/>
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11">
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_12">
+        <channel name="fsusan_directionsusan_thin13"/>
+        <channel name="fsusan_directionsusan_thin14"/>
+        <channel name="fsusan_directionsusan_thin15"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsusan_directionsusan_thin13">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin14">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin15">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image16">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image17">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction11">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction12">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_1">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan"/>
+          <actor name="susan_direction"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="scenario2">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_direction2"/>
+          <actor name="susan_thin"/>
+          <actor name="susan_usan2"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_usan2"/>
+              <state actor="susan_direction2"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_direction2susan_thin32" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin33" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin34" bufferType="mem"/>
+          <channel name="fsusan_thinput_image35" bufferType="mem"/>
+          <channel name="fsusan_thinput_image36" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction227" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction228" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="imusan_2" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="dst"/>
+          <channel name="fsplitsusan_usan224" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_direction1susan_thin29" in="true"/>
+          <channel name="fsusan_direction1susan_thin30" in="true"/>
+          <channel name="fsusan_direction1susan_thin31" in="true"/>
+          <channel name="fsplitsusan_usan224" in="true"/>
+          <channel name="imusan_2" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4524000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="susan_direction1"/>
+          <actor name="susan_usan1"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="susan_usan1" startOfPeriodicRegime="true"/>
+              <state actor="susan_direction1"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+          <channel name="fsusan_usan1susan_direction125" bufferType="mem"/>
+          <channel name="fsusan_usan1susan_direction126" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="fsplitsusan_usan123" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="fsplitsusan_usan123" in="true"/>
+          <channel name="fsusan_direction1susan_thin29" out="true"/>
+          <channel name="fsusan_direction1susan_thin30" out="true"/>
+          <channel name="fsusan_direction1susan_thin31" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="split"/>
+          <arbitration timeslice="3654000">
+            <schedule>
+              <state actor="split" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="split" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="split" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsplitsusan_usan123" bufferType="src"/>
+          <channel name="fsplitsusan_usan224" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="imusan_2" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="imusan_2" in="true"/>
+          <channel name="fsplitsusan_usan123" out="true"/>
+          <channel name="fsplitsusan_usan224" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10">
+        <channel name="imusan_2"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17">
+        <channel name="fsusan_direction1susan_thin29"/>
+        <channel name="fsusan_direction1susan_thin30"/>
+        <channel name="fsusan_direction1susan_thin31"/>
+      </connection>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22">
+        <channel name="fsplitsusan_usan224"/>
+      </connection>
+      <connection name="con_23"/>
+      <connection name="con_24">
+        <channel name="fsplitsusan_usan123"/>
+      </connection>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsplitsusan_usan123">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsplitsusan_usan224">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin29">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin30">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin31">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin32">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin33">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin34">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image35">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image36">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction125">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction126">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction227">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction228">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_2">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan1"/>
+          <actor name="susan_direction1"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_usan2"/>
+          <actor name="susan_direction2"/>
+        </cluster>
+        <cluster name="four">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="get_image"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="get_image" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_imusan"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_imusan" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="gigi" bufferType="src"/>
+          <channel name="gigi" bufferType="dst"/>
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="dst"/>
+          <channel name="switch_imusan_data" bufferType="src"/>
+          <channel name="switch_imusan_data" bufferType="dst"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0">
+          <channel name="gigi" in="true"/>
+          <channel name="switch_imusan_ctrl" in="true"/>
+          <channel name="switch_imusan_data" in="true"/>
+          <channel name="gigi" out="true"/>
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+          <channel name="switch_imusan_ctrl" out="true"/>
+          <channel name="switch_imusan_data" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="3654000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="gigi" bufferType="mem"/>
+          <channel name="switch_imusan_ctrl" bufferType="mem"/>
+          <channel name="switch_imusan_data" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="gigi"/>
+        <channel name="switch_imusan_ctrl"/>
+        <channel name="switch_imusan_data"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_9">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_10">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="gigi">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="1e-06"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_imusan">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_get_image">
+          <actor name="get_image"/>
+          <actor name="switch_imusan"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="91641"/>
+        <memory name="dmem" size="84920"/>
+        <memory name="cmemout0" size="11276"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemin0" size="14636"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="4" inBandwidth="0.001961" nrOutConnections="6" outBandwidth="0.000556"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4524000"/>
+        </processor>
+        <memory name="imem" size="65063"/>
+        <memory name="dmem" size="8256"/>
+        <memory name="cmemout0" size="7884"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="3" outBandwidth="0.001688"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="65063"/>
+        <memory name="dmem" size="8256"/>
+        <memory name="cmemout0" size="6752"/>
+        <memory name="cmemin0" size="1136"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="0.0001415" nrOutConnections="3" outBandwidth="0.000844"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="3654000"/>
+        </processor>
+        <memory name="imem" size="55503"/>
+        <memory name="dmem" size="2448"/>
+        <memory name="cmemout0" size="2264"/>
+        <memory name="cmemin0" size="2268"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="2" outBandwidth="0.000283"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="5640"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="1" appGraph="susan" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_thin"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_thinput_image16" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_thinput_image17" bufferType="src"/>
+          <channel name="fsusan_thinput_image17" bufferType="dst"/>
+          <channel name="imusan_1" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_directionsusan_thin13" in="true"/>
+          <channel name="fsusan_directionsusan_thin14" in="true"/>
+          <channel name="fsusan_directionsusan_thin15" in="true"/>
+          <channel name="fsusan_thinput_image17" in="true"/>
+          <channel name="fsusan_thinput_image17" out="true"/>
+          <channel name="imusan_1" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4466000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4582000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="susan_direction"/>
+          <actor name="susan_usan"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="susan_usan" startOfPeriodicRegime="true"/>
+              <state actor="susan_direction"/>
+              <state actor="susan_usan"/>
+              <state actor="susan_direction"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+          <channel name="fsusan_usansusan_direction11" bufferType="mem"/>
+          <channel name="fsusan_usansusan_direction12" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="src"/>
+          <channel name="imusan_1" bufferType="dst"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0">
+          <channel name="imusan_1" in="true"/>
+          <channel name="fsusan_directionsusan_thin13" out="true"/>
+          <channel name="fsusan_directionsusan_thin14" out="true"/>
+          <channel name="fsusan_directionsusan_thin15" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="fsusan_thinput_image17" bufferType="mem"/>
+          <channel name="imusan_1" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="fsusan_thinput_image17"/>
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21">
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_22">
+        <channel name="fsusan_directionsusan_thin13"/>
+        <channel name="fsusan_directionsusan_thin14"/>
+        <channel name="fsusan_directionsusan_thin15"/>
+      </connection>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsusan_directionsusan_thin13">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin14">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin15">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image16">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image17">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction11">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction12">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_1">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan"/>
+          <actor name="susan_direction"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="scenario2">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_direction2"/>
+          <actor name="susan_thin"/>
+          <actor name="susan_usan2"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_usan2"/>
+              <state actor="susan_direction2"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_direction2susan_thin32" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin33" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin34" bufferType="mem"/>
+          <channel name="fsusan_thinput_image35" bufferType="mem"/>
+          <channel name="fsusan_thinput_image36" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction227" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction228" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="imusan_2" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="dst"/>
+          <channel name="fsplitsusan_usan224" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_direction1susan_thin29" in="true"/>
+          <channel name="fsusan_direction1susan_thin30" in="true"/>
+          <channel name="fsusan_direction1susan_thin31" in="true"/>
+          <channel name="fsplitsusan_usan224" in="true"/>
+          <channel name="imusan_2" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4466000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="split"/>
+          <actor name="susan_direction1"/>
+          <actor name="susan_usan1"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="split" startOfPeriodicRegime="true"/>
+              <state actor="susan_usan1"/>
+              <state actor="susan_direction1"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="split" processorType="microblaze"/>
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="split" processorType="microblaze"/>
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+          <channel name="fsplitsusan_usan123" bufferType="mem"/>
+          <channel name="fsusan_usan1susan_direction125" bufferType="mem"/>
+          <channel name="fsusan_usan1susan_direction126" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="src"/>
+          <channel name="fsplitsusan_usan224" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="imusan_2" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="imusan_2" in="true"/>
+          <channel name="fsusan_direction1susan_thin29" out="true"/>
+          <channel name="fsusan_direction1susan_thin30" out="true"/>
+          <channel name="fsusan_direction1susan_thin31" out="true"/>
+          <channel name="fsplitsusan_usan224" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="4524000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9">
+        <channel name="imusan_2"/>
+      </connection>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17">
+        <channel name="fsusan_direction1susan_thin29"/>
+        <channel name="fsusan_direction1susan_thin30"/>
+        <channel name="fsusan_direction1susan_thin31"/>
+        <channel name="fsplitsusan_usan224"/>
+      </connection>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsplitsusan_usan123">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsplitsusan_usan224">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin29">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin30">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin31">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin32">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin33">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin34">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image35">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image36">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction125">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction126">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction227">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction228">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_2">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan1"/>
+          <actor name="susan_direction1"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_usan2"/>
+          <actor name="susan_direction2"/>
+        </cluster>
+        <cluster name="four">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="get_image"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="get_image" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_imusan"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_imusan" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="gigi" bufferType="src"/>
+          <channel name="gigi" bufferType="dst"/>
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="dst"/>
+          <channel name="switch_imusan_data" bufferType="src"/>
+          <channel name="switch_imusan_data" bufferType="dst"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0">
+          <channel name="gigi" in="true"/>
+          <channel name="switch_imusan_ctrl" in="true"/>
+          <channel name="switch_imusan_data" in="true"/>
+          <channel name="gigi" out="true"/>
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+          <channel name="switch_imusan_ctrl" out="true"/>
+          <channel name="switch_imusan_data" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="4466000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="gigi" bufferType="mem"/>
+          <channel name="switch_imusan_ctrl" bufferType="mem"/>
+          <channel name="switch_imusan_data" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="gigi"/>
+        <channel name="switch_imusan_ctrl"/>
+        <channel name="switch_imusan_data"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_9">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_10">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="gigi">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="1e-06"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_imusan">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_get_image">
+          <actor name="get_image"/>
+          <actor name="switch_imusan"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="91641"/>
+        <memory name="dmem" size="84920"/>
+        <memory name="cmemout0" size="11276"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemin0" size="14636"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="4" inBandwidth="0.001961" nrOutConnections="6" outBandwidth="0.000556"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4466000"/>
+        </processor>
+        <memory name="imem" size="55103"/>
+        <memory name="dmem" size="2153"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="1" inBandwidth="5e-07" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="65463"/>
+        <memory name="dmem" size="9388"/>
+        <memory name="cmemout0" size="7884"/>
+        <memory name="cmemin0" size="2268"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="4" outBandwidth="0.0009855"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="4524000"/>
+        </processor>
+        <memory name="imem" size="65063"/>
+        <memory name="dmem" size="8256"/>
+        <memory name="cmemout0" size="7884"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="3" outBandwidth="0.001688"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="5640"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+  <mapping name="2" appGraph="susan" archGraph="x4tile1dma">
+    <scenario name="scenario1">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_thin"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_thinput_image16" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_thinput_image17" bufferType="src"/>
+          <channel name="fsusan_thinput_image17" bufferType="dst"/>
+          <channel name="imusan_1" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="dst"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_directionsusan_thin13" in="true"/>
+          <channel name="fsusan_directionsusan_thin14" in="true"/>
+          <channel name="fsusan_directionsusan_thin15" in="true"/>
+          <channel name="fsusan_thinput_image17" in="true"/>
+          <channel name="fsusan_thinput_image17" out="true"/>
+          <channel name="imusan_1" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="susan_direction"/>
+          <actor name="susan_usan"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="susan_usan" startOfPeriodicRegime="true"/>
+              <state actor="susan_direction"/>
+              <state actor="susan_usan"/>
+              <state actor="susan_direction"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="susan_direction" processorType="microblaze"/>
+          <actor name="susan_usan" processorType="microblaze"/>
+          <channel name="fsusan_usansusan_direction11" bufferType="mem"/>
+          <channel name="fsusan_usansusan_direction12" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_directionsusan_thin13" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin14" bufferType="src"/>
+          <channel name="fsusan_directionsusan_thin15" bufferType="src"/>
+          <channel name="imusan_1" bufferType="dst"/>
+        </memory>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0">
+          <channel name="imusan_1" in="true"/>
+          <channel name="fsusan_directionsusan_thin13" out="true"/>
+          <channel name="fsusan_directionsusan_thin14" out="true"/>
+          <channel name="fsusan_directionsusan_thin15" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4466000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="4582000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y0n0"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="fsusan_thinput_image17" bufferType="mem"/>
+          <channel name="imusan_1" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="fsusan_thinput_image17"/>
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11">
+        <channel name="imusan_1"/>
+      </connection>
+      <connection name="con_12">
+        <channel name="fsusan_directionsusan_thin13"/>
+        <channel name="fsusan_directionsusan_thin14"/>
+        <channel name="fsusan_directionsusan_thin15"/>
+      </connection>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsusan_directionsusan_thin13">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin14">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_directionsusan_thin15">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image16">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image17">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction11">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usansusan_direction12">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.001132"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_1">
+          <bufferSize mem="2" src="2" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan"/>
+          <actor name="susan_direction"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="scenario2">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="put_image"/>
+          <actor name="susan_direction2"/>
+          <actor name="susan_thin"/>
+          <actor name="susan_usan2"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="switch_imusan" startOfPeriodicRegime="true"/>
+              <state actor="susan_usan2"/>
+              <state actor="susan_direction2"/>
+              <state actor="susan_thin"/>
+              <state actor="put_image"/>
+              <state actor="put_image"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="put_image" processorType="microblaze"/>
+          <actor name="susan_direction2" processorType="microblaze"/>
+          <actor name="susan_thin" processorType="microblaze"/>
+          <actor name="susan_usan2" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="fsusan_direction2susan_thin32" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin33" bufferType="mem"/>
+          <channel name="fsusan_direction2susan_thin34" bufferType="mem"/>
+          <channel name="fsusan_thinput_image35" bufferType="mem"/>
+          <channel name="fsusan_thinput_image36" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction227" bufferType="mem"/>
+          <channel name="fsusan_usan2susan_direction228" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="imusan_2" bufferType="src"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="dst"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="dst"/>
+          <channel name="fsplitsusan_usan224" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="fsusan_direction1susan_thin29" in="true"/>
+          <channel name="fsusan_direction1susan_thin30" in="true"/>
+          <channel name="fsusan_direction1susan_thin31" in="true"/>
+          <channel name="fsplitsusan_usan224" in="true"/>
+          <channel name="imusan_2" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4524000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx1y1n0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4466000">
+            <schedule/>
+          </arbitration>
+        </processor>
+        <memory name="imem"/>
+        <memory name="dmem"/>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx2y1n0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="split"/>
+          <actor name="susan_direction1"/>
+          <actor name="susan_usan1"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="split" startOfPeriodicRegime="true"/>
+              <state actor="susan_usan1"/>
+              <state actor="susan_direction1"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="split" processorType="microblaze"/>
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="split" processorType="microblaze"/>
+          <actor name="susan_direction1" processorType="microblaze"/>
+          <actor name="susan_usan1" processorType="microblaze"/>
+          <channel name="fsplitsusan_usan123" bufferType="mem"/>
+          <channel name="fsusan_usan1susan_direction125" bufferType="mem"/>
+          <channel name="fsusan_usan1susan_direction126" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="fsusan_direction1susan_thin29" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin30" bufferType="src"/>
+          <channel name="fsusan_direction1susan_thin31" bufferType="src"/>
+          <channel name="fsplitsusan_usan224" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="imusan_2" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="imusan_2" in="true"/>
+          <channel name="fsusan_direction1susan_thin29" out="true"/>
+          <channel name="fsusan_direction1susan_thin30" out="true"/>
+          <channel name="fsusan_direction1susan_thin31" out="true"/>
+          <channel name="fsplitsusan_usan224" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10">
+        <channel name="imusan_2"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22">
+        <channel name="fsusan_direction1susan_thin29"/>
+        <channel name="fsusan_direction1susan_thin30"/>
+        <channel name="fsusan_direction1susan_thin31"/>
+        <channel name="fsplitsusan_usan224"/>
+      </connection>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="fsplitsusan_usan123">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsplitsusan_usan224">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin29">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin30">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction1susan_thin31">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin32">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin33">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_direction2susan_thin34">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001365"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image35">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_thinput_image36">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000273"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction125">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan1susan_direction126">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction227">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.0001415"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fsusan_usan2susan_direction228">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="0.000566"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="imusan_2">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="one">
+          <actor name="get_image"/>
+        </cluster>
+        <cluster name="two">
+          <actor name="susan_usan1"/>
+          <actor name="susan_direction1"/>
+        </cluster>
+        <cluster name="three">
+          <actor name="susan_usan2"/>
+          <actor name="susan_direction2"/>
+        </cluster>
+        <cluster name="four">
+          <actor name="susan_thin"/>
+          <actor name="put_image"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="one"/>
+          <cluster name="two"/>
+          <cluster name="three"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="get_image"/>
+          <actor name="loadSched0"/>
+          <actor name="switch_imusan"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="get_image" startOfPeriodicRegime="true"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_imusan"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="get_image" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <actor name="switch_imusan" processorType="microblaze"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="loadSched0_switch_imusan" bufferType="mem"/>
+          <channel name="switch_imusan_sync" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="gigi" bufferType="src"/>
+          <channel name="gigi" bufferType="dst"/>
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="src"/>
+          <channel name="switch_imusan_ctrl" bufferType="dst"/>
+          <channel name="switch_imusan_data" bufferType="src"/>
+          <channel name="switch_imusan_data" bufferType="dst"/>
+        </memory>
+        <memory name="cmemout1"/>
+        <memory name="cmemin0"/>
+        <networkInterface name="NIx0y1n0">
+          <channel name="gigi" in="true"/>
+          <channel name="switch_imusan_ctrl" in="true"/>
+          <channel name="switch_imusan_data" in="true"/>
+          <channel name="gigi" out="true"/>
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+          <channel name="switch_imusan_ctrl" out="true"/>
+          <channel name="switch_imusan_data" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="loadSched2"/>
+          <arbitration timeslice="4524000">
+            <schedule>
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="4466000">
+            <schedule>
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="loadSched1"/>
+          <arbitration timeslice="4582000">
+            <schedule>
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory">
+          <channel name="gigi" bufferType="mem"/>
+          <channel name="switch_imusan_ctrl" bufferType="mem"/>
+          <channel name="switch_imusan_data" bufferType="mem"/>
+        </memory>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6">
+        <channel name="gigi"/>
+        <channel name="switch_imusan_ctrl"/>
+        <channel name="switch_imusan_data"/>
+      </connection>
+      <connection name="con_7"/>
+      <connection name="con_8">
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_9">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_10">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="gigi">
+          <bufferSize mem="2" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="1e-06"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_imusan">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bufferLocation location="mem"/>
+          <bandwidth min="0.000283"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_imusan_sync">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="5e-07"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <cluster name="detector_get_image">
+          <actor name="get_image"/>
+          <actor name="switch_imusan"/>
+          <actor name="loadSched0"/>
+        </cluster>
+        <cluster name="excl_loadSched1">
+          <actor name="loadSched1"/>
+        </cluster>
+        <cluster name="excl_loadSched2">
+          <actor name="loadSched2"/>
+        </cluster>
+        <cluster name="excl_loadSched3">
+          <actor name="loadSched3"/>
+        </cluster>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+        </excludeClusters>
+        <excludeClusters>
+          <cluster name="detector_get_image"/>
+          <cluster name="excl_loadSched1"/>
+          <cluster name="excl_loadSched2"/>
+          <cluster name="excl_loadSched3"/>
+        </excludeClusters>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="91641"/>
+        <memory name="dmem" size="84920"/>
+        <memory name="cmemout0" size="11276"/>
+        <memory name="cmemout1" size="0"/>
+        <memory name="cmemin0" size="14636"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="4" inBandwidth="0.001961" nrOutConnections="6" outBandwidth="0.000556"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="4524000"/>
+        </processor>
+        <memory name="imem" size="65063"/>
+        <memory name="dmem" size="8256"/>
+        <memory name="cmemout0" size="7884"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="3" outBandwidth="0.001688"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="4466000"/>
+        </processor>
+        <memory name="imem" size="55103"/>
+        <memory name="dmem" size="2153"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="1" inBandwidth="5e-07" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="4582000"/>
+        </processor>
+        <memory name="imem" size="65463"/>
+        <memory name="dmem" size="9388"/>
+        <memory name="cmemout0" size="7884"/>
+        <memory name="cmemin0" size="2268"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="1" inBandwidth="0.000283" nrOutConnections="4" outBandwidth="0.0009855"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="5640"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+</sdf3>

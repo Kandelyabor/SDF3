@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<sdf3 type="fsmsadf">
+  <applicationGraph xmlns="uri:sdf3" name="example-app">
+        <!-- This example shows a simple application which contains three  
+             scenarios the first scenario uses the graph named example-s1. The 
+             other two scenarios use the graph named example-s2.
+        -->
+        <fsmsadf>
+          <scenariograph name="example-s1" type="EXAMPLE-S1">
+            <actor name="a" type="A">
+                <port name="in" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <actor name="b" type="B">
+                <port name="in" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <actor name="c" type="C">
+                <port name="in" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <channel name="a2b" srcActor="a" srcPort="out" dstActor="b" dstPort="in"/>
+            <channel name="b2c" srcActor="b" srcPort="out" dstActor="c" dstPort="in"/>
+            <channel name="c2a" srcActor="c" srcPort="out" dstActor="a" dstPort="in" initialTokens="2"/>
+          </scenariograph>
+          <scenariograph name="example-s2" type="EXAMPLE-S2">
+            <actor name="a" type="A">
+                <port name="in1" type="in" rate="1"/>
+                <port name="in2" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <actor name="b" type="B">
+                <port name="in" type="in" rate="1"/>
+                <port name="out1" type="out" rate="1"/>
+                <port name="out2" type="out" rate="1"/>
+            </actor>
+            <actor name="c" type="C">
+                <port name="in" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <actor name="d" type="D">
+                <port name="in" type="in" rate="1"/>
+                <port name="out" type="out" rate="1"/>
+            </actor>
+            <channel name="a2b" srcActor="a" srcPort="out" dstActor="b" dstPort="in"/>
+            <channel name="b2c" srcActor="b" srcPort="out1" dstActor="c" dstPort="in"/>
+            <channel name="b2d" srcActor="b" srcPort="out2" dstActor="d" dstPort="in"/>
+            <channel name="c2a" srcActor="c" srcPort="out" dstActor="a" dstPort="in1" initialTokens="2"/>
+            <channel name="d2a" srcActor="d" srcPort="out" dstActor="a" dstPort="in2" initialTokens="1"/>
+          </scenariograph>
+        </fsmsadf>
+        <fsmsadfProperties>
+            <defaultProperties>
+                <actorProperties actor="a">
+                    <processor type="arm7" default="true">
+                        <executionTime time="1000"/> 
+                        <!-- worst-case execution time in time units -->
+                        <memory name="am" size="100" type="shared"/>
+                    </processor>
+                </actorProperties>
+                <actorProperties actor="b">
+                    <processor type="arm7" default="true">
+                        <executionTime time="1000"/>
+                        <memory name="bm" size="100" type="shared"/>
+                    </processor>
+                </actorProperties>
+                <actorProperties actor="c">
+                    <processor type="arm7" default="true">
+                        <executionTime time="1000"/>
+                        <memory name="cm" size="100" type="shared"/>
+                    </processor>
+                </actorProperties>
+                <actorProperties actor="d">
+                    <processor type="arm7" default="true">
+                        <executionTime time="1000"/>
+                        <memory name="dm" size="100" type="shared"/>
+                    </processor>
+                </actorProperties>
+                <channelProperties channel="a2b">
+                    <tokenSize sz="10"/> 
+                    <!-- size in bytes -->
+                </channelProperties>
+                <channelProperties channel="b2c">
+                    <tokenSize sz="1"/> 
+                </channelProperties>
+                <channelProperties channel="b2d">
+                    <tokenSize sz="1"/> 
+                </channelProperties>
+                <channelProperties channel="c2a">
+                    <tokenSize sz="1"/> 
+                </channelProperties>
+                <channelProperties channel="d2a">
+                    <tokenSize sz="1"/> 
+                </channelProperties>
+            </defaultProperties>
+            <scenarios>
+                <!-- Any default property can be over-written in this part 
+                     with a scenario specific value. It is also allowed to
+                     over-write the rate of ports. Storage distributions
+                     can also be specified within a scenario element.
+                 -->
+                <scenario name="s1" graph="example-s1">
+                </scenario>
+                <scenario name="s2" graph="example-s2">
+                </scenario>
+                <scenario name="s3" graph="example-s2">
+                    <actorProperties actor="c">
+                        <port name="in" rate="2"/>
+                        <port name="out" rate="2"/>
+                    </actorProperties>
+                    <storageDistributions>
+                        <!-- A storage distribution specifies an assignment
+                             of storage space to the various channels in the
+                             scenario graph. Associated with the storage
+                             distribution are a size (in tokens) and a
+                             throughput (in iterations / time-unit).
+                        -->
+                        <!--
+                        <storageDistribution sz='50' thr='0.01'>
+                            <channel name='a2b' sz='10'/> 
+                            <channel name='b2c' sz='10'/>
+                            <channel name='b2d' sz='10'/>
+                            <channel name='c2a' sz='10'/>
+                            <channel name='d2a' sz='10'/>
+                        <storageDistribution>
+                        -->
+                    </storageDistributions>
+                </scenario>
+            </scenarios>
+            <graphProperties>
+                <timeConstraints>
+                    <throughput>0.0000000001</throughput>
+                    <!-- throughput constraint in iterations / time-unit -->
+                </timeConstraints>
+            </graphProperties>
+        </fsmsadfProperties>
+        <fsm initialstate="q1">
+            <!-- No FSM needs to be specified when only one scenario exists. -->
+            <state name="q1" scenario="s1">
+                <transition destination="q2"/>
+                <transition destination="q3"/>
+            </state>
+            <state name="q2" scenario="s2">
+                <transition destination="q1"/>
+            </state>
+            <state name="q3" scenario="s3">
+                <transition destination="q1"/>
+            </state>
+        </fsm>
+    </applicationGraph>
+  <architectureGraph xmlns="uri:sdf3" name="example-arch">
+        <!--This example shows an architecture consisting of three tiles. Each
+            tile contains a processor, network interface and memory. The tiles
+            are connected through a set of connections which run between the
+            network interfaces. -->
+        <tile name="t1">
+            <!-- A tile must contain at least one processor, memory and 
+                 network interface. A tile may contain two or more of any of
+                 these elements. -->
+            <processor name="proc" type="arm7">
+                <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/> 
+                <!-- The wheelsize attribute specifies the number of time-units 
+                     needed for one rotation of the TDMA time wheel. The 
+                     contextSwitchOverhead attribute specified the number of 
+                     time-units needed to perform a context switch on the 
+                     processor. The preemptive attribute specifies wether a
+                     pre-emptive scheduler is used. -->
+            </processor>
+            <memory name="memt1" size="100" type="shared"/> <!-- size in bytes -->
+            <memory name="memt2" size="400" type="shared"/> <!-- size in bytes -->
+            <networkInterface name="ni" nrInConnections="10" inBandwidth="12" nrOutConnections="10" outBandwidth="12"/>
+            <!-- The attribute nrInConnections specifies the maximal number of 
+                 input connections the network interface can handle. The 
+                 inBandwidth specifies the maximal incoming bandwidth in 
+                 bytes / time-unit which the network interface can accept.-->
+        </tile>
+        <tile name="t2">
+            <processor name="proc" type="powerpc">
+                <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/>
+            </processor>
+            <memory name="memt2" size="5600" type="shared"/>
+            <networkInterface name="ni" nrInConnections="10" inBandwidth="12" nrOutConnections="10" outBandwidth="12"/>
+        </tile>
+        <tile name="t3">
+            <processor name="proc" type="arm7">
+                <arbitration type="TDMA" wheelsize="100" contextSwitchOverhead="15" preemptive="true"/>
+            </processor>
+            <memory name="memt3" size="4000" type="shared"/>
+            <networkInterface name="ni" nrInConnections="10" inBandwidth="12" nrOutConnections="10" outBandwidth="12"/>
+        </tile>      
+        
+        <!-- Tiles are connected through a set of connections which run between 
+             the network interfaces. Connections have a latency expressed in 
+             time-units. -->
+        <connection name="con_1" srcTile="t1" srcNetworkInterface="ni" dstTile="t2" dstNetworkInterface="ni" latency="3"/>
+        <connection name="con_2" srcTile="t1" srcNetworkInterface="ni" dstTile="t3" dstNetworkInterface="ni" latency="4"/>
+        <connection name="con_3" srcTile="t2" srcNetworkInterface="ni" dstTile="t1" dstNetworkInterface="ni" latency="3"/>
+        <connection name="con_4" srcTile="t2" srcNetworkInterface="ni" dstTile="t3" dstNetworkInterface="ni" latency="3"/>
+        <connection name="con_5" srcTile="t3" srcNetworkInterface="ni" dstTile="t1" dstNetworkInterface="ni" latency="4"/>
+        <connection name="con_6" srcTile="t3" srcNetworkInterface="ni" dstTile="t2" dstNetworkInterface="ni" latency="3"/>
+    </architectureGraph>
+</sdf3>

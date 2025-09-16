@@ -1,0 +1,4 @@
+add_subdirectory(base_platform)
+add_subdirectory(compsoc_platform)
+add_subdirectory(mamps_platform)
+add_subdirectory(virtual_platform)

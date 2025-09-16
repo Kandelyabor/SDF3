@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sdf3 type='sdf' version='1.0'
+     xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance'
+     xsi:noNamespaceSchemaLocation='https://www.es.ele.tue.nl/sdf3/xsd/sdf3-csdf.xsd'>
+    <storageThroughputTradeOffs>
+        <distributionsSet thr='0' sz='0'>
+            <distribution>
+                <ch name='alpha' sz='0'/>
+                <ch name='beta' sz='0'/>
+                <ch name='d1' sz='0'/>
+                <ch name='d2' sz='0'/>
+                <ch name='d3' sz='0'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0' sz='15'>
+            <distribution>
+                <ch name='alpha' sz='3'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0' sz='16'>
+            <distribution>
+                <ch name='alpha' sz='4'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0588235' sz='17'>
+            <distribution>
+                <ch name='alpha' sz='5'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0666667' sz='18'>
+            <distribution>
+                <ch name='alpha' sz='6'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0714286' sz='19'>
+            <distribution>
+                <ch name='alpha' sz='7'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0769231' sz='20'>
+            <distribution>
+                <ch name='alpha' sz='8'/>
+                <ch name='beta' sz='6'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+        <distributionsSet thr='0.0833333' sz='22'>
+            <distribution>
+                <ch name='alpha' sz='8'/>
+                <ch name='beta' sz='8'/>
+                <ch name='d1' sz='2'/>
+                <ch name='d2' sz='2'/>
+                <ch name='d3' sz='2'/>
+            </distribution>
+        </distributionsSet>
+    </storageThroughputTradeOffs>
+</sdf3>
+analysis time: 0.18ms

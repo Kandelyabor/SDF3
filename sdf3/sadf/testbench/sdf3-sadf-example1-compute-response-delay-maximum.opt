@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: compute maximum response delay on example1</name>
+		<program>sdf3analyze-sadf --graph example1.xml --compute response_delay(maximum)</program>
+		<type>outputcompare</type>
+		<reference>---- Maximum response delays of all processes for SADF graph 'example1' ----
+Kernel 'A': 2.1  (#States: 2, Analysis Time: 0ms)
+Kernel 'B': 6.1  (#States: 2, Analysis Time: 0ms)
+Kernel 'C': 9.1  (#States: 2, Analysis Time: 0ms)
+Kernel 'D': 11.6  (#States: 2, Analysis Time: 0ms)
+Detector 'E': 2.1  (#States: 2, Analysis Time: 0ms)</reference>
+		<ignore>Analysis Time: .*ms</ignore>
+	</settings>
+</sdf3>

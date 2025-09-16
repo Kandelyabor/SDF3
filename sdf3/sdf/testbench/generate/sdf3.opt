@@ -1,0 +1,23 @@
+<sdf3 type='sdf' version='1.0'
+    xsi:noNamespaceSchemaLocation='http://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd'>
+    <settings type='generate'>
+        <graph>
+            <actors nr='10'/>
+            <degree avg='2' var='1' min='1' max='5'/>
+            <rate avg='2' var='1' min='1' max='5' repetitionVectorSum='10'/>
+            <initialTokens prop='0'/>
+            <structure stronglyConnected='false' acyclic='true' multigraph='true'/>
+        </graph>
+        <graphProperties>
+            <procs nrTypes='3' mapChance='0.25'/>
+            <execTime avg='10' var='0' min='10' max='10'/>
+            <stateSize avg='1' var='1' min='1' max='1'/>
+            <tokenSize avg='1' var='1' min='1' max='1'/>
+            <bufferSize/>
+            <bandwidthRequirement avg='2' var='0' min='1' max='4'/>
+            <latencyRequirement avg='2' var='0' min='1' max='4'/>
+            <throughputConstraint autoConcurrencyDegree='1' scaleFactor='0.1'/>
+            <integerMCM/>
+        </graphProperties>
+    </settings>
+</sdf3>

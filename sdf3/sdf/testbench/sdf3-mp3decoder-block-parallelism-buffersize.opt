@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: buffersize on mp3 decoder block parallelism</name>
+		<program>sdf3analyze-sdf --algo buffersize --graph mp3decoder_block_parallelism.xml --output sdf3-sdf-mp3decoder-block-parallelisml-buffersize.xml</program>
+		<expected>TIMEOUT</expected>
+		<type>outputcompare</type>
+		<programOutput>sdf3-sdf-mp3decoder-block-parallelisml-buffersize.xml</programOutput>
+	</settings>
+
+</sdf3>

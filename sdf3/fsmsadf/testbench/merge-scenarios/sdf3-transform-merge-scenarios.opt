@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>sdf3transform-fsmsadf merge-scenarios</name>
+		<program>./run_transform-test.sh --settings sdf3-transform-merge-scenarios.opt</program>
+		<type>xmlcompare</type>
+        <programTimeout>30</programTimeout>
+		<programOutput>transform-merge-scenarios-test-mapped.xml</programOutput>
+		<programOutput>transform-merge-scenarios-test-merged.xml</programOutput>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+  <settings type="generate" random="no">
+	<input file="transform-merge-scenarios-test.sdf"/>
+  </settings>
+
+  <settings type="flow">
+    <platformType type="CompSoC"/>
+    <flowType type="NSoC"/> <!--supported types: NSoC -->
+    <maxNrBindingsTileBindingAlgo n="5"/>
+    <!-- maximum number of platform bindings outputted by tile binding  and
+         scheduling algorithm. -->
+    <applicationGraph file="transform-merge-scenarios-test.xml"/> 
+    <!-- application graphs are mapped in the order in which they appear in 
+         this file. -->
+    <architectureGraph file="duo-arch.xml"/>
+    <!-- SDF3 creates an SDF3 document from an applicationGraph and the
+         architectureGraph. It uses the applicationGraph and mapping nodes 
+         from the applicationGraph file and it uses the architectureGraph node
+         from the architecture graph. -->
+	<output file="transform-merge-scenarios-test-mapped.xml"/>
+	<chanToConnModelFile>compsoc-chantoconn.xml</chanToConnModelFile>
+  </settings>
+
+  <settings type="transform">
+	<graph file="transform-merge-scenarios-test-mapped.xml"/>
+    <transform>
+        <type name="merge_scenarios"/>
+    </transform>
+    <output file="transform-merge-scenarios-test-merged.xml"/>
+  </settings>
+
+</sdf3>

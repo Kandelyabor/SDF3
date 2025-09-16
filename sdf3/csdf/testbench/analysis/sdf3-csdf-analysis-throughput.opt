@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>CSDF analyze: throughput on simple_example</name>
+		<program>sdf3analyze-csdf --algo throughput --graph simple_example.xml</program>
+		<type>outputcompare</type>
+		<reference>thr(example) = 0.0833333
+analysis time: 0ms</reference>
+		<ignore>analysis time: .*$</ignore>
+	</settings>
+
+</sdf3>

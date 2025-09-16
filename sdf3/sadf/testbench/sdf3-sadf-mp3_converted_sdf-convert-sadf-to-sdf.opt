@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: convert SADF to SDF on mp3_converted_sdf</name>
+		<program>sdf3convert-sadf-sadf2sdf --graph mp3_converted_sdf.xml --output sadf-to-sdf.xml</program>
+		<type>xmlcompare</type>
+		<programOutput>sadf-to-sdf.xml</programOutput>
+	</settings>
+
+</sdf3>

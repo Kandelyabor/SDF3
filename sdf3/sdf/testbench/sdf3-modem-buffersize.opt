@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SDF analyze: buffersize on modem</name>
+		<program>sdf3analyze-sdf --algo buffersize --graph modem.xml --output sdf3-sdf-modem-buffersize.xml</program>
+		<type>outputcompare</type>
+		<programOutput>sdf3-sdf-modem-buffersize.xml</programOutput>
+	</settings>
+
+</sdf3>

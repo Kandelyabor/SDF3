@@ -1,0 +1,1335 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="uri:sdf3" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+  <applicationGraph name="three_sw_three_sel">
+    <fsmsadf>
+      <scenariograph name="detector" type="scenariograph">
+        <actor name="a" type="a">
+          <port name="aself_3" type="out" rate="1"/>
+          <port name="aself_0" type="in" rate="1"/>
+          <port name="switch_outOne_2" type="out" rate="2"/>
+          <port name="switch_outOne_ctrl_3" type="out" rate="1"/>
+          <port name="switch_outTwo_4" type="out" rate="3"/>
+          <port name="switch_outTwo_ctrl_5" type="out" rate="1"/>
+          <port name="switch_outThree_6" type="out" rate="4"/>
+          <port name="switch_outThree_ctrl_7" type="out" rate="1"/>
+          <port name="select_inOne_8" type="in" rate="2"/>
+          <port name="select_inOne_ctrl_9" type="out" rate="1"/>
+          <port name="select_inTwo_10" type="in" rate="3"/>
+          <port name="select_inTwo_ctrl_11" type="out" rate="1"/>
+          <port name="select_inThree_12" type="in" rate="4"/>
+          <port name="select_inThree_ctrl_13" type="out" rate="1"/>
+          <port name="detect_loadSched0_ctrl_14" type="out" rate="1"/>
+          <port name="detect_loadSched1_ctrl_15" type="out" rate="1"/>
+          <port name="detect_loadSched2_ctrl_16" type="out" rate="1"/>
+          <port name="detect_loadSched3_ctrl_17" type="out" rate="1"/>
+        </actor>
+        <actor name="switch_outOne" type="switch_outOne">
+          <port name="switch_outOne_0" type="in" rate="2"/>
+          <port name="switch_outOne_ctrl_1" type="in" rate="1"/>
+          <port name="loadSched0_switch_outOne_4" type="in" rate="1"/>
+          <port name="outOne_0_scenario1" type="out" rate="2"/>
+          <port name="outOne_0_scenario2" type="out" rate="2"/>
+          <port name="outOne_0_scenario3" type="out" rate="2"/>
+        </actor>
+        <actor name="switch_outTwo" type="switch_outTwo">
+          <port name="switch_outTwo_0" type="in" rate="3"/>
+          <port name="switch_outTwo_ctrl_1" type="in" rate="1"/>
+          <port name="loadSched0_switch_outTwo_4" type="in" rate="1"/>
+          <port name="outTwo_1_scenario1" type="out" rate="3"/>
+          <port name="outTwo_1_scenario2" type="out" rate="3"/>
+          <port name="outTwo_1_scenario3" type="out" rate="3"/>
+        </actor>
+        <actor name="switch_outThree" type="switch_outThree">
+          <port name="switch_outThree_0" type="in" rate="4"/>
+          <port name="switch_outThree_ctrl_1" type="in" rate="1"/>
+          <port name="loadSched0_switch_outThree_4" type="in" rate="1"/>
+          <port name="outThree_2_scenario1" type="out" rate="4"/>
+          <port name="outThree_2_scenario2" type="out" rate="4"/>
+          <port name="outThree_2_scenario3" type="out" rate="4"/>
+        </actor>
+        <actor name="select_inOne" type="select_inOne">
+          <port name="select_inOne_0" type="out" rate="2"/>
+          <port name="select_inOne_ctrl_1" type="in" rate="1"/>
+          <port name="inOne_1_scenario1" type="in" rate="2"/>
+          <port name="inOne_1_scenario2" type="in" rate="2"/>
+          <port name="inOne_1_scenario3" type="in" rate="2"/>
+        </actor>
+        <actor name="select_inTwo" type="select_inTwo">
+          <port name="select_inTwo_0" type="out" rate="3"/>
+          <port name="select_inTwo_ctrl_1" type="in" rate="1"/>
+          <port name="inTwo_2_scenario1" type="in" rate="3"/>
+          <port name="inTwo_2_scenario2" type="in" rate="3"/>
+          <port name="inTwo_2_scenario3" type="in" rate="3"/>
+        </actor>
+        <actor name="select_inThree" type="select_inThree">
+          <port name="select_inThree_0" type="out" rate="4"/>
+          <port name="select_inThree_ctrl_1" type="in" rate="1"/>
+          <port name="inThree_3_scenario1" type="in" rate="4"/>
+          <port name="inThree_3_scenario2" type="in" rate="4"/>
+          <port name="inThree_3_scenario3" type="in" rate="4"/>
+        </actor>
+        <actor name="loadSched0" type="loadSched0">
+          <port name="detect_loadSched0_ctrl_0" type="in" rate="1"/>
+          <port name="loadSched0_switch_outOne_1" type="out" rate="1"/>
+          <port name="loadSched0_switch_outTwo_2" type="out" rate="1"/>
+          <port name="loadSched0_switch_outThree_3" type="out" rate="1"/>
+        </actor>
+        <actor name="loadSched1" type="loadSched1">
+          <port name="detect_loadSched1_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched2" type="loadSched2">
+          <port name="detect_loadSched2_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="loadSched3" type="loadSched3">
+          <port name="detect_loadSched3_ctrl_0" type="in" rate="1"/>
+        </actor>
+        <actor name="c_scenario1" type="c">
+          <port name="inOne_0" type="out" rate="2"/>
+          <port name="inTwo_1" type="out" rate="3"/>
+          <port name="inThree_2" type="out" rate="4"/>
+          <port name="fbc13_0" type="in" rate="2"/>
+          <port name="fbc14_1" type="in" rate="3"/>
+          <port name="fbc15_2" type="in" rate="4"/>
+        </actor>
+        <actor name="b_scenario1" type="b">
+          <port name="fbc13_0" type="out" rate="2"/>
+          <port name="fbc14_1" type="out" rate="3"/>
+          <port name="fbc15_2" type="out" rate="4"/>
+          <port name="outOne_0" type="in" rate="2"/>
+          <port name="outTwo_1" type="in" rate="3"/>
+          <port name="outThree_2" type="in" rate="4"/>
+        </actor>
+        <actor name="d_scenario2" type="d">
+          <port name="inOne_0" type="out" rate="2"/>
+          <port name="inTwo_1" type="out" rate="3"/>
+          <port name="inThree_2" type="out" rate="4"/>
+          <port name="outOne_0" type="in" rate="2"/>
+          <port name="outTwo_1" type="in" rate="3"/>
+          <port name="outThree_2" type="in" rate="4"/>
+        </actor>
+        <actor name="e_scenario3" type="e">
+          <port name="fef36_0" type="out" rate="9"/>
+          <port name="outOne_0" type="in" rate="2"/>
+          <port name="outTwo_1" type="in" rate="3"/>
+          <port name="outThree_2" type="in" rate="4"/>
+        </actor>
+        <actor name="f_scenario3" type="f">
+          <port name="inOne_0" type="out" rate="2"/>
+          <port name="inTwo_1" type="out" rate="3"/>
+          <port name="inThree_2" type="out" rate="4"/>
+          <port name="fef36_0" type="in" rate="9"/>
+        </actor>
+        <channel name="aself" srcActor="a" srcPort="aself_3" dstActor="a" dstPort="aself_0" initialTokens="1" finalTokens="1" persistentTokenNames="atoken" persistentFinalTokenNames="atoken"/>
+        <channel name="switch_outOne_data" srcActor="a" srcPort="switch_outOne_2" dstActor="switch_outOne" dstPort="switch_outOne_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_outOne_ctrl" srcActor="a" srcPort="switch_outOne_ctrl_3" dstActor="switch_outOne" dstPort="switch_outOne_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_outTwo_data" srcActor="a" srcPort="switch_outTwo_4" dstActor="switch_outTwo" dstPort="switch_outTwo_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_outTwo_ctrl" srcActor="a" srcPort="switch_outTwo_ctrl_5" dstActor="switch_outTwo" dstPort="switch_outTwo_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_outThree_data" srcActor="a" srcPort="switch_outThree_6" dstActor="switch_outThree" dstPort="switch_outThree_0" initialTokens="0" finalTokens="0"/>
+        <channel name="switch_outThree_ctrl" srcActor="a" srcPort="switch_outThree_ctrl_7" dstActor="switch_outThree" dstPort="switch_outThree_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="select_inOne_data" srcActor="select_inOne" srcPort="select_inOne_0" dstActor="a" dstPort="select_inOne_8" initialTokens="2" finalTokens="2" persistentTokenNames="t1,t2" persistentFinalTokenNames="t1,t2"/>
+        <channel name="select_inOne_ctrl" srcActor="a" srcPort="select_inOne_ctrl_9" dstActor="select_inOne" dstPort="select_inOne_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="select_inTwo_data" srcActor="select_inTwo" srcPort="select_inTwo_0" dstActor="a" dstPort="select_inTwo_10" initialTokens="3" finalTokens="3" persistentTokenNames="t3,t4,t5" persistentFinalTokenNames="t3,t4,t5"/>
+        <channel name="select_inTwo_ctrl" srcActor="a" srcPort="select_inTwo_ctrl_11" dstActor="select_inTwo" dstPort="select_inTwo_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="select_inThree_data" srcActor="select_inThree" srcPort="select_inThree_0" dstActor="a" dstPort="select_inThree_12" initialTokens="4" finalTokens="4" persistentTokenNames="t6,t7,t8,t9" persistentFinalTokenNames="t6,t7,t8,t9"/>
+        <channel name="select_inThree_ctrl" srcActor="a" srcPort="select_inThree_ctrl_13" dstActor="select_inThree" dstPort="select_inThree_ctrl_1" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched0_ctrl" srcActor="a" srcPort="detect_loadSched0_ctrl_14" dstActor="loadSched0" dstPort="detect_loadSched0_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_outOne" srcActor="loadSched0" srcPort="loadSched0_switch_outOne_1" dstActor="switch_outOne" dstPort="loadSched0_switch_outOne_4" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_outTwo" srcActor="loadSched0" srcPort="loadSched0_switch_outTwo_2" dstActor="switch_outTwo" dstPort="loadSched0_switch_outTwo_4" initialTokens="0" finalTokens="0"/>
+        <channel name="loadSched0_switch_outThree" srcActor="loadSched0" srcPort="loadSched0_switch_outThree_3" dstActor="switch_outThree" dstPort="loadSched0_switch_outThree_4" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched1_ctrl" srcActor="a" srcPort="detect_loadSched1_ctrl_15" dstActor="loadSched1" dstPort="detect_loadSched1_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched2_ctrl" srcActor="a" srcPort="detect_loadSched2_ctrl_16" dstActor="loadSched2" dstPort="detect_loadSched2_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="detect_loadSched3_ctrl" srcActor="a" srcPort="detect_loadSched3_ctrl_17" dstActor="loadSched3" dstPort="detect_loadSched3_ctrl_0" initialTokens="0" finalTokens="0"/>
+        <channel name="outOne_1_scenario1" srcActor="switch_outOne" srcPort="outOne_0_scenario1" dstActor="b_scenario1" dstPort="outOne_0" initialTokens="0" finalTokens="0"/>
+        <channel name="outTwo_1_scenario1" srcActor="switch_outTwo" srcPort="outTwo_1_scenario1" dstActor="b_scenario1" dstPort="outTwo_1" initialTokens="0" finalTokens="0"/>
+        <channel name="outThree_1_scenario1" srcActor="switch_outThree" srcPort="outThree_2_scenario1" dstActor="b_scenario1" dstPort="outThree_2" initialTokens="0" finalTokens="0"/>
+        <channel name="fbc13_scenario1" srcActor="b_scenario1" srcPort="fbc13_0" dstActor="c_scenario1" dstPort="fbc13_0" initialTokens="0" finalTokens="0"/>
+        <channel name="fbc14_scenario1" srcActor="b_scenario1" srcPort="fbc14_1" dstActor="c_scenario1" dstPort="fbc14_1" initialTokens="0" finalTokens="0"/>
+        <channel name="fbc15_scenario1" srcActor="b_scenario1" srcPort="fbc15_2" dstActor="c_scenario1" dstPort="fbc15_2" initialTokens="0" finalTokens="0"/>
+        <channel name="inOne_1_scenario1" srcActor="c_scenario1" srcPort="inOne_0" dstActor="select_inOne" dstPort="inOne_1_scenario1" initialTokens="0" finalTokens="0"/>
+        <channel name="inTwo_1_scenario1" srcActor="c_scenario1" srcPort="inTwo_1" dstActor="select_inTwo" dstPort="inTwo_2_scenario1" initialTokens="0" finalTokens="0"/>
+        <channel name="inThree_1_scenario1" srcActor="c_scenario1" srcPort="inThree_2" dstActor="select_inThree" dstPort="inThree_3_scenario1" initialTokens="0" finalTokens="0"/>
+        <channel name="outOne_2_scenario2" srcActor="switch_outOne" srcPort="outOne_0_scenario2" dstActor="d_scenario2" dstPort="outOne_0" initialTokens="0" finalTokens="0"/>
+        <channel name="outTwo_2_scenario2" srcActor="switch_outTwo" srcPort="outTwo_1_scenario2" dstActor="d_scenario2" dstPort="outTwo_1" initialTokens="0" finalTokens="0"/>
+        <channel name="outThree_2_scenario2" srcActor="switch_outThree" srcPort="outThree_2_scenario2" dstActor="d_scenario2" dstPort="outThree_2" initialTokens="0" finalTokens="0"/>
+        <channel name="inOne_2_scenario2" srcActor="d_scenario2" srcPort="inOne_0" dstActor="select_inOne" dstPort="inOne_1_scenario2" initialTokens="0" finalTokens="0"/>
+        <channel name="inTwo_2_scenario2" srcActor="d_scenario2" srcPort="inTwo_1" dstActor="select_inTwo" dstPort="inTwo_2_scenario2" initialTokens="0" finalTokens="0"/>
+        <channel name="inThree_2_scenario2" srcActor="d_scenario2" srcPort="inThree_2" dstActor="select_inThree" dstPort="inThree_3_scenario2" initialTokens="0" finalTokens="0"/>
+        <channel name="outOne_3_scenario3" srcActor="switch_outOne" srcPort="outOne_0_scenario3" dstActor="e_scenario3" dstPort="outOne_0" initialTokens="0" finalTokens="0"/>
+        <channel name="outTwo_3_scenario3" srcActor="switch_outTwo" srcPort="outTwo_1_scenario3" dstActor="e_scenario3" dstPort="outTwo_1" initialTokens="0" finalTokens="0"/>
+        <channel name="outThree_3_scenario3" srcActor="switch_outThree" srcPort="outThree_2_scenario3" dstActor="e_scenario3" dstPort="outThree_2" initialTokens="0" finalTokens="0"/>
+        <channel name="fef36_scenario3" srcActor="e_scenario3" srcPort="fef36_0" dstActor="f_scenario3" dstPort="fef36_0" initialTokens="0" finalTokens="0"/>
+        <channel name="inOne_3_scenario3" srcActor="f_scenario3" srcPort="inOne_0" dstActor="select_inOne" dstPort="inOne_1_scenario3" initialTokens="0" finalTokens="0"/>
+        <channel name="inTwo_3_scenario3" srcActor="f_scenario3" srcPort="inTwo_1" dstActor="select_inTwo" dstPort="inTwo_2_scenario3" initialTokens="0" finalTokens="0"/>
+        <channel name="inThree_3_scenario3" srcActor="f_scenario3" srcPort="inThree_2" dstActor="select_inThree" dstPort="inThree_3_scenario3" initialTokens="0" finalTokens="0"/>
+      </scenariograph>
+    </fsmsadf>
+    <fsmsadfProperties>
+      <defaultProperties>
+        <actorProperties actor="a"/>
+        <actorProperties actor="switch_outOne"/>
+        <actorProperties actor="switch_outTwo"/>
+        <actorProperties actor="switch_outThree"/>
+        <actorProperties actor="select_inOne"/>
+        <actorProperties actor="select_inTwo"/>
+        <actorProperties actor="select_inThree"/>
+        <actorProperties actor="loadSched0"/>
+        <actorProperties actor="loadSched1"/>
+        <actorProperties actor="loadSched2"/>
+        <actorProperties actor="loadSched3"/>
+        <actorProperties actor="c_scenario1"/>
+        <actorProperties actor="b_scenario1"/>
+        <actorProperties actor="d_scenario2"/>
+        <actorProperties actor="e_scenario3"/>
+        <actorProperties actor="f_scenario3"/>
+        <channelProperties channel="aself"/>
+        <channelProperties channel="switch_outOne_data"/>
+        <channelProperties channel="switch_outOne_ctrl"/>
+        <channelProperties channel="switch_outTwo_data"/>
+        <channelProperties channel="switch_outTwo_ctrl"/>
+        <channelProperties channel="switch_outThree_data"/>
+        <channelProperties channel="switch_outThree_ctrl"/>
+        <channelProperties channel="select_inOne_data"/>
+        <channelProperties channel="select_inOne_ctrl"/>
+        <channelProperties channel="select_inTwo_data"/>
+        <channelProperties channel="select_inTwo_ctrl"/>
+        <channelProperties channel="select_inThree_data"/>
+        <channelProperties channel="select_inThree_ctrl"/>
+        <channelProperties channel="detect_loadSched0_ctrl"/>
+        <channelProperties channel="loadSched0_switch_outOne"/>
+        <channelProperties channel="loadSched0_switch_outTwo"/>
+        <channelProperties channel="loadSched0_switch_outThree"/>
+        <channelProperties channel="detect_loadSched1_ctrl"/>
+        <channelProperties channel="detect_loadSched2_ctrl"/>
+        <channelProperties channel="detect_loadSched3_ctrl"/>
+        <channelProperties channel="outOne_1_scenario1"/>
+        <channelProperties channel="outTwo_1_scenario1"/>
+        <channelProperties channel="outThree_1_scenario1"/>
+        <channelProperties channel="fbc13_scenario1"/>
+        <channelProperties channel="fbc14_scenario1"/>
+        <channelProperties channel="fbc15_scenario1"/>
+        <channelProperties channel="inOne_1_scenario1"/>
+        <channelProperties channel="inTwo_1_scenario1"/>
+        <channelProperties channel="inThree_1_scenario1"/>
+        <channelProperties channel="outOne_2_scenario2"/>
+        <channelProperties channel="outTwo_2_scenario2"/>
+        <channelProperties channel="outThree_2_scenario2"/>
+        <channelProperties channel="inOne_2_scenario2"/>
+        <channelProperties channel="inTwo_2_scenario2"/>
+        <channelProperties channel="inThree_2_scenario2"/>
+        <channelProperties channel="outOne_3_scenario3"/>
+        <channelProperties channel="outTwo_3_scenario3"/>
+        <channelProperties channel="outThree_3_scenario3"/>
+        <channelProperties channel="fef36_scenario3"/>
+        <channelProperties channel="inOne_3_scenario3"/>
+        <channelProperties channel="inTwo_3_scenario3"/>
+        <channelProperties channel="inThree_3_scenario3"/>
+      </defaultProperties>
+      <scenarios>
+        <scenario name="detector" graph="detector" reward="0">
+          <actorProperties actor="a" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="a_func">
+                  <argumentMapping>
+                    <argument number="0" port="aself_3"/>
+                    <argument number="0" port="aself_0"/>
+                    <argument number="1" port="switch_outOne_2"/>
+                    <argument number="2" port="switch_outOne_ctrl_3"/>
+                    <argument number="3" port="switch_outTwo_4"/>
+                    <argument number="4" port="switch_outTwo_ctrl_5"/>
+                    <argument number="5" port="switch_outThree_6"/>
+                    <argument number="6" port="switch_outThree_ctrl_7"/>
+                    <argument number="1" port="select_inOne_8"/>
+                    <argument number="7" port="select_inOne_ctrl_9"/>
+                    <argument number="2" port="select_inTwo_10"/>
+                    <argument number="8" port="select_inTwo_ctrl_11"/>
+                    <argument number="3" port="select_inThree_12"/>
+                    <argument number="9" port="select_inThree_ctrl_13"/>
+                    <argument number="10" port="detect_loadSched0_ctrl_14"/>
+                    <argument number="11" port="detect_loadSched1_ctrl_15"/>
+                    <argument number="12" port="detect_loadSched2_ctrl_16"/>
+                    <argument number="13" port="detect_loadSched3_ctrl_17"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_outOne" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_outOne_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_outOne_0"/>
+                    <argument number="1" port="switch_outOne_ctrl_1"/>
+                    <argument number="2" port="loadSched0_switch_outOne_4"/>
+                    <argument number="0" port="outOne_0_scenario1"/>
+                    <argument number="1" port="outOne_0_scenario2"/>
+                    <argument number="2" port="outOne_0_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_outTwo" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_outTwo_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_outTwo_0"/>
+                    <argument number="1" port="switch_outTwo_ctrl_1"/>
+                    <argument number="2" port="loadSched0_switch_outTwo_4"/>
+                    <argument number="0" port="outTwo_1_scenario1"/>
+                    <argument number="1" port="outTwo_1_scenario2"/>
+                    <argument number="2" port="outTwo_1_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="switch_outThree" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="switch_outThree_func">
+                  <argumentMapping>
+                    <argument number="0" port="switch_outThree_0"/>
+                    <argument number="1" port="switch_outThree_ctrl_1"/>
+                    <argument number="2" port="loadSched0_switch_outThree_4"/>
+                    <argument number="0" port="outThree_2_scenario1"/>
+                    <argument number="1" port="outThree_2_scenario2"/>
+                    <argument number="2" port="outThree_2_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="select_inOne" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="select_inOne_func">
+                  <argumentMapping>
+                    <argument number="0" port="select_inOne_0"/>
+                    <argument number="0" port="select_inOne_ctrl_1"/>
+                    <argument number="1" port="inOne_1_scenario1"/>
+                    <argument number="2" port="inOne_1_scenario2"/>
+                    <argument number="3" port="inOne_1_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="select_inTwo" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="select_inTwo_func">
+                  <argumentMapping>
+                    <argument number="0" port="select_inTwo_0"/>
+                    <argument number="0" port="select_inTwo_ctrl_1"/>
+                    <argument number="1" port="inTwo_2_scenario1"/>
+                    <argument number="2" port="inTwo_2_scenario2"/>
+                    <argument number="3" port="inTwo_2_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="select_inThree" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="315"/>
+              <implementation>
+                <function symbol="select_inThree_func">
+                  <argumentMapping>
+                    <argument number="0" port="select_inThree_0"/>
+                    <argument number="0" port="select_inThree_ctrl_1"/>
+                    <argument number="1" port="inThree_3_scenario1"/>
+                    <argument number="2" port="inThree_3_scenario2"/>
+                    <argument number="3" port="inThree_3_scenario3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="107" type="instr"/>
+              <memory name=".data" size="109" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched0" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched0_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched0_ctrl_0"/>
+                    <argument number="0" port="loadSched0_switch_outOne_1"/>
+                    <argument number="1" port="loadSched0_switch_outTwo_2"/>
+                    <argument number="2" port="loadSched0_switch_outThree_3"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched1_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched1_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched2_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched2_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="loadSched3" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="464"/>
+              <implementation>
+                <function symbol="loadSched3_func">
+                  <argumentMapping>
+                    <argument number="0" port="detect_loadSched3_ctrl_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="103" type="instr"/>
+              <memory name=".data" size="105" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="c_scenario1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="c_scenario1_func">
+                  <argumentMapping>
+                    <argument number="0" port="inOne_0"/>
+                    <argument number="1" port="inTwo_1"/>
+                    <argument number="2" port="inThree_2"/>
+                    <argument number="0" port="fbc13_0"/>
+                    <argument number="1" port="fbc14_1"/>
+                    <argument number="2" port="fbc15_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="b_scenario1" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="b_scenario1_func">
+                  <argumentMapping>
+                    <argument number="0" port="fbc13_0"/>
+                    <argument number="1" port="fbc14_1"/>
+                    <argument number="2" port="fbc15_2"/>
+                    <argument number="0" port="outOne_0"/>
+                    <argument number="1" port="outTwo_1"/>
+                    <argument number="2" port="outThree_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="d_scenario2" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="d_scenario2_func">
+                  <argumentMapping>
+                    <argument number="0" port="inOne_0"/>
+                    <argument number="1" port="inTwo_1"/>
+                    <argument number="2" port="inThree_2"/>
+                    <argument number="0" port="outOne_0"/>
+                    <argument number="1" port="outTwo_1"/>
+                    <argument number="2" port="outThree_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="e_scenario3" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="e_scenario3_func">
+                  <argumentMapping>
+                    <argument number="0" port="fef36_0"/>
+                    <argument number="0" port="outOne_0"/>
+                    <argument number="1" port="outTwo_1"/>
+                    <argument number="2" port="outThree_2"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <actorProperties actor="f_scenario3" repetitions="1">
+            <processor type="microblaze" default="true">
+              <executionTime time="10000"/>
+              <implementation>
+                <function symbol="f_scenario3_func">
+                  <argumentMapping>
+                    <argument number="0" port="inOne_0"/>
+                    <argument number="1" port="inTwo_1"/>
+                    <argument number="2" port="inThree_2"/>
+                    <argument number="0" port="fef36_0"/>
+                  </argumentMapping>
+                </function>
+              </implementation>
+              <memory name=".code" size="4000" type="instr"/>
+              <memory name=".data" size="4000" type="data"/>
+            </processor>
+          </actorProperties>
+          <channelProperties channel="aself">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outOne_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outOne_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outTwo_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outTwo_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outThree_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="switch_outThree_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inOne_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inOne_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inTwo_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inTwo_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inThree_data">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="select_inThree_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched0_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_outOne">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_outTwo">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="loadSched0_switch_outThree">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched1_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched2_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="detect_loadSched3_ctrl">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outOne_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outTwo_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outThree_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc13_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc14_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fbc15_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inOne_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inTwo_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inThree_1_scenario1">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outOne_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outTwo_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outThree_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inOne_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inTwo_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inThree_2_scenario2">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outOne_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outTwo_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="outThree_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="fef36_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inOne_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inTwo_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+          <channelProperties channel="inThree_3_scenario3">
+            <tokenSize sz="4"/>
+          </channelProperties>
+        </scenario>
+      </scenarios>
+      <graphProperties>
+        <timeConstraints>
+          <throughput>2.0000000000e-10</throughput>
+        </timeConstraints>
+      </graphProperties>
+      <units xmlns="uri:sdf3">
+        <timeUnit>20 ns</timeUnit>
+        <dataUnit>1 B</dataUnit>
+      </units>
+    </fsmsadfProperties>
+    <fsm initialstate="q1" detector="a">
+      <state name="q1" scenario="detector">
+        <transition destination="q1"/>
+      </state>
+    </fsm>
+  </applicationGraph>
+  <architectureGraph name="x4tile1dma">
+    <tile name="mb0">
+      <processor name="mb0" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="262144" type="instr"/>
+      <memory name="dmem" size="262144" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx0y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb1">
+      <processor name="mb1" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="131072" type="instr"/>
+      <memory name="dmem" size="131072" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx1y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb2">
+      <processor name="mb2" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="16384" type="commout"/>
+      <memory name="cmemin0" size="16384" type="commin"/>
+      <networkInterface name="NIx2y1n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="mb3">
+      <processor name="mb3" type="microblaze">
+        <arbitration type="TDMA" wheelsize="4640000" slotLength="50000" contextSwitchOverhead="8000" preemptive="true"/>
+        <systemCost loadScheduleTime="464" loadScheduleInstrMem="103" loadScheduleDataMem="105" switchSelectTimeConst="315" switchSelectTimePerUnit="0" switchSelectInstrMem="107" switchSelectDataMem="109"/>
+      </processor>
+      <memory name="imem" size="65536" type="instr"/>
+      <memory name="dmem" size="65536" type="data"/>
+      <memory name="cmemout0" size="8192" type="commout"/>
+      <memory name="cmemin0" size="8192" type="commin"/>
+      <networkInterface name="NIx2y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <tile name="shared">
+      <memory name="memory" size="134217728" type="shared"/>
+      <networkInterface name="NIx1y0n0" nrInConnections="100" nrOutConnections="100" inBandwidth="5" outBandwidth="5"/>
+    </tile>
+    <connection name="con_1" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_2" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_3" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_4" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_5" srcTile="shared" srcNetworkInterface="NIx1y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_6" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_7" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_8" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_9" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_10" srcTile="mb0" srcNetworkInterface="NIx0y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_11" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_12" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_13" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_14" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_15" srcTile="mb1" srcNetworkInterface="NIx1y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_16" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_17" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_18" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_19" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_20" srcTile="mb2" srcNetworkInterface="NIx2y1n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+    <connection name="con_21" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="shared" dstNetworkInterface="NIx1y0n0" latency="73"/>
+    <connection name="con_22" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb0" dstNetworkInterface="NIx0y1n0" latency="73"/>
+    <connection name="con_23" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb1" dstNetworkInterface="NIx1y1n0" latency="73"/>
+    <connection name="con_24" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb2" dstNetworkInterface="NIx2y1n0" latency="73"/>
+    <connection name="con_25" srcTile="mb3" srcNetworkInterface="NIx2y0n0" dstTile="mb3" dstNetworkInterface="NIx2y0n0" latency="73"/>
+  </architectureGraph>
+  <mapping name="13" appGraph="three_sw_three_sel" archGraph="x4tile1dma">
+    <scenario name="detector">
+      <tile name="mb0">
+        <processor name="mb0">
+          <actor name="a"/>
+          <actor name="loadSched0"/>
+          <actor name="select_inOne"/>
+          <actor name="select_inThree"/>
+          <actor name="select_inTwo"/>
+          <actor name="switch_outOne"/>
+          <actor name="switch_outThree"/>
+          <actor name="switch_outTwo"/>
+          <arbitration timeslice="58000">
+            <schedule name="detector">
+              <state actor="a" startOfPeriodicRegime="true"/>
+              <state actor="select_inOne"/>
+              <state actor="select_inTwo"/>
+              <state actor="select_inThree"/>
+              <state actor="loadSched0"/>
+              <state actor="switch_outOne"/>
+              <state actor="switch_outTwo"/>
+              <state actor="switch_outThree"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="select_inOne" processorType="microblaze"/>
+          <actor name="select_inThree" processorType="microblaze"/>
+          <actor name="select_inTwo" processorType="microblaze"/>
+          <actor name="switch_outOne" processorType="microblaze"/>
+          <actor name="switch_outThree" processorType="microblaze"/>
+          <actor name="switch_outTwo" processorType="microblaze"/>
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="select_inOne" processorType="microblaze"/>
+          <actor name="select_inThree" processorType="microblaze"/>
+          <actor name="select_inTwo" processorType="microblaze"/>
+          <actor name="switch_outOne" processorType="microblaze"/>
+          <actor name="switch_outThree" processorType="microblaze"/>
+          <actor name="switch_outTwo" processorType="microblaze"/>
+          <actor name="a" processorType="microblaze"/>
+          <actor name="loadSched0" processorType="microblaze"/>
+          <channel name="aself" bufferType="mem"/>
+          <channel name="detect_loadSched0_ctrl" bufferType="mem"/>
+          <channel name="select_inOne_ctrl" bufferType="mem"/>
+          <channel name="select_inOne_data" bufferType="mem"/>
+          <channel name="select_inThree_ctrl" bufferType="mem"/>
+          <channel name="select_inThree_data" bufferType="mem"/>
+          <channel name="select_inTwo_ctrl" bufferType="mem"/>
+          <channel name="select_inTwo_data" bufferType="mem"/>
+          <channel name="loadSched0_switch_outOne" bufferType="mem"/>
+          <channel name="switch_outOne_ctrl" bufferType="mem"/>
+          <channel name="switch_outOne_data" bufferType="mem"/>
+          <channel name="loadSched0_switch_outThree" bufferType="mem"/>
+          <channel name="switch_outThree_ctrl" bufferType="mem"/>
+          <channel name="switch_outThree_data" bufferType="mem"/>
+          <channel name="loadSched0_switch_outTwo" bufferType="mem"/>
+          <channel name="switch_outTwo_ctrl" bufferType="mem"/>
+          <channel name="switch_outTwo_data" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="outOne_1_scenario1" bufferType="src"/>
+          <channel name="outThree_1_scenario1" bufferType="src"/>
+          <channel name="outTwo_1_scenario1" bufferType="src"/>
+          <channel name="outOne_2_scenario2" bufferType="src"/>
+          <channel name="outThree_2_scenario2" bufferType="src"/>
+          <channel name="outTwo_2_scenario2" bufferType="src"/>
+          <channel name="outOne_3_scenario3" bufferType="src"/>
+          <channel name="outThree_3_scenario3" bufferType="src"/>
+          <channel name="outTwo_3_scenario3" bufferType="src"/>
+          <channel name="detect_loadSched1_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="src"/>
+          <channel name="detect_loadSched3_ctrl" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="inOne_1_scenario1" bufferType="dst"/>
+          <channel name="inThree_1_scenario1" bufferType="dst"/>
+          <channel name="inTwo_1_scenario1" bufferType="dst"/>
+          <channel name="inOne_2_scenario2" bufferType="dst"/>
+          <channel name="inThree_2_scenario2" bufferType="dst"/>
+          <channel name="inTwo_2_scenario2" bufferType="dst"/>
+          <channel name="inOne_3_scenario3" bufferType="dst"/>
+          <channel name="inThree_3_scenario3" bufferType="dst"/>
+          <channel name="inTwo_3_scenario3" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx0y1n0">
+          <channel name="inOne_1_scenario1" in="true"/>
+          <channel name="inThree_1_scenario1" in="true"/>
+          <channel name="inTwo_1_scenario1" in="true"/>
+          <channel name="inOne_2_scenario2" in="true"/>
+          <channel name="inThree_2_scenario2" in="true"/>
+          <channel name="inTwo_2_scenario2" in="true"/>
+          <channel name="inOne_3_scenario3" in="true"/>
+          <channel name="inThree_3_scenario3" in="true"/>
+          <channel name="inTwo_3_scenario3" in="true"/>
+          <channel name="outOne_1_scenario1" out="true"/>
+          <channel name="outThree_1_scenario1" out="true"/>
+          <channel name="outTwo_1_scenario1" out="true"/>
+          <channel name="outOne_2_scenario2" out="true"/>
+          <channel name="outThree_2_scenario2" out="true"/>
+          <channel name="outTwo_2_scenario2" out="true"/>
+          <channel name="outOne_3_scenario3" out="true"/>
+          <channel name="outThree_3_scenario3" out="true"/>
+          <channel name="outTwo_3_scenario3" out="true"/>
+          <channel name="detect_loadSched1_ctrl" out="true"/>
+          <channel name="detect_loadSched2_ctrl" out="true"/>
+          <channel name="detect_loadSched3_ctrl" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <actor name="loadSched3"/>
+          <arbitration timeslice="58000">
+            <schedule name="detector">
+              <state actor="loadSched3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="loadSched3" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0"/>
+        <memory name="cmemin0">
+          <channel name="detect_loadSched3_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx1y1n0">
+          <channel name="detect_loadSched3_ctrl" in="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <actor name="b_scenario1"/>
+          <actor name="c_scenario1"/>
+          <actor name="d_scenario2"/>
+          <actor name="e_scenario3"/>
+          <actor name="loadSched2"/>
+          <arbitration timeslice="58000">
+            <schedule name="detector">
+              <state actor="loadSched2" startOfPeriodicRegime="true"/>
+            </schedule>
+            <schedule name="scenario1">
+              <state actor="b_scenario1" startOfPeriodicRegime="true"/>
+              <state actor="c_scenario1"/>
+            </schedule>
+            <schedule name="scenario2">
+              <state actor="d_scenario2" startOfPeriodicRegime="true"/>
+            </schedule>
+            <schedule name="scenario3">
+              <state actor="e_scenario3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="b_scenario1" processorType="microblaze"/>
+          <actor name="c_scenario1" processorType="microblaze"/>
+          <actor name="d_scenario2" processorType="microblaze"/>
+          <actor name="e_scenario3" processorType="microblaze"/>
+          <actor name="loadSched2" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="b_scenario1" processorType="microblaze"/>
+          <actor name="c_scenario1" processorType="microblaze"/>
+          <actor name="d_scenario2" processorType="microblaze"/>
+          <actor name="e_scenario3" processorType="microblaze"/>
+          <actor name="loadSched2" processorType="microblaze"/>
+          <channel name="fbc13_scenario1" bufferType="mem"/>
+          <channel name="fbc14_scenario1" bufferType="mem"/>
+          <channel name="fbc15_scenario1" bufferType="mem"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="inOne_1_scenario1" bufferType="src"/>
+          <channel name="inThree_1_scenario1" bufferType="src"/>
+          <channel name="inTwo_1_scenario1" bufferType="src"/>
+          <channel name="inOne_2_scenario2" bufferType="src"/>
+          <channel name="inThree_2_scenario2" bufferType="src"/>
+          <channel name="inTwo_2_scenario2" bufferType="src"/>
+          <channel name="fef36_scenario3" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="outOne_1_scenario1" bufferType="dst"/>
+          <channel name="outThree_1_scenario1" bufferType="dst"/>
+          <channel name="outTwo_1_scenario1" bufferType="dst"/>
+          <channel name="outOne_2_scenario2" bufferType="dst"/>
+          <channel name="outThree_2_scenario2" bufferType="dst"/>
+          <channel name="outTwo_2_scenario2" bufferType="dst"/>
+          <channel name="outOne_3_scenario3" bufferType="dst"/>
+          <channel name="outThree_3_scenario3" bufferType="dst"/>
+          <channel name="outTwo_3_scenario3" bufferType="dst"/>
+          <channel name="detect_loadSched2_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y1n0">
+          <channel name="outOne_1_scenario1" in="true"/>
+          <channel name="outThree_1_scenario1" in="true"/>
+          <channel name="outTwo_1_scenario1" in="true"/>
+          <channel name="outOne_2_scenario2" in="true"/>
+          <channel name="outThree_2_scenario2" in="true"/>
+          <channel name="outTwo_2_scenario2" in="true"/>
+          <channel name="outOne_3_scenario3" in="true"/>
+          <channel name="outThree_3_scenario3" in="true"/>
+          <channel name="outTwo_3_scenario3" in="true"/>
+          <channel name="detect_loadSched2_ctrl" in="true"/>
+          <channel name="inOne_1_scenario1" out="true"/>
+          <channel name="inThree_1_scenario1" out="true"/>
+          <channel name="inTwo_1_scenario1" out="true"/>
+          <channel name="inOne_2_scenario2" out="true"/>
+          <channel name="inThree_2_scenario2" out="true"/>
+          <channel name="inTwo_2_scenario2" out="true"/>
+          <channel name="fef36_scenario3" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <actor name="f_scenario3"/>
+          <actor name="loadSched1"/>
+          <arbitration timeslice="58000">
+            <schedule name="detector">
+              <state actor="loadSched1" startOfPeriodicRegime="true"/>
+            </schedule>
+            <schedule name="scenario3">
+              <state actor="f_scenario3" startOfPeriodicRegime="true"/>
+            </schedule>
+          </arbitration>
+        </processor>
+        <memory name="imem">
+          <actor name="f_scenario3" processorType="microblaze"/>
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="dmem">
+          <actor name="f_scenario3" processorType="microblaze"/>
+          <actor name="loadSched1" processorType="microblaze"/>
+        </memory>
+        <memory name="cmemout0">
+          <channel name="inOne_3_scenario3" bufferType="src"/>
+          <channel name="inThree_3_scenario3" bufferType="src"/>
+          <channel name="inTwo_3_scenario3" bufferType="src"/>
+        </memory>
+        <memory name="cmemin0">
+          <channel name="fef36_scenario3" bufferType="dst"/>
+          <channel name="detect_loadSched1_ctrl" bufferType="dst"/>
+        </memory>
+        <networkInterface name="NIx2y0n0">
+          <channel name="fef36_scenario3" in="true"/>
+          <channel name="detect_loadSched1_ctrl" in="true"/>
+          <channel name="inOne_3_scenario3" out="true"/>
+          <channel name="inThree_3_scenario3" out="true"/>
+          <channel name="inTwo_3_scenario3" out="true"/>
+        </networkInterface>
+      </tile>
+      <tile name="shared">
+        <memory name="memory"/>
+        <networkInterface name="NIx1y0n0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8">
+        <channel name="detect_loadSched3_ctrl"/>
+      </connection>
+      <connection name="con_9">
+        <channel name="outOne_1_scenario1"/>
+        <channel name="outThree_1_scenario1"/>
+        <channel name="outTwo_1_scenario1"/>
+        <channel name="outOne_2_scenario2"/>
+        <channel name="outThree_2_scenario2"/>
+        <channel name="outTwo_2_scenario2"/>
+        <channel name="outOne_3_scenario3"/>
+        <channel name="outThree_3_scenario3"/>
+        <channel name="outTwo_3_scenario3"/>
+        <channel name="detect_loadSched2_ctrl"/>
+      </connection>
+      <connection name="con_10">
+        <channel name="detect_loadSched1_ctrl"/>
+      </connection>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17">
+        <channel name="inOne_1_scenario1"/>
+        <channel name="inThree_1_scenario1"/>
+        <channel name="inTwo_1_scenario1"/>
+        <channel name="inOne_2_scenario2"/>
+        <channel name="inThree_2_scenario2"/>
+        <channel name="inTwo_2_scenario2"/>
+      </connection>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20">
+        <channel name="fef36_scenario3"/>
+      </connection>
+      <connection name="con_21"/>
+      <connection name="con_22">
+        <channel name="inOne_3_scenario3"/>
+        <channel name="inThree_3_scenario3"/>
+        <channel name="inTwo_3_scenario3"/>
+      </connection>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+      <constraints>
+        <channelConstraints name="aself">
+          <bufferSize mem="2" src="1" dst="2"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched0_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched1_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched2_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="detect_loadSched3_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc13_scenario1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc14_scenario1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fbc15_scenario1">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="fef36_scenario3">
+          <bufferSize mem="9" src="9" dst="9"/>
+          <bandwidth min="7.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inOne_1_scenario1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inOne_2_scenario2">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inOne_3_scenario3">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inThree_1_scenario1">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inThree_2_scenario2">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inThree_3_scenario3">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inTwo_1_scenario1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inTwo_2_scenario2">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="inTwo_3_scenario3">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_outOne">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_outThree">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="loadSched0_switch_outTwo">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outOne_1_scenario1">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outOne_2_scenario2">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outOne_3_scenario3">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outThree_1_scenario1">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outThree_2_scenario2">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outThree_3_scenario3">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outTwo_1_scenario1">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outTwo_2_scenario2">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="outTwo_3_scenario3">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inOne_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inOne_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inThree_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inThree_data">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inTwo_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="select_inTwo_data">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outOne_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outOne_data">
+          <bufferSize mem="2" src="2" dst="2"/>
+          <bandwidth min="1.6e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outThree_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outThree_data">
+          <bufferSize mem="4" src="4" dst="4"/>
+          <bandwidth min="3.2e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outTwo_ctrl">
+          <bufferSize mem="1" src="1" dst="1"/>
+          <bandwidth min="8e-10"/>
+          <delay min="0"/>
+        </channelConstraints>
+        <channelConstraints name="switch_outTwo_data">
+          <bufferSize mem="3" src="3" dst="3"/>
+          <bandwidth min="2.4e-09"/>
+          <delay min="0"/>
+        </channelConstraints>
+      </constraints>
+    </scenario>
+    <resourceUsage method="sum">
+      <tile name="mb0">
+        <processor name="mb0">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4745"/>
+        <memory name="dmem" size="4120"/>
+        <memory name="cmemout0" size="120"/>
+        <memory name="cmemin0" size="108"/>
+        <networkInterface name="NIx0y1n0" nrInConnections="9" inBandwidth="2.16e-08" nrOutConnections="12" outBandwidth="2.4e-08"/>
+      </tile>
+      <tile name="mb1">
+        <processor name="mb1">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="103"/>
+        <memory name="dmem" size="105"/>
+        <memory name="cmemout0" size="0"/>
+        <memory name="cmemin0" size="4"/>
+        <networkInterface name="NIx1y1n0" nrInConnections="1" inBandwidth="8e-10" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <tile name="mb2">
+        <processor name="mb2">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="16103"/>
+        <memory name="dmem" size="4036"/>
+        <memory name="cmemout0" size="108"/>
+        <memory name="cmemin0" size="112"/>
+        <networkInterface name="NIx2y1n0" nrInConnections="10" inBandwidth="2.24e-08" nrOutConnections="7" outBandwidth="2.16e-08"/>
+      </tile>
+      <tile name="mb3">
+        <processor name="mb3">
+          <arbitration timeslice="58000"/>
+        </processor>
+        <memory name="imem" size="4103"/>
+        <memory name="dmem" size="4000"/>
+        <memory name="cmemout0" size="36"/>
+        <memory name="cmemin0" size="40"/>
+        <networkInterface name="NIx2y0n0" nrInConnections="2" inBandwidth="8e-09" nrOutConnections="3" outBandwidth="7.2e-09"/>
+      </tile>
+      <tile name="shared">
+        <memory name="memory" size="0"/>
+        <networkInterface name="NIx1y0n0" nrInConnections="0" inBandwidth="0" nrOutConnections="0" outBandwidth="0"/>
+      </tile>
+      <connection name="con_1"/>
+      <connection name="con_2"/>
+      <connection name="con_3"/>
+      <connection name="con_4"/>
+      <connection name="con_5"/>
+      <connection name="con_6"/>
+      <connection name="con_7"/>
+      <connection name="con_8"/>
+      <connection name="con_9"/>
+      <connection name="con_10"/>
+      <connection name="con_11"/>
+      <connection name="con_12"/>
+      <connection name="con_13"/>
+      <connection name="con_14"/>
+      <connection name="con_15"/>
+      <connection name="con_16"/>
+      <connection name="con_17"/>
+      <connection name="con_18"/>
+      <connection name="con_19"/>
+      <connection name="con_20"/>
+      <connection name="con_21"/>
+      <connection name="con_22"/>
+      <connection name="con_23"/>
+      <connection name="con_24"/>
+      <connection name="con_25"/>
+    </resourceUsage>
+  </mapping>
+</sdf3>

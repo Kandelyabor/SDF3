@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="fsmsadf" version="1.0">
+
+	<settings type="test">
+		<name>sdf3analyze-fsmsadf trace xm</name>
+		<program>sdf3analyze-fsmsadf --settings sdf3-analyze-trace-xml.opt</program>
+		<type>outputcompare</type>
+		<programOutput>fsmsadf-analyze-test-trace-xml.xml</programOutput>
+	</settings>
+
+  <settings type="analyze">
+  <traceFormat name="XML"/>
+  <traceFile file="fsmsadf-analyze-test-trace-xml.xml"/>
+	<graph file="fsmsadf-analyze-test.xml"/>
+    <algo name="trace"/>
+    <seq>
+        <entry name="scenario1"/>
+        <entry name="scenario2"/>
+        <entry name="scenario2"/>
+        <entry name="scenario1"/>
+        <entry name="scenario1"/>
+    </seq>
+  </settings>
+
+</sdf3>

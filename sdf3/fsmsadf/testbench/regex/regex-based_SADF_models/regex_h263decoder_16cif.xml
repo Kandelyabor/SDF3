@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<sdf3 version="1.0" type="fsmsadf" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+<applicationGraph name="filter">
+<fsmsadf>
+<scenariograph name="s0" type="s0">
+<actor name="vld" type="">
+<port name="vld-iq" type="out" rate="152064"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<actor name="iq" type="">
+<port name="vld-iq" type="in" rate="1"/>
+<port name="iq-idct" type="out" rate="1"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<actor name="idct" type="output">
+<port name="iq-idct" type="in" rate="1"/>
+<port name="idct-mc" type="out" rate="1"/>
+</actor>
+<actor name="mc" type="">
+<port name="idct-mc" type="in" rate="152064"/>
+<port name="selfo" type="out" rate="1"/>
+<port name="selfi" type="in" rate="1"/>
+</actor>
+<channel name="vld2iq" srcActor="vld" srcPort="vld-iq" dstActor="iq" dstPort="vld-iq" initialTokens="0" finalTokens="0"/>
+<channel name="iq2idct" srcActor="iq" srcPort="iq-idct" dstActor="idct" dstPort="iq-idct" initialTokens="0" finalTokens="0"/>
+<channel name="idct2mc" srcActor="idct" srcPort="idct-mc" dstActor="mc" dstPort="idct-mc" initialTokens="0" finalTokens="0"/>
+<channel name="vld2vld" srcActor="vld" srcPort="selfo" dstActor="vld" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="vld2vld0" persistentFinalTokenNames="vld2vld0"/>
+<channel name="iq2iq" srcActor="iq" srcPort="selfo" dstActor="iq" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="iq2iq0" persistentFinalTokenNames="iq2iq0"/>
+<channel name="mc2mc" srcActor="mc" srcPort="selfo" dstActor="mc" dstPort="selfi" initialTokens="1" finalTokens="1" persistentTokenNames="mc2mc0" persistentFinalTokenNames="mc2mc0"/>
+</scenariograph>
+</fsmsadf>
+<fsmsadfProperties>
+<defaultProperties>
+<actorProperties actor="vld"/>
+<actorProperties actor="iq"/>
+<actorProperties actor="idct"/>
+<actorProperties actor="mc"/>
+<channelProperties channel="vld2iq"/>
+<channelProperties channel="iq2idct"/>
+<channelProperties channel="idct2mc"/>
+<channelProperties channel="vld2vld"/>
+<channelProperties channel="iq2iq"/>
+<channelProperties channel="mc2mc"/>
+</defaultProperties>
+<scenarios>
+<scenario name="s0" graph="s0" reward="0">
+<actorProperties actor="vld" repetitions="1">
+<processor type="encoder" default="true">
+<executionTime time="13009"/>
+<implementation>
+<function symbol="vld_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="1" port="selfo"/>
+<argument number="0" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="vld-iq" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="iq" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="559"/>
+<implementation>
+<function symbol="iq_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="0" port="iq-idct"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="vld-iq" rate="1"/>
+<port name="iq-idct" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="idct" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="486"/>
+<implementation>
+<function symbol="idct_func">
+<argumentMapping>
+<argument number="0" port="iq-idct"/>
+<argument number="0" port="idct-mc"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="iq-idct" rate="1"/>
+<port name="idct-mc" rate="0"/>
+</actorProperties>
+<actorProperties actor="mc" repetitions="0">
+<processor type="motion" default="true">
+<executionTime time="5479"/>
+<implementation>
+<function symbol="mc_func">
+<argumentMapping>
+<argument number="0" port="idct-mc"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="idct-mc" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="vld2iq"/>
+<channelProperties channel="iq2idct"/>
+<channelProperties channel="idct2mc"/>
+<channelProperties channel="vld2vld"/>
+<channelProperties channel="iq2iq"/>
+<channelProperties channel="mc2mc"/>
+</scenario>
+<scenario name="s1" graph="s0" reward="0">
+<actorProperties actor="vld" repetitions="0">
+<processor type="encoder" default="true">
+<executionTime time="13009"/>
+<implementation>
+<function symbol="vld_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="1" port="selfo"/>
+<argument number="0" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="vld-iq" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="iq" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="559"/>
+<implementation>
+<function symbol="iq_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="0" port="iq-idct"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="vld-iq" rate="0"/>
+<port name="iq-idct" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="idct" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="486"/>
+<implementation>
+<function symbol="idct_func">
+<argumentMapping>
+<argument number="0" port="iq-idct"/>
+<argument number="0" port="idct-mc"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="iq-idct" rate="1"/>
+<port name="idct-mc" rate="0"/>
+</actorProperties>
+<actorProperties actor="mc" repetitions="0">
+<processor type="motion" default="true">
+<executionTime time="5479"/>
+<implementation>
+<function symbol="mc_func">
+<argumentMapping>
+<argument number="0" port="idct-mc"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="idct-mc" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="vld2iq"/>
+<channelProperties channel="iq2idct"/>
+<channelProperties channel="idct2mc"/>
+<channelProperties channel="vld2vld"/>
+<channelProperties channel="iq2iq"/>
+<channelProperties channel="mc2mc"/>
+</scenario>
+<scenario name="s2" graph="s0" reward="1">
+<actorProperties actor="vld" repetitions="0">
+<processor type="encoder" default="true">
+<executionTime time="13009"/>
+<!--<implementation>
+<function symbol="vld_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="1" port="selfo"/>
+<argument number="0" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>-->
+</processor>
+<port name="vld-iq" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="iq" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="559"/>
+<implementation>
+<function symbol="iq_func">
+<argumentMapping>
+<argument number="0" port="vld-iq"/>
+<argument number="0" port="iq-idct"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="vld-iq" rate="0"/>
+<port name="iq-idct" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<actorProperties actor="idct" repetitions="1">
+<processor type="arm" default="true">
+<executionTime time="486"/>
+<implementation>
+<function symbol="idct_func">
+<argumentMapping>
+<argument number="0" port="iq-idct"/>
+<argument number="0" port="idct-mc"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="iq-idct" rate="1"/>
+<port name="idct-mc" rate="1"/>
+</actorProperties>
+<actorProperties actor="mc" repetitions="1">
+<processor type="motion" default="true">
+<executionTime time="5479"/>
+<implementation>
+<function symbol="mc_func">
+<argumentMapping>
+<argument number="0" port="idct-mc"/>
+<argument number="1" port="selfo"/>
+<argument number="1" port="selfi"/>
+</argumentMapping>
+</function>
+</implementation>
+</processor>
+<port name="idct-mc" rate="1"/>
+<port name="selfo" rate="1"/>
+<port name="selfi" rate="1"/>
+</actorProperties>
+<channelProperties channel="vld2iq"/>
+<channelProperties channel="iq2idct"/>
+<channelProperties channel="idct2mc"/>
+<channelProperties channel="vld2vld"/>
+<channelProperties channel="iq2iq"/>
+<channelProperties channel="mc2mc"/>
+</scenario>
+
+</scenarios>
+<graphProperties>
+<timeConstraints>
+<throughput>-6.2774385622e+066</throughput>
+</timeConstraints>
+</graphProperties>
+</fsmsadfProperties>
+
+<regex string=".(s0,s1^152062,s2)@" />
+
+</applicationGraph>
+</sdf3>

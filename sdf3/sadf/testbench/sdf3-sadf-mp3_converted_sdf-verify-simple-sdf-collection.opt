@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" type="fsmsadf" version="1.0" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-fsmsadf.xsd">
+
+	<settings type="test">
+		<name>SADF: verify simple-sdf-collection on mp3_converted_sdf</name>
+		<program>sdf3verify-sadf --graph ./mp3_converted_sdf.xml --check simple_sdf_collection</program>
+		<type>outputcompare</type>
+		<reference>SADF graph 'mp3_converted_sdf' is a strongly consistent collection of SDF graphs.</reference>
+	</settings>
+
+</sdf3>

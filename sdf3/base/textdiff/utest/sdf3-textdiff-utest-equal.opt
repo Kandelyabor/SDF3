@@ -1,0 +1,10 @@
+<sdf3 type="">
+	<settings type="test">
+		<name>Text Diff test equal files</name>
+		<type>outputcompare</type>
+		<program>textdiff-test a.txt a.txt</program>
+    <reference>============
+============
+</reference>
+	</settings>
+</sdf3>
