@@ -6,7 +6,6 @@ DartConfiguration.tcl
 Makefile
 lib/
 bin/
-output/
 Testing/
 _deps/
 cmake/

@@ -1,0 +1,7 @@
+add_subdirectory(buffer_throughput)
+add_subdirectory(dot)
+add_subdirectory(hapi)
+add_subdirectory(html)
+add_subdirectory(schedule)
+add_subdirectory(trace)
+add_subdirectory(xml)
