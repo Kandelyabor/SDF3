@@ -4,9 +4,9 @@ description: Build
 runs:
   using: composite
   steps:
-    -id: apt
-    run: |
+    - id: apt
+      run: |
         cd sdf3
         cmake .
         make
-    shell: bash
+      shell: bash
