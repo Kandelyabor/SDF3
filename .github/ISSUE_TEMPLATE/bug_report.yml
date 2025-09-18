@@ -18,14 +18,14 @@ body:
         - The type of analysis you performed
         - The outcome you excected versus what actually happend
 
+
         If you are not sure whether it is a bug, please start a thread in the
-        [Discussions](https://github.com/TUE-EE-ES/SDF3/discussions) first. 
-        It is easy to upgrade a discussion to an issue later.
+        [Discussions](https://github.com/TUE-EE-ES/SDF3/discussions) first. It is easy to upgrade a discussion to an issue later.
 
   - type: input
     attributes:
-      label: git commit
-      placeholder: commit abc123
+      label: Git commit
+      placeholder: commit abc123...
     validations:
       required: true
 
