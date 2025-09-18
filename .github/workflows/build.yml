@@ -1,0 +1,12 @@
+name: CI Build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/cmake
+

@@ -1,0 +1,13 @@
+name: CI Build using cmake 
+description: Build
+
+runs:
+  using: composite
+  steps:
+    -id: apt
+     run: |
+        cd sdf3
+        cmake .
+        make
+     shell: bash
+
