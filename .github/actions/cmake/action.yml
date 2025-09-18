@@ -4,7 +4,7 @@ description: Build
 runs:
   using: composite
   steps:
-    - id: apt
+    - id: build
       run: |
         cd sdf3
         cmake .
