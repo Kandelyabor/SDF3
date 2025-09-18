@@ -1,0 +1,102 @@
+name: Bug report
+description: Report a problem in SDF3
+labels: [bug]
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thanks for taking the time to report a bug!**
+        Before submitting, please make sure you have carefully read the SDF3 
+        [guide](https://sstuijk.estue.nl/tools/sdf3/).
+        
+        To help us respond quickly and efficiently, please provide *all steps needed
+        to reproduce the issue*. Be specific about:
+        - The tool you used(e.g. `sdf3print-sdf`, `sdf3analyse-sadf`, ...)
+        - The input model
+        - The type of analysis you performed
+        - The outcome you excected versus what actually happend
+
+
+        If you are not sure whether it is a bug, please start a thread in the
+        [Discussions](https://github.com/TUE-EE-ES/SDF3/discussions) first. It is easy to upgrade a discussion to an issue later.
+
+  - type: input
+    attributes:
+      label: Git commit
+      placeholder: commit abc123...
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Operating system
+      placeholder: Linux / maxOS / Windows / other
+    validations:
+      required: true
+  
+  - type: input
+    attributes:
+      label: CPU architecture
+      placeholder: x86_64 / arm64 / other
+    validations:
+      required: true
+  
+  - type: input
+    attributes:
+      label: Compiler
+      placeholder: GCC / LLVM / MSVC / other
+    validations:
+      required: false
+
+  - type: input 
+    attributes:
+      label: Launch command
+      placeholder: ./sdf3print-sdf --graph sdf.xml --format maxplusmatrix
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Input model
+      description: Please attach relevant input model (e.g. sdf.xml) by dragging it in this field
+    validations:
+      required: false
+  
+  - type: textarea
+    attributes:
+      label: Step to reproduce
+      placeholder: |
+        * Step 1
+        * Step 2
+        * ...
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: Describe the behavior you expect. May include logs, images, or videos.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional information
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: I've checked if the issue exists in the latest commit
+      description: I confirm that I verified the issue still exists in the latest commit. 
+      options:
+        - label: Yes, I have checked the problem exists in the latest commit
+          required: false
