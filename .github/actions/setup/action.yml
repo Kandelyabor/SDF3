@@ -1,0 +1,16 @@
+name: CI Build Setup
+description: Sets up the build environment
+
+runs:
+  using: composite
+  steps:
+    - id: python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - id: apt
+      run: |
+        sudo apt update
+        sudo apt install -y lcov cmake software-properties-common \
+        lsb-release wget graphviz
+      shell: bash
